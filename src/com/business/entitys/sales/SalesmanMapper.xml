@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "mybatis-3-mapper.dtd">
+<mapper namespace="salesman">
+
+	<select id="getAll" resultType="salesman">
+		select * from salesman
+	</select>									 
+	<insert id="insert" parameterType="salesman" keyProperty="userId" useGeneratedKeys="true"
+		>
+		insert into
+		`salesman`(`userName`,`phone`,`type`,`passWord`)
+		values(#{userName},#{phone},#{type},#{passWord})
+	</insert>
+	<select id="selectById" parameterType="int" resultType="salesman">
+		select *
+		from `salesman` where userId=#{userId}
+	</select>
+	<delete id="delById" parameterType="int">
+		delete from `salesman` where
+		userId=#{userId}
+	</delete>
+	<select id="selectByName" parameterType="string" resultType="salesman">
+		select * from `salesman` where userName=#{userName}
+	</select>
+
+</mapper>

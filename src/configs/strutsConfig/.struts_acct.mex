@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Struts2Diagram version="2.0">
+  <package name="acct" location="0,0" size="0,0">
+    <action name="tran" location="0,0" size="0,0">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="index.jsp" />
+      </result>
+      <result name="input">
+        <resourceEdge source="input" routing="0" target="Error.jsp" />
+      </result>
+    </action>
+  </package>
+  <webResource name="index.jsp" path="/index.jsp" location="380,10" size="150,55" />
+  <webResource name="Login.jsp" path="/Login.jsp" location="870,115" size="150,55" />
+  <webResource name="Register.jsp" path="/Register.jsp" location="870,675" size="150,55" />
+  <webResource name="Error.jsp" path="/Error.jsp" location="625,675" size="150,55" />
+</Struts2Diagram>
+
