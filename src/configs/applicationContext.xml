@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:aop="http://www.springframework.org/schema/aop" 
-	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 						http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
@@ -13,21 +11,21 @@
 						http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
 						http://www.springframework.org/schema/context
 						http://www.springframework.org/schema/context/spring-context-3.0.xsd">
-	<!-- 注解扫描目录 
- 	-->
- 	<context:component-scan base-package="com.business.*"></context:component-scan>
- 	<import resource="classpath:configs/springConfig/applicationContext_*.xml" />
- 	
- 	
- 	<!-- 加载属性 -->
- 	<bean id="comfig" class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
- 		<property name="location">
- 			<value>classpath:configs/druid.properties</value>
- 		</property>
- 	</bean>
- 	
- 	<!-- 加载连接池 -->
- 	<bean id="druidDataSource" class="com.alibaba.druid.pool.DruidDataSource" 
+	<!-- 注解扫描目录 -->
+	<context:component-scan base-package="com.business.*"></context:component-scan>
+	<import resource="classpath:configs/springConfig/applicationContext_*.xml" />
+
+
+	<!-- 加载属性 -->
+	<bean id="comfig"
+		class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
+		<property name="location">
+			<value>classpath:configs/druid.properties</value>
+		</property>
+	</bean>
+
+	<!-- 加载连接池 -->
+	<bean id="druidDataSource" class="com.alibaba.druid.pool.DruidDataSource"
 		init-method="init" destroy-method="close">
 		<property name="driverClassName" value="${driverClassName}" />
 		<property name="url" value="${url}" />
@@ -42,7 +40,8 @@
 		<property name="testWhileIdle" value="${testWhileIdle}" />
 		<property name="testOnBorrow" value="${testOnBorrow}" />
 		<property name="testOnReturn" value="${testOnReturn}" />
-		<property name="maxPoolPreparedStatementPerConnectionSize" value="${maxPoolPreparedStatementPerConnectionSize}" />
+		<property name="maxPoolPreparedStatementPerConnectionSize"
+			value="${maxPoolPreparedStatementPerConnectionSize}" />
 		<property name="removeAbandoned" value="${removeAbandoned}" />
 		<property name="removeAbandonedTimeout" value="${removeAbandonedTimeout}" />
 		<property name="timeBetweenEvictionRunsMillis" value="${timeBetweenEvictionRunsMillis}" />
@@ -55,14 +54,16 @@
 			<value>classpath:configs/mybatis-config.xml</value>
 		</property>
 		<property name="mapperLocations">
-			<list>								
+			<list>
 				<value>classpath:com/business/entitys/*.xml</value>
 				<value>classpath:com/business/entitys/sales/*.xml</value>
 				<value>classpath:com/business/entitys/goods/*.xml</value>
+				<value>classpath:com/business/entitys/user/*.xml</value>
+
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
 	</bean>
@@ -71,7 +72,7 @@
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="druidDataSource"></property>
 	</bean>
-	
+
 	<tx:advice id="txAdvice" transaction-manager="txManager">
 		<tx:attributes>
 			<tx:method name="find*" read-only="true" />
@@ -88,9 +89,10 @@
 	</tx:advice>
 
 
-	
+
 	<aop:config>
-		<aop:pointcut id="mycutPC" expression="execution(* com.business.service.*.*(..))" />
+		<aop:pointcut id="mycutPC"
+			expression="execution(* com.business.service.*.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="mycutPC" />
 	</aop:config>
 

@@ -40,6 +40,25 @@ CREATE TABLE `goodsType`
    PRIMARY KEY (`goodsTypeId`)
 )ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /* 商品 */
+CREATE TABLE `user`
+(
+  `userId` INT(11) NOT NULL AUTO_INCREMENT,
+  `passWord` VARCHAR(50) NULL,
+  `createTime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `type` INT(11) NULL,
+  `userName` VARCHAR(50) NOT NULL,
+  `Email` VARCHAR(50) NULL,
+  `openId` VARCHAR(50) NOT NULL,
+  `phone` VARCHAR(50) NOT NULL,
+  `addRess` VARCHAR(50) NULL,
+  `integral` VARCHAR(50) NULL,
+  `Grade` VARCHAR(50) NULL,
+  `userStatus` VARCHAR(50) NOT NULL,
+  `idCard` VARCHAR(50) NOT NULL,
+  `rdCode` VARCHAR(50) NOT NULL,
+   PRIMARY KEY (`userId`)
+)ENGINE=INNODB AUTO_INCREMENT=100000 DEFAULT CHARSET=utf8;
+
 
 SELECT gl.*,gt.`goodsTypeName` FROM goodstypes AS gts
 INNER JOIN goodslist AS gl ON gl.`goodsId`=gts.`goodsId`
