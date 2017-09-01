@@ -22,5 +22,9 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/sms/commons-codec-1.10.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/sms/commons-logging-1.2.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/sms/commons.httpclient-3.1.0.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/alipay/alipay-sdk-java20170829142630-source.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/alipay/alipay-sdk-java20170829142630.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/alipay/commons-logging-1.1.1-sources.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/alipay/commons-logging-1.1.1.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>

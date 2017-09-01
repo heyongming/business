@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "mybatis-3-mapper.dtd">
+<mapper namespace="order">
+	<insert id="addOrder" parameterType="orderForm">
+		insert into `orderForm`(
+		`orderSerialNumber`,`goodsId`,`purchaseTime`,
+		`memberDiscount`,`actualPurchasePriceGoods`,`orderStatus`,
+		`userId`,`openId`,`paymentMethod`,
+		`rdCode`,`invoiceInformation`,`integral`,`paymentNumber`
+		)
+		values(
+		#{orderSerialNumber},#{goodsId},#{purchaseTime},
+		#{memberDiscount},#{actualPurchasePriceGoods},#{orderStatus},
+		#{userId},#{openId},#{paymentMethod},
+		#{rdCode},#{invoiceInformation},#{integral},#{paymentNumber}
+		)
+
+	</insert>
+	<update id="updateOrder" parameterType="orderForm">
+		update `orderForm` set
+		`goodsId`=#{goodsId},
+		`memberDiscount`=#{memberDiscount},
+		`actualPurchasePriceGoods`=#{actualPurchasePriceGoods},
+		`orderStatus`=#{orderStatus},
+		`userId`=#{userId},
+		`openId`=#{openId},
+		`paymentMethod`=#{paymentMethod}
+		`paymentNumber`=#{paymentNumber},
+		`rdCode`=#{rdCode},
+		`invoiceInformation`=#{invoiceInformation},
+		`integral`=#{integral}
+		where `orderSerialNumber`=#{orderSerialNumber}
+		or
+		`goodsId` =#{goodsId}
+		or
+		`userId`=#{userId}
+		or
+		`openId`=#{openId}
+	</update>
+
+</mapper>

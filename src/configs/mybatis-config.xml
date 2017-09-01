@@ -16,6 +16,7 @@
 		<typeAlias type="com.business.entitys.goods.GoodsType"
 			alias="goodsType" />
 		<typeAlias type="com.business.entitys.user.User" alias="user" />
+		<typeAlias type="com.business.entitys.order.OrderForm" alias="orderForm" />
 
 	</typeAliases>
 </configuration>

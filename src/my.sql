@@ -58,7 +58,22 @@ CREATE TABLE `user`
   `rdCode` VARCHAR(50) NOT NULL,
    PRIMARY KEY (`userId`)
 )ENGINE=INNODB AUTO_INCREMENT=100000 DEFAULT CHARSET=utf8;
-
+CREATE TABLE `orderForm`
+(
+ `orderSerialNumber` VARCHAR(50) NOT NULL ,
+ `goodsId` INT(11) NOT NULL,
+ `purchaseTime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ `memberDiscount` VARCHAR(50) NULL,
+ `actualPurchasePriceGoods` VARCHAR(50) NULL,	
+ `orderStatus` INT(2) NOT NULL,
+ `userId` INT(11) NOT NULL,
+ `openId` VARCHAR(50) NOT NULL,
+ `paymentMethod` VARCHAR(50) NOT NULL,
+ `paymentNumber` VARCHAR(50) NOT NULL,
+  `rdCode` VARCHAR(50) NOT NULL,
+  `invoiceInformation` VARCHAR(50) NOT NULL,
+  `integral` VARCHAR(50) NULL
+)DEFAULT CHARSET=utf8;
 
 SELECT gl.*,gt.`goodsTypeName` FROM goodstypes AS gts
 INNER JOIN goodslist AS gl ON gl.`goodsId`=gts.`goodsId`
