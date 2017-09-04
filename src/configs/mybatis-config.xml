@@ -17,6 +17,6 @@
 			alias="goodsType" />
 		<typeAlias type="com.business.entitys.user.User" alias="user" />
 		<typeAlias type="com.business.entitys.order.OrderForm" alias="orderForm" />
-
+		<typeAlias type="com.business.entitys.order.OrderActivationCode" alias="activationCode" />
 	</typeAliases>
 </configuration>

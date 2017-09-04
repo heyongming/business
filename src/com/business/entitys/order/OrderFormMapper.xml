@@ -23,20 +23,36 @@
 		`memberDiscount`=#{memberDiscount},
 		`actualPurchasePriceGoods`=#{actualPurchasePriceGoods},
 		`orderStatus`=#{orderStatus},
-		`userId`=#{userId},
 		`openId`=#{openId},
-		`paymentMethod`=#{paymentMethod}
+		`paymentMethod`=#{paymentMethod},
 		`paymentNumber`=#{paymentNumber},
 		`rdCode`=#{rdCode},
 		`invoiceInformation`=#{invoiceInformation},
-		`integral`=#{integral}
-		where `orderSerialNumber`=#{orderSerialNumber}
-		or
-		`goodsId` =#{goodsId}
-		or
-		`userId`=#{userId}
-		or
-		`openId`=#{openId}
+		`integral`=#{integral},
+		`orderSerialNumber`=#{orderSerialNumber}
+		where
+		`userId`=#{userId} and of.orderStatus!=-1
+
 	</update>
+	<select id="selectByphone" parameterType="String" resultType="orderForm">
+		SELECT of.* FROM `orderform` of
+		INNER JOIN `user` us ON
+		us.`userId`=of.`userId`
+		WHERE us.`phone`=#{String} and of.orderStatus!=-1
+	</select>
+	<insert id="addActivationCode" parameterType="activationCode">
+		insert into
+		`orderActivationCode`(
+		`orderSerialNumber`,`activationCode`,`isActivation`
+		)
+		values(
+		#{orderSerialNumber},#{activationCode},#{isActivation}
+		)
+	</insert>
+	<select id="checkActivationCode" parameterType="String"
+		resultType="int">
+		select count(*) from orderActivationCode where
+		`activationCode`=#{String}
+	</select>
 
 </mapper>

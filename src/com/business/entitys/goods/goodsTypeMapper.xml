@@ -88,13 +88,19 @@
 		`goodsTypeId`=#{goodsTypeId}
 		where
 		`goodsId`=#{goodsId} and
-		`goodsTypeId` <![CDATA[<>]]> 1
+		`goodsTypeId` <![CDATA[<>]]>
+		1
 	</update>
 	<delete id="delGoods" parameterType="int">
-		DELETE FROM goodsList where goodsId=#{int}
+		DELETE FROM goodsList where
+		goodsId=#{int}
 	</delete>
 	<delete id="delGoodsTypes" parameterType="int">
-		DELETE FROM goodsTypes where goodsId=#{int}
+		DELETE FROM goodsTypes
+		where goodsId=#{int}
 	</delete>
-
+	<select id="queryByGoodsId" parameterType="int" resultType="goodsList">
+		select * from `goodsList`
+		where `goodsId`=#{int}
+	</select>
 </mapper>

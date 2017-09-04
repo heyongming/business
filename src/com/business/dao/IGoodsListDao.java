@@ -26,4 +26,6 @@ public interface IGoodsListDao {
 	int delGoods(int goodsId);
 
 	int delGoodsTypes(int goodsId);
+	
+	GoodsList  queryByGoodsId(int id);
 }

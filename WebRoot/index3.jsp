@@ -34,5 +34,16 @@
 	<p><input type="submit" value="上传" /></p>
 		
 	</form>
+		<form action="http://localhost/business/order/saveOrderFrom" method="post">
+	<p>	手机号:<input  type="text" name="phone"/> </p>
+	<p>	流程:<input  type="text" name="orderStatus"/> </p>
+	
+	<p><input type="submit" value="上传" /></p>
+		
+	</form>
+	<form action="http://localhost/business/order/getactivationCode" method="post">
+		<p>	手机号:<input  type="text" name="phone"/> </p>
+	<p><input type="submit" value="上传" /></p>
+	</form>
 </body>
 </html>

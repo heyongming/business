@@ -93,4 +93,10 @@ public class GoodsListDaoImpl implements IGoodsListDao {
 		return sessionTemplate.delete("goods.delGoodsTypes", goodsId);
 	}
 
+	@Override
+	public GoodsList queryByGoodsId(int id) {
+		// TODO Auto-generated method stub
+		return sessionTemplate.selectOne("goods.queryByGoodsId", id);
+	}
+
 }

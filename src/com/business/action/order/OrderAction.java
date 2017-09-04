@@ -17,6 +17,16 @@ public class OrderAction extends ActionSupport implements ModelDriven<OrderForm>
 	 */
 	private static final long serialVersionUID = -2258648444083444451L;
 	private OrderForm orderForm;
+	private String phone;
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
 	@Resource
 	private IOrderService orderService;
 
@@ -47,15 +57,30 @@ public class OrderAction extends ActionSupport implements ModelDriven<OrderForm>
 	}
 
 	public String addOrder() throws Exception {
-		
+
 		String jsonText = orderService.addOrder(orderForm);
 		toJsonSteam(jsonText);
 		return this.SUCCESS;
 	}
-	public String update()
-	{
+
+	public String update() {
+		String jsonText = orderService.saveOrderStatus(phone);
+		toJsonSteam(jsonText);
 		return this.SUCCESS;
 	}
+
+	public String getactivationCode() {
+		String jsonText = orderService.saveOrderActivationCode(phone);
+		toJsonSteam(jsonText);
+		return this.SUCCESS;
+	}
+
+	public String getActivationCode() throws Exception {
+
+		return super.execute();
+
+	}
+
 	private void toJsonSteam(String text) {
 		try {
 			bis = new ByteArrayInputStream(text.getBytes("GBK"));

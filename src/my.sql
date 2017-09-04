@@ -74,6 +74,23 @@ CREATE TABLE `orderForm`
   `invoiceInformation` VARCHAR(50) NOT NULL,
   `integral` VARCHAR(50) NULL
 )DEFAULT CHARSET=utf8;
+CREATE TABLE `orderActivationCode`
+(
+   `activationCodeId` INT(11) NOT NULL AUTO_INCREMENT,
+   `orderSerialNumber` VARCHAR(50) NOT NULL,
+    `isActivation` VARCHAR(50) NOT NULL,
+    `activationCode` VARCHAR(50) NOT  NULL,
+    `dateManufacture` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+     PRIMARY KEY (`activationCodeId`)
+
+)ENGINE=INNODB AUTO_INCREMENT=100000 DEFAULT CHARSET=utf8;
+
+
+SELECT of.* FROM `orderform` of
+		INNER JOIN `user` us ON
+		us.`userId`=of.`userId`
+		WHERE us.`phone`='18374871374'
+
 
 SELECT gl.*,gt.`goodsTypeName` FROM goodstypes AS gts
 INNER JOIN goodslist AS gl ON gl.`goodsId`=gts.`goodsId`
@@ -84,3 +101,6 @@ AND gts.`goodsTypeId`
 
 SELECT gl.*,gt.`goodsTypeName` FROM goodstypes AS gts INNER JOIN goodslist AS gl ON gl.`goodsId`=gts.`goodsId` INNER JOIN goodsType AS gt ON gt.`goodsTypeId`=gts.`goodsTypeId` WHERE 1=1 AND 
  gts.`goodsTypeId`=1
+ 
+ 
+`goodslist`
