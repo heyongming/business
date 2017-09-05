@@ -95,6 +95,40 @@
 			expression="execution(* com.business.service.*.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="mycutPC" />
 	</aop:config>
-
+	 <!-- 定义目标bean和bean中的方法
+	   -->  
+    <bean id="SpringQtzJob" class="com.business.job.AccessTokenManager"/>  
+    <bean id="SpringQtzJobMethod" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
+	    <property name="targetObject">  
+	        <ref bean="SpringQtzJob"/>   
+	    </property>  
+	    <property name="targetMethod">
+	        <value>execute</value>  
+	    </property>    
+	</bean>  
+	
+	<bean id="rsh_simpleTrigger1" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">  
+        <property name="jobDetail" ref="SpringQtzJobMethod" />  
+        <property name="startDelay" value="500" />   
+        <property name="repeatInterval" value="0" />  
+        <property name="repeatCount" value="0" />  
+    </bean>  
+	   
+	    
+	<!-- ======================== 调度触发器 ======================== -->  
+	<bean id="CronTriggerBean" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+	    <property name="jobDetail" ref="SpringQtzJobMethod"></property>  
+	    <property name="cronExpression" value="0 0 0/2 * * ?"></property>
+	</bean>  
+	  <!-- 0 37 19 * * ? -->
+	<!-- ======================== 调度工厂 ======================== -->  
+	<bean id="SpringJobSchedulerFactoryBean" lazy-init="false" autowire="no" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">  
+	    <property name="triggers">  
+	        <list>   
+	        	<ref bean="rsh_simpleTrigger1" />
+	            <ref bean="CronTriggerBean"/>   
+	        </list>  
+	    </property>  
+	</bean>   
 
 </beans>
