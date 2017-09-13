@@ -8,7 +8,7 @@
 		<setting name="logImpl" value="STDOUT_LOGGING" />
 	</settings>
 	<typeAliases>
-		<typeAlias type="com.business.entitys.sales.Salesman" alias="salesman" />
+	<typeAlias type="com.business.entitys.sales.Salesman" alias="salesman" /> 
 		<typeAlias type="com.business.entitys.goods.GoodsList"
 			alias="goodsList" />
 		<typeAlias type="com.business.entitys.goods.GoodsTypes"
@@ -18,5 +18,8 @@
 		<typeAlias type="com.business.entitys.user.User" alias="user" />
 		<typeAlias type="com.business.entitys.order.OrderForm" alias="orderForm" />
 		<typeAlias type="com.business.entitys.order.OrderActivationCode" alias="activationCode" />
+		<typeAlias type="com.business.entitys.mp.MpUserEntity" alias="mpUser" />
+		<typeAlias type="com.business.entitys.mp.MpService" alias="mpService" />
+		
 	</typeAliases>
 </configuration>

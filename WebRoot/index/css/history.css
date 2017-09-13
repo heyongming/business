@@ -1,0 +1,90 @@
+/*ͷ???鿪ʼ*/
+#header {
+  height: 0.88rem;
+  line-height: 0.88rem;
+  padding: 0 0.3rem;
+  background-color: #393a3f;
+  text-align: center;
+  color: #fff;
+  font-size: 0.4rem;
+}
+#header > .back {
+  float: left;
+  width: 0.3rem;
+  height: 0.5rem;
+}
+#header > .back > img {
+  width: 100%;
+}
+#header > .select {
+  float: right;
+  width: 0.6rem;
+  height: 0.27rem;
+}
+#header > .select > img {
+  width: 100%;
+}
+#message {
+  padding: 0.3rem;
+  background-color: #fff;
+}
+#message > .mes {
+  height: 0.6rem;
+  line-height: 0.6rem;
+}
+#message > .mes > span {
+  flex: 1;
+  font-size: 0.32rem;
+  color: #111;
+  margin: 0;
+  float: left;
+}
+#message > .mes > .color {
+  float: right;
+  color: #da251c;
+  font-size: 0.24rem;
+}
+#message #nav {
+  height: 0.8rem;
+  line-height: 0.8rem;
+  text-align: center;
+  display: flex;
+  background-color: #fff;
+  border-bottom: 1px solid #ebebeb;
+}
+#message #nav > a {
+  font-size: 0.34rem;
+  color: #909090;
+  font-family: PingFangSC-Regular, sans-serif;
+  flex: 1;
+}
+#message #nav > .active {
+  border-bottom: 4px solid #da251c;
+  color: #da251c;
+}
+#message .news {
+  height: 2.58rem;
+  line-height: 2.58rem;
+  border-bottom: 1px solid #ebebeb;
+  padding-top: 0.3rem;
+}
+#message .news > a {
+  display: flex;
+}
+#message .news > a > .left {
+  flex: 1;
+}
+#message .news > a > .left > p {
+  color: #111;
+  font-size: 0.32rem;
+  line-height: 0.53rem;
+}
+#message .news > a > .left > .date {
+  color: #909090;
+  font-size: 0.24rem;
+}
+#message .news > a > img {
+  flex: 1;
+  height: 2rem;
+}
+/*?????鿪ʼ*/

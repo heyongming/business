@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+ "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN" 
+ "struts-2.3.dtd">
+
+<struts>
+
+
+
+
+	<package name="mpdata" extends="struts-default" namespace="/mp">
+		<action name="code" class="com.business.action.mp.MpCodeAction">
+			<result name="success">/index/activation.jsp</result>
+		</action>
+		<action name="activation" ></action>
+	</package>
+	
+
+</struts>

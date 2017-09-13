@@ -32,4 +32,16 @@ public class UserDaoImpl implements IUserDao {
 		return 0;
 	}
 
+	@Override
+	public User selectByIdCard(String idCard) {
+		// TODO Auto-generated method stub
+		return sessionTemplate.selectOne("user.selectByIdCard", idCard);
+	}
+
+	@Override
+	public int updateById(User user) {
+		// TODO Auto-generated method stub
+		return sessionTemplate.selectOne("user.updateByid", user);
+	}
+
 }

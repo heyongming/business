@@ -1,0 +1,110 @@
+/*ͷ���鿪ʼ*/
+#header {
+  height: 0.88rem;
+  line-height: 0.88rem;
+  padding: 0 0.3rem;
+  background-color: #393a3f;
+  text-align: center;
+  color: #fff;
+  font-size: 0.4rem;
+}
+#header > .back {
+  float: left;
+  width: 0.3rem;
+  height: 0.5rem;
+}
+#header > .back > img {
+  width: 100%;
+}
+#header > .select {
+  float: right;
+  width: 0.6rem;
+  height: 0.27rem;
+}
+#header > .select > img {
+  width: 100%;
+}
+/* ������Ϣ */
+#news {
+  background-color: #fff;
+  padding: 0.3rem;
+}
+#news > h2 {
+  font-size: 0.32rem;
+  color: #111;
+  margin: 0;
+}
+#news > .jieshao {
+  font-size: 0.26rem;
+  color: #909090;
+  margin: 0.2rem 0;
+}
+#news > .jieshao > span {
+  width: 0.8rem;
+  height: 0.4rem;
+  line-height: 0.4rem;
+  display: inline-block;
+  border: 1px solid #909090;
+  border-radius: 20px;
+  text-align: center;
+}
+#news > p {
+  font-size: 0.28rem;
+  color: #111;
+  margin-bottom: 0.2rem;
+}
+#news > .amount {
+  font-size: 0.24rem;
+  color: #909090;
+  position: relative;
+}
+#news > .amount > a {
+  position: absolute;
+  top: 0;
+  right: 0.3rem;
+  color: #248ece;
+}
+/*д����*/
+#comments {
+  padding: 0.3rem;
+}
+#comments > h2 {
+  color: #909090;
+  font-size: 0.28rem;
+  margin: 0;
+  text-align: center;
+}
+#comments > .message {
+  margin-top: 0.3rem;
+  position: relative;
+}
+#comments > .message img {
+  width: 0.86rem;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+#comments > .message > ul {
+  margin-left: 1rem;
+  font-size: 0.24rem;
+  color: #909090;
+}
+#comments > .message > ul > li {
+  margin-bottom: 0.08rem;
+}
+#comments > .message > ul > .text {
+  color: #111;
+}
+#comments > .message > ul > .date {
+  font-size: 0.2rem;
+}
+#comments > .message > .img {
+  width: 0.22rem;
+  height: 0.22rem;
+  position: absolute;
+  top: 0.05rem;
+  right: 0;
+  background: url("../images/dianzan.png") no-repeat;
+  background-position: center center;
+  background-size: 0.22rem 0.22rem;
+}

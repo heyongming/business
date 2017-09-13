@@ -9,7 +9,7 @@ import com.business.entitys.mp.WeiXinVerification;
 
 //微信初始化工具类
 public class WeiXinCheckInit {
-	private static final String token = "hym74561314";
+	private static final String token = "mbimc888";
 
 	public static Boolean checkSignature(WeiXinVerification weiXinVerification) {
 

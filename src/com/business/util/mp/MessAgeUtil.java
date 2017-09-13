@@ -8,9 +8,11 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -27,11 +29,14 @@ import com.alibaba.fastjson.JSONObject;
 import com.business.job.AccessTokenManager;
 import com.business.job.MsgMeesage;
 import com.business.temp.Api_add_template;
+import com.business.temp.MpCodeEntitys;
 import com.business.temp.ThumbEntity;
 import com.business.util.HttpClientUtil;
+
 import com.thoughtworks.xstream.XStream;
 import com.business.entitys.mp.Image;
 import com.business.entitys.mp.ImageMessage;
+import com.business.entitys.mp.MpUserEntity;
 import com.business.entitys.mp.Music;
 import com.business.entitys.mp.MusicMessage;
 import com.business.entitys.mp.NewsItem;
@@ -41,6 +46,10 @@ import com.business.entitys.mp.WeiXinOpenUser;
 import com.business.entitys.mp.template.TemplateCtent;
 import com.business.entitys.mp.template.TemplateUser;
 
+/**
+ * @author mbimc
+ *
+ */
 public class MessAgeUtil {
 	public static final String MESSAGE_VIEW = "VIEW";
 	public static final String MESSAGE_NEWS = "news";
@@ -317,5 +326,59 @@ public class MessAgeUtil {
 		String result = HttpClientUtil.httpPost(url, data);
 		System.out.println(result);
 		return null;
+	}
+
+	/**
+	 * @param 微信授权的网页
+	 * @return 加密后的网页
+	 */
+	public static String webLicensingnSapi_userinfo(String url) {
+		try {
+			url = URLEncoder.encode(url, "utf-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String getUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=URI&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+		getUrl = getUrl.replaceAll("APPID", AccessTokenManager.APPID);
+		getUrl = getUrl.replaceAll("URI", url);
+		System.out.println(getUrl);
+		return getUrl;
+	}
+
+	/**
+	 * @param 微信返回的code
+	 * @return 返回用code换取的accessToken
+	 */
+	public static MpCodeEntitys GetwebpagesCode(String code) {
+
+		String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code";
+		url = url.replaceAll("APPID", AccessTokenManager.APPID);
+		url = url.replaceAll("SECRET", AccessTokenManager.AppSecret);
+		url = url.replaceAll("CODE", code);
+		System.out.println(url + "???");
+		String result = HttpClientUtil.httpGet(url);
+
+		System.out.println(result);
+		MpCodeEntitys mpCodeEntitys = JSONObject.parseObject(result, MpCodeEntitys.class);
+		return mpCodeEntitys;
+
+	}
+
+	/**
+	 * @param access_token
+	 *            网页授权凭证
+	 * @param openId
+	 *            用户的openId
+	 * @return 用户的相关信息
+	 */
+	public static MpUserEntity getMpUserEntity(String access_token, String openId) {
+		String url = "https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN";
+		url = url.replaceAll("ACCESS_TOKEN", access_token);
+		url = url.replaceAll("OPENID", openId);
+		String result = HttpClientUtil.httpGet(url);
+		System.out.println(result);
+		MpUserEntity entity = JSONObject.parseObject(result, MpUserEntity.class);
+		return entity;
 	}
 }

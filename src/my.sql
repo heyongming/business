@@ -84,23 +84,43 @@ CREATE TABLE `orderActivationCode`
      PRIMARY KEY (`activationCodeId`)
 
 )ENGINE=INNODB AUTO_INCREMENT=100000 DEFAULT CHARSET=utf8;
+CREATE TABLE `mpUserentity`
+(
+   `openid` VARCHAR(50) NOT NULL,
+   `nickname` VARCHAR(50) NOT NULL,
+   `sex` VARCHAR(10) NOT NULL,
+   `province` VARCHAR(50)  NULL,
+   `city` VARCHAR(50)  NULL,
+   `country` VARCHAR(50)  NULL,
+   `headimgurl` VARCHAR(200)  NULL,
+   `privilege` VARCHAR(400)  NULL,
+   `unionid` VARCHAR(50)  NULL,
+   `dateManufacture` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+   PRIMARY KEY (`openid`)
+)
+CREATE TABLE `mpService`
+(
+  `serviceId` INT(11) NOT NULL AUTO_INCREMENT ,
+  `openId` VARCHAR(50) NOT NULL,
+  `term` VARCHAR(50) NOT NULL,
+  `updateTime` VARCHAR(50) NOT NULL ,
+  `dateManufacture` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `goodsType` VARCHAR(50) NOT NULL,
+  `orderSerialNumber` vahrchar(50) NOT NULL
+  `isFrozen` VARCHAR(50) NOT NULL,
+   PRIMARY KEY (`serviceId`)
+)ENGINE=INNODB AUTO_INCREMENT=100000 DEFAULT CHARSET=utf8;
 
 
-SELECT of.* FROM `orderform` of
-		INNER JOIN `user` us ON
-		us.`userId`=of.`userId`
-		WHERE us.`phone`='18374871374'
 
+SELECT *  FROM `user` AS u
+WHERE u.`userId` = (
+SELECT of.`userId` FROM `orderform`AS of
+WHERE of.`orderSerialNumber` ='354269284995694592'
+)  AND u.`idCard` LIKE '%6096'
 
-SELECT gl.*,gt.`goodsTypeName` FROM goodstypes AS gts
-INNER JOIN goodslist AS gl ON gl.`goodsId`=gts.`goodsId`
-INNER JOIN goodType AS gt ON gt.`goodsTypeId`=gts.`goodsTypeId`
-WHERE gt.`goodsTypeId`
-AND gts.`goodsTypeId`
-
-
-SELECT gl.*,gt.`goodsTypeName` FROM goodstypes AS gts INNER JOIN goodslist AS gl ON gl.`goodsId`=gts.`goodsId` INNER JOIN goodsType AS gt ON gt.`goodsTypeId`=gts.`goodsTypeId` WHERE 1=1 AND 
- gts.`goodsTypeId`=1
- 
- 
-`goodslist`
+SELECT *  FROM goodstypes AS gss 
+WHERE gss.`goodsId` IN (
+SELECT  of.`goodsId` FROM `orderform`AS of
+WHERE of.`orderSerialNumber` ='354269284995694592'
+) AND GSS.`goodsTypeId`!=1

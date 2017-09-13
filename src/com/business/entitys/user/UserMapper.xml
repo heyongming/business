@@ -5,19 +5,47 @@
 
 	<insert id="addUser" parameterType="user" keyProperty="userId"
 		useGeneratedKeys="true">
-	insert into
-	`user`(
-	`passWord`,`type`,`userName`,
-	`Email`,`openId`,`phone`,
-	`addRess`,`integral`,`Grade`,
-	`userStatus`,`idCard`,`rdCode`)
-	values(
-	#{passWord},#{type},#{userName},
-	#{Email},#{openId},#{phone},
-	#{addRess},#{integral},#{Grade},
-	#{userStatus},#{idCard},#{rdCode}
-	)
+		insert into
+		`user`(
+		`passWord`,`type`,`userName`,
+		`Email`,`openId`,`phone`,
+		`addRess`,`integral`,`Grade`,
+		`userStatus`,`idCard`,`rdCode`)
+		values(
+		#{passWord},#{type},#{userName},
+		#{Email},#{openId},#{phone},
+		#{addRess},#{integral},#{Grade},
+		#{userStatus},#{idCard},#{rdCode}
+		)
 
 	</insert>
+	<select id="selectByIdCard" parameterType="com.business.entitys.user.UserBuyTemp"
+		resultType="user">
+		SELECT * FROM `user` AS u
+		WHERE u.`userId` = (
+		SELECT
+		of.`userId` FROM `orderform`AS of
+		WHERE of.`orderSerialNumber` =#{orderSerialNumber}
+		)
+		AND u.`idCard` LIKE  CONCAT('%',#{idCard})
+	</select>
+	<update id="updateByid" parameterType="user">
+		update `user`
+		set
+		`passWord`=#{passWord},
+		`type`=#{type},
+		`userName`=#{userName},
+		`Email`=#{Email},
+		`openId`=#{openId},
+		`phone`=#{phone},
+		`addRess`=#{addRess},
+		`integral`=#{integral},
+		`Grade`=#{Grade},
+		`userStatus`=#{userStatus},
+		`idCard`=#{idCard},
+		`rdCode`=#{rdCode}
+		where
+		`userId`={userId}
 
+	</update>
 </mapper>

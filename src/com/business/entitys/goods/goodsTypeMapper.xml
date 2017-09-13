@@ -103,4 +103,7 @@
 		select * from `goodsList`
 		where `goodsId`=#{int}
 	</select>
+<!-- <select id="selectByorderSerialNumber" resultType="int" parameterType="">
+	
+	</select> -->	
 </mapper>

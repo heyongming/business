@@ -60,6 +60,8 @@
 				<value>classpath:com/business/entitys/goods/*.xml</value>
 				<value>classpath:com/business/entitys/user/*.xml</value>
 				<value>classpath:com/business/entitys/order/*.xml</value>
+				<value>classpath:com/business/entitys/mp/*.xml</value>
+				
 			</list>
 		</property>
 	</bean>

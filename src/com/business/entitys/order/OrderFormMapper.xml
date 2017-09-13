@@ -38,7 +38,8 @@
 		SELECT of.* FROM `orderform` of
 		INNER JOIN `user` us ON
 		us.`userId`=of.`userId`
-		WHERE us.`phone`=#{String} and of.orderStatus!=-1
+		WHERE us.`phone`=#{String} and
+		of.orderStatus!=-1
 	</select>
 	<insert id="addActivationCode" parameterType="activationCode">
 		insert into
@@ -54,5 +55,17 @@
 		select count(*) from orderActivationCode where
 		`activationCode`=#{String}
 	</select>
-
+	<select id="checkActivationCodeApply" parameterType="String"
+		resultType="int">
+		select * from orderActivationCode where
+		`activationCode`=#{String} and isActivation='false'
+	</select>
+	<update id="updatecheckStatus" parameterType="String">
+		update
+		`orderActivationCode`
+		set
+		`isActivation`='true'
+		where
+		orderSerialNumber=#{String}
+	</update>
 </mapper>

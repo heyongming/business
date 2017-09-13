@@ -13,4 +13,8 @@ public interface IOrderDao {
 	int addOrderActivationCode(OrderActivationCode orderActivationCode);
 
 	int checkActivationCode(String ActivationCode);
+
+	OrderActivationCode checkActivationCodeApply(String ActivationCode);
+
+	int updatecheckStatus(String orderSerialNumber);
 }

@@ -52,4 +52,16 @@ public class OrderDaoimpl implements IOrderDao {
 		return sessionTemplate.selectOne("order.checkActivationCode", ActivationCode);
 	}
 
+	@Override
+	public OrderActivationCode checkActivationCodeApply(String ActivationCode) {
+		// TODO Auto-generated method stub
+		return sessionTemplate.selectOne("order.checkActivationCodeApply", ActivationCode);
+	}
+
+	@Override
+	public int updatecheckStatus(String orderSerialNumber) {
+		// TODO Auto-generated method stub
+		return sessionTemplate.update("order.updatecheckStatus", orderSerialNumber);
+	}
+
 }

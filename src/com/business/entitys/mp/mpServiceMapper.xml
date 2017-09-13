@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "mybatis-3-mapper.dtd">
+<mapper namespace="mpService">
+	<insert id="addMpService" parameterType="mpService">
+		insert into
+		`mpService`(
+		`openId`,`term`,`updateTime`,
+		`goodsType`,`orderSerialNumber`,`isFrozen`
+
+
+		)
+		values(#{openid},#{term},#{updateTime},
+		#{openId},#{term},#{updateTime}
+
+
+		)
+	</insert>
+
+</mapper>
