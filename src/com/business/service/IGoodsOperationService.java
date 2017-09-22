@@ -17,12 +17,13 @@ public interface IGoodsOperationService {
 
 	String querytypeGoodsList(int typeId);
 
-	String updateGoods(GoodsList goodsList);
+	String updateGoods(GoodsList goodsList,String typeName);
 
 	String updateGoodsTypes(GoodsList goodsList, String typeName);
 
 	String deleteGoods(int goodsId);
 	
 	String updateGoodsHot(int goodsId);
-
+	
+	String queryGoodsListById(int id);
 }

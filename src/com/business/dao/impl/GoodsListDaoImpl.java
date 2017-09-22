@@ -94,9 +94,16 @@ public class GoodsListDaoImpl implements IGoodsListDao {
 	}
 
 	@Override
-	public GoodsList queryByGoodsId(int id) {
+	public GoodsList queryByGoodsId
+	(int id) {
 		// TODO Auto-generated method stub
 		return sessionTemplate.selectOne("goods.queryByGoodsId", id);
+	}
+
+	@Override
+	public GoodsList queryorderSerialNumberTogoodsId(String orderSerialNumber) {
+		// TODO Auto-generated method stub
+		return sessionTemplate.selectOne("goods.selectByorderSerialNumber", orderSerialNumber);
 	}
 
 }

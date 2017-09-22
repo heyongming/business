@@ -6,12 +6,12 @@
 		insert into
 		`mpService`(
 		`openId`,`term`,`updateTime`,
-		`goodsType`,`orderSerialNumber`,`isFrozen`
+		`goodsId`,`orderSerialNumber`,`isFrozen`
 
 
 		)
 		values(#{openid},#{term},#{updateTime},
-		#{openId},#{term},#{updateTime}
+		#{goodsId},#{orderSerialNumber},#{isFrozen}
 
 
 		)

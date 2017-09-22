@@ -19,6 +19,15 @@ public class GoodsQueryAction extends ActionSupport {
 	private IGoodsOperationService GoodsOperationService;
 	private InputStream bis;
 	private int typeId;
+	private int goodsId;
+
+	public int getGoodsId() {
+		return goodsId;
+	}
+
+	public void setGoodsId(int goodsId) {
+		this.goodsId = goodsId;
+	}
 
 	public int getTypeId() {
 		return typeId;
@@ -62,9 +71,21 @@ public class GoodsQueryAction extends ActionSupport {
 		return this.SUCCESS;
 	}
 
+	public String getGoodsList() {
+		String json = GoodsOperationService.getAllGoodsList();
+		toJsonSteam(json);
+		return this.SUCCESS;
+	}
+
+	public String getGoodsListById() {
+		String json = GoodsOperationService.queryGoodsListById(goodsId);
+		toJsonSteam(json);
+		return this.SUCCESS;
+	}
+
 	private void toJsonSteam(String text) {
 		try {
-			bis = new ByteArrayInputStream(text.getBytes("GBK"));
+			bis = new ByteArrayInputStream(text.getBytes("utf-8"));
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			bis = null;

@@ -12,6 +12,7 @@ import javax.annotation.Resource;
 
 import com.business.entitys.goods.GoodsList;
 import com.business.service.IGoodsOperationService;
+import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
@@ -36,8 +37,8 @@ public class GoodsUpdateAction extends ActionSupport implements ModelDriven<Good
 	@Override
 	public String execute() throws Exception {
 		// TODO Auto-generated method stub
-		String json = GoodsOperationService.updateGoods(goodsList);
-		toJsonSteam(json);
+		// String json = GoodsOperationService.updateGoods(goodsList);
+		// toJsonSteam(json);
 		return super.execute();
 	}
 
@@ -88,30 +89,75 @@ public class GoodsUpdateAction extends ActionSupport implements ModelDriven<Good
 	}
 
 	public String updateGoodsImage() throws Exception {
-		InputStream is = new FileInputStream(file);
-		OutputStream os = new FileOutputStream(new File(savePath, fileFileName));
-		System.out.println("fileFileName: " + fileFileName);
-		System.out.println("file: " + file.getName());
-		System.out.println("file: " + file.getPath());
 
-		byte[] buffer = new byte[500];
-		while (-1 != (is.read(buffer, 0, buffer.length))) {
+		String op = goodsList.getImageUrl();
+		int index = op.lastIndexOf("/");
 
-			os.write(buffer);
+		op = op.substring(0, index );
+		if (file == null) {
+			// GoodsOperationService.updateGoodsTypes(goodsList, goodsTypeName);
+
+			String flog = GoodsOperationService.updateGoods(goodsList, goodsTypeName);
+
+			if (flog != null) {
+				String json = GoodsOperationService.getAllGoodsList();
+				System.out.println(json);
+				toJsonSteam(json);
+
+			} else {
+				bis=null;
+			}
+		} else {
+			index = op.lastIndexOf("/");
+			op = op.substring(index + 1, op.length());
+			InputStream is = new FileInputStream(file);
+			System.out.println(savePath + op+"????????");
+			OutputStream os = new FileOutputStream(new File(savePath + op, fileFileName));
+			byte[] buffer = new byte[500];
+			while (-1 != (is.read(buffer, 0, buffer.length))) {
+
+				os.write(buffer);
+			}
+			os.close();
+			is.close();
+
+			goodsList.setImageUrl(fictitiousPath + op + "/" + fileFileName);
+			
+			String flog = GoodsOperationService.updateGoods(goodsList, goodsTypeName);
+
+			if (flog != null) {
+				String json = GoodsOperationService.getAllGoodsList();
+				System.out.println(json);
+				toJsonSteam(json);
+
+			} else {
+				bis=null;
+			}
 		}
-		os.close();
-		is.close();
-		goodsList.setImageUrl(fictitiousPath + fileFileName);
-		String json = GoodsOperationService.updateGoods(goodsList);
+		/*
+		 * InputStream is = new FileInputStream(file); OutputStream os = new
+		 * FileOutputStream(new File(savePath, fileFileName));
+		 * System.out.println("fileFileName: " + fileFileName);
+		 * System.out.println("file: " + file.getName());
+		 * System.out.println("file: " + file.getPath());
+		 * 
+		 * byte[] buffer = new byte[500]; while (-1 != (is.read(buffer, 0,
+		 * buffer.length))) {
+		 * 
+		 * os.write(buffer); } os.close(); is.close();
+		 * goodsList.setImageUrl(fictitiousPath + fileFileName); String json =
+		 * GoodsOperationService.updateGoods(goodsList); toJsonSteam(json);
+		 * return super.execute();
+		 */
+		return Action.SUCCESS;
+	}
+
+	public String switchGoodsHot() throws Exception {
+		String json = GoodsOperationService.updateGoodsHot(goodsList.getGoodsId());
 		toJsonSteam(json);
 		return super.execute();
 	}
-	public String switchGoodsHot() throws Exception
-	{
-		String json=GoodsOperationService.updateGoodsHot(goodsList.getGoodsId());
-		toJsonSteam(json);
-		return super.execute();
-	}
+
 	public String getGoodsTypeName() {
 		return goodsTypeName;
 	}
@@ -146,7 +192,7 @@ public class GoodsUpdateAction extends ActionSupport implements ModelDriven<Good
 
 	private void toJsonSteam(String text) {
 		try {
-			bis = new ByteArrayInputStream(text.getBytes("GBK"));
+			bis = new ByteArrayInputStream(text.getBytes("utf-8"));
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			bis = null;

@@ -12,6 +12,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.business.entitys.ResultMessage;
 import com.business.entitys.sales.Salesman;
 import com.business.service.ISalesmanService;
+import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
@@ -24,6 +25,12 @@ public class SalesmanAction extends ActionSupport implements ModelDriven<Salesma
 	private Salesman salesman;
 	@Resource
 	private ISalesmanService salesmanService;
+	private String url;
+
+	public String getUrl() {
+		return url;
+	}
+
 	private InputStream bis;
 
 	public InputStream getBis() {
@@ -68,15 +75,32 @@ public class SalesmanAction extends ActionSupport implements ModelDriven<Salesma
 			ActionContext actionContext = ActionContext.getContext();
 			Map<String, Object> session = actionContext.getSession();
 			session.put("salesmanUser", loginMan);
-			ResultMessage message = new ResultMessage("1", "ok", "login in");
-			getJsonText(message);
+			if (loginMan.getType().equals("1")) {
+				url = "/admin/Jurisdiction/admin.jsp";
+			} else if (loginMan.getType().equals("2")) {
+				url = "/admin/Jurisdiction/fuwu.jsp";
+			} else if (loginMan.getType().equals("3")) {
+				url = "/admin/Jurisdiction/hegui.jsp";
+			} else if (loginMan.getType().equals("4")) {
+				url = "/admin/Jurisdiction/xiaoshou.jsp";
+			} else if (loginMan.getType().equals("5")) {
+				url = "/admin/login/login.jsp";
+			}
+
 			return this.SUCCESS;
 		} else {
-			ResultMessage message = new ResultMessage("-2", "false", "check your passWord and Account");
-			getJsonText(message);
+			url = "/admin/login/login.jsp";
 			return this.SUCCESS;
 		}
 
+	}
+
+	public String exit() {
+		ActionContext actionContext = ActionContext.getContext();
+		Map<String, Object> session = actionContext.getSession();
+		session.put("salesmanUser", null);
+		url = "/admin/login/login.jsp";
+		return Action.SUCCESS;
 	}
 
 	public String addUser() {

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.business.dao.IUserDao;
 import com.business.entitys.user.User;
+import com.business.entitys.user.UserBuyTemp;
 
 @Repository("userDao")
 public class UserDaoImpl implements IUserDao {
@@ -33,7 +34,7 @@ public class UserDaoImpl implements IUserDao {
 	}
 
 	@Override
-	public User selectByIdCard(String idCard) {
+	public User selectByIdCard(UserBuyTemp idCard) {
 		// TODO Auto-generated method stub
 		return sessionTemplate.selectOne("user.selectByIdCard", idCard);
 	}
@@ -42,6 +43,18 @@ public class UserDaoImpl implements IUserDao {
 	public int updateById(User user) {
 		// TODO Auto-generated method stub
 		return sessionTemplate.selectOne("user.updateByid", user);
+	}
+
+	@Override
+	public User findByRdcode(String rdCode) {
+		// TODO Auto-generated method stub
+		return sessionTemplate.selectOne("user.selectRdCode", rdCode);
+	}
+
+	@Override
+	public User findById(int id) {
+		// TODO Auto-generated method stub
+		return sessionTemplate.selectOne("user.selectById", id);
 	}
 
 }

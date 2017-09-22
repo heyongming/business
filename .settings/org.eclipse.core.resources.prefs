@@ -1,2 +1,9 @@
 eclipse.preferences.version=1
+encoding//WebRoot/admin/Jurisdiction/fuwu.jsp=UTF-8
+encoding//WebRoot/admin/Jurisdiction/hegui.jsp=UTF-8
+encoding//WebRoot/admin/Jurisdiction/login.jsp=UTF-8
+encoding//WebRoot/admin/Jurisdiction/main.jsp=UTF-8
+encoding//WebRoot/admin/Jurisdiction/xiaoshou.jsp=UTF-8
+encoding//WebRoot/admin/Jurisdiction/xiaoshou/add.jsp=UTF-8
+encoding//WebRoot/admin/login/login.jsp=UTF-8
 encoding//src/configs/druid.properties=UTF-8

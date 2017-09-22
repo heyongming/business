@@ -12,7 +12,7 @@
 		<action name="code" class="com.business.action.mp.MpCodeAction">
 			<result name="success">/index/activation.jsp</result>
 		</action>
-		<action name="activation" ></action>
+		<action name="activation" class="com.business.action.mp.MpCodeAction" ></action>
 	</package>
 	
 

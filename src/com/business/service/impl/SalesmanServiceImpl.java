@@ -7,13 +7,26 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Repository;
 
 import com.business.dao.ISalesmanDao;
+import com.business.dao.IUserDao;
 import com.business.entitys.sales.Salesman;
+import com.business.entitys.sales.SalesmanAndUser;
+import com.business.entitys.user.User;
 import com.business.service.ISalesmanService;
 
 @Repository("salesmanService")
 public class SalesmanServiceImpl implements ISalesmanService {
 	@Resource
 	ISalesmanDao salesmanDao;
+	@Resource
+	IUserDao userDao;
+
+	public IUserDao getUserDao() {
+		return userDao;
+	}
+
+	public void setUserDao(IUserDao userDao) {
+		this.userDao = userDao;
+	}
 
 	public ISalesmanDao getSalesmanDao() {
 		return salesmanDao;
@@ -26,7 +39,7 @@ public class SalesmanServiceImpl implements ISalesmanService {
 	@Override
 	public Salesman queryLogin(Salesman salesman) {
 		// TODO Auto-generated method stub
-		
+
 		Salesman sale = salesmanDao.selectById(salesman.getUserId());
 		if (sale == null) {
 			return null;
@@ -67,6 +80,24 @@ public class SalesmanServiceImpl implements ISalesmanService {
 	public List<Salesman> querySalesmanByName(String name) {
 		// TODO Auto-generated method stub
 		return salesmanDao.selectByName(name);
+	}
+
+	@Override
+	public User saveUser(User user, int salesmanId) {
+		// TODO Auto-generated method stub
+		String code = (int) ((Math.random() * 9 + 1) * 100000) + "";
+		User rdUser = userDao.findByRdcode(code);
+		while (rdUser != null) {
+			code = (int) ((Math.random() * 9 + 1) * 100000) + "";
+			rdUser = userDao.findByRdcode(code);
+		}
+		user.setRdCode(code);
+		int id = userDao.insertUser(user);
+		int flog = salesmanDao.insertSalesmanId(new SalesmanAndUser(0, id, salesmanId));
+		if (flog > 0)
+			return userDao.findById(id);
+
+		return null;
 	}
 
 }

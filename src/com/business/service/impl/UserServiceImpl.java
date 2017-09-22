@@ -40,4 +40,11 @@ public class UserServiceImpl implements IUserService {
 		this.userDao = userDao;
 	}
 
+	@Override
+	public User findByUser(int id) {
+		// TODO Auto-generated method stub
+		return userDao.findById(id);
+		
+	}
+
 }

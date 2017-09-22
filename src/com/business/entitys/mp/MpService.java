@@ -6,7 +6,7 @@ public class MpService {
 	private String term;
 	private String updateTime;
 	private String dateManufacture;
-	private String goodsType;
+	private String goodsId;
 	private String orderSerialNumber;
 	private String isFrozen;
 
@@ -15,14 +15,14 @@ public class MpService {
 	}
 
 	public MpService(int serviceId, String openId, String term, String updateTime, String dateManufacture,
-			String goodsType, String orderSerialNumber, String isFrozen) {
+			String goodsId, String orderSerialNumber, String isFrozen) {
 		super();
 		this.serviceId = serviceId;
 		this.openId = openId;
 		this.term = term;
 		this.updateTime = updateTime;
 		this.dateManufacture = dateManufacture;
-		this.goodsType = goodsType;
+		this.goodsId = goodsId;
 		this.orderSerialNumber = orderSerialNumber;
 		this.isFrozen = isFrozen;
 	}
@@ -30,7 +30,7 @@ public class MpService {
 	@Override
 	public String toString() {
 		return "MpService [serviceId=" + serviceId + ", openId=" + openId + ", term=" + term + ", updateTime="
-				+ updateTime + ", dateManufacture=" + dateManufacture + ", goodsType=" + goodsType
+				+ updateTime + ", dateManufacture=" + dateManufacture + ", goodsId=" + goodsId
 				+ ", orderSerialNumber=" + orderSerialNumber + ", isFrozen=" + isFrozen + "]";
 	}
 
@@ -74,12 +74,12 @@ public class MpService {
 		this.dateManufacture = dateManufacture;
 	}
 
-	public String getGoodsType() {
-		return goodsType;
+	public String getgoodsId() {
+		return goodsId;
 	}
 
-	public void setGoodsType(String goodsType) {
-		this.goodsType = goodsType;
+	public void setgoodsId(String goodsId) {
+		this.goodsId = goodsId;
 	}
 
 	public String getOrderSerialNumber() {

@@ -15,10 +15,12 @@ import org.apache.struts2.ServletActionContext;
 
 import com.alibaba.fastjson.JSONObject;
 import com.business.entitys.ResultMessage;
+import com.business.entitys.sales.Salesman;
 import com.business.entitys.user.User;
 import com.business.service.IUserService;
 import com.business.util.SendMsg;
 import com.business.util.TimerAdministration;
+import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
@@ -35,6 +37,7 @@ public class UserAction extends ActionSupport implements ModelDriven<User> {
 	private Timer timer;
 	private long overTime;
 	private String vcode;
+
 	public String getVcode() {
 		return vcode;
 	}
@@ -82,24 +85,43 @@ public class UserAction extends ActionSupport implements ModelDriven<User> {
 		// TODO Auto-generated method stub
 		ActionContext actionContext = ActionContext.getContext();
 		Map session = actionContext.getSession();
-		String sessionVcKey=(String) session.get("vc_key");
-		if(vcode.equals(sessionVcKey))
-		{
+		String sessionVcKey = (String) session.get("vc_key");
+		if (vcode.equals(sessionVcKey)) {
 			String json = userService.saveUser(user);
 			System.out.println("wtf?" + json);
 			toJsonSteam(json);
-			
-		}
-		else
-		{
-			ResultMessage message=new ResultMessage("-2","false", "验证码错误");
-			String json=JSONObject.toJSONString(message);
+
+		} else {
+			ResultMessage message = new ResultMessage("-2", "false", "验证码错误");
+			String json = JSONObject.toJSONString(message);
 			toJsonSteam(json);
 		}
 		return super.execute();
-		
+
 	}
 
+	public String getUserEntity() {
+		ActionContext actionContext = ActionContext.getContext();
+		Map session = actionContext.getSession();
+		Map request = (Map) ActionContext.getContext().get("request");
+		User findUser = userService.findByUser(user.getUserId());
+		Salesman man = (Salesman) session.get("salesmanUser");
+		if (man == null || user == null) {
+			return Action.INPUT;
+		} else {
+			System.out.println("sss");
+			System.out.println(findUser);
+			request.put("user", findUser);
+			return Action.SUCCESS;
+		}
+
+	}
+
+	/**/
+	/**
+	 * @return 验证码
+	 * @throws Exception
+	 */
 	public String sendVcode() throws Exception {
 		ActionContext actionContext = ActionContext.getContext();
 		Map session = actionContext.getSession();
@@ -119,7 +141,7 @@ public class UserAction extends ActionSupport implements ModelDriven<User> {
 
 		// String result = SendMsg.sendMsg(user.getPhone(), "您好的的验证码是" + num);
 		session.put("vc_key", num);
-		 System.out.println(session.get("vc_key"));
+		System.out.println(session.get("vc_key"));
 		toJsonSteam("[]");
 		return super.execute();
 	}

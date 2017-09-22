@@ -1,5 +1,8 @@
 package com.business.entitys.order;
 
+import com.business.entitys.goods.GoodsList;
+import com.business.entitys.user.User;
+
 public class OrderForm {
 	private String orderSerialNumber;
 	private int goodsId;
@@ -14,6 +17,40 @@ public class OrderForm {
 	private String invoiceInformation;
 	private String integral = "1";
 	private String paymentNumber;
+	private GoodsList goodsList;
+	private User user;
+	private OrderActivationCode activationCode;
+
+	public OrderForm(String orderSerialNumber, int goodsId, String purchaseTime, String memberDiscount,
+			String actualPurchasePriceGoods, int orderStatus, int userId, String openId, String paymentMethod,
+			String rdCode, String invoiceInformation, String integral, String paymentNumber, GoodsList goodsList,
+			User user, OrderActivationCode activationCode) {
+		super();
+		this.orderSerialNumber = orderSerialNumber;
+		this.goodsId = goodsId;
+		this.purchaseTime = purchaseTime;
+		this.memberDiscount = memberDiscount;
+		this.actualPurchasePriceGoods = actualPurchasePriceGoods;
+		this.orderStatus = orderStatus;
+		this.userId = userId;
+		this.openId = openId;
+		this.paymentMethod = paymentMethod;
+		this.rdCode = rdCode;
+		this.invoiceInformation = invoiceInformation;
+		this.integral = integral;
+		this.paymentNumber = paymentNumber;
+		this.goodsList = goodsList;
+		this.user = user;
+		this.activationCode = activationCode;
+	}
+
+	public OrderActivationCode getActivationCode() {
+		return activationCode;
+	}
+
+	public void setActivationCode(OrderActivationCode activationCode) {
+		this.activationCode = activationCode;
+	}
 
 	public String getOrderSerialNumber() {
 		return orderSerialNumber;
@@ -37,6 +74,51 @@ public class OrderForm {
 
 	public void setPurchaseTime(String purchaseTime) {
 		this.purchaseTime = purchaseTime;
+	}
+
+	@Override
+	public String toString() {
+		return "OrderForm [orderSerialNumber=" + orderSerialNumber + ", goodsId=" + goodsId + ", purchaseTime="
+				+ purchaseTime + ", memberDiscount=" + memberDiscount + ", actualPurchasePriceGoods="
+				+ actualPurchasePriceGoods + ", orderStatus=" + orderStatus + ", userId=" + userId + ", openId="
+				+ openId + ", paymentMethod=" + paymentMethod + ", rdCode=" + rdCode + ", invoiceInformation="
+				+ invoiceInformation + ", integral=" + integral + ", paymentNumber=" + paymentNumber + ", goodsList="
+				+ goodsList + ", user=" + user + ", activationCode=" + activationCode + ", getActivationCode()="
+				+ getActivationCode() + ", getOrderSerialNumber()=" + getOrderSerialNumber() + ", getGoodsId()="
+				+ getGoodsId() + ", getPurchaseTime()=" + getPurchaseTime() + ", getMemberDiscount()="
+				+ getMemberDiscount() + ", getActualPurchasePriceGoods()=" + getActualPurchasePriceGoods()
+				+ ", getOrderStatus()=" + getOrderStatus() + ", getUserId()=" + getUserId() + ", getOpenId()="
+				+ getOpenId() + ", getPaymentMethod()=" + getPaymentMethod() + ", getRdCode()=" + getRdCode()
+				+ ", getInvoiceInformation()=" + getInvoiceInformation() + ", getIntegral()=" + getIntegral()
+				+ ", getPaymentNumber()=" + getPaymentNumber() + ", getGoodsList()=" + getGoodsList() + ", getUser()="
+				+ getUser() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()="
+				+ super.toString() + "]";
+	}
+
+	public OrderForm() {
+		super();
+	}
+
+	public OrderForm(String orderSerialNumber, int goodsId, String purchaseTime, String memberDiscount,
+			String actualPurchasePriceGoods, int orderStatus, int userId, String openId, String paymentMethod,
+			String rdCode, String invoiceInformation, String integral, String paymentNumber, GoodsList goodsList,
+			User user) {
+		super();
+		this.orderSerialNumber = orderSerialNumber;
+		this.goodsId = goodsId;
+		this.purchaseTime = purchaseTime;
+		this.memberDiscount = memberDiscount;
+		this.actualPurchasePriceGoods = actualPurchasePriceGoods;
+		this.orderStatus = orderStatus;
+		this.userId = userId;
+		this.openId = openId;
+		this.paymentMethod = paymentMethod;
+		this.rdCode = rdCode;
+		this.invoiceInformation = invoiceInformation;
+		this.integral = integral;
+		this.paymentNumber = paymentNumber;
+		this.goodsList = goodsList;
+		this.user = user;
 	}
 
 	public String getMemberDiscount() {
@@ -119,17 +201,19 @@ public class OrderForm {
 		this.paymentNumber = paymentNumber;
 	}
 
-	public OrderForm() {
-		super();
+	public GoodsList getGoodsList() {
+		return goodsList;
 	}
 
-	@Override
-	public String toString() {
-		return "OrderForm [orderSerialNumber=" + orderSerialNumber + ", goodsId=" + goodsId + ", purchaseTime="
-				+ purchaseTime + ", memberDiscount=" + memberDiscount + ", actualPurchasePriceGoods="
-				+ actualPurchasePriceGoods + ", orderStatus=" + orderStatus + ", userId=" + userId + ", openId="
-				+ openId + ", paymentMethod=" + paymentMethod + ", rdCode=" + rdCode + ", invoiceInformation="
-				+ invoiceInformation + ", integral=" + integral + ", paymentNumber=" + paymentNumber + "]";
+	public void setGoodsList(GoodsList goodsList) {
+		this.goodsList = goodsList;
 	}
 
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 }

@@ -12,6 +12,9 @@
 		<result property="salesVolume" column="salesVolume" />
 		<result property="isShelves" column="isShelves" />
 		<result property="weight" column="weight" />
+		<result property="effectiveTime" column="effectiveTime" />
+		<result property="hotGoods" column="hotGoods" />
+
 
 		<collection property="goodTypes" ofType="goodsType">
 			<id property="goodsTypeId" column="goodsTypeId" />
@@ -21,7 +24,7 @@
 
 	<select id="getAllGoods" resultMap="goodsListMap" parameterType="String">
 
-		SELECT gl.*,gt.`goodsTypeName` FROM goodstypes AS gts
+		SELECT * FROM goodstypes AS gts
 		INNER JOIN
 		goodslist AS gl ON gl.`goodsId`=gts.`goodsId`
 		INNER JOIN goodsType AS
@@ -32,8 +35,8 @@
 	<insert id="addGoodsList" parameterType="goodsList" keyProperty="goodsId"
 		useGeneratedKeys="true">
 		insert into
-		`goodsList`(`goodsPrice`,`goodsName`,`imageUrl`,`inventory`,`salesVolume`,`isShelves`,`weight`)
-		values(#{goodsPrice},#{goodsName},#{imageUrl},#{inventory},#{salesVolume},#{isShelves},#{weight})
+		`goodsList`(`goodsPrice`,`goodsName`,`imageUrl`,`inventory`,`salesVolume`,`isShelves`,`weight`,`effectiveTime`,`hotGoods`)
+		values(#{goodsPrice},#{goodsName},#{imageUrl},#{inventory},#{salesVolume},#{isShelves},#{weight},#{effectiveTime},#{hotGoods})
 	</insert>
 	<insert id="addTypes" parameterType="goodsTypes">
 		insert into
@@ -76,8 +79,11 @@
 		`inventory`=#{inventory},
 		`salesVolume`=#{salesVolume},
 		`isShelves`=#{isShelves},
-		`weight`=#{weight}
-		where goodsId=#{goodsId}
+		`weight`=#{weight},
+		`effectiveTime`=#{effectiveTime},
+		`hotGoods`=#{hotGoods}
+		where
+		goodsId=#{goodsId}
 
 	</update>
 	<update id="updateGoodsTypes" parameterType="goodsTypes">
@@ -99,11 +105,23 @@
 		DELETE FROM goodsTypes
 		where goodsId=#{int}
 	</delete>
-	<select id="queryByGoodsId" parameterType="int" resultType="goodsList">
-		select * from `goodsList`
-		where `goodsId`=#{int}
+	<select id="queryByGoodsId" parameterType="int" resultMap="goodsListMap">
+		SELECT * FROM goodslist AS gl
+		INNER JOIN goodsTypes AS gts ON
+		gl.`goodsId`=gts.`goodsId`
+		INNER JOIN goodsType AS gt ON
+		gts.`goodsTypeId`=gt.`goodsTypeId`
+		where
+		gl.`goodsId`=#{int}
 	</select>
-<!-- <select id="selectByorderSerialNumber" resultType="int" parameterType="">
-	
-	</select> -->	
+	<select id="selectByorderSerialNumber" resultType="goodsList"
+		parameterType="String">
+		SELECT goodsId FROM goodstypes AS gss
+		WHERE gss.`goodsId` IN (
+		SELECT
+		of.`goodsId` FROM `orderform`AS of
+		WHERE of.`orderSerialNumber`
+		=#{String}
+		) AND GSS.`goodsTypeId`<![CDATA[ <> ]]>'1'
+	</select>
 </mapper>

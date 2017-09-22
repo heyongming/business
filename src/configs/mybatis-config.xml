@@ -9,6 +9,8 @@
 	</settings>
 	<typeAliases>
 	<typeAlias type="com.business.entitys.sales.Salesman" alias="salesman" /> 
+		<typeAlias type="com.business.entitys.sales.SalesmanAndUser" alias="salesmanAndUser" />
+		
 		<typeAlias type="com.business.entitys.goods.GoodsList"
 			alias="goodsList" />
 		<typeAlias type="com.business.entitys.goods.GoodsTypes"
@@ -20,6 +22,7 @@
 		<typeAlias type="com.business.entitys.order.OrderActivationCode" alias="activationCode" />
 		<typeAlias type="com.business.entitys.mp.MpUserEntity" alias="mpUser" />
 		<typeAlias type="com.business.entitys.mp.MpService" alias="mpService" />
+		
 		
 	</typeAliases>
 </configuration>

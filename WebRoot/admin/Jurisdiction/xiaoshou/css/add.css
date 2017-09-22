@@ -1,0 +1,66 @@
+.layui-table > .layui-form > h3 {
+  text-align: center;
+  font-size: 0.16rem;
+  line-height: 0.4rem;
+  font-weight: 400;
+  color: #da251c;
+}
+.layui-form-label{
+  padding: 9px 0px;
+  width: 100px;
+}
+.upload{
+    margin-left: 20px;
+}
+.upload h3 {
+  font-size: 0.2rem;
+  color: #da251c;
+}
+.layui-btn{
+    margin-top: 20px;
+    font-size: 20px;
+}
+.layui-elem-quote{
+}
+.layui-table img {
+    max-width: 2rem;
+}
+
+.select {
+  padding-left: 0.2rem;
+  font-size: 0.3rem;
+  line-height: 0.6rem;
+  margin-top: 0.15rem;
+  position: relative;
+}
+.select h2{
+  text-align: center;
+  font-size: 0.16rem;
+  line-height: 0.4rem;
+  font-weight: 400;
+  color: #da251c;
+}
+.select p{
+  font-size: 18px;
+  line-height: 40px;
+}
+.select .tit{
+  font-size: 18px;
+  color: #da251c;
+  font-weight: 700;
+}
+
+.select .layui-input-block{
+  margin-left: 0;
+}
+.layui-input-block .layui-btn{
+  width: 700px;
+  height: 60px;
+  line-height: 60px;
+  padding: 0;
+  font-size: 30px;
+  border-radius: 10px;
+  margin: 50px 276px;
+}
+
+

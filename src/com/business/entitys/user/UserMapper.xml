@@ -10,24 +10,32 @@
 		`passWord`,`type`,`userName`,
 		`Email`,`openId`,`phone`,
 		`addRess`,`integral`,`Grade`,
-		`userStatus`,`idCard`,`rdCode`)
+		`userStatus`,`idCard`,`rdCode`,`answer`,`idImage`)
 		values(
 		#{passWord},#{type},#{userName},
 		#{Email},#{openId},#{phone},
 		#{addRess},#{integral},#{Grade},
-		#{userStatus},#{idCard},#{rdCode}
+		#{userStatus},#{idCard},#{rdCode},#{answer},#{idImage}
 		)
 
 	</insert>
+	<select id="selectRdCode" parameterType="String" resultType="user">
+		select * from `user` where `rdCode`=#{String}
+	</select>
+	<select id="selectById" parameterType="int" resultType="user">
+		select * from `user` where `userId`=#{int}
+	</select>
+
 	<select id="selectByIdCard" parameterType="com.business.entitys.user.UserBuyTemp"
 		resultType="user">
 		SELECT * FROM `user` AS u
 		WHERE u.`userId` = (
 		SELECT
 		of.`userId` FROM `orderform`AS of
-		WHERE of.`orderSerialNumber` =#{orderSerialNumber}
+		WHERE of.`orderSerialNumber`
+		=#{orderSerialNumber}
 		)
-		AND u.`idCard` LIKE  CONCAT('%',#{idCard})
+		AND u.`idCard` LIKE CONCAT('%',#{idCard})
 	</select>
 	<update id="updateByid" parameterType="user">
 		update `user`

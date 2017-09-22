@@ -51,20 +51,15 @@ public class GoodsOperationServiceImpl implements IGoodsOperationService {
 	@Override
 	public String saveGoods(GoodsList good, String typeName) {
 		// TODO Auto-generated method stub
-		good.setIsShelves(0);
+
 		int goodsId = goodsListDao.addGoodsList(good);
 		GoodsType goodsType = goodsListDao.queryGoodType(typeName);
 		System.out.println(goodsType);
 
 		int flog = goodsListDao.addTypes(new GoodsTypes(goodsId, goodsType.getGoodsTypeId()));
-		ResultMessage message = null;
-		if (flog > 0) {
-			message = new ResultMessage("1", "true", "insert Success");
-		} else {
-			message = new ResultMessage("-1", "false", "insert fail");
 
-		}
-		String resString = JSONObject.toJSONString(message);
+		GoodsList list = goodsListDao.queryByGoodsId(goodsId);
+		String resString = JSONObject.toJSONString(list);
 		System.out.println(resString);
 		return resString;
 	}
@@ -89,17 +84,18 @@ public class GoodsOperationServiceImpl implements IGoodsOperationService {
 	}
 
 	@Override
-	public String updateGoods(GoodsList goodsList) {
+	public String updateGoods(GoodsList goodsList, String typeName) {
 		// TODO Auto-generated method stub
-		int flog = goodsListDao.updateGoods(goodsList);
+		GoodsType goodsType = goodsListDao.queryGoodType(typeName);
+		int flog = goodsListDao.updateGoodsTypes(new GoodsTypes(goodsList.getGoodsId(), goodsType.getGoodsTypeId()));
+		int flog1 = goodsListDao.updateGoods(goodsList);
+		System.out.println(flog+flog1+"????????????");
 		String result = null;
-		ResultMessage resultMessage = null;
-		if (flog > 0) {
-			resultMessage = new ResultMessage("1", "true", "update Success ");
-		} else {
-			resultMessage = new ResultMessage("-1", "false", "update fail");
+
+		if (flog > 0 || flog1 > 0) {
+			return "1";
 		}
-		result = JSONObject.toJSONString(resultMessage);
+
 		return result;
 	}
 
@@ -141,24 +137,27 @@ public class GoodsOperationServiceImpl implements IGoodsOperationService {
 		int goodstypesFlog = goodsListDao.delGoodsTypes(goodsId);
 		String result = null;
 		ResultMessage resultMessage = null;
-		if(goodstypesFlog > 0)
-		{
-			resultMessage = new ResultMessage("1", "true", "switch Success");	
-		}
-		else
-		{
-		int flog=goodsListDao.addTypes(new GoodsTypes(goodsId,1));
-				if(flog>0)
-				{
-					resultMessage = new ResultMessage("1", "true", "switch Success");	
-				}
-				else
-				{
-					resultMessage = new ResultMessage("-1", "true", "switch fail");	
-				}
+		if (goodstypesFlog > 0) {
+			resultMessage = new ResultMessage("1", "true", "switch Success");
+		} else {
+			int flog = goodsListDao.addTypes(new GoodsTypes(goodsId, 1));
+			if (flog > 0) {
+				resultMessage = new ResultMessage("1", "true", "switch Success");
+			} else {
+				resultMessage = new ResultMessage("-1", "true", "switch fail");
+			}
 		}
 		result = JSONObject.toJSONString(resultMessage);
 		return result;
+	}
+
+	@Override
+	public String queryGoodsListById(int id) {
+		// TODO Auto-generated method stub
+		GoodsList goodsList = goodsListDao.queryByGoodsId(id);
+
+		return JSONObject.toJSONString(goodsList);
+
 	}
 
 }

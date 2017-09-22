@@ -1,9 +1,14 @@
 package com.business.service.impl;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Repository;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.business.dao.IGoodsListDao;
 import com.business.dao.IOrderDao;
@@ -137,5 +142,42 @@ public class OrderServiceImpl implements IOrderService {
 		result = JSONObject.toJSONString(message);
 		return result;
 	}
+
+	@Override
+	public String findData() {
+		// TODO Auto-generated method stub
+		List<OrderForm> list = orderDao.getAllData();
+		if (list == null || list.size() == 0) {
+			return "";
+		}
+		return JSONObject.toJSONString(list);
+	}
+
+	@Override
+	public String findDataBywhere(OrderForm orderForm) {
+		// TODO Auto-generated method stub
+		Map<String, Object> map=new HashMap<String, Object>();
+		if(orderForm.getOrderSerialNumber()!=null)
+		{
+			map.put("orderSerialNumber", orderForm.getOrderSerialNumber());
+		}
+		else if(orderForm.getPurchaseTime()!=null)
+		{
+			map.put("purchaseTime", orderForm.getPurchaseTime());
+		}
+		else if(orderForm.getUser().getUserName()!=null)
+		{
+			map.put("userName", orderForm.getUser().getUserName());
+		}
+		List<OrderForm> list = orderDao.getDataByWhere(map);
+		if (list == null || list.size() == 0) {
+			return "";
+		}
+		return JSONObject.toJSONString(list);
+
+	
+	}
+
+	
 
 }

@@ -14,6 +14,7 @@ import org.apache.struts2.ServletActionContext;
 
 import com.business.entitys.goods.GoodsList;
 import com.business.service.IGoodsOperationService;
+import com.business.util.RandomUtill;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
@@ -36,6 +37,15 @@ public class GoodsAddAction extends ActionSupport implements ModelDriven<GoodsLi
 
 	private GoodsList goodsList;
 	private String goodsTypeName;
+	private String goodsTypeId;
+
+	public String getGoodsTypeId() {
+		return goodsTypeId;
+	}
+
+	public void setGoodsTypeId(String goodsTypeId) {
+		this.goodsTypeId = goodsTypeId;
+	}
 
 	private InputStream bis;
 
@@ -117,6 +127,17 @@ public class GoodsAddAction extends ActionSupport implements ModelDriven<GoodsLi
 		// TODO Auto-generated method stub
 		// String root =
 		// ServletActionContext.getServletContext().getRealPath("/upload/");
+		String random = RandomUtill.randomUtil();
+		fictitiousPath = fictitiousPath + goodsList.getGoodsName() + random;
+		savePath = savePath + goodsList.getGoodsName() + random;
+		String tempPath = "";
+		while (!(createDir(savePath))) {
+
+			random = RandomUtill.randomUtil();
+			fictitiousPath = fictitiousPath + goodsList.getGoodsName() + random;
+			savePath = savePath + goodsList.getGoodsName() + random;
+
+		}
 		InputStream is = new FileInputStream(file);
 		OutputStream os = new FileOutputStream(new File(savePath, fileFileName));
 		System.out.println("fileFileName: " + fileFileName);
@@ -130,16 +151,18 @@ public class GoodsAddAction extends ActionSupport implements ModelDriven<GoodsLi
 		}
 		os.close();
 		is.close();
-		goodsList.setImageUrl(fictitiousPath + fileFileName);
-		
+		tempPath = tempPath + fictitiousPath + "/" + fileFileName;
+		goodsList.setImageUrl(tempPath);
+
 		String result = GoodsOperationService.saveGoods(goodsList, goodsTypeName);
+		System.out.println(result+"joooo");
 		toJsonSteam(result);
 		return super.execute();
 	}
 
 	private void toJsonSteam(String text) {
 		try {
-			bis = new ByteArrayInputStream(text.getBytes("GBK"));
+			bis = new ByteArrayInputStream(text.getBytes("utf-8"));
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			bis = null;
@@ -152,5 +175,24 @@ public class GoodsAddAction extends ActionSupport implements ModelDriven<GoodsLi
 		// TODO Auto-generated method stub
 		goodsList = new GoodsList();
 		return goodsList;
+	}
+
+	private boolean createDir(String destDirName) {
+		File dir = new File(destDirName);
+		if (dir.exists()) {// 判断目录是否存在
+			System.out.println("创建目录失败，目标目录已存在！");
+			return false;
+		}
+		if (!destDirName.endsWith(File.separator)) {// 结尾是否以"/"结束
+			destDirName = destDirName + File.separator;
+		}
+		if (dir.mkdirs()) {// 创建目标目录
+			System.out.println("创建目录成功！" + destDirName);
+			return true;
+		} else {
+			System.out.println("创建目录失败！");
+			return false;
+		}
+
 	}
 }

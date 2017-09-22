@@ -2,6 +2,65 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "mybatis-3-mapper.dtd">
 <mapper namespace="order">
+
+	<resultMap type="orderForm" id="orderFormMap">
+		<id property="orderSerialNumber" column="orderSerialNumber" />
+		<result property="purchaseTime" column="purchaseTime" />
+		<result property="memberDiscount" column="memberDiscount" />
+		<result property="actualPurchasePriceGoods" column="actualPurchasePriceGoods" />
+		<result property="orderStatus" column="orderStatus" />
+		<result property="openId" column="openId" />
+		<result property="paymentMethod" column="paymentMethod" />
+		<result property="paymentNumber" column="paymentNumber" />
+		<result property="rdCode" column="rdCode" />
+		<result property="invoiceInformation" column="invoiceInformation" />
+		<result property="integral" column="integral" />
+
+
+		<collection property="goodsList" ofType="goodsList">
+			<id property="goodsId" column="goodsId" />
+			<result property="goodsPrice" column="goodsPrice" />
+			<result property="dateManufacture" column="dateManufacture" />
+			<result property="goodsName" column="goodsName" />
+			<result property="imageUrl" column="imageUrl" />
+			<result property="inventory" column="inventory" />
+			<result property="salesVolume" column="salesVolume" />
+			<result property="isShelves" column="isShelves" />
+			<result property="weight" column="weight" />
+			<result property="effectiveTime" column="effectiveTime" />
+			<result property="hotGoods" column="hotGoods" />
+
+		</collection>
+		<collection property="user" ofType="user">
+			<id property="userId" column="userId" />
+			<result property="passWord" column="passWord" />
+			<result property="type" column="type" />
+			<result property="userName" column="userName" />
+			<result property="Email" column="Email" />
+			<result property="openId" column="openId" />
+			<result property="phone" column="phone" />
+			<result property="addRess" column="addRess" />
+			<result property="integral" column="integral" />
+			<result property="Grade" column="Grade" />
+			<result property="userStatus" column="userStatus" />
+			<result property="idCard" column="idCard" />
+			<result property="rdCode" column="rdCode" />
+			<result property="answer" column="answer" />
+			<result property="idImage" column="idImage" />
+
+		</collection>
+		<collection property="activationCode" ofType="activationCode">
+			<id property="orderSerialNumber" column="orderSerialNumber" />
+			<result property="activationCodeId" column="activationCodeId" />
+			<result property="isActivation" column="isActivation" />
+			<result property="activationCode" column="activationCode" />
+			<result property="dateManufacture" column="dateManufacture" />
+
+
+		</collection>
+
+	</resultMap>
+
 	<insert id="addOrder" parameterType="orderForm">
 		insert into `orderForm`(
 		`orderSerialNumber`,`goodsId`,`purchaseTime`,
@@ -68,4 +127,40 @@
 		where
 		orderSerialNumber=#{String}
 	</update>
+
+	<select id="selectByWhere" resultMap="orderFormMap"
+		parameterType="map">
+		SELECT * FROM `orderform` AS of
+		INNER JOIN `goodsList` AS
+		gl ON
+		of.`goodsId`=gl.`goodsId`
+		INNER JOIN
+		`user` AS us ON
+		us.`userId`=of.`userId`
+		LEFT JOIN `orderactivationcode`
+		AS oatc ON
+		oatc.`orderSerialNumber`=of.`orderSerialNumber`
+		WHERE 1=1
+		<if test="orderSerialNumber!=null ">
+			and of.`orderSerialNumber`=#{orderSerialNumber}
+		</if>
+		<if test="userName!=null">
+			and us.`userName` like CONCAT('%',#{userName},'%')
+
+		</if>
+		<if test="purchaseTime!=null">
+			and of.`purchaseTime` &gt; #{purchaseTime}
+
+		</if>
+
+	</select>
+	<select id="byAlldata" resultMap="orderFormMap">
+		SELECT * FROM `orderform` AS of
+		INNER JOIN `goodsList` AS gl ON of.`goodsId`=gl.`goodsId`
+		INNER JOIN
+		`user` AS us ON us.`userId`=of.`userId`
+		LEFT JOIN `orderactivationcode`
+		AS oatc ON
+		oatc.`orderSerialNumber`=of.`orderSerialNumber`
+	</select>
 </mapper>

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.business.dao.ISalesmanDao;
 import com.business.entitys.sales.Salesman;
+import com.business.entitys.sales.SalesmanAndUser;
 
 @Repository("salesmanDao")
 public class SalesmanDaoImpl implements ISalesmanDao {
@@ -54,6 +55,12 @@ public class SalesmanDaoImpl implements ISalesmanDao {
 	public List<Salesman> selectByName(String name) {
 		// TODO Auto-generated method stub
 		return sessionTemplate.selectList("salesman.selectByName", name);
+	}
+
+	@Override
+	public int insertSalesmanId(SalesmanAndUser salesmanAndUser) {
+		// TODO Auto-generated method stub
+		return sessionTemplate.insert("salesman.insertSalesmanAndUser", salesmanAndUser);
 	}
 
 }

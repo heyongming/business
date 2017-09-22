@@ -4,44 +4,13 @@ import java.util.List;
 
 public class GoodsList {
 	private int goodsId;
-	private int goodsPrice;
-	private String goodsName;
-	private String imageUrl;
-	private String dateManufacture;
-	private int inventory;
-	private int salesVolume;
-	private int isShelves;
-	private int weight;
-
-	public GoodsList(int goodsId, int goodsPrice, String goodsName, String imageUrl, String dateManufacture,
-			int inventory, int salesVolume, int isShelves, int weight, List<GoodsType> goodTypes) {
-		super();
-		this.goodsId = goodsId;
-		this.goodsPrice = goodsPrice;
-		this.goodsName = goodsName;
-		this.imageUrl = imageUrl;
-		this.dateManufacture = dateManufacture;
-		this.inventory = inventory;
-		this.salesVolume = salesVolume;
-		this.isShelves = isShelves;
-		this.weight = weight;
-		this.goodTypes = goodTypes;
-	}
-
-	public int getWeight() {
-		return weight;
-	}
-
-	public void setWeight(int weight) {
-		this.weight = weight;
-	}
 
 	@Override
 	public String toString() {
 		return "GoodsList [goodsId=" + goodsId + ", goodsPrice=" + goodsPrice + ", goodsName=" + goodsName
 				+ ", imageUrl=" + imageUrl + ", dateManufacture=" + dateManufacture + ", inventory=" + inventory
-				+ ", salesVolume=" + salesVolume + ", isShelves=" + isShelves + ", weight=" + weight + ", goodTypes="
-				+ goodTypes + "]";
+				+ ", salesVolume=" + salesVolume + ", isShelves=" + isShelves + ", hotGoods=" + hotGoods + ", weight="
+				+ weight + ", effectiveTime=" + effectiveTime + ", goodTypes=" + goodTypes + "]";
 	}
 
 	public GoodsList() {
@@ -49,7 +18,8 @@ public class GoodsList {
 	}
 
 	public GoodsList(int goodsId, int goodsPrice, String goodsName, String imageUrl, String dateManufacture,
-			int inventory, int salesVolume, int isShelves, List<GoodsType> goodTypes) {
+			int inventory, int salesVolume, int isShelves, int hotGoods, int weight, int effectiveTime,
+			List<GoodsType> goodTypes) {
 		super();
 		this.goodsId = goodsId;
 		this.goodsPrice = goodsPrice;
@@ -59,6 +29,9 @@ public class GoodsList {
 		this.inventory = inventory;
 		this.salesVolume = salesVolume;
 		this.isShelves = isShelves;
+		this.hotGoods = hotGoods;
+		this.weight = weight;
+		this.effectiveTime = effectiveTime;
 		this.goodTypes = goodTypes;
 	}
 
@@ -126,6 +99,30 @@ public class GoodsList {
 		this.isShelves = isShelves;
 	}
 
+	public int getHotGoods() {
+		return hotGoods;
+	}
+
+	public void setHotGoods(int hotGoods) {
+		this.hotGoods = hotGoods;
+	}
+
+	public int getWeight() {
+		return weight;
+	}
+
+	public void setWeight(int weight) {
+		this.weight = weight;
+	}
+
+	public int getEffectiveTime() {
+		return effectiveTime;
+	}
+
+	public void setEffectiveTime(int effectiveTime) {
+		this.effectiveTime = effectiveTime;
+	}
+
 	public List<GoodsType> getGoodTypes() {
 		return goodTypes;
 	}
@@ -133,6 +130,17 @@ public class GoodsList {
 	public void setGoodTypes(List<GoodsType> goodTypes) {
 		this.goodTypes = goodTypes;
 	}
+
+	private int goodsPrice;
+	private String goodsName;
+	private String imageUrl;
+	private String dateManufacture;
+	private int inventory;
+	private int salesVolume;
+	private int isShelves;
+	private int hotGoods;
+	private int weight;
+	private int effectiveTime;
 
 	private List<GoodsType> goodTypes;
 

@@ -5,9 +5,9 @@
 
 	<select id="getAll" resultType="salesman">
 		select * from salesman
-	</select>									 
-	<insert id="insert" parameterType="salesman" keyProperty="userId" useGeneratedKeys="true"
-		>
+	</select>
+	<insert id="insert" parameterType="salesman" keyProperty="userId"
+		useGeneratedKeys="true">
 		insert into
 		`salesman`(`userName`,`phone`,`type`,`passWord`)
 		values(#{userName},#{phone},#{type},#{passWord})
@@ -23,5 +23,9 @@
 	<select id="selectByName" parameterType="string" resultType="salesman">
 		select * from `salesman` where userName=#{userName}
 	</select>
-
+	<insert id="insertSalesmanAndUser" parameterType="salesmanAndUser">
+		insert into
+		`salesmanAndUser`(`userId`,`salesmanId`)
+		values(#{userId},#{salesmanId})
+	</insert>
 </mapper>

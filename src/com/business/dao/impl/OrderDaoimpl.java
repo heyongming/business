@@ -1,5 +1,8 @@
 package com.business.dao.impl;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -62,6 +65,18 @@ public class OrderDaoimpl implements IOrderDao {
 	public int updatecheckStatus(String orderSerialNumber) {
 		// TODO Auto-generated method stub
 		return sessionTemplate.update("order.updatecheckStatus", orderSerialNumber);
+	}
+
+	@Override
+	public List<OrderForm> getAllData() {
+		// TODO Auto-generated method stub
+		return sessionTemplate.selectList("order.byAlldata");
+	}
+
+	@Override
+	public List<OrderForm> getDataByWhere(Map<String, Object> orderForm) {
+		// TODO Auto-generated method stub
+		return sessionTemplate.selectList("order.selectByWhere", orderForm);
 	}
 
 }

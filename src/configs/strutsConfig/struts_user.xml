@@ -16,6 +16,7 @@
 
 
 		</action>
+
 		<action name="sendVcode" class="com.business.action.user.UserAction"
 			method="sendVcode">
 			<param name="overTime">10000</param>
@@ -25,7 +26,13 @@
 				<param name="inputName">bis</param>
 			</result>
 		</action>
+		<action name="getUser" class="com.business.action.user.UserAction"
+			method="getUserEntity">
+			<result name="success">/admin/Jurisdiction/xiaoshou/success.jsp
+			</result>
+			<result name="input">/admin/login/login.jsp</result>
 
+		</action>
 	</package>
 
 

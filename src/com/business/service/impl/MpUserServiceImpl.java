@@ -4,13 +4,17 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Repository;
 
+import com.alibaba.fastjson.JSONObject;
 import com.business.dao.IMpServiceDao;
 import com.business.dao.IMpUserDao;
 import com.business.dao.IOrderDao;
 import com.business.dao.IUserDao;
+import com.business.entitys.ResultMessage;
 import com.business.entitys.mp.MpUserEntity;
 import com.business.entitys.order.OrderActivationCode;
 import com.business.entitys.user.User;
+import com.business.entitys.user.UserBuyTemp;
+import com.business.job.MsgMeesage;
 import com.business.service.IMpUserService;
 
 @Repository("mpUserService")
@@ -23,6 +27,8 @@ public class MpUserServiceImpl implements IMpUserService {
 	private IUserDao userDao;
 	@Resource
 	private IMpServiceDao mpServiceDao;
+	@Resource
+	private IMpServiceDao goodServiceDao;
 
 	public IMpServiceDao getMpServiceDao() {
 		return mpServiceDao;
@@ -79,13 +85,17 @@ public class MpUserServiceImpl implements IMpUserService {
 	public String activationService(MpUserEntity mpUserEntity, String code, String idCard) {
 		// TODO Auto-generated method stub
 		OrderActivationCode checkApply = orderDao.checkActivationCodeApply(code);
+		ResultMessage resultMessage = null;
 		if (checkApply == null) {
-			return "该激活码已被使用或者不存在";
-		}
+			resultMessage = new ResultMessage("-1", "false", "该激活码已被使用或者不存在");
 
-		User user = userDao.selectByIdCard(idCard);
+			return JSONObject.toJSONString(resultMessage);
+		}
+		UserBuyTemp userBuyTemp = new UserBuyTemp(checkApply.getOrderSerialNumber(), idCard);
+		User user = userDao.selectByIdCard(userBuyTemp);
 		if (user == null) {
-			return "这个激活码不是您的。";
+			resultMessage = new ResultMessage("-2", "false", "这个激活码不是您的。");
+			return JSONObject.toJSONString(resultMessage);
 		}
 		orderDao.updatecheckStatus(checkApply.getOrderSerialNumber());
 
@@ -94,7 +104,7 @@ public class MpUserServiceImpl implements IMpUserService {
 			userDao.updateById(user);
 		}
 		
-		return "succes";
+		return JSONObject.toJSONString(resultMessage);
 	}
 
 }

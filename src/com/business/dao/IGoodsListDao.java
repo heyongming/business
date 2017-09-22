@@ -26,6 +26,13 @@ public interface IGoodsListDao {
 	int delGoods(int goodsId);
 
 	int delGoodsTypes(int goodsId);
-	
-	GoodsList  queryByGoodsId(int id);
+
+	GoodsList queryByGoodsId(int id);
+
+	/**
+	 * @param orderSerialNumber
+	 *            通过订单流水号获得相应的产品实体
+	 * @return 	      对应的产品的实体
+	 */
+	GoodsList queryorderSerialNumberTogoodsId(String orderSerialNumber);
 }
