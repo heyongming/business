@@ -1,6 +1,7 @@
 package com.business.dao.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.business.dao.IGoodsListDao;
 import com.business.entitys.goods.GoodsList;
+import com.business.entitys.goods.GoodsListUpgrade;
 import com.business.entitys.goods.GoodsType;
 import com.business.entitys.goods.GoodsTypes;
 
@@ -66,7 +68,7 @@ public class GoodsListDaoImpl implements IGoodsListDao {
 	public List<GoodsList> queryTypeData(int typeId) {
 		// TODO Auto-generated method stub
 
-		return sessionTemplate.selectList("goods.queryTypeData", typeId);
+		return sessionTemplate.selectList("goodsUser.queryTypeData", typeId);
 	}
 
 	@Override
@@ -94,8 +96,7 @@ public class GoodsListDaoImpl implements IGoodsListDao {
 	}
 
 	@Override
-	public GoodsList queryByGoodsId
-	(int id) {
+	public GoodsList queryByGoodsId(int id) {
 		// TODO Auto-generated method stub
 		return sessionTemplate.selectOne("goods.queryByGoodsId", id);
 	}
@@ -104,6 +105,36 @@ public class GoodsListDaoImpl implements IGoodsListDao {
 	public GoodsList queryorderSerialNumberTogoodsId(String orderSerialNumber) {
 		// TODO Auto-generated method stub
 		return sessionTemplate.selectOne("goods.selectByorderSerialNumber", orderSerialNumber);
+	}
+
+	@Override
+	public List<GoodsList> selectByWhere(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return sessionTemplate.selectList("goodsUser.selectByWhere", map);
+	}
+
+	@Override
+	public List<GoodsListUpgrade> getAllGoodsListUpgrade() {
+		// TODO Auto-generated method stub
+		return sessionTemplate.selectList("goodsUpgrade.selectByAll");
+	}
+
+	@Override
+	public int delGoodslistUpgradeById(int id) {
+		// TODO Auto-generated method stub
+		return sessionTemplate.delete("goodsUpgrade.delgoodslistUpgradeById", id);
+	}
+
+	@Override
+	public int insertGoodsListUpgrade(GoodsListUpgrade goodsListUpgrade) {
+		// TODO Auto-generated method stub
+		return sessionTemplate.insert("goodsUpgrade.insertgoodslistUpgrade", goodsListUpgrade);
+	}
+
+	@Override
+	public List<GoodsListUpgrade> selectUpgradeByWhere(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return sessionTemplate.selectList("goodsUpgrade.selectUpgradeBywhere", map);
 	}
 
 }

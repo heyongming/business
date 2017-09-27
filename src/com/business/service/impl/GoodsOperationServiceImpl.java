@@ -1,6 +1,8 @@
 package com.business.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -11,6 +13,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.business.dao.IGoodsListDao;
 import com.business.entitys.ResultMessage;
 import com.business.entitys.goods.GoodsList;
+import com.business.entitys.goods.GoodsListUpgrade;
 import com.business.entitys.goods.GoodsType;
 import com.business.entitys.goods.GoodsTypes;
 import com.business.service.IGoodsOperationService;
@@ -89,7 +92,7 @@ public class GoodsOperationServiceImpl implements IGoodsOperationService {
 		GoodsType goodsType = goodsListDao.queryGoodType(typeName);
 		int flog = goodsListDao.updateGoodsTypes(new GoodsTypes(goodsList.getGoodsId(), goodsType.getGoodsTypeId()));
 		int flog1 = goodsListDao.updateGoods(goodsList);
-		System.out.println(flog+flog1+"????????????");
+		System.out.println(flog + flog1 + "????????????");
 		String result = null;
 
 		if (flog > 0 || flog1 > 0) {
@@ -154,10 +157,69 @@ public class GoodsOperationServiceImpl implements IGoodsOperationService {
 	@Override
 	public String queryGoodsListById(int id) {
 		// TODO Auto-generated method stub
+
 		GoodsList goodsList = goodsListDao.queryByGoodsId(id);
 
 		return JSONObject.toJSONString(goodsList);
 
+	}
+
+	@Override
+	public String queryGoodsListWhenHot(GoodsList goodsList) {
+		// TODO Auto-generated method stub
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		map.put("hotGoods", 1);
+		List<GoodsList> list = goodsListDao.selectByWhere(map);
+		return JSONObject.toJSONString(list);
+
+	}
+
+	@Override
+	public String getAllgoodsUpgradeList() {
+		// TODO Auto-generated method stub
+		List<GoodsListUpgrade> list = goodsListDao.getAllGoodsListUpgrade();
+		String json = JSONObject.toJSONString(list);
+		return json;
+	}
+
+	@Override
+	public String delgoodslistUpgradeById(int id) {
+		// TODO Auto-generated method stub
+		int flog = goodsListDao.delGoodslistUpgradeById(id);
+		ResultMessage resultMessage = null;
+		if (flog > 0) {
+			resultMessage = new ResultMessage("1", "true", "成功");
+
+		} else {
+			resultMessage = new ResultMessage("-1", "false", "失败");
+
+		}
+		return JSONObject.toJSONString(resultMessage);
+	}
+
+	@Override
+	public String savegoodslistUpgrade(GoodsListUpgrade goodsListUpgrade) {
+		// TODO Auto-generated method stub
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("goodsId", goodsListUpgrade.getGoodsId());
+		map.put("UpgradeGoodsId", goodsListUpgrade.getUpgradeGoodsId());
+		ResultMessage resultMessage = null;
+		List<GoodsListUpgrade> list = goodsListDao.selectUpgradeByWhere(map);
+		if (list.size() >0) {
+			resultMessage = new ResultMessage("-1", "false", "失败");
+			return JSONObject.toJSONString(resultMessage);
+		}
+		int flog = goodsListDao.insertGoodsListUpgrade(goodsListUpgrade);
+	
+		if (flog > 0) {
+			resultMessage = new ResultMessage("1", "true", "成功");
+
+		} else {
+			resultMessage = new ResultMessage("-1", "false", "失败");
+
+		}
+		return JSONObject.toJSONString(resultMessage);
 	}
 
 }

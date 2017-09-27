@@ -17,7 +17,7 @@ CREATE TABLE `goodsList`
 `goodsId` INT(11) NOT NULL AUTO_INCREMENT, /*商品编号*/
 `goodsPrice` INT(11) NOT NULL,		/*商品价格*/
 `goodsName` VARCHAR(50) NOT NULL,	/*商品名字*/
-`imageUrl` VARCHAR(50)  NOT NULL,	/*商品图片 */
+`imageUrl` VARCHAR(200)  NOT NULL,	/*商品图片 */
 `inventory` INT(11) NOT NULL,		/* 库存*/
 `salesVolume` INT(11) NOT NULL, 	/*销售额*/
 `isShelves` INT(11) NOT NULL, 		/* 是否上架  */
@@ -60,6 +60,7 @@ CREATE TABLE `user`
   `rdCode` VARCHAR(50) NOT NULL,		/* 推荐码 */
   `answer` VARCHAR(200) NOT NULL,		/* 提交的风险答案*/
   `idImage` VARCHAR(200) NOT NULL,		/* 提交的身份证图片，分正反两面中间所以,隔开*/
+  
    PRIMARY KEY (`userId`)
 )ENGINE=INNODB AUTO_INCREMENT=100000 DEFAULT CHARSET=utf8;
 CREATE TABLE `salesmanAndUser`
@@ -99,7 +100,7 @@ CREATE TABLE `mpUserentity`
 (
    `openid` VARCHAR(50) NOT NULL,
    `nickname` VARCHAR(50) NOT NULL,
-   `sex` VARCHAR(10) NOT NULL,
+   `sex` VARCHAR(10) NOT NULL, 
    `province` VARCHAR(50)  NULL,
    `city` VARCHAR(50)  NULL,
    `country` VARCHAR(50)  NULL,
@@ -109,6 +110,22 @@ CREATE TABLE `mpUserentity`
    `dateManufacture` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
    PRIMARY KEY (`openid`)
 )
+CREATE TABLE `serviceTime`
+(
+   `id` INT(11) NOT NULL AUTO_INCREMENT ,
+   `serviceDay` INT(11) NOT NULL,
+   `goodsId` INT (11) NOT NULL,
+   `ServiceTime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`)
+)ENGINE=INNODB AUTO_INCREMENT=100000 DEFAULT CHARSET=utf8;
+CREATE TABLE goodslistUpgrade
+(
+   `id` INT(11) NOT NULL AUTO_INCREMENT ,
+   `goodsId` INT(11) NOT NULL ,
+   `UpgradeGoodsId` INT(11) NOT NULL ,
+    `dateManufacture` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`)
+)ENGINE=INNODB AUTO_INCREMENT=100000 DEFAULT CHARSET=utf8;
 CREATE TABLE `mpService`
 (
   `serviceId` INT(11) NOT NULL AUTO_INCREMENT ,
@@ -122,7 +139,7 @@ CREATE TABLE `mpService`
    PRIMARY KEY (`serviceId`)
 )ENGINE=INNODB AUTO_INCREMENT=100000 DEFAULT CHARSET=utf8;
 
-``````activationCodeId``````
+
 
 SELECT *  FROM `user` AS u
 WHERE u.`userId` = (
@@ -162,3 +179,27 @@ SELECT * FROM `orderform` AS of
 INNER JOIN `goodsList` AS gl ON of.`goodsId`=gl.`goodsId`
 INNER JOIN `user` AS us ON us.`userId`=of.`userId`
 LEFT JOIN `orderactivationcode` AS oatc ON oatc.`orderSerialNumber`=of.`orderSerialNumber`
+WHERE of.purchaseTime>'2017-09-07'
+SELECT * FROM `goodsList` WHERE 1=1 AND `hotGoods`=1
+
+SELECT gl.*,gt.`goodsTypeName` FROM goodstypes AS gts INNER JOIN goodslist AS gl ON gl.`goodsId`=gts.`goodsId` INNER JOIN goodsType AS gt ON gt.`goodsTypeId`=gts.`goodsTypeId` WHERE 1=1 AND gts.`goodsTypeId`=2
+
+
+SELECT * FROM `goodsList` 	WHERE 1=1
+AND isShelves = 1
+		ORDER BY `weight`
+SELECT gl.*,gt.`goodsTypeName` FROM goodstypes AS gts INNER JOIN goodslist AS gl ON gl.`goodsId`=gts.`goodsId` INNER JOIN goodsType AS gt ON gt.`goodsTypeId`=gts.`goodsTypeId` where 1=1 and gts.`goodsTypeId`=2 and isShelves = 1 ORDER BY `weight` 
+
+select * from goodslistUpgrade as gu
+inner join  `goodslist` as gl1 on  gu.goodsId=gl1.goodsId
+inner join `goodslist`  as gl2 on gu.UpgradeGoodsId=gl2.goodsId
+SELECT * FROM goodslistUpgrade AS gu INNER JOIN `goodslist` AS gl1 ON gu.goodsId=gl1.goodsId INNER JOIN `goodslist` AS gl2 ON gu.UpgradeGoodsId=gl2.goodsId 
+SELECT gu.*,gl1.*,gl2.* FROM goodslistUpgrade AS gu INNER JOIN `goodslist` AS gl1 ON gu.goodsId=gl1.goodsId INNER JOIN `goodslist` AS gl2 ON gu.UpgradeGoodsId=gl2.goodsId 
+SELECT gu.*,gl1.*,gl2.*
+		FROM
+		goodslistUpgrade AS gu
+		INNER JOIN `goodslist` AS gl1 ON
+		gu.goodsId=goodsId
+		INNER JOIN `goodslist` AS gl2 ON
+		gu.UpgradeGoodsId=gl2.goodsId
+		

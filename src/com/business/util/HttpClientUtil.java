@@ -1,5 +1,8 @@
 package com.business.util;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -31,8 +34,15 @@ public class HttpClientUtil {
 	public static String httpPost(String url, String data) {
 		String result = null;
 		DefaultHttpClient defaultHttpClient = new DefaultHttpClient();
-		
-		HttpPost httpPost = new HttpPost(url);
+		URI base=null;
+		try {
+			 base = new URI(url);
+		} catch (URISyntaxException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		HttpPost httpPost = new HttpPost(base);
+	
 		try {
 			httpPost.setEntity(new StringEntity(data,"utf-8"));
 		//	System.out.println(httpPost.getEntity());

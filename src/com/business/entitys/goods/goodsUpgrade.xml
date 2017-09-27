@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "mybatis-3-mapper.dtd">
+<mapper namespace="goodsUpgrade">
+	<resultMap type="goodsListUpgrade" id="goodsUpgradeMap">
+		<id property="id" column="id" />
+		<result property="dateManufacture" column="dateManufacture" />
+		<result property="goodsId" column="goodsId" />
+		<result property="UpgradeGoodsId" column="ugoodsId" />
+
+
+
+		<collection property="goodsList" ofType="goodsList">
+
+			<id property="goodsId" column="goodsId" />
+			<result property="goodsPrice" column="goodsPrice" />
+			<result property="dateManufacture" column="dateManufacture" />
+			<result property="goodsName" column="goodsName" />
+			<result property="imageUrl" column="imageUrl" />
+			<result property="inventory" column="inventory" />
+			<result property="salesVolume" column="salesVolume" />
+			<result property="isShelves" column="isShelves" />
+			<result property="weight" column="weight" />
+			<result property="effectiveTime" column="effectiveTime" />
+			<result property="hotGoods" column="hotGoods" />
+		</collection>
+
+		<collection property="UpgradeGoodsList" ofType="goodsList">
+
+			<id property="goodsId" column="ugoodsId" />
+			<result property="goodsPrice" column="ugoodsPrice" />
+			<result property="dateManufacture" column="udateManufacture" />
+			<result property="goodsName" column="ugoodsName" />
+			<result property="imageUrl" column="uimageUrl" />
+			<result property="inventory" column="uinventory" />
+			<result property="salesVolume" column="usalesVolume" />
+			<result property="isShelves" column="uisShelves" />
+			<result property="weight" column="uweight" />
+			<result property="effectiveTime" column="ueffectiveTime" />
+			<result property="hotGoods" column="uhotGoods" />
+		</collection>
+
+
+	</resultMap>
+	<select id="selectByAll" resultMap="goodsUpgradeMap">
+		SELECT gu.*,gl1.*
+		,gl2.goodsId as ugoodsId
+		,gl2.goodsPrice as ugoodsPrice
+		,gl2.dateManufacture as udateManufacture
+		,gl2.goodsName as ugoodsName
+		,gl2.imageUrl as uimageUrl
+		,gl2.inventory as uinventory
+		,gl2.salesVolume as usalesVolume
+		,gl2.isShelves as uisShelves
+		,gl2.weight as uweight
+		,gl2.effectiveTime as ueffectiveTime
+		,gl2.hotGoods as uhotGoods
+
+		FROM
+		goodslistUpgrade AS gu
+		INNER JOIN
+		`goodslist` AS gl1 ON
+		gu.goodsId=gl1.goodsId
+		INNER JOIN `goodslist` AS
+		gl2 ON
+		gu.UpgradeGoodsId=gl2.goodsId
+
+	</select>
+	<delete id="delgoodslistUpgradeById" parameterType="int">
+		delete from
+		goodslistUpgrade
+		where id=#{int}
+	</delete>
+
+	<insert id="insertgoodslistUpgrade" parameterType="goodsListUpgrade">
+		insert into
+		`goodslistUpgrade`(`goodsId`,`UpgradeGoodsId`)
+		values(#{goodsId},#{UpgradeGoodsId})
+
+	</insert>
+	<select id="selectUpgradeBywhere" parameterType="map"
+		resultMap="goodsUpgradeMap">
+		SELECT gu.*,gl1.*
+		,gl2.goodsId as ugoodsId
+		,gl2.goodsPrice as
+		ugoodsPrice
+		,gl2.dateManufacture as udateManufacture
+		,gl2.goodsName as
+		ugoodsName
+		,gl2.imageUrl as uimageUrl
+		,gl2.inventory as uinventory
+		,gl2.salesVolume as usalesVolume
+		,gl2.isShelves as uisShelves
+		,gl2.weight as uweight
+		,gl2.effectiveTime as ueffectiveTime
+		,gl2.hotGoods as uhotGoods
+
+		FROM
+		goodslistUpgrade AS gu
+		INNER JOIN
+		`goodslist` AS gl1 ON
+		gu.goodsId=gl1.goodsId
+		INNER JOIN `goodslist` AS
+		gl2 ON
+		gu.UpgradeGoodsId=gl2.goodsId
+		where 1=1
+		<if test="goodsId!=null">
+			and gu.`goodsId`=#{goodsId}
+		</if>
+		<if test="UpgradeGoodsId!=null">
+			and gu.`UpgradeGoodsId`=#{UpgradeGoodsId}
+		</if>
+
+	</select>
+
+
+</mapper>

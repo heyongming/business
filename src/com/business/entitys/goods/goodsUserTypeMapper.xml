@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "mybatis-3-mapper.dtd">
-<mapper namespace="goods">
+<mapper namespace="goodsUser">
 	<resultMap type="goodsList" id="goodsListMap">
 		<id property="goodsId" column="goodsId" />
 		<result property="goodsPrice" column="goodsPrice" />
@@ -21,6 +21,7 @@
 			<result property="goodsTypeName" column="goodsTypeName" />
 		</collection>
 	</resultMap>
+
 	<select id="getAllGoods" resultMap="goodsListMap" parameterType="String">
 
 		SELECT * FROM goodstypes AS gts
@@ -31,19 +32,8 @@
 		gt
 		ON
 		gt.`goodsTypeId`=gts.`goodsTypeId`
-		where 1=1
+		where 1=1 and #{String}
 	</select>
-	<insert id="addGoodsList" parameterType="goodsList" keyProperty="goodsId"
-		useGeneratedKeys="true">
-		insert into
-		`goodsList`(`goodsPrice`,`goodsName`,`imageUrl`,`inventory`,`salesVolume`,`isShelves`,`weight`,`effectiveTime`,`hotGoods`)
-		values(#{goodsPrice},#{goodsName},#{imageUrl},#{inventory},#{salesVolume},#{isShelves},#{weight},#{effectiveTime},#{hotGoods})
-	</insert>
-	<insert id="addTypes" parameterType="goodsTypes">
-		insert into
-		`goodsTypes`(`goodsId`,`goodsTypeId`)
-		values(#{goodsId},#{goodsTypeId})
-	</insert>
 
 	<select id="queryGoodstype" resultType="goodsType"
 		parameterType="string">
@@ -71,41 +61,13 @@
 		gt.`goodsTypeId`=gts.`goodsTypeId`
 		where 1=1 and
 		gts.`goodsTypeId`=#{int}
+		and isShelves = 1
+		ORDER BY `weight`
 	</select>
-	<update id="updateGoods" parameterType="goodsList">
-		update `goodsList` set
-		`goodsPrice`=#{goodsPrice},
-		`goodsName`=#{goodsName},
-		`imageUrl`=#{imageUrl},
-		`inventory`=#{inventory},
-		`salesVolume`=#{salesVolume},
-		`isShelves`=#{isShelves},
-		`weight`=#{weight},
-		`effectiveTime`=#{effectiveTime},
-		`hotGoods`=#{hotGoods}
-		where
-		goodsId=#{goodsId}
 
-	</update>
-	<update id="updateGoodsTypes" parameterType="goodsTypes">
 
-		update `goodsTypes`
-		set
 
-		`goodsTypeId`=#{goodsTypeId}
-		where
-		`goodsId`=#{goodsId} and
-		`goodsTypeId` <![CDATA[<>]]>
-		1
-	</update>
-	<delete id="delGoods" parameterType="int">
-		DELETE FROM goodsList where
-		goodsId=#{int}
-	</delete>
-	<delete id="delGoodsTypes" parameterType="int">
-		DELETE FROM goodsTypes
-		where goodsId=#{int}
-	</delete>
+
 	<select id="queryByGoodsId" parameterType="int" resultMap="goodsListMap">
 		SELECT * FROM goodslist AS gl
 		INNER JOIN goodsTypes AS gts ON
@@ -114,19 +76,19 @@
 		gts.`goodsTypeId`=gt.`goodsTypeId`
 		where
 		gl.`goodsId`=#{int}
-	</select>
-	<select id="selectByorderSerialNumber" resultType="goodsList"
-		parameterType="String">
-		SELECT goodsId FROM goodstypes AS gss
-		WHERE gss.`goodsId` IN (
-		SELECT
-		of.`goodsId` FROM `orderform`AS of
-		WHERE of.`orderSerialNumber`
-		=#{String}
-		) AND GSS.`goodsTypeId`<![CDATA[ <> ]]>'1'
+			and isShelves = 1
+		ORDER BY `weight`
 	</select>
 
-
+	<select id="selectByWhere" parameterType="map" resultType="goodsList">
+		select * from `goodsList`
+		where 1=1
+		<if test="hotGoods!=null">
+			and `hotGoods`=#{hotGoods}
+		</if>
+		and isShelves = 1
+		ORDER BY `weight`
+	</select>
 
 
 

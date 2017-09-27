@@ -149,20 +149,20 @@
 						<dl class="layui-nav-child">
 							<dd>
 								<a href="javascript:;" kit-target
-									data-options="{url:'admin/add.html',icon:'&#xe621;',title:'添加商品',id:'13'}">
+									data-options="{url:'admin/add.jsp',icon:'&#xe621;',title:'添加商品',id:'13'}">
 									<span>添加商品</span>
 								</a>
 							</dd>
 							<dd>
 								<a href="javascript:;" kit-target
-									data-options="{url:'admin/delect.html',icon:'&#xe621;',title:'删除商品',id:'14'}">
-									<span>删除商品</span>
+									data-options="{url:'admin/update.jsp',icon:'&#xe621;',title:'商品升级管理',id:'14'}">
+									<span>商品升级管理</span>
 								</a>
 							</dd>
 							<dd>
 								<a href="javascript:;" kit-target
-									data-options="{url:'admin/revise.html',icon:'&#xe621;',title:'修改商品',id:'15'}">
-									<span>修改商品</span>
+									data-options="{url:'admin/look.jsp',icon:'&#xe621;',title:'查看商品关系',id:'15'}">
+									<span>查看商品关系</span>
 								</a>
 							</dd>
 						</dl></li>

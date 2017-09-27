@@ -138,9 +138,10 @@ public class UserAction extends ActionSupport implements ModelDriven<User> {
 			clearSession(sessionId);
 		}
 		String num = (int) ((Math.random() * 9 + 1) * 100000) + "";
-
-		// String result = SendMsg.sendMsg(user.getPhone(), "您好的的验证码是" + num);
+		System.out.println(user.getPhone());
+		 String result = SendMsg.sendMsg(user.getPhone(), "您好的的验证码是" + num);
 		session.put("vc_key", num);
+		System.out.println("num"+num);
 		System.out.println(session.get("vc_key"));
 		toJsonSteam("[]");
 		return super.execute();

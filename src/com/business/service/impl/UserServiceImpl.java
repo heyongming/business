@@ -47,4 +47,17 @@ public class UserServiceImpl implements IUserService {
 		
 	}
 
+	@Override
+	public User checkUser(User user) {
+		// TODO Auto-generated method stub
+		User tempUser=userDao.findByRdcode(user.getRdCode());
+		if(tempUser==null)
+		{
+			return null;
+		}
+		tempUser.setPhone(user.getPhone());
+		userDao.updateById(tempUser);
+		return tempUser;
+	}
+
 }

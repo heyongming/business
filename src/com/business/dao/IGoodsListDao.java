@@ -1,8 +1,10 @@
 package com.business.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.business.entitys.goods.GoodsList;
+import com.business.entitys.goods.GoodsListUpgrade;
 import com.business.entitys.goods.GoodsType;
 import com.business.entitys.goods.GoodsTypes;
 
@@ -35,4 +37,15 @@ public interface IGoodsListDao {
 	 * @return 	      对应的产品的实体
 	 */
 	GoodsList queryorderSerialNumberTogoodsId(String orderSerialNumber);
+	/*
+	 * 
+	 * 条件查询
+	 */
+	List<GoodsList> selectByWhere(Map<String, Object> map);
+	
+	List<GoodsListUpgrade> getAllGoodsListUpgrade();
+	
+	int delGoodslistUpgradeById(int id);
+	int insertGoodsListUpgrade(GoodsListUpgrade goodsListUpgrade);
+	List<GoodsListUpgrade> selectUpgradeByWhere(Map<String, Object> map);
 }

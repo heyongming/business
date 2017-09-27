@@ -1,55 +1,349 @@
-/**
- * Created by Administrator on 2017/6/22.
- */
-/*ͨ��ajax��ȡ����*/
-/*
-$(function(){
-    //��ȡ��������
-    getNav();
-    function getNav(){
-        $.ajax({
-            url:"aa.php",
-            dataType:"json",
-            success:function(data){
-                //console.log(data);
-                var tem = template("navTem",data);
-                $("#nav").html(tem);
-                /!*����һ��li������ʽ*!/
-                $("#nav").find("a").eq(0).addClass("active");
-                /!*��a����¼�*!/
-                $("#nav").find("a").click(function(){
-                    /!*����*!/
-                    $("#nav").find("a").removeClass("active");
-                    $(this).addClass("active");
-                    var lis = $("#nav").find("a");
-                    /!*��ȡ��ǰ���a��titleid*!/
-                    var thisTitleId=$(this).attr("data-titleid");
-
-                    /!*�����ǰa���б���ʾ��Ӧ����Ϣ*!/
-                    $.ajax({
-                        url:"cc.php",
-                        data:{titleid:thisTitleId},
-                        success:function(data){
-                            //console.log(data);
-                            var tem = template("productTem",data);
-                            $("#product").html(tem);
-                        }
-                    });
-                });
-                /!*���֮ǰ��Ĭ����ʾ���ŵ��б���Ϣ*!/
-                var titleid=data.result[0].titleId;
-                $.ajax({
-                    url:"cc.php",
-                    data:{titleid:titleid},
-                    success:function(data){
-                        //console.log(data);
-                        var tem = template("productTem",data);
-                        $("#list").html(tem);
-                    }
-                });
-            }
-        });
-    }
-});*/
+/*通过ajax获取数据*/
+$(function() {
+	//获取导航数据
+	getNav();
+	function getNav() {
+		$.ajax({
+			url : "/business/goods/getAllType",
+			dataType : "json",
+			success : function(data) {
 
 
+				//导航数据渲染
+				var tag = '';
+				$.each(data, function(i, e) {
+					tag += '<a href="#" data-titleid="' + e.goodsTypeId + '">' + e.goodsTypeName + '</a>';
+				});
+				$("#nav").append(tag);
+				//给第一个li添加样式
+				$("#nav").find("a").eq(0).addClass("active");
+				//给a点击事件
+				$("#nav").find("a").click(function() {
+					//排他
+					$("#nav").find("a").removeClass("active");
+					$(this).addClass("active");
+					//获取当前点击a的titleid
+					var titleid = $(this).attr("data-titleid");
+					if (titleid == null) {
+						$.ajax({
+							url : "/business/goods/getHotGoodsList",
+
+							success : function(data) {
+
+								data = JSON.parse(data);
+								dataTem(data);
+							}
+						});
+					} else {
+						//点击当前a，列表显示对应的信息
+						$.ajax({
+							url : "/business/goods/getTypeGoodsList",
+							data : {
+								"typeId" : titleid
+							},
+							success : function(data) {
+								data = JSON.parse(data);
+								dataTem(data);
+							}
+						});
+					}
+				});
+
+
+
+				//点击之前，默认显示热门的列表信息
+				$.ajax({
+					url : "/business/goods/getHotGoodsList",
+
+					success : function(data) {
+
+						data = JSON.parse(data);
+						dataTem(data);
+					}
+				});
+			}
+		});
+	}
+	//封装页面数据渲染
+	function dataTem(data) {
+		var tag = '';
+		$.each(data, function(i, e) {
+			tag += '<img class="productImages" src="' + e.imageUrl + '" alt="产品图"/>' +
+				'<div class="product">' +
+				'<div class="left">' +
+				'<p>' + e.goodsName + ' </p>' +
+				'<p class="price">￥' + e.goodsPrice + '</p>' +
+				'</div>' +
+				'<button type="button" data-goodsId="' + e.goodsId + '" class="btn btn-primary">购买</button>' +
+				'</div>' +
+				'<div class="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">' +
+				'</div>';
+		});
+		$("#product").html(tag);
+		//弹出购买页
+		$('.product').each(function(i, e) {
+			// 给购买按钮绑定事件
+			$(e).find('.btn-primary').click(function() {
+				$(".modal").css("display", "block");
+				var goodsId = $(this).attr("data-goodsId");
+				$.ajax({
+					url : '/business/goods/getgoodsListById',
+					type : 'post',
+					data : {
+						"goodsId" : goodsId
+					},
+					dataType : 'json',
+					success : function(data) {
+						// 购买详情页渲染
+						console.log(data);
+						//data = JSON.parse(data);
+						var arryList = new Array();
+						arryList.push(data)
+						var goodsTypeId = data.goodTypes[0].goodsTypeId;
+						if (goodsTypeId == 2) { //短线
+							buyTem(arryList);
+						} else if (goodsTypeId == 3) { //长线
+							buyTemLong(arryList);
+						} else if (goodsTypeId == 4) { //长线
+							buyMoni(arryList);
+						}
+
+					}
+				});
+
+			});
+
+		});
+	}
+	// 短线最多三个月，购买详情页封装
+	function buyTem(arryList) {
+		console.log(arryList);
+		var tag = '';
+		$.each(arryList, function(i, e) {
+			tag += '<div class="modal-dialog modal-sm" role="document">' +
+				'<div class="modal-content">' +
+				'<div class="top">' +
+				'<img class="productImg" src="' + e.imageUrl + '" alt=""/>' +
+				'<div>' +
+				'<p class="productTitle" data-goodsId="' + e.goodsId + '">' + e.goodsName + '</p>' +
+				'<span class="danjia" style="display:none" >' + e.goodsPrice + '</span>' +
+				'<p class="num">已选月份*<span></span></p>' +
+				'<p class="price">￥<span class="zongjia"></span></p>' +
+				'</div>' +
+				'</div>' +
+				'<div class="middle">' +
+				'<div class="left">买几个月</div>' +
+				'<div class="right">' +
+				'<input class="min" name="" type="button" value="-" />' +
+				'<input class="text_box" readonly="readonly" name="" type="text" value="1" />' +
+				'<input class="add" name="" type="button" value="+" />' +
+				'</div>' +
+				'</div>' +
+				'<submit class="bottom"><a>确认</a></submit>' +
+				'</div>' +
+				'</div>';
+		});
+		$(".modal").html(tag);
+		total();
+		//获得文本框对象
+		var t = $(".text_box");
+		//初始化数量为1,并失效减
+		$('.min').attr('disabled', true);
+		//数量增加操作
+		$(".add").click(function() {
+			// 给获取的val加上绝对值，避免出现负数
+			t.val(Math.abs(parseInt(t.val())) + 1);
+			if (parseInt(t.val()) != 1) {
+				$('.min').attr('disabled', false);
+			}
+			if (parseInt(t.val()) == 3) {
+				$('.add').attr('disabled', true);
+			}
+			;
+			total();
+		})
+		//数量减少操作
+		$(".min").click(function() {
+			t.val(Math.abs(parseInt(t.val())) - 1);
+			if (parseInt(t.val()) == 1) {
+				$('.min').attr('disabled', true);
+			}
+			if (parseInt(t.val()) != 3) {
+				$('.add').attr('disabled', false);
+			}
+			;
+			total();
+		});
+		//提交
+		$(".bottom").click(function() {
+			var goodsId = $(".productTitle").attr("data-goodsId");
+			var paymentNumber = $(".num").find("span").html();
+			$.ajax({
+				url : "/business/order/saveBuyGoods",
+				data : {
+					"goodsId" : goodsId,
+					"paymentNumber" : paymentNumber,
+				},
+				dataType : 'json',
+				success : function(data) {
+
+					location.href = "login.jsp";
+				}
+			});
+		});
+	}
+	// 长线两个月起步，购买详情页封装
+	function buyTemLong(arryList) {
+		console.log(arryList);
+		var tag = '';
+		$.each(arryList, function(i, e) {
+			tag += '<div class="modal-dialog modal-sm" role="document">' +
+				'<div class="modal-content">' +
+				'<div class="top">' +
+				'<img class="productImg" src="' + e.imageUrl + '" alt=""/>' +
+				'<div>' +
+				'<p class="productTitle" data-goodsId="' + e.goodsId + '">' + e.goodsName + '</p>' +
+				'<span class="danjia" style="display:none" >' + e.goodsPrice + '</span>' +
+				'<p class="num">已选月份*<span></span></p>' +
+				'<p class="price">￥<span class="zongjia"></span></p>' +
+				'</div>' +
+				'</div>' +
+				'<div class="middle">' +
+				'<div class="left">买几个月</div>' +
+				'<div class="right">' +
+				'<input class="min" name="" type="button" value="-" />' +
+				'<input class="text_box" readonly="readonly" name="" type="text" value="2" />' +
+				'<input class="add" name="" type="button" value="+" />' +
+				'</div>' +
+				'</div>' +
+				'<submit class="bottom"><a>确认</a></submit>' +
+				'</div>' +
+				'</div>';
+		});
+		$(".modal").html(tag);
+		total();
+		//获得文本框对象
+		var t = $(".text_box");
+		//初始化数量为1,并失效减
+		$('.min').attr('disabled', true);
+		//数量增加操作
+		$(".add").click(function() {
+			// 给获取的val加上绝对值，避免出现负数
+			t.val(Math.abs(parseInt(t.val())) + 2);
+			if (parseInt(t.val()) != 2) {
+				$('.min').attr('disabled', false);
+			}
+			;
+			total();
+		})
+		//数量减少操作
+		$(".min").click(function() {
+			t.val(Math.abs(parseInt(t.val())) - 2);
+			if (parseInt(t.val()) == 2) {
+				$('.min').attr('disabled', true);
+			}
+			;
+			total();
+		});
+		//提交
+		$(".bottom").click(function() {
+			var goodsId = $(".productTitle").attr("data-goodsId");
+			var paymentNumber = $(".num").find("span").html();
+			$.ajax({
+				url : "/business/order/saveBuyGoods",
+				data : {
+					"goodsId" : goodsId,
+					"paymentNumber" : paymentNumber,
+				},
+				dataType : 'json',
+				success : function(data) {
+
+					location.href = "login.jsp";
+				}
+			});
+		});
+	}
+	// 模拟炒股，购买详情页封装
+	function buyMoni(arryList) {
+		console.log(arryList);
+		var tag = '';
+		$.each(arryList, function(i, e) {
+			tag += '<div class="modal-dialog modal-sm" role="document">' +
+				'<div class="modal-content">' +
+				'<div class="top">' +
+				'<img class="productImg" src="' + e.imageUrl + '" alt=""/>' +
+				'<div>' +
+				'<p class="productTitle" data-goodsId="' + e.goodsId + '">' + e.goodsName + '</p>' +
+				'<span class="danjia" style="display:none" >' + e.goodsPrice + '</span>' +
+				'<p class="num">已选月份*<span></span></p>' +
+				'<p class="price">￥<span class="zongjia"></span></p>' +
+				'</div>' +
+				'</div>' +
+				'<div class="middle">' +
+				'<div class="left">买几个月</div>' +
+				'<div class="right">' +
+				'<input class="min" name="" type="button" value="-" />' +
+				'<input class="text_box" readonly="readonly" name="" type="text" value="1" />' +
+				'<input class="add" name="" type="button" value="+" />' +
+				'</div>' +
+				'</div>' +
+				'<submit class="bottom"><a>确认</a></submit>' +
+				'</div>' +
+				'</div>';
+		});
+		$(".modal").html(tag);
+		total();
+		//获得文本框对象
+		var t = $(".text_box");
+		//初始化数量为1,并失效减
+		$('.min').attr('disabled', true);
+		//数量增加操作
+		$(".add").click(function() {
+			// 给获取的val加上绝对值，避免出现负数
+			t.val(Math.abs(parseInt(t.val())) + 1);
+			if (parseInt(t.val()) != 1) {
+				$('.min').attr('disabled', false);
+			}
+			;
+			total();
+		})
+		//数量减少操作
+		$(".min").click(function() {
+			t.val(Math.abs(parseInt(t.val())) - 1);
+			if (parseInt(t.val()) == 1) {
+				$('.min').attr('disabled', true);
+			}
+			;
+			total();
+		});
+		//提交
+		$(".bottom").click(function() {
+			var goodsId = $(".productTitle").attr("data-goodsId");
+			var paymentNumber = $(".num").find("span").html();
+			$.ajax({
+				url : "/business/order/saveBuyGoods",
+				data : {
+					"goodsId" : goodsId,
+					"paymentNumber" : paymentNumber,
+				},
+				dataType : 'json',
+				success : function(data) {
+
+					location.href = "login.jsp";
+				}
+			});
+		});
+	}
+	function total() {
+		var allprice = 0; //默认商品总价
+		var num = parseInt($(".text_box").val()); //商品数量
+
+		var price = $(".danjia").html(); //商品单价
+		console.log(num + "?" + price)
+		var total = price * num; //计算商品总价
+		allprice += total;
+
+		$(".num").children("span").text(num.toFixed(0));
+		$(".price").children("span").text(allprice.toFixed(0));
+	}
+});

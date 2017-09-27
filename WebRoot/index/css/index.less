@@ -1,0 +1,153 @@
+/*µ¼º½¿é¿ªÊ¼*/
+#nav{
+  height: 0.8rem;
+  line-height: 0.8rem;
+  text-align: center;
+  padding: 0 0.3rem;
+  display: flex;
+  background-color: #fff;
+  border-bottom: 1px solid #ebebeb;
+  >a{
+    font-size: 0.34rem;
+    flex: 1;
+  }
+  >.active{
+    border-bottom: 4px solid #da251c;
+    color: #da251c;
+  }
+}
+/*²úÆ·¿é¿ªÊ¼*/
+#product{
+    .productImages{
+      width: 100%;
+
+    }
+    .product{
+      padding: 0 0.3rem;
+      height: 1.2rem;
+      line-height: 1.2rem;
+      background-color: #fff;
+      margin-bottom: 0.1rem;
+      >.left{
+        margin-top: 0.16rem;
+        float: left;
+        >p{
+          font-size: 0.32rem;
+          line-height: 0.5rem;
+        }
+        >.price{
+          color: #da251c;
+        }
+      }
+      >.btn{
+        border-radius: 8px;
+        padding: 0;
+        width: 1.7rem;
+        height: 0.8rem;
+        margin-top: 0.2rem;
+        float: right;
+        font-size: 0.4rem;
+      }
+      >.btn:focus{
+        outline: 0;
+      }
+      >.btn-primary{
+        background-color: #da251c;
+        border-color: #da251c;
+      }
+    }
+
+  .modal{
+    display: none;
+    background-color: rgba(1,1,1,0.5);
+    .modal-dialog{
+      width: 100%;
+      position: fixed;
+      bottom: 0;
+      margin: 0;
+      .modal-content{
+        border: 0;
+        border-radius: 0;
+        box-shadow: 0;
+        -webkit-box-shadow: 0;
+        >.top{
+          height: 2.6rem;
+          border: 0;
+          padding: 0 0 0.3rem 0.3rem;
+          >img{
+            width: 2rem;
+            float: left;
+          }
+          >div{
+            float: left;
+            margin: 0.4rem 0 0 0.26rem;
+            p{
+              font-size: 0.36rem;
+              line-height: 0.7rem;
+            }
+            >.num{
+              color: #909090;
+              font-size: 0.3rem;
+            }
+            >.price{
+              color: #da251c;
+              font-size: 0.32rem;
+            }
+          }
+        }
+        >.middle{
+          height: 1rem;
+          line-height: 1rem;
+          background-color: #fff;
+          padding: 0 0.3rem;
+          font-size: 0.32rem;
+          >.left{
+            float: left;
+          }
+          >.right{
+            float: right;
+            .min,.add{
+              width: 0.7rem;
+              line-height: 0.66rem;
+              text-align: center;
+              font-size: 0.66rem;
+            }
+
+            .text_box{
+              height: 0.66rem;
+              width: 0.7rem;
+              border: 0;
+              text-align: center;
+            }
+          }
+        }
+        >.bottom{
+          width: 100%;
+          height: 0.98rem;
+          line-height: 0.98rem;
+          background-color: #da251c;
+          display: block;
+          text-align: center;
+          font-size: 0.4rem;
+          a{
+            width: 100%;
+            height: 0.98rem;
+            display: inline-block;
+            color: #fff;
+          }
+        }
+      }
+    }
+  }
+  .title{
+    height: 0.7rem;
+    line-height: 0.7rem;
+    font-size: 0.36rem;
+    color: #909090;
+    padding: 0 0.3rem;
+    background-color: #fff;
+  }
+}
+
+
+ 

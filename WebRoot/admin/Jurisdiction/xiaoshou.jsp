@@ -5,6 +5,7 @@
 			+ path + "/";
 	basePath = "/business/admin/Jurisdiction/";
 %>
+
 <!DOCTYPE html>
 <html>
 <base href="<%=basePath%>">
