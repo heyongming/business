@@ -42,38 +42,6 @@
 	</section>
 	<!--产品块结束-->
 
-	<!--模板渲染-->
-	<!--导航块模板拼接-->
-	<!--<script type="text/html" id="navTem">
-    <ul>
-        {{each result as value}}
-        <a href="#" data-titleid="{{value.titleId}}">{{value.title}}</a>
-        {{/each}}
-    </ul>
-</script>
-&lt;!&ndash;产品块模板拼接&ndash;&gt;
-<script type="text/html" id="productTem">
-    {{each result as value}}
-    <img class="productImages" src="images/image01.png" alt="产品图"/>
-    <div class="product">
-        <div class="left">
-            <p>{{value.text}}</p>
-            <p class="price">{{value.price}}</p>
-        </div>
-        <div class="right">购买</div>
-    </div>
-    <p class="title">{{value.main}}</p>
-    <img class="productImages" src="images/image01.png" alt="产品图"/>
-    <div class="product">
-        <div class="left">
-            <p>{{value.text}}</p>
-            <p class="price">{{value.price}}</p>
-        </div>
-        <div class="right">购买</div>
-    </div>
-    {{/each}}
-</script>-->
-
 	<!-- 以下是所用到的js -->
 	<!--引入jQuery bootstrape依赖jQuery-->
 	<script src="lib/jquery/jquery.js"></script>

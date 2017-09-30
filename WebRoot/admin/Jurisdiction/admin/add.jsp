@@ -39,7 +39,7 @@
 					<span>添加商品</span>
 					<div id="j_hideFormAdd">x</div>
 				</div>
-				
+
 				<div class="layui-form-item" style="display: none;">
 					<label class="layui-form-label">商品编号：</label>
 					<div class="layui-input-block">
@@ -48,7 +48,7 @@
 							class="layui-input">
 					</div>
 				</div>
-				 
+
 				<div class="layui-form-item">
 					<label class="layui-form-label">展示图：</label>
 					<div class="layui-input-block fileImages">
@@ -69,7 +69,7 @@
 				<div class="layui-form-item">
 					<label class="layui-form-label">商品分类：</label>
 					<div class="layui-input-inline">
-						<select name="goodsTypeId" class="layui-input">
+						<select name="goodsTypeId" class="layui-input" id="goodsTypeId">
 							<option value="短线" selected="">短线</option>
 							<option value="长线">长线</option>
 							<option value="模拟对股">模拟对股</option>
@@ -125,6 +125,73 @@
 						</select>
 					</div>
 				</div>
+				   <div class="layui-form-item">
+                    <label class="layui-form-label">购买上限：</label>
+                    <div class="layui-input-inline">
+                        <select name="maxMon" class="layui-input" id="maxMon">
+                            <option value="1" selected="">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">购买下限：</label>
+                    <div class="layui-input-inline">
+                        <select name="minMon" class="layui-input" id="minMon">
+                            <option value="0" selected="">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">服务期限：</label>
+                    <div class="layui-input-inline">
+                        <select name="effectiveTime" class="layui-input" id="effectiveTime">
+                            <option value="1" selected="">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">是否混合：</label>
+                    <div class="layui-input-inline">
+                        <select name="isBlend" class="layui-input" id="isBlend">
+                            <option value="是" selected="">是</option>
+                            <option value="否">否</option>
+                        </select>
+                    </div>
+                </div>
 				<div class="layui-form-item">
 					<div class="layui-input-block">
 						<button class="layui-btn" id="submit">立即提交</button>
@@ -150,6 +217,11 @@
 							<th>销售量</th>
 							<th>热门显示</th>
 							<th>上下架</th>
+
+							<th>购买上限</th>
+							<th>购买下限</th>
+							<th>服务期限</th>
+							<th>是否混合</th>
 							<th>操作</th>
 						</tr>
 					</thead>

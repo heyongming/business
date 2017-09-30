@@ -7,8 +7,6 @@ $(function() {
 			url : "/business/goods/getAllType",
 			dataType : "json",
 			success : function(data) {
-
-
 				//导航数据渲染
 				var tag = '';
 				$.each(data, function(i, e) {
@@ -77,6 +75,8 @@ $(function() {
 				'<button type="button" data-goodsId="' + e.goodsId + '" class="btn btn-primary">购买</button>' +
 				'</div>' +
 				'<div class="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">' +
+				'</div>'+
+				'<div class="modal-dialog modal-sm" role="document">'+
 				'</div>';
 		});
 		$("#product").html(tag);
@@ -84,7 +84,13 @@ $(function() {
 		$('.product').each(function(i, e) {
 			// 给购买按钮绑定事件
 			$(e).find('.btn-primary').click(function() {
-				$(".modal").css("display", "block");
+				 $('.modal').css('display',"block");
+	             $('.modal-dialog').css('display',"block");
+	             $('.modal').click(function(){
+	                  $(".modal").hide();
+	                  $('.modal-dialog').hide();
+	                  location.reload(); 
+	             });
 				var goodsId = $(this).attr("data-goodsId");
 				$.ajax({
 					url : '/business/goods/getgoodsListById',
@@ -120,19 +126,20 @@ $(function() {
 		console.log(arryList);
 		var tag = '';
 		$.each(arryList, function(i, e) {
-			tag += '<div class="modal-dialog modal-sm" role="document">' +
-				'<div class="modal-content">' +
+			tag += '<div class="modal-content">' +
 				'<div class="top">' +
+				'<div class="img">' +
 				'<img class="productImg" src="' + e.imageUrl + '" alt=""/>' +
+				'</div>' +
 				'<div>' +
-				'<p class="productTitle" data-goodsId="' + e.goodsId + '">' + e.goodsName + '</p>' +
+				'<p class="productTitle more" data-goodsId="' + e.goodsId + '">' + e.goodsName + '</p>' +
 				'<span class="danjia" style="display:none" >' + e.goodsPrice + '</span>' +
-				'<p class="num">已选月份*<span></span></p>' +
+				'<p class="num">已选份数*<span></span></p>' +
 				'<p class="price">￥<span class="zongjia"></span></p>' +
 				'</div>' +
 				'</div>' +
 				'<div class="middle">' +
-				'<div class="left">买几个月</div>' +
+				'<div class="left">购买几份</div>' +
 				'<div class="right">' +
 				'<input class="min" name="" type="button" value="-" />' +
 				'<input class="text_box" readonly="readonly" name="" type="text" value="1" />' +
@@ -140,10 +147,9 @@ $(function() {
 				'</div>' +
 				'</div>' +
 				'<submit class="bottom"><a>确认</a></submit>' +
-				'</div>' +
 				'</div>';
 		});
-		$(".modal").html(tag);
+		$(".modal-dialog").html(tag);
 		total();
 		//获得文本框对象
 		var t = $(".text_box");
@@ -197,19 +203,20 @@ $(function() {
 		console.log(arryList);
 		var tag = '';
 		$.each(arryList, function(i, e) {
-			tag += '<div class="modal-dialog modal-sm" role="document">' +
-				'<div class="modal-content">' +
+			tag +='<div class="modal-content">' +
 				'<div class="top">' +
+				'<div class="img">' +
 				'<img class="productImg" src="' + e.imageUrl + '" alt=""/>' +
+				'</div>' +
 				'<div>' +
-				'<p class="productTitle" data-goodsId="' + e.goodsId + '">' + e.goodsName + '</p>' +
+				'<p class="productTitle more" data-goodsId="' + e.goodsId + '">' + e.goodsName + '</p>' +
 				'<span class="danjia" style="display:none" >' + e.goodsPrice + '</span>' +
-				'<p class="num">已选月份*<span></span></p>' +
+				'<p class="num">已选份数*<span></span></p>' +
 				'<p class="price">￥<span class="zongjia"></span></p>' +
 				'</div>' +
 				'</div>' +
 				'<div class="middle">' +
-				'<div class="left">买几个月</div>' +
+				'<div class="left">购买几份</div>' +
 				'<div class="right">' +
 				'<input class="min" name="" type="button" value="-" />' +
 				'<input class="text_box" readonly="readonly" name="" type="text" value="2" />' +
@@ -217,10 +224,9 @@ $(function() {
 				'</div>' +
 				'</div>' +
 				'<submit class="bottom"><a>确认</a></submit>' +
-				'</div>' +
 				'</div>';
 		});
-		$(".modal").html(tag);
+		$(".modal-dialog").html(tag);
 		total();
 		//获得文本框对象
 		var t = $(".text_box");
@@ -268,19 +274,20 @@ $(function() {
 		console.log(arryList);
 		var tag = '';
 		$.each(arryList, function(i, e) {
-			tag += '<div class="modal-dialog modal-sm" role="document">' +
-				'<div class="modal-content">' +
+			tag += '<div class="modal-content">' +
 				'<div class="top">' +
+				'<div class="img">' +
 				'<img class="productImg" src="' + e.imageUrl + '" alt=""/>' +
+				'</div>' +
 				'<div>' +
-				'<p class="productTitle" data-goodsId="' + e.goodsId + '">' + e.goodsName + '</p>' +
+				'<p class="productTitle more" data-goodsId="' + e.goodsId + '">' + e.goodsName + '</p>' +
 				'<span class="danjia" style="display:none" >' + e.goodsPrice + '</span>' +
-				'<p class="num">已选月份*<span></span></p>' +
+				'<p class="num">已选份数*<span></span></p>' +
 				'<p class="price">￥<span class="zongjia"></span></p>' +
 				'</div>' +
 				'</div>' +
 				'<div class="middle">' +
-				'<div class="left">买几个月</div>' +
+				'<div class="left">购买几份</div>' +
 				'<div class="right">' +
 				'<input class="min" name="" type="button" value="-" />' +
 				'<input class="text_box" readonly="readonly" name="" type="text" value="1" />' +
@@ -288,10 +295,9 @@ $(function() {
 				'</div>' +
 				'</div>' +
 				'<submit class="bottom"><a>确认</a></submit>' +
-				'</div>' +
 				'</div>';
 		});
-		$(".modal").html(tag);
+		$(".modal-dialog").html(tag);
 		total();
 		//获得文本框对象
 		var t = $(".text_box");
@@ -334,6 +340,7 @@ $(function() {
 			});
 		});
 	}
+	//商品价格计算
 	function total() {
 		var allprice = 0; //默认商品总价
 		var num = parseInt($(".text_box").val()); //商品数量

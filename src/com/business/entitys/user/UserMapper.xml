@@ -53,7 +53,7 @@
 		`idCard`=#{idCard},
 		`rdCode`=#{rdCode}
 		where
-		`userId`={userId}
+		`userId`=#{userId}
 
 	</update>
 </mapper>

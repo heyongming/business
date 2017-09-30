@@ -13,7 +13,9 @@
 		<result property="isShelves" column="isShelves" />
 		<result property="weight" column="weight" />
 		<result property="effectiveTime" column="effectiveTime" />
-		<result property="hotGoods" column="hotGoods" />
+		<result property="minMon" column="minMon" />
+		<result property="maxMon" column="maxMon" />
+		<result property="isBlend" column="isBlend" />
 
 
 		<collection property="goodTypes" ofType="goodsType">

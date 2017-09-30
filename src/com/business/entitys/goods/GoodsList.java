@@ -5,21 +5,27 @@ import java.util.List;
 public class GoodsList {
 	private int goodsId;
 
-	@Override
-	public String toString() {
-		return "GoodsList [goodsId=" + goodsId + ", goodsPrice=" + goodsPrice + ", goodsName=" + goodsName
-				+ ", imageUrl=" + imageUrl + ", dateManufacture=" + dateManufacture + ", inventory=" + inventory
-				+ ", salesVolume=" + salesVolume + ", isShelves=" + isShelves + ", hotGoods=" + hotGoods + ", weight="
-				+ weight + ", effectiveTime=" + effectiveTime + ", goodTypes=" + goodTypes + "]";
-	}
+	private int goodsPrice;
+	private String goodsName;
+	private String imageUrl;
+	private String dateManufacture;
+	private int inventory;
+	private int salesVolume;
+	private int isShelves;
+	private int hotGoods;
+	private int weight;
+	private int effectiveTime;
+	private int minMon;
+	private int maxMon;
+	private int isBlend;
 
 	public GoodsList() {
 		super();
 	}
 
 	public GoodsList(int goodsId, int goodsPrice, String goodsName, String imageUrl, String dateManufacture,
-			int inventory, int salesVolume, int isShelves, int hotGoods, int weight, int effectiveTime,
-			List<GoodsType> goodTypes) {
+			int inventory, int salesVolume, int isShelves, int hotGoods, int weight, int effectiveTime, int minMon,
+			int maxMon, int isBlend, List<GoodsType> goodTypes) {
 		super();
 		this.goodsId = goodsId;
 		this.goodsPrice = goodsPrice;
@@ -32,7 +38,19 @@ public class GoodsList {
 		this.hotGoods = hotGoods;
 		this.weight = weight;
 		this.effectiveTime = effectiveTime;
+		this.minMon = minMon;
+		this.maxMon = maxMon;
+		this.isBlend = isBlend;
 		this.goodTypes = goodTypes;
+	}
+
+	@Override
+	public String toString() {
+		return "GoodsList [goodsId=" + goodsId + ", goodsPrice=" + goodsPrice + ", goodsName=" + goodsName
+				+ ", imageUrl=" + imageUrl + ", dateManufacture=" + dateManufacture + ", inventory=" + inventory
+				+ ", salesVolume=" + salesVolume + ", isShelves=" + isShelves + ", hotGoods=" + hotGoods + ", weight="
+				+ weight + ", effectiveTime=" + effectiveTime + ", minMon=" + minMon + ", maxMon=" + maxMon
+				+ ", isBlend=" + isBlend + ", goodTypes=" + goodTypes + "]";
 	}
 
 	public int getGoodsId() {
@@ -123,6 +141,30 @@ public class GoodsList {
 		this.effectiveTime = effectiveTime;
 	}
 
+	public int getMinMon() {
+		return minMon;
+	}
+
+	public void setMinMon(int minMon) {
+		this.minMon = minMon;
+	}
+
+	public int getMaxMon() {
+		return maxMon;
+	}
+
+	public void setMaxMon(int maxMon) {
+		this.maxMon = maxMon;
+	}
+
+	public int getIsBlend() {
+		return isBlend;
+	}
+
+	public void setIsBlend(int isBlend) {
+		this.isBlend = isBlend;
+	}
+
 	public List<GoodsType> getGoodTypes() {
 		return goodTypes;
 	}
@@ -130,17 +172,6 @@ public class GoodsList {
 	public void setGoodTypes(List<GoodsType> goodTypes) {
 		this.goodTypes = goodTypes;
 	}
-
-	private int goodsPrice;
-	private String goodsName;
-	private String imageUrl;
-	private String dateManufacture;
-	private int inventory;
-	private int salesVolume;
-	private int isShelves;
-	private int hotGoods;
-	private int weight;
-	private int effectiveTime;
 
 	private List<GoodsType> goodTypes;
 

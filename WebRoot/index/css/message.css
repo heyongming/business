@@ -1,0 +1,92 @@
+/*²úÆ·¿é¿ªÊ¼*/
+#product {
+  height: 1.8rem;
+  padding: 0.3rem;
+  border-bottom: 1px solid #ebebeb;
+  background-color: #fff;
+}
+#product > img {
+  width: 1.2rem;
+  float: left;
+}
+#product > div {
+  float: left;
+  margin-left: 0.3rem;
+}
+#product > div p {
+  font-size: 0.32rem;
+  line-height: 0.5rem;
+}
+#product > div > .price {
+  font-size: 0.28rem;
+}
+#message {
+  height: 2.6rem;
+  background-color: #fff;
+  padding: 0.2rem 0 0 0.3rem;
+  margin-bottom: 0.1rem;
+  font-size: 0.28rem;
+  color: #909090;
+}
+#message > p {
+  line-height: 0.43rem;
+}
+#process {
+  height: 4rem;
+  background-color: #fff;
+}
+#process > h2 {
+  margin: 0;
+  height: 0.9rem;
+  line-height: 0.9rem;
+  border-bottom: 1px solid #ebebeb;
+  padding-left: 0.3rem;
+  font-size: 0.32rem;
+}
+#process > .bottom {
+  padding-left: 0.3rem;
+  font-size: 0.28rem;
+  position: relative;
+}
+#process > .bottom > p {
+  width: 0.01rem;
+  height: 2.8rem;
+  border-left: 1px solid #ebebeb;
+  position: absolute;
+  top: 0.1rem;
+  left: 0.4rem;
+}
+#process > .bottom > ul > li {
+  position: relative;
+}
+#process > .bottom > ul > li > a {
+  display: block;
+  line-height: 0.37rem;
+  margin: 0.2rem 0 0 0.6rem;
+  color: #909090;
+}
+#process > .bottom > ul > li > a > span {
+  color: #da251c;
+}
+#process > .bottom > ul > li > div {
+  width: 0.2rem;
+  height: 0.2rem;
+  background: url("../images/moren.png") no-repeat;
+  background-size: cover;
+  background-position: center;
+  z-index: 999;
+  position: absolute;
+  left: 0;
+  top: 6px;
+}
+#process > .bottom > ul > li > .active {
+  width: 0.2rem;
+  height: 0.2rem;
+  background: url("../images/dianji.png") no-repeat;
+  background-size: cover;
+  background-position: center;
+  z-index: 999;
+  position: absolute;
+  left: 0;
+  top: 6px;
+}

@@ -47,6 +47,16 @@ $(function() {
 				formData.append("goodsPrice", $("#goodsPrice").val());
 				formData.append("inventory", $("#inventory").val());
 				formData.append("salesVolume", $("#salesVolume").val());
+				formData.append("effectiveTime", $("select[name='effectiveTime']").val());
+
+				formData.append("minMon", $("select[name='minMon']").val());
+				formData.append("maxMon", $("select[name='maxMon']").val());
+
+				var isBlend = 0;
+				if ($("select[name='isBlend']").val() =="是") {
+					isBlend = 1;
+				}
+				formData.append("isBlend", isBlend);
 				var hot = 0;
 				if ($("select[name='hotGoods']").val() == "是") {
 					hot = 1;
@@ -101,6 +111,12 @@ $(function() {
 			if (e.isShelves == 1) {
 				isShelves = "上架";
 			}
+			isBlend="否"
+			if(e.isBlend==1)
+			{
+			isBlend="是";
+			}
+			console.log(e)
 			tag += '<tr>' +
 				'<td>' + e.goodsId + '</td>' +
 				'<td style="width: 45px; height: 30px"> <img style="height: 30px" src="' + e.imageUrl + '" alt=""/></td>' +
@@ -112,6 +128,12 @@ $(function() {
 				'<td>' + e.salesVolume + '</td>' +
 				'<td>' + hotGoods + '</td>' +
 				'<td>' + isShelves + '</td>' +
+
+				'<td>' + e.maxMon + '</td>' +
+				'<td>' + e.minMon + '</td>' +
+				'<td>' + e.effectiveTime + '</td>' +
+				'<td>' + isBlend + '</td>' +
+
 				'<td><a href="javascript:;" class="layui-btn layui-btn-mini">编辑</a><a href="javascript:;" class="layui-btn layui-btn-danger layui-btn-mini">删除</a></td>' +
 				'</tr>';
 		});
@@ -163,7 +185,9 @@ $(function() {
 			success : function(data) {
 				/*显示旧信息*/
 				var hotGoods = "是",
-					isShelves = "是";
+					isShelves = "是",
+					isBlend="是";
+					
 				if (data.hotGoods == 0) {
 					hotGoods = "否"
 				}
@@ -171,20 +195,31 @@ $(function() {
 				if (data.isShelves == 0) {
 					isShelves = "否";
 				}
+				if(data.isBlend==0)
+					{
+					isBlend="否";
+					}
+				
 				//	data.hotGoods
 				//	data.isShelves
+				console.log(data)
 				$("#goodsId").val(data.goodsId);
 				//		$("#imageUrl").val(data.imageUrl);
 				imageUrl = data.imageUrl;
 				$("#imageUrlTemp").attr("src", data.imageUrl)
 				$("#goodsName").val(data.goodsName);
-				$("#goodsTypeId").val(data.goodsTypeId);
+				$("#goodsTypeId").val(data.goodTypes[0].goodsTypeName);
 				$("#weight").val(data.weight);
 				$("#goodsPrice").val(data.goodsPrice);
 				$("#inventory").val(data.inventory);
 				$("#salesVolume").val(data.salesVolume);
 				$("#selectbyGoods").val(hotGoods);
 				$("#isShelvesGoods").val(isShelves);
+				$("#maxMon").val(data.maxMon);
+				$("#minMon").val(data.minMon);
+				$("#effectiveTime").val(data.effectiveTime);
+				$("#isBlend").val(isBlend);
+				
 				// 重新绑定表单提交事件
 				$('#submit').unbind('click').click(function() {
 					// 获取更新后的表单数据
@@ -198,7 +233,17 @@ $(function() {
 					formData.append("goodsPrice", $("#goodsPrice").val());
 					formData.append("inventory", $("#inventory").val());
 					formData.append("salesVolume", $("#salesVolume").val());
-					formData
+					formData.append("effectiveTime", $("select[name='effectiveTime']").val());
+
+					formData.append("minMon", $("select[name='minMon']").val());
+					formData.append("maxMon", $("select[name='maxMon']").val());
+
+					var isBlend = 0;
+					if ($("select[name='isBlend']").val() =="是") {
+						isBlend = 1;
+					}
+					
+					formData.append("isBlend", isBlend);
 					var hot = 0;
 					if ($("select[name='hotGoods']").val() == "是") {
 						hot = 1;
@@ -209,6 +254,7 @@ $(function() {
 						isShelves = 1;
 					}
 					formData.append("isShelves", isShelves);
+					
 					var io = formData.entries();
 					for (var i = 0; i < 10; i++) {
 						console.log(io.next())

@@ -24,7 +24,10 @@ CREATE TABLE `goodsList`
 `weight` INT(11) NOT NULL,		/*  权重 */
 `hotGoods` INT (2) NOT NULL,            /* 热推*/
 `dateManufacture` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,  /*上架时间*/
-`effectiveTime` INT(5) NULL,			/*有效期*/
+`effectiveTime` INT(5) NOT  NULL,			/*有效期*/
+`minMon` INT(2) NOT NULL,			/*最小下限 */
+`maxMon` INT(2) NOT NULL,			/*最大下限 */
+`isBlend` INT(2) NOT NULL,			/* 是否是混合版*/
 PRIMARY KEY (`goodsId`)
 )ENGINE=INNODB AUTO_INCREMENT=10000 DEFAULT CHARSET=utf8;
 
@@ -115,6 +118,7 @@ CREATE TABLE `serviceTime`
    `id` INT(11) NOT NULL AUTO_INCREMENT ,
    `serviceDay` INT(11) NOT NULL,
    `goodsId` INT (11) NOT NULL,
+   `userId`  INT(11) NOT NULL,	
    `ServiceTime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`)
 )ENGINE=INNODB AUTO_INCREMENT=100000 DEFAULT CHARSET=utf8;
@@ -188,11 +192,11 @@ SELECT gl.*,gt.`goodsTypeName` FROM goodstypes AS gts INNER JOIN goodslist AS gl
 SELECT * FROM `goodsList` 	WHERE 1=1
 AND isShelves = 1
 		ORDER BY `weight`
-SELECT gl.*,gt.`goodsTypeName` FROM goodstypes AS gts INNER JOIN goodslist AS gl ON gl.`goodsId`=gts.`goodsId` INNER JOIN goodsType AS gt ON gt.`goodsTypeId`=gts.`goodsTypeId` where 1=1 and gts.`goodsTypeId`=2 and isShelves = 1 ORDER BY `weight` 
+SELECT gl.*,gt.`goodsTypeName` FROM goodstypes AS gts INNER JOIN goodslist AS gl ON gl.`goodsId`=gts.`goodsId` INNER JOIN goodsType AS gt ON gt.`goodsTypeId`=gts.`goodsTypeId` WHERE 1=1 AND gts.`goodsTypeId`=2 AND isShelves = 1 ORDER BY `weight` 
 
-select * from goodslistUpgrade as gu
-inner join  `goodslist` as gl1 on  gu.goodsId=gl1.goodsId
-inner join `goodslist`  as gl2 on gu.UpgradeGoodsId=gl2.goodsId
+SELECT * FROM goodslistUpgrade AS gu
+INNER JOIN  `goodslist` AS gl1 ON  gu.goodsId=gl1.goodsId
+INNER JOIN `goodslist`  AS gl2 ON gu.UpgradeGoodsId=gl2.goodsId
 SELECT * FROM goodslistUpgrade AS gu INNER JOIN `goodslist` AS gl1 ON gu.goodsId=gl1.goodsId INNER JOIN `goodslist` AS gl2 ON gu.UpgradeGoodsId=gl2.goodsId 
 SELECT gu.*,gl1.*,gl2.* FROM goodslistUpgrade AS gu INNER JOIN `goodslist` AS gl1 ON gu.goodsId=gl1.goodsId INNER JOIN `goodslist` AS gl2 ON gu.UpgradeGoodsId=gl2.goodsId 
 SELECT gu.*,gl1.*,gl2.*
@@ -202,4 +206,10 @@ SELECT gu.*,gl1.*,gl2.*
 		gu.goodsId=goodsId
 		INNER JOIN `goodslist` AS gl2 ON
 		gu.UpgradeGoodsId=gl2.goodsId
+ GRANT ALL PRIVILEGES ON *.* TO 'myuser'@'%'IDENTIFIED BY 'mypassword' WITH GRANT OPTION;
+ GRANT ALL PRIVILEGES ON *.* TO`business``business` 'root'@'%'WITH GRANT OPTION;
+ SELECT * FROM `serviceTime` AS st
+		INNER JOIN goodsList AS gl ON st.goodsId=gl.goodsId
+		
+select * from `serviceTime` as st INNER JOIN goodsList as gl on st.goodsId=gl.goodsId where 1=1 a`user`nd st.`userId`=4 
 		

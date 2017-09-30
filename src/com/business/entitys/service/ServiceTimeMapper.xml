@@ -2,6 +2,87 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "mybatis-3-mapper.dtd">
 <mapper namespace="service">
+	<resultMap type="ServiceTime" id="ServiceTimeMap">
+		<id property="id" column="id" />
+		<result property="serviceDay" column="serviceDay" />
+		<result property="goodsId" column="goodsId" />
+		<result property="ServiceTime" column="ServiceTime" />
+		<result property="userId" column="userId" />
 
+
+
+		<collection property="goodsList" ofType="goodsList">
+
+			<id property="goodsId" column="goodsId" />
+			<result property="goodsPrice" column="goodsPrice" />
+			<result property="dateManufacture" column="dateManufacture" />
+			<result property="goodsName" column="goodsName" />
+			<result property="imageUrl" column="imageUrl" />
+			<result property="inventory" column="inventory" />
+			<result property="salesVolume" column="salesVolume" />
+			<result property="isShelves" column="isShelves" />
+			<result property="weight" column="weight" />
+			<result property="effectiveTime" column="effectiveTime" />
+			<result property="minMon" column="minMon" />
+			<result property="maxMon" column="maxMon" />
+			<result property="isBlend" column="isBlend" />
+
+		</collection>
+		<collection property="user" ofType="user">
+
+			<id property="userId" column="userId" />
+			<result property="passWord" column="passWord" />
+			<result property="createTime" column="createTime" />
+			<result property="type" column="type" />
+			<result property="userName" column="userName" />
+			<result property="Email" column="Email" />
+			<result property="openId" column="openId" />
+			<result property="phone" column="phone" />
+			<result property="addRess" column="addRess" />
+			<result property="integral" column="integral" />
+			<result property="Grade" column="Grade" />
+			<result property="userStatus" column="userStatus" />
+			<result property="idCard" column="idCard" />
+			<result property="rdCode" column="rdCode" />
+			<result property="answer" column="answer" />
+			<result property="idImage" column="idImage" />
+
+		</collection>
+
+
+	</resultMap>
+	<insert id="insertServiceTime" parameterType="serviceTime"
+		keyProperty="id" useGeneratedKeys="true">
+		insert into serviceTime
+		(`serviceDay`,`goodsId`,`userId`)
+		values(#{serviceDay},#{goodsId},#{userId})
+	</insert>
+	<update id="updateServiceTime" parameterType="serviceTime">
+	update `serviceTime`
+	set
+	 `serviceDay`=#{serviceDay},
+	 `goodsId`=#{goodsId},
+	 `userId`=#{goodsId}
+	where
+	`id`=#{id}
+	</update>
+	<select id="selectBywehre" parameterType="map" resultMap="ServiceTimeMap">
+		select
+		* from `serviceTime` as st
+		INNER JOIN goodsList as gl on
+		st.goodsId=gl.goodsId
+		where 1=1
+		<if test="serviceUserId!=null">
+			and st.`userId`=#{serviceUserId}
+		</if>
+		<if test="serviceGoodsId!=null">
+			and st.`goodsId`=#{serviceGoodsId}
+		</if>
 	
+		
+	</select>
+	<delete id="delete" parameterType="map">
+	
+	</delete>
+
 </mapper>

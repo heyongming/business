@@ -14,7 +14,9 @@
 		<result property="weight" column="weight" />
 		<result property="effectiveTime" column="effectiveTime" />
 		<result property="hotGoods" column="hotGoods" />
-
+		<result property="minMon" column="minMon" />
+		<result property="maxMon" column="maxMon" />
+		<result property="isBlend" column="isBlend" />
 
 		<collection property="goodTypes" ofType="goodsType">
 			<id property="goodsTypeId" column="goodsTypeId" />
@@ -36,8 +38,8 @@
 	<insert id="addGoodsList" parameterType="goodsList" keyProperty="goodsId"
 		useGeneratedKeys="true">
 		insert into
-		`goodsList`(`goodsPrice`,`goodsName`,`imageUrl`,`inventory`,`salesVolume`,`isShelves`,`weight`,`effectiveTime`,`hotGoods`)
-		values(#{goodsPrice},#{goodsName},#{imageUrl},#{inventory},#{salesVolume},#{isShelves},#{weight},#{effectiveTime},#{hotGoods})
+		`goodsList`(`goodsPrice`,`goodsName`,`imageUrl`,`inventory`,`salesVolume`,`isShelves`,`weight`,`effectiveTime`,`hotGoods`,`minMon`,`maxMon`,`isBlend`)
+		values(#{goodsPrice},#{goodsName},#{imageUrl},#{inventory},#{salesVolume},#{isShelves},#{weight},#{effectiveTime},#{hotGoods},#{minMon},#{maxMon},#{isBlend})
 	</insert>
 	<insert id="addTypes" parameterType="goodsTypes">
 		insert into
@@ -82,7 +84,10 @@
 		`isShelves`=#{isShelves},
 		`weight`=#{weight},
 		`effectiveTime`=#{effectiveTime},
-		`hotGoods`=#{hotGoods}
+		`hotGoods`=#{hotGoods},
+		`minMon`=#{minMon},
+		`maxMon`=#{maxMon},
+		`isBlend`=#{isBlend}
 		where
 		goodsId=#{goodsId}
 

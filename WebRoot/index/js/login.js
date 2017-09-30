@@ -65,13 +65,25 @@ $(function() {
 
 		/*提交数据*/
 		$.ajax({
-			url : "",
-			data : {},
+			url : "/business/order/checkUserInfo",
+			data : {
+				"userName" : username,
+				"phone" : $("#j_phone").val(),
+				"password" : password,
+				"rdCode" : recommended
+			},
 			success : function(data) {
-				console.log(data);
-				location.href = '../maibutest/buy01.html'
+				var data=jQuery.parseJSON(data);
+				//alert(data.success)
+				if (data.success == "false") {
+					alert(data.errMsg);
+				} else {
+					location.href = '../index/buy.jsp'
+				}
+
 			}
 		});
+		return;
 	})
 
 })

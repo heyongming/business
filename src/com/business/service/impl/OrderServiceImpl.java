@@ -12,10 +12,14 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.business.dao.IGoodsListDao;
 import com.business.dao.IOrderDao;
+import com.business.dao.IServiceTimeDao;
 import com.business.entitys.ResultMessage;
 import com.business.entitys.goods.GoodsList;
+import com.business.entitys.goods.GoodsListUpgrade;
 import com.business.entitys.order.OrderActivationCode;
 import com.business.entitys.order.OrderForm;
+import com.business.entitys.service.ServiceTime;
+import com.business.entitys.user.User;
 import com.business.service.IOrderService;
 import com.business.temp.ResultOrderActivationCodeEntitys;
 import com.business.util.RandomUtill;
@@ -27,6 +31,16 @@ public class OrderServiceImpl implements IOrderService {
 	private IOrderDao orderDao;
 	@Resource
 	private IGoodsListDao goodsListDao;
+	@Resource
+	private IServiceTimeDao serviceTimeDao;
+
+	public IServiceTimeDao getServiceTimeDao() {
+		return serviceTimeDao;
+	}
+
+	public void setServiceTimeDao(IServiceTimeDao serviceTimeDao) {
+		this.serviceTimeDao = serviceTimeDao;
+	}
 
 	public IGoodsListDao getGoodsListDao() {
 		return goodsListDao;
@@ -156,17 +170,12 @@ public class OrderServiceImpl implements IOrderService {
 	@Override
 	public String findDataBywhere(OrderForm orderForm) {
 		// TODO Auto-generated method stub
-		Map<String, Object> map=new HashMap<String, Object>();
-		if(orderForm.getOrderSerialNumber()!=null)
-		{
+		Map<String, Object> map = new HashMap<String, Object>();
+		if (orderForm.getOrderSerialNumber() != null) {
 			map.put("orderSerialNumber", orderForm.getOrderSerialNumber());
-		}
-		else if(orderForm.getPurchaseTime()!=null)
-		{
+		} else if (orderForm.getPurchaseTime() != null) {
 			map.put("purchaseTime", orderForm.getPurchaseTime());
-		}
-		else if(orderForm.getUser().getUserName()!=null)
-		{
+		} else if (orderForm.getUser().getUserName() != null) {
 			map.put("userName", orderForm.getUser().getUserName());
 		}
 		List<OrderForm> list = orderDao.getDataByWhere(map);
@@ -175,9 +184,274 @@ public class OrderServiceImpl implements IOrderService {
 		}
 		return JSONObject.toJSONString(list);
 
-	
 	}
 
-	
+	@Override
+	public String CheckGoodListAndOrderFrom(GoodsList goodsList, OrderForm orderForm, User user) {
+		// TODO Auto-generated method stub
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("serviceUserId", user.getUserId());
+		List<ServiceTime> list = serviceTimeDao.selectByWhere(map); // 拿到该用户已有的产品
 
+		if (list.size() > 0) // 检测是否到了购买上限
+		{
+			for (ServiceTime serviceTime : list) {
+				if (serviceTime.getGoodsId() == goodsList.getGoodsId()) {
+
+					int serviceDay = serviceTime.getServiceDay();
+
+					int serviceDayshang = serviceDay / 30;
+					int serviceDayys = serviceDay % 30;
+					if (serviceDayys != 0)
+						serviceDayshang = serviceDayshang + 1;
+					int buyNum = Integer.parseInt(orderForm.getPaymentNumber()) + serviceDayshang;
+					if (buyNum >= goodsList.getMaxMon()) {
+						ResultMessage resultMessage = new ResultMessage("-4", "false",
+								"此商品最高只可以购买" + goodsList.getMaxMon() + "份");
+						String msg = JSONObject.toJSONString(resultMessage);
+						return msg;
+					}
+					if (goodsList.getMinMon() != 0) {
+						if (buyNum <= goodsList.getMinMon()) {
+							ResultMessage resultMessage = new ResultMessage("-4", "false",
+									"此商品最少" + goodsList.getMinMon() + "份起卖");
+							String msg = JSONObject.toJSONString(resultMessage);
+							return msg;
+						}
+					}
+				}
+			}
+		}
+		ResultMessage resultMessage = new ResultMessage("1", "true", "ok");
+		String msg = JSONObject.toJSONString(resultMessage);
+		return msg;
+		// 以上代码是检测是否满足产品要求
+
+	}
+
+	@Override
+	public Map<String, Object> UpgradeGoodListAndchekOrder(GoodsList goodsList, OrderForm orderForm, User user) {
+		// TODO Auto-generated method stub
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("serviceUserId", user.getUserId());
+		List<ServiceTime> list = serviceTimeDao.selectByWhere(map); // 拿到该用户已有的产品
+		GoodsList upgradeGoodslist = null;
+		OrderForm buyOrder = null;
+		if (list.size() > 0) {
+			for (ServiceTime serviceTime : list) {
+
+				map.put("goodsId", serviceTime.getGoodsId());
+				map.put("UpgradeGoodsId", goodsList.getGoodsId());
+				List<GoodsListUpgrade> upgrade = goodsListDao.selectUpgradeByWhere(map);
+				if (upgrade.size() > 0) {
+					int upgradeId = upgrade.get(0).getUpgradeGoodsId();
+					upgradeGoodslist = goodsListDao.queryByGoodsId(upgradeId);
+				}
+			}
+		}
+		if (upgradeGoodslist != null) {
+
+			buyOrder = new OrderForm();
+			buyOrder.setUserId(user.getUserId());
+			buyOrder.setPaymentNumber(orderForm.getPaymentNumber());
+			int actualPurch = CalculationActualPurchasePriceGoods(goodsList, orderForm, user);
+			buyOrder.setActualPurchasePriceGoods(actualPurch + "");
+			buyOrder.setGoodsId(goodsList.getGoodsId());
+			Map<String, Object> tempmap = new HashMap<String, Object>();
+			tempmap.put("buyOrder", buyOrder);
+			tempmap.put("upGoodsList", CustomaryGoodslist);
+
+			return tempmap;
+		} else {
+			buyOrder = new OrderForm();
+			buyOrder.setUserId(user.getUserId());
+			buyOrder.setPaymentNumber(orderForm.getPaymentNumber());
+			int actualPurchasePriceGoods = 0;
+			if (goodsList.getIsBlend() == 0) {
+				actualPurchasePriceGoods = (goodsList.getGoodsPrice())
+						* (Integer.parseInt(orderForm.getPaymentNumber()));
+
+			} else {
+				actualPurchasePriceGoods = (goodsList.getGoodsPrice())
+						* (Integer.parseInt(orderForm.getPaymentNumber())) + 999;
+			}
+			buyOrder.setActualPurchasePriceGoods(actualPurchasePriceGoods + "");
+			buyOrder.setGoodsId(goodsList.getGoodsId());
+			Map<String, Object> tempmap = new HashMap<String, Object>();
+			tempmap.put("buyOrder", buyOrder);
+			return tempmap;
+		}
+
+	}
+
+	private GoodsList CustomaryGoodslist = null;// 拥有的的产品对应升级前的实体
+
+	private int CalculationActualPurchasePriceGoods(GoodsList goodsList, OrderForm orderForm, User user) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("serviceUserId", user.getUserId());
+		List<ServiceTime> list = serviceTimeDao.selectByWhere(map); // 拿到该用户已有的产品
+
+		CustomaryGoodslist = null;
+		int buyNum = Integer.parseInt(orderForm.getPaymentNumber());
+		if (list.size() > 0) // 检测是否到了购买上限
+		{
+			for (ServiceTime serviceTime : list) {
+				map.put("goodsId", serviceTime.getGoodsId());
+				map.put("UpgradeGoodsId", goodsList.getGoodsId());
+				List<GoodsListUpgrade> upgrade = goodsListDao.selectUpgradeByWhere(map);
+				if (upgrade.size() > 0) {
+					System.out.println("这是升级后的产品" + upgrade.get(0));
+					int upgradeId = upgrade.get(0).getGoodsId();
+					CustomaryGoodslist = goodsListDao.queryByGoodsId(upgradeId);
+					int serviceDay = serviceTime.getServiceDay();
+					int serviceDayys = serviceDay / 30;
+					if (serviceDayys != 0) {
+						int allGoodsPrice = serviceDayys * CustomaryGoodslist.getGoodsPrice();
+						System.out.println("单价是" + allGoodsPrice + "总价是" + (buyNum * goodsList.getGoodsPrice()));
+						allGoodsPrice = (buyNum * goodsList.getGoodsPrice()) - allGoodsPrice;
+
+						int serviceDayOp = serviceDay % 30;
+						System.out.println(serviceDayOp + "sddf");
+						if (serviceDayOp >= 15) {
+							if (goodsList.getIsBlend() == 1) {
+								/*
+								if(serviceDayys)
+								*/
+								return allGoodsPrice + 999;
+							} else {
+
+								allGoodsPrice = allGoodsPrice - 2000;
+								return allGoodsPrice;
+							}
+						} else {
+							if (goodsList.getIsBlend() == 1) {
+								return allGoodsPrice + 999;
+							} else {
+
+								int monneySur = CustomaryGoodslist.getGoodsPrice() / 30;// 单价
+								System.out.println("单价是" + monneySur + "总价是" + allGoodsPrice);
+								allGoodsPrice = allGoodsPrice - (monneySur * serviceDayOp);
+								return allGoodsPrice;
+							}
+
+						}
+					} else {
+						if (serviceDay >= 15) {
+							if (goodsList.getIsBlend() == 1) {
+								if (buyNum - 1 > 0) {
+									return goodsList.getGoodsPrice() * (buyNum - 1) + 999 + 999;
+								}
+								return 999;
+							} else {
+								return 2000;
+							}
+						} else {
+							if (goodsList.getIsBlend() == 1) {
+								if (buyNum - 1 > 0) {
+									return goodsList.getGoodsPrice() * (buyNum - 1) + 999 + 999;
+								}
+								return 999;
+							} else {
+								if (buyNum - 1 > 0) {
+									return goodsList.getGoodsPrice() * (buyNum - 1) + 2000;
+								}
+
+								int surplusNum = 30 - serviceDay; // 剩余的天数
+								int monneySur = CustomaryGoodslist.getGoodsPrice() / 30;// 单价
+								int money = goodsList.getGoodsPrice() - (monneySur * surplusNum);
+								if (buyNum - 1 > 0) {
+									money = goodsList.getGoodsPrice() * (buyNum - 1) + money;
+								}
+								return money;
+							}
+
+						}
+					}
+
+				}
+
+			}
+
+		}
+		return 0;
+	}
+
+	@Override
+	public String saveBuyoeder(GoodsList buyGoodsList, OrderForm buyorderForm, User userEntitys,
+			GoodsList upGoodsList) {
+		// TODO Auto-generated method stub
+		try {
+			if (upGoodsList != null) {
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("serviceUserId", userEntitys.getUserId());
+				map.put("serviceGoodsId", upGoodsList.getGoodsId());
+				List<ServiceTime> list = serviceTimeDao.selectByWhere(map);
+				list.get(0).setServiceDay(0);
+				serviceTimeDao.update(list.get(0));
+
+			}
+			int buyNum = Integer.parseInt(buyorderForm.getPaymentNumber()) * 30;
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("serviceUserId", userEntitys.getUserId());
+			map.put("serviceGoodsId", buyGoodsList.getGoodsId());
+			List<ServiceTime> list = serviceTimeDao.selectByWhere(map);
+			if (list.size() > 0) {
+				ServiceTime serviceTime = list.get(0);
+				serviceTime.setServiceDay(buyNum + serviceTime.getServiceDay());
+				serviceTimeDao.update(serviceTime);
+			} else {
+				serviceTimeDao.insert(
+						new ServiceTime(0, buyNum, userEntitys.getUserId(), null, userEntitys.getUserId(), null, null));
+			}
+			// 以上为生成服务表
+			OrderForm orderForm = buyorderForm;
+			orderForm.setOrderStatus(0); // 生成状态值
+			long id = snowflakeIdWorker.nextId(); // 生成订单号
+			orderForm.setOrderSerialNumber(id + "");
+			orderForm.setGoodsId(buyGoodsList.getGoodsId());
+			orderForm.setUserId(userEntitys.getUserId());
+
+			OrderActivationCode orderActivationCode = new OrderActivationCode();
+			orderActivationCode.setOrderSerialNumber(orderForm.getOrderSerialNumber());
+
+			String activationCode = RandomUtill.randomUtil();
+			int checkFlog = orderDao.checkActivationCode(activationCode);
+			while (checkFlog != 0) {
+				activationCode = RandomUtill.randomUtil();
+				checkFlog = orderDao.checkActivationCode(activationCode);
+			}
+
+			orderActivationCode.setActivationCode(activationCode);
+			orderActivationCode.setIsActivation("false");
+			int flog = orderDao.addOrderActivationCode(orderActivationCode);
+			int flog1 = orderDao.insertOrder(orderForm);
+			buyGoodsList.setSalesVolume(buyGoodsList.getSalesVolume() + buyNum);
+			buyGoodsList.setInventory(buyGoodsList.getInventory() - buyNum);
+
+			goodsListDao.updateGoods(buyGoodsList);
+			String result = null;
+			ResultOrderActivationCodeEntitys message = null;
+			if (flog > 0 && flog1 > 0) {
+				GoodsList goodsList = goodsListDao.queryByGoodsId(orderForm.getGoodsId());
+				message = new ResultOrderActivationCodeEntitys(orderForm.getOrderSerialNumber(),
+						goodsList.getGoodsName(), activationCode);
+				message.setSuccess("true");
+				message.setErrMsg("insert success");
+				message.setCode("1");
+			} else {
+				message = new ResultOrderActivationCodeEntitys();
+				message.setSuccess("false");
+				message.setErrMsg("insert fail");
+				message.setCode("-1");
+			}
+			result = JSONObject.toJSONString(message);
+			return result;
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return "over";
+		}
+
+	}
 }

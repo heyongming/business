@@ -28,7 +28,7 @@ $(function() {
 			//点击升级前数据详情
 			function dataBefore() {
 				$("#titleBefore").bind("change", function() {
-					 goodsId = $(this).val();
+					goodsId = $(this).val();
 
 					$.ajax({
 						url : "/business/goods/getgoodsListById",
@@ -38,13 +38,17 @@ $(function() {
 						dataType : "json",
 						success : function(data) {
 							var sale = "下架",
-								hot = "不热门";
+								hot = "不热门",
+								isBlend = "否";
 
 							if (data.hotGoods > 0) {
 								hot = "热门";
 							}
 							if (data.isShelves > 0) {
 								sale = "上架";
+							}
+							if (data.isBlend > 0) {
+								isBlend = "是";
 							}
 							//成功
 							var tag = "";
@@ -59,6 +63,10 @@ $(function() {
 								'<td>' + data.salesVolume + '</td>' +
 								'<td>' + hot + '</td>' +
 								'<td>' + sale + '</td>' +
+								'<td>' + data.maxMon + '</td>' +
+								'<td>' + data.minMon + '</td>' +
+								'<td>' + data.effectiveTime + '</td>' +
+								'<td>' + isBlend + '</td>' +
 								'</tr>';
 							$("#productBefore").html(tag);
 						},
@@ -85,8 +93,11 @@ $(function() {
 						success : function(data) {
 							//成功
 							var sale = "下架",
-								hot = "不热门";
-
+								hot = "不热门",
+								isBlend = "否";;
+								if (data.isBlend > 0) {
+									isBlend = "是";
+								}
 							if (data.hotGoods > 0) {
 								hot = "热门";
 							}
@@ -105,6 +116,10 @@ $(function() {
 								'<td>' + data.salesVolume + '</td>' +
 								'<td>' + hot + '</td>' +
 								'<td>' + sale + '</td>' +
+								'<td>' + data.maxMon + '</td>' +
+								'<td>' + data.minMon + '</td>' +
+								'<td>' + data.effectiveTime + '</td>' +
+								'<td>' + isBlend + '</td>' +
 								'</tr>';
 							$("#productAfter").html(tag);
 						},
@@ -119,9 +134,9 @@ $(function() {
 
 			//提交表单将对应关系传到后台
 			$("button").click(function() {
-			//	goodsId = dataBefore();
-			//	UpgradeGoodsId = dataAfter();
-			
+				//	goodsId = dataBefore();
+				//	UpgradeGoodsId = dataAfter();
+
 				$.ajax({
 					url : "/business/goods/insertGoodslistUpgrade",
 					type : "post",

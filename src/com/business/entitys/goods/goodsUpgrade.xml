@@ -22,7 +22,10 @@
 			<result property="isShelves" column="isShelves" />
 			<result property="weight" column="weight" />
 			<result property="effectiveTime" column="effectiveTime" />
-			<result property="hotGoods" column="hotGoods" />
+			<result property="minMon" column="minMon" />
+			<result property="maxMon" column="maxMon" />
+			<result property="isBlend" column="isBlend" />
+
 		</collection>
 
 		<collection property="UpgradeGoodsList" ofType="goodsList">
@@ -38,6 +41,9 @@
 			<result property="weight" column="uweight" />
 			<result property="effectiveTime" column="ueffectiveTime" />
 			<result property="hotGoods" column="uhotGoods" />
+			<result property="minMon" column="uminMon" />
+			<result property="maxMon" column="umaxMon" />
+			<result property="isBlend" column="uisBlend" />
 		</collection>
 
 
@@ -55,6 +61,10 @@
 		,gl2.weight as uweight
 		,gl2.effectiveTime as ueffectiveTime
 		,gl2.hotGoods as uhotGoods
+		,gl2.minMon as uminMon
+		,gl2.maxMon as umaxMon
+		,gl2.isBlend as uisBlend 
+		
 
 		FROM
 		goodslistUpgrade AS gu
@@ -94,7 +104,10 @@
 		,gl2.weight as uweight
 		,gl2.effectiveTime as ueffectiveTime
 		,gl2.hotGoods as uhotGoods
-
+		,gl2.minMon as uminMon
+		,gl2.maxMon as umaxMon
+		,gl2.isBlend as uisBlend 
+		
 		FROM
 		goodslistUpgrade AS gu
 		INNER JOIN
@@ -112,6 +125,6 @@
 		</if>
 
 	</select>
-
+	
 
 </mapper>

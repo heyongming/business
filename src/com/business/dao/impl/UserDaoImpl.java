@@ -42,7 +42,8 @@ public class UserDaoImpl implements IUserDao {
 	@Override
 	public int updateById(User user) {
 		// TODO Auto-generated method stub
-		return sessionTemplate.selectOne("user.updateByid", user);
+		
+		return sessionTemplate.update("user.updateByid", user);
 	}
 
 	@Override
