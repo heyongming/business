@@ -1,9 +1,17 @@
 package com.business.service;
 
+import java.util.List;
+
+import com.business.entitys.goods.GoodsList;
 import com.business.entitys.mp.MpUserEntity;
+import com.business.entitys.user.User;
 
 /**
  * @author 何永明
+ *
+ */
+/**
+ * @author user
  *
  */
 public interface IMpUserService {
@@ -30,5 +38,18 @@ public interface IMpUserService {
 	 *            身份证后6位数
 	 * @return 激活是否成功
 	 */
-	public String activationService(MpUserEntity mpUserEntity, String code, String idCard);
+	public String doActivationService(MpUserEntity mpUserEntity, String code, String idCard);
+
+	/**
+	 * @param user
+	 *            用户购买过的产品
+	 * @return 购买的商品列表
+	 */
+	public List<GoodsList> findGetUserBuyGoodsList(User user);
+	
+	/**
+	 * @param mpUserEntity 需要跟user对应微信用户
+	 * @return 与之对应的user
+	 */
+	public User findOpenIdToUser(MpUserEntity mpUserEntity);
 }

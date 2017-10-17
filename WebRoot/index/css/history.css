@@ -1,46 +1,13 @@
-/*ͷ???鿪ʼ*/
-#header {
-  height: 0.88rem;
-  line-height: 0.88rem;
-  padding: 0 0.3rem;
-  background-color: #393a3f;
-  text-align: center;
-  color: #fff;
-  font-size: 0.4rem;
-}
-#header > .back {
-  float: left;
-  width: 0.3rem;
-  height: 0.5rem;
-}
-#header > .back > img {
-  width: 100%;
-}
-#header > .select {
-  float: right;
-  width: 0.6rem;
-  height: 0.27rem;
-}
-#header > .select > img {
-  width: 100%;
-}
 #message {
   padding: 0.3rem;
   background-color: #fff;
 }
-#message > .mes {
-  height: 0.6rem;
-  line-height: 0.6rem;
-}
-#message > .mes > span {
-  flex: 1;
+#message > .mes > p {
   font-size: 0.32rem;
   color: #111;
-  margin: 0;
-  float: left;
+  line-height: 0.6rem;
 }
 #message > .mes > .color {
-  float: right;
   color: #da251c;
   font-size: 0.24rem;
 }
@@ -62,13 +29,10 @@
   border-bottom: 4px solid #da251c;
   color: #da251c;
 }
-#message .news {
-  height: 2.58rem;
+#message .news > a {
   line-height: 2.58rem;
   border-bottom: 1px solid #ebebeb;
-  padding-top: 0.3rem;
-}
-#message .news > a {
+  padding: 0.3rem 0;
   display: flex;
 }
 #message .news > a > .left {

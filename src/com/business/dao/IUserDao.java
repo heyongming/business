@@ -1,5 +1,8 @@
 package com.business.dao;
 
+import java.util.List;
+import java.util.Map;
+
 import com.business.entitys.user.User;
 import com.business.entitys.user.UserBuyTemp;
 
@@ -19,4 +22,5 @@ public interface IUserDao {
 	User findByRdcode(String rdCode);
 
 	User findById(int id);
+	List<User> selectBywhere(Map<String, Object> map);
 }

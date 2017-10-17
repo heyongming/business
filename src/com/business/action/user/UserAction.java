@@ -99,7 +99,7 @@ public class UserAction extends ActionSupport implements ModelDriven<User> {
 		return super.execute();
 
 	}
-
+	
 	public String getUserEntity() {
 		ActionContext actionContext = ActionContext.getContext();
 		Map session = actionContext.getSession();

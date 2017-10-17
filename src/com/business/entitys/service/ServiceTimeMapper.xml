@@ -8,6 +8,9 @@
 		<result property="goodsId" column="goodsId" />
 		<result property="ServiceTime" column="ServiceTime" />
 		<result property="userId" column="userId" />
+		<result property="agreement" column="agreement" />
+		<result property="realAgreement" column="realAgreement" />
+		<result property="isActivation" column="isActivation" />
 
 
 
@@ -54,17 +57,21 @@
 	<insert id="insertServiceTime" parameterType="serviceTime"
 		keyProperty="id" useGeneratedKeys="true">
 		insert into serviceTime
-		(`serviceDay`,`goodsId`,`userId`)
-		values(#{serviceDay},#{goodsId},#{userId})
+		(`serviceDay`,`goodsId`,`userId`,`isActivation`)
+		values(#{serviceDay},#{goodsId},#{userId},#{isActivation})
 	</insert>
 	<update id="updateServiceTime" parameterType="serviceTime">
-	update `serviceTime`
-	set
-	 `serviceDay`=#{serviceDay},
-	 `goodsId`=#{goodsId},
-	 `userId`=#{goodsId}
-	where
-	`id`=#{id}
+		update
+		`serviceTime`
+		set
+		`serviceDay`=#{serviceDay},
+		`goodsId`=#{goodsId},
+		`userId`=#{userId},
+		`agreement`=#{agreement},
+		`realAgreement`=#{realAgreement},
+		`isActivation`=#{isActivation}
+		where
+		`id`=#{id}
 	</update>
 	<select id="selectBywehre" parameterType="map" resultMap="ServiceTimeMap">
 		select
@@ -78,11 +85,17 @@
 		<if test="serviceGoodsId!=null">
 			and st.`goodsId`=#{serviceGoodsId}
 		</if>
-	
-		
+		<if test="pdfUserId!=null">
+			and st.`goodsId`=#{pdfGoodsId} and
+			st.`userId`=#{pdfUserId}
+		</if>
+		<if test="serviceGoodsIdList!=null">
+			and st.`userId`=#{serviceUserId} and st.`isActivation`=1
+		</if>
 	</select>
-	<delete id="delete" parameterType="map">
 	
+	<delete id="delete" parameterType="map">
+
 	</delete>
 
 </mapper>

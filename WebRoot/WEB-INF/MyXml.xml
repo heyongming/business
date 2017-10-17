@@ -1,0 +1,12 @@
+<xml>
+	<nonce_str><![CDATA[NDXrqctgiyKgmz73]]></nonce_str>
+	<out_trade_no><![CDATA[201710289182224861-wap]]></out_trade_no>
+	<appid><![CDATA[wxaf9208856d550d06]]></appid>
+	<total_fee>1</total_fee>
+	<sign><![CDATA[BC79788DF3653BA602DFF217009BD958]]></sign>
+	<trade_type><![CDATA[MWEB]]></trade_type>
+	<mch_id><![CDATA[1340345701]]></mch_id>
+	<body><![CDATA[test]]></body>
+	<notify_url><![CDATA[https://www.baidu.com]]></notify_url>
+	<spbill_create_ip><![CDATA[106.17.176.34]]></spbill_create_ip>
+</xml>

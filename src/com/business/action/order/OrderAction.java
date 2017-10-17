@@ -3,11 +3,17 @@ package com.business.action.order;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.business.entitys.goods.GoodsList;
+import com.business.entitys.order.OrderActivationCode;
 import com.business.entitys.order.OrderForm;
+import com.business.entitys.user.User;
 import com.business.service.IOrderService;
+import com.opensymphony.xwork2.Action;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
@@ -73,6 +79,19 @@ public class OrderAction extends ActionSupport implements ModelDriven<OrderForm>
 		String jsonText = orderService.saveOrderActivationCode(phone);
 		toJsonSteam(jsonText);
 		return this.SUCCESS;
+	}
+
+	// 成功后的处理
+	public String orderSuccess() {
+		ActionContext actionContext = ActionContext.getContext();
+		Map session = actionContext.getSession();
+		Map request = (Map) ActionContext.getContext().get("request");
+		GoodsList buyGoodsList = (GoodsList) session.get("buyGoodsList");
+		User userEntitys = (User) session.get("buyuser");// 购买者
+		OrderForm orderForm = (OrderForm) session.get("buyOrderResult");
+		OrderActivationCode orderActivationCode = orderService.doClosingTheDeal(orderForm);
+		request.put("orderActivationCode", orderActivationCode);
+		return Action.SUCCESS;
 	}
 
 	public String getActivationCode() throws Exception {

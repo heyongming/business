@@ -37,4 +37,6 @@ public interface IOrderDao {
 	 * @return 是否修改成功
 	 */
 	int updatecheckStatus(String orderSerialNumber);
+
+	List<OrderActivationCode> selectActivationCodeBywhere(Map<String, Object> map);
 }

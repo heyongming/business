@@ -2,7 +2,37 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "mybatis-3-mapper.dtd">
 <mapper namespace="user">
+	<resultMap type="user" id="userMap">
+		<id property="userId" column="userId" />
+		<result property="passWord" column="passWord" />
+		<result property="createTime" column="createTime" />
+		<result property="type" column="type" />
+		<result property="userName" column="userName" />
+		<result property="Email" column="Email" />
+		<result property="openId" column="openId" />
+		<result property="phone" column="phone" />
+		<result property="addRess" column="addRess" />
+		<result property="integral" column="integral" />
+		<result property="Grade" column="Grade" />
+		<result property="userStatus" column="userStatus" />
+		<result property="idCard" column="idCard" />
+		<result property="rdCode" column="rdCode" />
+		<result property="answer" column="answer" />
+		<result property="idImage" column="idImage" />
 
+		<collection property="mpUserEntity" ofType="mpUser">
+			<id property="openid" column="openid" />
+			<result property="nickname" column="nickname" />
+			<result property="sex" column="sex" />
+			<result property="province" column="province" />
+			<result property="city" column="city" />
+			<result property="country" column="country" />
+			<result property="headimgurl" column="headimgurl" />
+			<result property="privilege" column="privilege" />
+			<result property="unionid" column="unionid" />
+			
+		</collection>
+	</resultMap>
 	<insert id="addUser" parameterType="user" keyProperty="userId"
 		useGeneratedKeys="true">
 		insert into
@@ -23,7 +53,8 @@
 		select * from `user` where `rdCode`=#{String}
 	</select>
 	<select id="selectById" parameterType="int" resultType="user">
-		select * from `user` where `userId`=#{int}
+		select *
+		from `user` where `userId`=#{int}
 	</select>
 
 	<select id="selectByIdCard" parameterType="com.business.entitys.user.UserBuyTemp"
@@ -56,4 +87,12 @@
 		`userId`=#{userId}
 
 	</update>
+	<select id="selectUserByWhere" parameterType="map" resultMap="userMap">
+		select * from `user` as us
+		left JOIN `mpuserentity` as mt on mt.`openid`=us.`openId`
+		where 1=1
+		<if test="getUserDataByOpenId!=null">
+			 and us.`openId`=#{findOpenId}
+		</if>
+	</select>
 </mapper>

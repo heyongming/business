@@ -9,30 +9,11 @@ public class ServiceTime {
 	private int goodsId;
 	private String ServiceTime;
 	private int userId;
+	private int isActivation = -1;
 	private GoodsList goodsList;
 	private User user;
-
-	@Override
-	public String toString() {
-		return "ServiceTime [id=" + id + ", serviceDay=" + serviceDay + ", goodsId=" + goodsId + ", ServiceTime="
-				+ ServiceTime + ", userId=" + userId + ", goodsList=" + goodsList + ", user=" + user + "]";
-	}
-
-	public ServiceTime() {
-		super();
-	}
-
-	public ServiceTime(int id, int serviceDay, int goodsId, String serviceTime, int userId, GoodsList goodsList,
-			User user) {
-		super();
-		this.id = id;
-		this.serviceDay = serviceDay;
-		this.goodsId = goodsId;
-		ServiceTime = serviceTime;
-		this.userId = userId;
-		this.goodsList = goodsList;
-		this.user = user;
-	}
+	private String agreement;
+	private String realAgreement;
 
 	public int getId() {
 		return id;
@@ -74,6 +55,14 @@ public class ServiceTime {
 		this.userId = userId;
 	}
 
+	public int getIsActivation() {
+		return isActivation;
+	}
+
+	public void setIsActivation(int isActivation) {
+		this.isActivation = isActivation;
+	}
+
 	public GoodsList getGoodsList() {
 		return goodsList;
 	}
@@ -89,4 +78,47 @@ public class ServiceTime {
 	public void setUser(User user) {
 		this.user = user;
 	}
+
+	public String getAgreement() {
+		return agreement;
+	}
+
+	public void setAgreement(String agreement) {
+		this.agreement = agreement;
+	}
+
+	public String getRealAgreement() {
+		return realAgreement;
+	}
+
+	public void setRealAgreement(String realAgreement) {
+		this.realAgreement = realAgreement;
+	}
+
+	@Override
+	public String toString() {
+		return "ServiceTime [id=" + id + ", serviceDay=" + serviceDay + ", goodsId=" + goodsId + ", ServiceTime="
+				+ ServiceTime + ", userId=" + userId + ", isActivation=" + isActivation + ", goodsList=" + goodsList
+				+ ", user=" + user + ", agreement=" + agreement + ", realAgreement=" + realAgreement + "]";
+	}
+
+	public ServiceTime(int id, int serviceDay, int goodsId, String serviceTime, int userId, int isActivation,
+			GoodsList goodsList, User user, String agreement, String realAgreement) {
+		super();
+		this.id = id;
+		this.serviceDay = serviceDay;
+		this.goodsId = goodsId;
+		ServiceTime = serviceTime;
+		this.userId = userId;
+		this.isActivation = isActivation;
+		this.goodsList = goodsList;
+		this.user = user;
+		this.agreement = agreement;
+		this.realAgreement = realAgreement;
+	}
+
+	public ServiceTime() {
+		super();
+	}
+
 }

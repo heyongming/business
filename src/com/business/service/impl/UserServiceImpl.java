@@ -1,5 +1,9 @@
 package com.business.service.impl;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Repository;
@@ -19,16 +23,16 @@ public class UserServiceImpl implements IUserService {
 	public String saveUser(User user) {
 		// TODO Auto-generated method stub
 		int id = userDao.insertUser(user);
-		
+
 		ResultMessage message = null;
 		if (id > 0) {
 			message = new ResultMessage("1", "true", "insert Success");
 		} else {
 			message = new ResultMessage("-1", "false", "insert fail");
 		}
-	
+
 		String resString = JSONObject.toJSONString(message);
-		
+
 		return resString;
 	}
 
@@ -44,20 +48,21 @@ public class UserServiceImpl implements IUserService {
 	public User findByUser(int id) {
 		// TODO Auto-generated method stub
 		return userDao.findById(id);
-		
+
 	}
 
 	@Override
 	public User checkUser(User user) {
 		// TODO Auto-generated method stub
-		User tempUser=userDao.findByRdcode(user.getRdCode());
-		if(tempUser==null)
-		{
+		User tempUser = userDao.findByRdcode(user.getRdCode());
+		if (tempUser == null) {
 			return null;
 		}
 		tempUser.setPhone(user.getPhone());
 		userDao.updateById(tempUser);
 		return tempUser;
 	}
+
+	
 
 }

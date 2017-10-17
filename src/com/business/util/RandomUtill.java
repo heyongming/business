@@ -13,4 +13,8 @@ public class RandomUtill {
 		}
 		return code;
 	}
+	public static int randomNumUtil()
+	{
+		return (int)((Math.random()*9+1)*100000);
+	}
 }

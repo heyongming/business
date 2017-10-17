@@ -1,17 +1,27 @@
 package com.business.service.impl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Repository;
 
 import com.alibaba.fastjson.JSONObject;
+import com.business.dao.IGoodsListDao;
 import com.business.dao.IMpServiceDao;
 import com.business.dao.IMpUserDao;
 import com.business.dao.IOrderDao;
+import com.business.dao.IServiceTimeDao;
 import com.business.dao.IUserDao;
 import com.business.entitys.ResultMessage;
+import com.business.entitys.goods.GoodsList;
 import com.business.entitys.mp.MpUserEntity;
 import com.business.entitys.order.OrderActivationCode;
+import com.business.entitys.order.OrderForm;
+import com.business.entitys.service.ServiceTime;
 import com.business.entitys.user.User;
 import com.business.entitys.user.UserBuyTemp;
 import com.business.job.MsgMeesage;
@@ -28,7 +38,26 @@ public class MpUserServiceImpl implements IMpUserService {
 	@Resource
 	private IMpServiceDao mpServiceDao;
 	@Resource
-	private IMpServiceDao goodServiceDao;
+	private IGoodsListDao goodsListDao;
+
+	public IGoodsListDao getGoodsListDao() {
+		return goodsListDao;
+	}
+
+	public void setGoodsListDao(IGoodsListDao goodsListDao) {
+		this.goodsListDao = goodsListDao;
+	}
+
+	@Resource
+	private IServiceTimeDao serviceTimeDao;
+
+	public IServiceTimeDao getServiceTimeDao() {
+		return serviceTimeDao;
+	}
+
+	public void setServiceTimeDao(IServiceTimeDao serviceTimeDao) {
+		this.serviceTimeDao = serviceTimeDao;
+	}
 
 	public IMpServiceDao getMpServiceDao() {
 		return mpServiceDao;
@@ -82,7 +111,7 @@ public class MpUserServiceImpl implements IMpUserService {
 	}
 
 	@Override
-	public String activationService(MpUserEntity mpUserEntity, String code, String idCard) {
+	public String doActivationService(MpUserEntity mpUserEntity, String code, String idCard) {
 		// TODO Auto-generated method stub
 		OrderActivationCode checkApply = orderDao.checkActivationCodeApply(code);
 		ResultMessage resultMessage = null;
@@ -103,8 +132,59 @@ public class MpUserServiceImpl implements IMpUserService {
 			user.setOpenId(mpUserEntity.getOpenid());
 			userDao.updateById(user);
 		}
-		
+		Map<String, Object> orderForm = new HashMap<String, Object>();
+		orderForm.put("orderSerialNumber", checkApply.getOrderSerialNumber());
+
+		List<OrderForm> list = orderDao.getDataByWhere(orderForm);
+		if (list.size() > 0) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			System.out.println("得到的实体是" + list.get(0));
+			map.put("serviceUserId", user.getUserId());
+			map.put("serviceGoodsId", list.get(0).getGoodsList().getGoodsId());
+
+			List<ServiceTime> tagerServiceTime = serviceTimeDao.selectByWhere(map);
+			ServiceTime sv = tagerServiceTime.get(0);
+			sv.setIsActivation(1);
+			serviceTimeDao.update(sv);
+			resultMessage = new ResultMessage("1", "true", "激活成功");
+		} else {
+			resultMessage = new ResultMessage("-999", "false", "系统错误，请联系客服");
+
+		}
+
 		return JSONObject.toJSONString(resultMessage);
+	}
+
+	@Override
+	public List<GoodsList> findGetUserBuyGoodsList(User user) {
+		// TODO Auto-generated method stub
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("serviceGoodsIdList", "这条语句是查询用户拥有什么产品");
+		map.put("serviceUserId", user.getUserId());
+		List<ServiceTime> list = serviceTimeDao.selectByWhere(map);
+		List<GoodsList> goodsList = new ArrayList<GoodsList>();
+		for (ServiceTime serviceTime : list) {
+			GoodsList goodsListEntity = goodsListDao.queryByGoodsId(serviceTime.getGoodsId());
+			goodsList.add(goodsListEntity);
+
+		}
+		if (goodsList.size() > 0) {
+			return goodsList;
+		}
+		return null;
+	}
+
+	@Override
+	public User findOpenIdToUser(MpUserEntity mpUserEntity) {
+		// TODO Auto-generated method stub
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("getUserDataByOpenId", "根据传入的openID对应起来user的实体");
+		map.put("findOpenId", mpUserEntity.getOpenid());
+		List<User> list = userDao.selectBywhere(map);
+		if (list.size() > 0)
+			return list.get(0);
+		return null;
+
 	}
 
 }

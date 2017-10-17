@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "mybatis-3-mapper.dtd">
+<mapper namespace="serviceArticle">
+	<resultMap type="ServiceArticle" id="ServiceArticleMap">
+		<id property="serviceArticleNum" column="serviceArticleNum" />
+		<result property="serviceArticleTitle" column="serviceArticleTitle" />
+		<result property="goodsId" column="goodsId" />
+		<result property="serviceTypeId" column="serviceTypeId" />
+		<result property="isOriginal" column="isOriginal" />
+		<result property="currentDate" column="currentDate" />
+		<result property="thumbnail" column="thumbnail" />
+		<result property="targetTime" column="targetTime" />
+		<result property="author" column="author" />
+		<result property="articleContent" column="articleContent" />
+		<result property="pointNumber" column="pointNumber" />
+		<result property="readingNumber" column="readingNumber" />
+
+
+
+		<collection property="serviceArticleType" ofType="serviceArticleType">
+			<id property="serviceTypeId" column="serviceTypeId" />
+			<result property="serviceTypeName" column="serviceTypeName" />
+			<result property="serviceTypeImage" column="serviceTypeImage" />
+		</collection>
+		<collection property="goodsList" ofType="goodsList">
+
+			<id property="goodsId" column="goodsId" />
+			<result property="goodsPrice" column="goodsPrice" />
+			<result property="dateManufacture" column="dateManufacture" />
+			<result property="goodsName" column="goodsName" />
+			<result property="imageUrl" column="imageUrl" />
+			<result property="inventory" column="inventory" />
+			<result property="salesVolume" column="salesVolume" />
+			<result property="isShelves" column="isShelves" />
+			<result property="weight" column="weight" />
+			<result property="effectiveTime" column="effectiveTime" />
+			<result property="minMon" column="minMon" />
+			<result property="maxMon" column="maxMon" />
+			<result property="isBlend" column="isBlend" />
+
+		</collection>
+
+	</resultMap>
+	<insert id="insertServiceArticle" parameterType="serviceArticle"
+		keyProperty="serviceArticleNum" useGeneratedKeys="true">
+		insert into
+		`serviceArticle`
+		(
+		`serviceArticleTitle`,`goodsId`,`serviceTypeId`,
+		`isOriginal`,`currentDate`,`thumbnail`,
+		`targetTime`,`author`,`articleContent`,
+		`pointNumber`,`readingNumber`
+		)
+		values(#{serviceArticleTitle},#{goodsId},#{serviceTypeId},
+		#{isOriginal},#{currentDate},#{thumbnail},
+		#{targetTime},#{author},#{articleContent},
+		#{pointNumber},#{readingNumber}
+		)
+	</insert>
+	<update id="updateServiceArticle" parameterType="serviceTime">
+		update
+		`serviceArticle`
+		set
+		`serviceArticleTitle`=#{serviceArticleTitle},
+		`goodsId`=#{goodsId},
+		`serviceTypeId`=#{serviceTypeId},
+		`isOriginal`=#{isOriginal},
+		`currentDate`=#{currentDate},
+		`thumbnail`=#{thumbnail},
+		`author`=#{author},
+		`articleContent`=#{articleContent},
+		`pointNumber`=#{pointNumber},
+		`readingNumber`=#{readingNumber}
+
+
+		where
+		`serviceArticleNum`=#{serviceArticleNum}
+	</update>
+	<select id="selectBywehere" parameterType="map" resultMap="ServiceArticleMap">
+		SELECT
+		* FROM `servicearticle` AS st
+		INNER JOIN `servicearticletype` AS
+		stt ON
+		st.`serviceTypeId`=stt.`serviceTypeId`
+		INNER JOIN `goodslist` AS
+		gl ON gl.`goodsId`=st.`goodsId`
+		where 1=1
+		<if test="keyServiceArticleNum!=null">
+			and st.`serviceArticleNum`=#{keyServiceArticleNum}
+		</if>
+		<if test="goodsIdCurrentData!=null">
+			and st.`currentDate` LIKE CONCAT('%', #{findTime}, '%')
+			and st.`goodsId`=#{findGoodsId}
+			ORDER BY st.`serviceTypeId`
+		</if>
+		<if test="goodsIdHistoryData!=null">
+			and st.`currentDate` not LIKE CONCAT('%',
+			#{historyTime}, '%')
+			and st.`goodsId`=#{historyGoodsId}
+			and
+			st.`serviceTypeId`=#{historyType}
+			ORDER BY st.`currentDate` desc
+		</if>
+	</select>
+	<delete id="deleteServiceArticle" parameterType="String">
+		delete from
+		`serviceArticle` where serviceArticleNum=#{String}
+	</delete>
+
+</mapper>

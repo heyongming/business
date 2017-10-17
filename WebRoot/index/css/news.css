@@ -1,29 +1,3 @@
-/*ͷ���鿪ʼ*/
-#header {
-  height: 0.88rem;
-  line-height: 0.88rem;
-  padding: 0 0.3rem;
-  background-color: #393a3f;
-  text-align: center;
-  color: #fff;
-  font-size: 0.4rem;
-}
-#header > .back {
-  float: left;
-  width: 0.3rem;
-  height: 0.5rem;
-}
-#header > .back > img {
-  width: 100%;
-}
-#header > .select {
-  float: right;
-  width: 0.6rem;
-  height: 0.27rem;
-}
-#header > .select > img {
-  width: 100%;
-}
 /* ������Ϣ */
 #news {
   background-color: #fff;
@@ -48,7 +22,7 @@
   border-radius: 20px;
   text-align: center;
 }
-#news > p {
+#news > #message {
   font-size: 0.28rem;
   color: #111;
   margin-bottom: 0.2rem;
@@ -58,53 +32,93 @@
   color: #909090;
   position: relative;
 }
-#news > .amount > a {
+#news > .amount > #btn > .img1 {
+   width: 0.3rem;
+   height: 0.3rem;
+   margin-top:-0.08rem;
+  background: url(../images/dianzan.png) no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+#news > .amount > #btn > .img2 {
+   width: 0.4rem;
+   height: 0.4rem;
+   margin-top:-0.08rem;
+  background: url(../images/dianzan1.png) no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+#news > .amount > p {
   position: absolute;
   top: 0;
   right: 0.3rem;
   color: #248ece;
 }
 /*д����*/
-#comments {
-  padding: 0.3rem;
+#msgBox > #form {
+  margin: 0.3rem;
+  padding: 0.2rem;
+  background-color: #fff;
+  border: 1px solid #dfdfdf;
+  display: none;
 }
-#comments > h2 {
-  color: #909090;
-  font-size: 0.28rem;
-  margin: 0;
+#msgBox > #form > h2 {
+  font-size: 0.3rem;
+}
+#msgBox > #form #conBox {
+  resize: none;
+  height: 1.6rem;
+  width: 100%;
+  overflow: auto;
+  margin: 0.2rem 0;
+  border-color: #dfdfdf;
+}
+#msgBox > #form > .tr {
+  float: right;
+  font-size: 0.26rem;
+}
+#msgBox > #form > .tr #sendBtn {
+  width: 1rem;
+  height: 0.6rem;
+  line-height: 0.4rem;
+  background-color: #da251c;
+  color: #fff;
+  outline: 0;
+  border: 0;
+  border-radius: 0.1rem;
   text-align: center;
 }
-#comments > .message {
+#msgBox > .list > h3 {
   margin-top: 0.3rem;
+  font-size: 0.3rem;
+  color: #909090;
+  text-align: center;
+}
+#msgBox > .list > ul {
+  padding: 0.3rem;
+}
+#msgBox > .list > ul > li {
   position: relative;
 }
-#comments > .message img {
-  width: 0.86rem;
+#msgBox > .list > ul > li > .userPic {
   position: absolute;
-  left: 0;
   top: 0;
+  left: 0;
+  width: 0.74rem;
+  height: 0.74rem;
 }
-#comments > .message > ul {
+#msgBox > .list > ul > li > .userPic img {
+  width: 100%;
+}
+#msgBox > .list > ul > li > .content {
   margin-left: 1rem;
   font-size: 0.24rem;
+  line-height: 0.4rem;
+  margin-bottom: 0.3rem;
+}
+#msgBox > .list > ul > li > .content > .userName a {
   color: #909090;
 }
-#comments > .message > ul > li {
-  margin-bottom: 0.08rem;
-}
-#comments > .message > ul > .text {
-  color: #111;
-}
-#comments > .message > ul > .date {
-  font-size: 0.2rem;
-}
-#comments > .message > .img {
-  width: 0.22rem;
-  height: 0.22rem;
-  position: absolute;
-  top: 0.05rem;
-  right: 0;
-  background: url("../images/dianzan.png") no-repeat;
-  background-position: center center;
-  background-size: 0.22rem 0.22rem;
+#msgBox > .list > ul > li > .content > .times > span {
+  color: #909090;
 }

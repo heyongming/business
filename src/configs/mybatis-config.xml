@@ -30,6 +30,17 @@
 			alias="goodsListUpgrade" />
 		<typeAlias type="com.business.entitys.service.ServiceTime"
 			alias="serviceTime" />
+		<typeAlias type="com.business.entitys.service.ServiceArticleType"
+			alias="serviceArticleType" />
+		<typeAlias type="com.business.entitys.service.ServiceArticle"
+			alias="serviceArticle" />
+		<typeAlias type="com.business.entitys.service.ServiceArticleDetails"
+			alias="serviceArticleDetails" />
+		<typeAlias type="com.business.entitys.service.ServiceArticleHelper"
+			alias="serviceArticleHelper" />
+		<typeAlias type="com.business.entitys.service.ServiceArticleDetailsHelper"
+			alias="serviceArticleDetailsHelper" />
+
 
 	</typeAliases>
 </configuration>

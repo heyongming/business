@@ -14,7 +14,7 @@ public class OrderForm {
 	private String openId = "1";
 	private String paymentMethod = "1";
 	private String rdCode;
-	private String invoiceInformation;
+	private String invoiceInformation="";
 	private String integral = "1";
 	private String paymentNumber;
 	private GoodsList goodsList;

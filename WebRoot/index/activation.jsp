@@ -37,8 +37,8 @@
 
 	<section id="activation">
 		<form action="/business/mp/activation" class="form">
-			<h2>输入身份证后四位</h2>
-			<input type="text" class="idCard"/>
+			<h2>输入身份证后六位数</h2>
+			<input type="text" class="idCard" />
 			<h2>输入服务激活码</h2>
 			<input type="text" class="activationCode" />
 			<p>Tips：一旦激活成功，该服务激活码自动失效。</p>
@@ -46,7 +46,7 @@
 	</section>
 
 	<section id="immediately">
-		<input type="button" value="立即激活" class="sub" >
+		<input type="button" value="立即激活" class="sub">
 	</section>
 
 

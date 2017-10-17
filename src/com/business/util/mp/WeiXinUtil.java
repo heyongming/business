@@ -23,12 +23,12 @@ public class WeiXinUtil {
 		ViewButton vk_1_1 = new ViewButton();
 		vk_1_1.setName("我的服务");
 		vk_1_1.setType("view");
-		String url = MessAgeUtil.webLicensingnSapi_userinfo("http://1828l271x3.imwork.net/business/index/service.html");
+		String url = MessAgeUtil.webLicensingnSapi_userinfo("http://18f42658v7.iok.la/business/mp/service");
 		vk_1_1.setUrl(url);
 		ViewButton vk_1_2 = new ViewButton();
 		vk_1_2.setName("产品激活");
 		vk_1_2.setType("view");
-		url = MessAgeUtil.webLicensingnSapi_userinfo("http://1828l271x3.imwork.net/business/mp/code");
+		url = MessAgeUtil.webLicensingnSapi_userinfo("http://18f42658v7.iok.la/business/mp/code");
 		vk_1_2.setUrl(url);
 		ck_1.setSub_button(new Button[] { vk_1_1,vk_1_2});
 		/*

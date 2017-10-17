@@ -1,5 +1,7 @@
 package com.business.entitys.user;
 
+import com.business.entitys.mp.MpUserEntity;
+
 public class User {
 	private int userId;
 	private String passWord="0";
@@ -15,19 +17,12 @@ public class User {
 	private String userStatus="0";
 	private String idCard;
 	private String rdCode;
-	public User() {
-		super();
-	}
-	@Override
-	public String toString() {
-		return "User [userId=" + userId + ", passWord=" + passWord + ", createTime=" + createTime + ", type=" + type
-				+ ", userName=" + userName + ", Email=" + Email + ", openId=" + openId + ", phone=" + phone
-				+ ", addRess=" + addRess + ", integral=" + integral + ", Grade=" + Grade + ", userStatus=" + userStatus
-				+ ", idCard=" + idCard + ", rdCode=" + rdCode + ", answer=" + answer + ", idImage=" + idImage + "]";
-	}
+	private String answer;
+	private String idImage;
+	private MpUserEntity mpUserEntity;
 	public User(int userId, String passWord, String createTime, int type, String userName, String email, String openId,
 			String phone, String addRess, String integral, String grade, String userStatus, String idCard,
-			String rdCode, String answer, String idImage) {
+			String rdCode, String answer, String idImage, MpUserEntity mpUserEntity) {
 		super();
 		this.userId = userId;
 		this.passWord = passWord;
@@ -45,6 +40,15 @@ public class User {
 		this.rdCode = rdCode;
 		this.answer = answer;
 		this.idImage = idImage;
+		this.mpUserEntity = mpUserEntity;
+	}
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", passWord=" + passWord + ", createTime=" + createTime + ", type=" + type
+				+ ", userName=" + userName + ", Email=" + Email + ", openId=" + openId + ", phone=" + phone
+				+ ", addRess=" + addRess + ", integral=" + integral + ", Grade=" + Grade + ", userStatus=" + userStatus
+				+ ", idCard=" + idCard + ", rdCode=" + rdCode + ", answer=" + answer + ", idImage=" + idImage
+				+ ", mpUserEntity=" + mpUserEntity + "]";
 	}
 	public int getUserId() {
 		return userId;
@@ -142,7 +146,13 @@ public class User {
 	public void setIdImage(String idImage) {
 		this.idImage = idImage;
 	}
-	private String answer;
-	private String idImage;
-	
+	public MpUserEntity getMpUserEntity() {
+		return mpUserEntity;
+	}
+	public void setMpUserEntity(MpUserEntity mpUserEntity) {
+		this.mpUserEntity = mpUserEntity;
+	}
+	public User() {
+		super();
+	}
 }

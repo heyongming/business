@@ -30,14 +30,16 @@ $(function() {
 		}
 		$.ajax(
 			{
-				url : "/business/order/saveBuyGoods",
+				url : "/business/order/buyTogoodsListOrderFrom",
 				data : {
 					"paymentMethod" : checkId,
 				},
 				dataType : 'json',
 				success : function(data) {
-					alert(data)
-				//	location.href = "../message.jsp";
+					if (data.success == "true") {
+						location.href = "../index/message.jsp";
+					}
+				
 				}
 			}
 		)

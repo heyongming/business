@@ -119,6 +119,9 @@ CREATE TABLE `serviceTime`
    `serviceDay` INT(11) NOT NULL,
    `goodsId` INT (11) NOT NULL,
    `userId`  INT(11) NOT NULL,	
+   `agreement` VARCHAR(200)  NULL,   
+   `isActivation` INT(2) NULL,     
+   `realAgreement`  VARCHAR(200)  NULL,    
    `ServiceTime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`)
 )ENGINE=INNODB AUTO_INCREMENT=100000 DEFAULT CHARSET=utf8;
@@ -126,10 +129,60 @@ CREATE TABLE goodslistUpgrade
 (
    `id` INT(11) NOT NULL AUTO_INCREMENT ,
    `goodsId` INT(11) NOT NULL ,
-   `UpgradeGoodsId` INT(11) NOT NULL ,
+   `UpgradeGoodsId` INT(11) NOT NULL ,`orderStatus`
     `dateManufacture` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`)
 )ENGINE=INNODB AUTO_INCREMENT=100000 DEFAULT CHARSET=utf8;
+CREATE TABLE `serviceArticle`
+(
+ `serviceArticleNum` INT(11) NOT NULL AUTO_INCREMENT , /* 文章编号*/
+ `serviceArticleTitle` VARCHAR(50) NOT NULL,  /* 文章标题 */
+ `goodsId` INT(11) NOT NULL,             /* 商品类型ID*/
+ `serviceTypeId` INT(11) NOT NULL,	     /* 服务id*/
+ `isOriginal` VARCHAR(50) NOT NULL,		/*是否原创*/
+ `currentDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, /* 当前时间*/
+ `thumbnail` VARCHAR(200) NOT NULL,	/* 缩略图*/
+ `targetTime` VARCHAR(50) NOT NULL,	/*目标发送时间*/
+ `author` VARCHAR(50) NOT NULL,		/*作者*/
+ `articleContent` TEXT NOT NULL,	/*文章内容*/
+ `pointNumber` INT(11) NOT NULL,        /*点赞数*/
+  `readingNumber` INT(11) NOT NULL,     /* 阅读数*/
+   PRIMARY KEY (`serviceArticleNum`)
+ )ENGINE=INNODB AUTO_INCREMENT=100000 DEFAULT CHARSET=utf8;
+ CREATE  TABLE `serviceArticleType`
+ (
+ `serviceTypeId` INT(11) NOT NULL,
+ `serviceTypeName` VARCHAR(50) NOT NULL,
+ `serviceTypeImage` VARCHAR(50) NULL
+ )
+ CREATE TABLE `serviceArticleDetails`
+ (
+ `serviceArticleDetailsId` INT(11) NOT NULL  AUTO_INCREMENT,  /* 评论的序列号自动生成*/
+ `serviceArticleNum` INT(11) NOT NULL,			/*被评论的文章*/
+ `evaluateId` INT(11) NOT NULL,				/* 评价人*/
+ `evaluateCent` VARCHAR(200) NOT NULL,			/*  评价内容*/
+ `pointNumber` INT(11) NOT NULL,			/* 该评论被赞同的次数*/
+ `issecondary` INT(11) NOT NULL,			/*该评论的父级 */
+ `isOk` INT(2) NOT NULL,				/*是否展示	*/
+ `currentDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ PRIMARY KEY (`serviceArticleDetailsId`)
+ )ENGINE=INNODB AUTO_INCREMENT=100000 DEFAULT CHARSET=utf8;
+ CREATE TABLE `serviceArticleDetailsHelper`
+ (
+ `detailsHelpId` INT(11) NOT NULL  AUTO_INCREMENT,  /* 评论的序列号自动生成*/
+ `evaluateId` INT(11) NOT NULL,			/*被评论的用户*/
+ `toevaluateId` INT (11) NOT NULL,		/* 评论的用户*/
+ `insertTime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ PRIMARY KEY (`detailsHelpId`)
+ )ENGINE=INNODB AUTO_INCREMENT=100000 DEFAULT CHARSET=utf8;
+ CREATE TABLE `serviceArticleHelper`
+ (
+ `helpId` INT(11) NOT NULL  AUTO_INCREMENT,  /* 评论的序列号自动生成*/
+ `serviceArticleDetailsId` INT(11) NOT NULL,			/*被评论的文章*/
+ `userId` INT (11) NOT NULL,			/* 评论ID*/
+ `insertTime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ PRIMARY KEY (`helpId`)
+ )ENGINE=INNODB AUTO_INCREMENT=100000 DEFAULT CHARSET=utf8;
 CREATE TABLE `mpService`
 (
   `serviceId` INT(11) NOT NULL AUTO_INCREMENT ,
@@ -143,7 +196,14 @@ CREATE TABLE `mpService`
    PRIMARY KEY (`serviceId`)
 )ENGINE=INNODB AUTO_INCREMENT=100000 DEFAULT CHARSET=utf8;
 
+INSERT INTO `serviceArticleType`(`serviceTypeId`,`serviceTypeName`)
+VALUES(1,'早报')
 
+INSERT INTO `serviceArticleType`(`serviceTypeId`,`serviceTypeName`)
+VALUES(2,'中报')
+
+INSERT INTO `serviceArticleType`(`serviceTypeId`,`serviceTypeName`)
+VALUES(3,'晚报')
 
 SELECT *  FROM `user` AS u
 WHERE u.`userId` = (
@@ -211,5 +271,40 @@ SELECT gu.*,gl1.*,gl2.*
  SELECT * FROM `serviceTime` AS st
 		INNER JOIN goodsList AS gl ON st.goodsId=gl.goodsId
 		
-select * from `serviceTime` as st INNER JOIN goodsList as gl on st.goodsId=gl.goodsId where 1=1 a`user`nd st.`userId`=4 
-		
+SELECT * FROM `serviceTime` AS st INNER JOIN goodsList AS gl ON st.goodsId=gl.goodsId WHERE 1=1 a`user`nd st.`userId`=4 
+
+	`orderform`SELECT * FROM `serviceTime` AS st INNER JOIN goodsList AS gl ON st.goodsId=gl.goodsId WHERE 1=1 AND st.`goodsId`=? AND st.`userId`=? 
+	
+	
+	
+SELECT * FROM `serviceTime` AS st INNER JOIN goodsList AS gl ON st.goodsId=gl.goodsId WHERE 1=1 AND st.`goodsId`=10034 AND st.`userId`=4
+SELECT * FROM `serviceTime` AS st INNER JOIN goodsList AS gl ON st.goodsId=gl.goodsId WHERE 1=1 AND st.`goodsId`=10034 AND st.`userId`=4
+SELECT * FROM `serviceTime` AS st INNER JOIN goodsList AS gl ON st.goodsId=gl.goodsId WHERE 1=1 AND st.`goodsId`=? AND st.`userId`=? 
+
+SELECT * FROM  `servicearticle`  AS st
+INNER JOIN  `servicearticletype` AS stt ON st.`serviceTypeId`=stt.`serviceTypeId`
+INNER JOIN  `goodsType` AS gt ON gt.`goodsTypeId`=st.`goodsTypeId`
+SELECT * FROM orderActivationCode WHERE `activationCode`='aHFrBJWG' AND isActivation='false' 
+SELECT * FROM `orderform` AS of INNER JOIN `goodsList` AS gl ON of.`goodsId`=gl.`goodsId` INNER JOIN `user` AS us ON us.`userId`=of.`userId` LEFT JOIN `orderactivationcode` AS oatc ON oatc.`orderSerialNumber`=of.`orderSerialNumber` WHERE 1=1 AND of.`orderSerialNumber`='367622338193129472'
+SELECT * FROM `servicearticle` AS st INNER JOIN `servicearticletype` AS stt ON st.`serviceTypeId`=stt.`serviceTypeId` INNER JOIN `goodsType` AS gt ON gt.`goodsTypeId`=st.`goodsTypeId` WHERE 1=1 
+
+SELECT
+		* FROM `servicearticle` AS st
+		INNER JOIN `servicearticletype` AS
+		stt ON
+		st.`serviceTypeId`=stt.`serviceTypeId`
+		INNER JOIN `goodslist` AS
+		gl ON gl.`goodsId`=st.`goodsId`
+		SELECT * FROM `servicearticle` AS st INNER JOIN `servicearticletype` AS stt ON st.`serviceTypeId`=stt.`serviceTypeId` INNER JOIN `goodslist` AS gl ON gl.`goodsId`=st.`goodsId` WHERE 1=1 AND st.`currentDate` NOT LIKE CONCAT('%', '2017-10-14', '%') AND st.`goodsId`=10027 ORDER BY st.`serviceTypeId` 
+
+
+
+SELECT * FROM `servicearticle` AS st INNER JOIN `servicearticletype` AS stt ON st.`serviceTypeId`=stt.`serviceTypeId` INNER JOIN `goodslist` AS gl ON gl.`goodsId`=st.`goodsId` 
+WHERE 1=1 AND st.`currentDate` NOT LIKE CONCAT('%', '2017-10-14', '%') AND st.`goodsId`=10027 AND st.`serviceTypeId`=1 ORDER BY st.`currentDate` DESC 
+
+SELECT * FROM `serviceArticleHelper` WHERE `serviceArticleDetailsId`=0 AND `userId`=4
+SELECT	* FROM `serviceArticleDetails` AS sad
+INNER JOIN  `user` AS us ON us.`userId`=sad.`evaluateId`
+INNER JOIN `mpUserentity` AS ms ON ms.`openid`=us.`openId`
+
+		WHERE 1=1

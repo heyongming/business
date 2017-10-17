@@ -90,7 +90,7 @@
 		`integral`=#{integral},
 		`orderSerialNumber`=#{orderSerialNumber}
 		where
-		`userId`=#{userId} and of.orderStatus!=-1
+		`userId`=#{userId} and orderStatus!=-1
 
 	</update>
 	<select id="selectByphone" parameterType="String" resultType="orderForm">
@@ -115,7 +115,7 @@
 		`activationCode`=#{String}
 	</select>
 	<select id="checkActivationCodeApply" parameterType="String"
-		resultType="int">
+		resultType="activationCode">
 		select * from orderActivationCode where
 		`activationCode`=#{String} and isActivation='false'
 	</select>
@@ -152,7 +152,9 @@
 			and of.`purchaseTime` &gt; #{purchaseTime}
 
 		</if>
-
+		<if test="checkRdCode!=null">
+			and of.rdCode=#{checkRdCode}
+		</if>
 	</select>
 	<select id="byAlldata" resultMap="orderFormMap">
 		SELECT * FROM `orderform` AS of
@@ -163,4 +165,14 @@
 		AS oatc ON
 		oatc.`orderSerialNumber`=of.`orderSerialNumber`
 	</select>
+
+	<select id="selectActivationCodeBywhere" parameterType="map"
+		resultType="activationCode">
+		select * from `orderActivationCode`
+		where 1=1
+		<if test="checkOrderSerialNumber!=null">
+			and `orderSerialNumber`=#{checkOrderSerialNumber}
+		</if>
+	</select>
+
 </mapper>

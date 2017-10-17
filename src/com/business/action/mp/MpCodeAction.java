@@ -3,10 +3,15 @@ package com.business.action.mp;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.swing.text.StyledEditorKit.BoldAction;
+
+import org.apache.struts2.ServletActionContext;
 
 import com.business.entitys.mp.MpUserEntity;
 import com.business.service.IMpUserService;
 import com.business.temp.MpCodeEntitys;
+import com.business.util.mp.CodeHelpEr;
 import com.business.util.mp.MessAgeUtil;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -42,9 +47,27 @@ public class MpCodeAction extends ActionSupport {
 		// TODO Auto-generated method stub
 		ActionContext actionContext = ActionContext.getContext();
 		Map session = actionContext.getSession();
-		MpCodeEntitys mpCodeEntitys = MessAgeUtil.GetwebpagesCode(code);
+
+		HttpServletRequest request = ServletActionContext.getRequest();
+
+		MpCodeEntitys mpCodeEntitys = null;
+		Boolean isover = true;
+	
+		if (CodeHelpEr.map.get(code) != null) {
+			isover = false;
+			mpCodeEntitys=(MpCodeEntitys) CodeHelpEr.map.get(code);
+		}
+		else
+		{
+			mpCodeEntitys = MessAgeUtil.GetwebpagesCode(code);
+			CodeHelpEr.map.put(code,mpCodeEntitys);
+		}
+		
+
 		MpUserEntity entity = mpUserService.findUserInfo(mpCodeEntitys.getOpenid());
-		if (entity == null) {
+		System.out.println(isover + "判断！！" + code);
+		if (entity == null && isover) {
+
 			entity = MessAgeUtil.getMpUserEntity(mpCodeEntitys.getAccess_token(), mpCodeEntitys.getOpenid());
 			mpUserService.addMpUser(entity);
 		}

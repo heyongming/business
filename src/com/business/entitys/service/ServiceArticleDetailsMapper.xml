@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "mybatis-3-mapper.dtd">
+<mapper namespace="serviceArticleDetails">
+	<resultMap type="ServiceArticleDetails" id="ServiceArticleDetailsMap">
+		<id property="serviceArticleDetailsId" column="serviceArticleDetailsId" />
+		<result property="serviceArticleNum" column="serviceArticleNum" />
+		<result property="evaluateId" column="evaluateId" />
+		<result property="evaluateCent" column="evaluateCent" />
+		<result property="pointNumber" column="pointNumber" />
+		<result property="issecondary" column="issecondary" />
+		<result property="isOk" column="isOk" />
+		<result property="currentDate" column="currentDate" />
+	
+		<collection property="user" ofType="user">
+			<id property="userId" column="userId" />
+			<result property="passWord" column="passWord" />
+			<result property="type" column="type" />
+			<result property="userName" column="userName" />
+			<result property="Email" column="Email" />
+			<result property="openId" column="openId" />
+			<result property="phone" column="phone" />
+			<result property="addRess" column="addRess" />
+			<result property="integral" column="integral" />
+			<result property="Grade" column="Grade" />
+			<result property="userStatus" column="userStatus" />
+			<result property="idCard" column="idCard" />
+			<result property="rdCode" column="rdCode" />
+			<result property="answer" column="answer" />
+			<result property="idImage" column="idImage" />
+
+			<collection property="mpUserEntity" ofType="mpUser">
+				<id property="openid" column="openid" />
+				<result property="nickname" column="nickname" />
+				<result property="sex" column="sex" />
+				<result property="province" column="province" />
+				<result property="city" column="city" />
+				<result property="country" column="country" />
+				<result property="headimgurl" column="headimgurl" />
+				<result property="privilege" column="privilege" />
+				<result property="unionid" column="unionid" />
+
+			</collection>
+
+		</collection>
+
+
+	</resultMap>
+	<insert id="insertServiceArticleDetails" parameterType="serviceArticleDetails"
+		keyProperty="serviceArticleDetailsId" useGeneratedKeys="true">
+		insert into
+		`serviceArticleDetails`
+		(
+		`serviceArticleNum`,`evaluateId`,`evaluateCent`,
+		`pointNumber`,`issecondary`,`isOk`
+		)
+		values(#{serviceArticleNum},#{evaluateId},#{evaluateCent},
+		#{pointNumber},#{issecondary},#{isOk}
+		)
+	</insert>
+	<update id="updateServiceArticleDetails" parameterType="serviceArticleDetails">
+		update
+		`serviceArticleDetails`
+		set
+		`serviceArticleNum`=#{serviceArticleNum},
+		`evaluateId`=#{evaluateId},
+		`evaluateCent`=#{evaluateCent},
+		`pointNumber`=#{pointNumber},
+		`issecondary`=#{issecondary},
+		`isOk`=#{isOk}
+		where
+		`serviceArticleDetailsId`=#{serviceArticleDetailsId}
+	</update>
+	<select id="selectBywehere" parameterType="map"
+		resultMap="ServiceArticleDetailsMap">
+		SELECT * FROM `serviceArticleDetails` AS sad
+		INNER JOIN `user` AS us ON
+		us.`userId`=sad.`evaluateId`
+		INNER JOIN `mpUserentity` AS ms ON
+		ms.`openid`=us.`openId`
+		<if test="getEvaluateList!=null">
+			and sad.`serviceArticleNum`=#{evaluateId}
+			ORDER BY
+			`pointNumber` desc
+		</if>
+
+	</select>
+	<delete id="deleteServiceArticle" parameterType="String">
+		delete from
+		`serviceArticleDetails` where serviceArticleDetailsId=#{String}
+	</delete>
+	<insert id="insertServiceArticleDetailsHelper" parameterType="serviceArticleDetailsHelper">
+		insert into `serviceArticleDetailsHelper`(
+		`evaluateId`,`toevaluateId`
+		)
+		values(#{evaluateId},#{toevaluateId})
+	</insert>
+	<select id="selectServiceArticleDetailsHelper" parameterType="serviceArticleDetailsHelper"
+		resultType="serviceArticleDetailsHelper">
+		select * from serviceArticleDetailsHelper
+		where
+		`evaluateId`=#{evaluateId} and `toevaluateId`={toevaluateId}
+	</select>
+
+	<insert id="insertServiceArticleHelper">
+		insert into `serviceArticleHelper`(
+		`serviceArticleDetailsId`,`userId`
+		)
+		values(#{serviceArticleDetailsId},#{userId})
+	</insert>
+	<select id="selectServiceArticleHelper" parameterType="serviceArticleHelper"
+		resultType="serviceArticleHelper">
+		select * from `serviceArticleHelper`
+		where
+		`serviceArticleDetailsId`=#{serviceArticleDetailsId} and
+		`userId`=#{userId}
+	</select>
+
+</mapper>

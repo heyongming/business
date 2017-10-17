@@ -103,13 +103,13 @@ public class OrderUserServiceAction extends ActionSupport implements ModelDriven
 			toJsonSteam(resultMsg);
 			return Action.SUCCESS;
 		}
-		Map<String, Object> map = orderService.UpgradeGoodListAndchekOrder(goodsList, orderForm, userEntitys);
+		Map<String, Object> map = orderService.generateOrder(goodsList, orderForm, userEntitys);
 		System.out.println("生成的账单是" + map.get("buyOrder"));
-		session.put("buyOderForm", (OrderForm) map.get("buyOrder"));
+		session.put("buyOderForm", (OrderForm) map.get("buyOrder"));	
 		session.put("upGoodsList", (GoodsList) map.get("upGoodsList"));
 		session.put("buyuser", userEntitys);
-		ResultMessage resultMessage=new ResultMessage("100", "ok", "生成账单成功");
-		String json=JSONObject.toJSONString(resultMessage);
+		ResultMessage resultMessage = new ResultMessage("100", "ok", "生成账单成功");
+		String json = JSONObject.toJSONString(resultMessage);
 		toJsonSteam(json);
 		return super.execute();
 	}

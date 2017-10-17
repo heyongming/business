@@ -75,7 +75,7 @@ public class OrderServiceImpl implements IOrderService {
 		// TODO Auto-generated method stub
 		long id = snowflakeIdWorker.nextId();
 		orderForm.setOrderSerialNumber(id + "");
-		orderForm.setOrderStatus(1);
+		// orderForm.setOrderStatus(1);
 		System.out.println(orderForm);
 		int flog = orderDao.insertOrder(orderForm);
 		String result = null;
@@ -124,7 +124,7 @@ public class OrderServiceImpl implements IOrderService {
 	public String saveOrderActivationCode(String phone) {
 		// TODO Auto-generated method stub
 		OrderForm orderForm = orderDao.selectByphone(phone);
-		orderForm.setOrderStatus(-1);
+		orderForm.setOrderStatus(1);
 		orderDao.updateOrder(orderForm);
 		OrderActivationCode orderActivationCode = new OrderActivationCode();
 		orderActivationCode.setOrderSerialNumber(orderForm.getOrderSerialNumber());
@@ -139,6 +139,7 @@ public class OrderServiceImpl implements IOrderService {
 		orderActivationCode.setIsActivation("false");
 		int flog = orderDao.addOrderActivationCode(orderActivationCode);
 		String result = null;
+
 		ResultOrderActivationCodeEntitys message = null;
 		if (flog > 0) {
 			GoodsList goodsList = goodsListDao.queryByGoodsId(orderForm.getGoodsId());
@@ -291,8 +292,8 @@ public class OrderServiceImpl implements IOrderService {
 		map.put("serviceUserId", user.getUserId());
 		List<ServiceTime> list = serviceTimeDao.selectByWhere(map); // 拿到该用户已有的产品
 
-		CustomaryGoodslist = null;
-		int buyNum = Integer.parseInt(orderForm.getPaymentNumber());
+		CustomaryGoodslist = null; // 初始化值
+		int buyNum = Integer.parseInt(orderForm.getPaymentNumber());// 购买的份数
 		if (list.size() > 0) // 检测是否到了购买上限
 		{
 			for (ServiceTime serviceTime : list) {
@@ -315,8 +316,11 @@ public class OrderServiceImpl implements IOrderService {
 						if (serviceDayOp >= 15) {
 							if (goodsList.getIsBlend() == 1) {
 								/*
-								if(serviceDayys)
-								*/
+								 * if(serviceDayys)
+								 */
+								if (buyNum < serviceDayys + 1) {
+									return ((serviceDayys + 1) - buyNum) * goodsList.getGoodsPrice() + 999;
+								}
 								return allGoodsPrice + 999;
 							} else {
 
@@ -325,6 +329,9 @@ public class OrderServiceImpl implements IOrderService {
 							}
 						} else {
 							if (goodsList.getIsBlend() == 1) {
+								if (buyNum < serviceDayys + 1) {
+									return ((serviceDayys + 1) - buyNum) * goodsList.getGoodsPrice() + 999;
+								}
 								return allGoodsPrice + 999;
 							} else {
 
@@ -377,7 +384,7 @@ public class OrderServiceImpl implements IOrderService {
 	}
 
 	@Override
-	public String saveBuyoeder(GoodsList buyGoodsList, OrderForm buyorderForm, User userEntitys,
+	public Map<String, Object> saveBuyoeder(GoodsList buyGoodsList, OrderForm buyorderForm, User userEntitys,
 			GoodsList upGoodsList) {
 		// TODO Auto-generated method stub
 		try {
@@ -400,12 +407,12 @@ public class OrderServiceImpl implements IOrderService {
 				serviceTime.setServiceDay(buyNum + serviceTime.getServiceDay());
 				serviceTimeDao.update(serviceTime);
 			} else {
-				serviceTimeDao.insert(
-						new ServiceTime(0, buyNum, userEntitys.getUserId(), null, userEntitys.getUserId(), null, null));
+				serviceTimeDao.insert(new ServiceTime(0, buyNum, buyGoodsList.getGoodsId(), null,
+						userEntitys.getUserId(), -1, null, null, null, null));
 			}
 			// 以上为生成服务表
 			OrderForm orderForm = buyorderForm;
-			orderForm.setOrderStatus(0); // 生成状态值
+			orderForm.setOrderStatus(2); // 生成状态值
 			long id = snowflakeIdWorker.nextId(); // 生成订单号
 			orderForm.setOrderSerialNumber(id + "");
 			orderForm.setGoodsId(buyGoodsList.getGoodsId());
@@ -421,12 +428,13 @@ public class OrderServiceImpl implements IOrderService {
 				checkFlog = orderDao.checkActivationCode(activationCode);
 			}
 
+			orderForm.setRdCode(userEntitys.getRdCode());
 			orderActivationCode.setActivationCode(activationCode);
 			orderActivationCode.setIsActivation("false");
 			int flog = orderDao.addOrderActivationCode(orderActivationCode);
 			int flog1 = orderDao.insertOrder(orderForm);
-			buyGoodsList.setSalesVolume(buyGoodsList.getSalesVolume() + buyNum);
-			buyGoodsList.setInventory(buyGoodsList.getInventory() - buyNum);
+			buyGoodsList.setSalesVolume(buyGoodsList.getSalesVolume() + (buyNum / 30));
+			buyGoodsList.setInventory(buyGoodsList.getInventory() - (buyNum / 30));
 
 			goodsListDao.updateGoods(buyGoodsList);
 			String result = null;
@@ -435,23 +443,63 @@ public class OrderServiceImpl implements IOrderService {
 				GoodsList goodsList = goodsListDao.queryByGoodsId(orderForm.getGoodsId());
 				message = new ResultOrderActivationCodeEntitys(orderForm.getOrderSerialNumber(),
 						goodsList.getGoodsName(), activationCode);
-				message.setSuccess("true");
-				message.setErrMsg("insert success");
-				message.setCode("1");
+				map = new HashMap<String, Object>();
+				map.put("msg", message);
+				map.put("buyOrder", orderForm);
+				return map;
 			} else {
-				message = new ResultOrderActivationCodeEntitys();
-				message.setSuccess("false");
-				message.setErrMsg("insert fail");
-				message.setCode("-1");
+				return null;
 			}
-			result = JSONObject.toJSONString(message);
-			return result;
 
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			return "over";
+			return null;
 		}
 
+	}
+
+	@Override
+	public Map<String, Object> generateOrder(GoodsList goodsList, OrderForm orderForm, User user) {
+		// TODO Auto-generated method stub
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("serviceUserId", user.getUserId());
+		List<ServiceTime> list = serviceTimeDao.selectByWhere(map); // 拿到该用户已有的产品
+
+		OrderForm buyOrder = null;
+
+		buyOrder = new OrderForm();
+		buyOrder.setUserId(user.getUserId());
+		buyOrder.setPaymentNumber(orderForm.getPaymentNumber());
+		int actualPurchasePriceGoods = 0;
+		if (goodsList.getIsBlend() == 0) {
+			actualPurchasePriceGoods = (goodsList.getGoodsPrice()) * (Integer.parseInt(orderForm.getPaymentNumber()));
+
+		} else {
+			actualPurchasePriceGoods = (goodsList.getGoodsPrice()) * (Integer.parseInt(orderForm.getPaymentNumber()))
+					+ 999;
+		}
+		buyOrder.setActualPurchasePriceGoods(actualPurchasePriceGoods + "");
+		buyOrder.setGoodsId(goodsList.getGoodsId());
+		Map<String, Object> tempmap = new HashMap<String, Object>();
+		tempmap.put("buyOrder", buyOrder);
+		return tempmap;
+
+	}
+
+	@Override
+	public OrderActivationCode doClosingTheDeal(OrderForm orderForm) {
+		// TODO Auto-generated method stub
+		orderForm.setOrderStatus(-1);
+		orderDao.updateOrder(orderForm);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("checkOrderSerialNumber", orderForm.getOrderSerialNumber());
+		List<OrderActivationCode> list = orderDao.selectActivationCodeBywhere(map);
+		if (list.size() > 0) {
+			OrderActivationCode activationCode = list.get(0);
+
+			return activationCode;
+		}
+		return null;
 	}
 }

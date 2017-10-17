@@ -1,5 +1,8 @@
 package com.business.dao.impl;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -42,7 +45,7 @@ public class UserDaoImpl implements IUserDao {
 	@Override
 	public int updateById(User user) {
 		// TODO Auto-generated method stub
-		
+
 		return sessionTemplate.update("user.updateByid", user);
 	}
 
@@ -56,6 +59,12 @@ public class UserDaoImpl implements IUserDao {
 	public User findById(int id) {
 		// TODO Auto-generated method stub
 		return sessionTemplate.selectOne("user.selectById", id);
+	}
+
+	@Override
+	public List<User> selectBywhere(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return sessionTemplate.selectList("user.selectUserByWhere", map);
 	}
 
 }

@@ -79,4 +79,11 @@ public class OrderDaoimpl implements IOrderDao {
 		return sessionTemplate.selectList("order.selectByWhere", orderForm);
 	}
 
+	@Override
+	public List<OrderActivationCode> selectActivationCodeBywhere(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+
+		return sessionTemplate.selectList("order.selectActivationCodeBywhere", map);
+	}
+
 }
