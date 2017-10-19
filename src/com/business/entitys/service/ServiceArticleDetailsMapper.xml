@@ -79,8 +79,8 @@
 		INNER JOIN `mpUserentity` AS ms ON
 		ms.`openid`=us.`openId`
 		<if test="getEvaluateList!=null">
-			and sad.`serviceArticleNum`=#{evaluateId}
-			ORDER BY
+			and sad.`serviceArticleNum`=#{evaluateId} and  sad.`isOk`=1
+			ORDER BY 
 			`pointNumber` desc
 		</if>
 

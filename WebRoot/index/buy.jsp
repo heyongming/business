@@ -47,7 +47,7 @@
 <body>
 	<c:if test="${empty sessionScope.buyuser}">
 		<script type="text/javascript">
-			location.href = "business/index/"
+			location.href = "/business/index/"
 		</script>
 
 	</c:if>

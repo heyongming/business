@@ -169,8 +169,8 @@
 			return;
 			}
 			var textValue = parseInt($("#btn span").html());
-			$("#btn img").click(function() {
-				$(this).removeClass("img1").addClass("img2");
+			$("#btn").click(function() {
+				$("#btn img").removeClass("img1").addClass("img2");
 				$("#btn span").html(textValue + 1);
 				$.ajax({
 					url : "/business/mp/thumbsUp",

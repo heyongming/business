@@ -23,6 +23,8 @@
 		</action>
 		<action name="service" class="com.business.action.mp.MpServiceAction">
 			<result name="success">/index/selectLogin.jsp</result>
+			<result name="input">/index/index.jsp</result>
+
 		</action>
 		<action name="mpService" class="com.business.action.mp.MpServiceAction"
 			method="getNewestGoodsList">

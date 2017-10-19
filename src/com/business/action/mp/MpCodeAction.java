@@ -72,6 +72,6 @@ public class MpCodeAction extends ActionSupport {
 			mpUserService.addMpUser(entity);
 		}
 		session.put("mpUser", entity);
-		return super.execute();
+		return this.SUCCESS;
 	}
 }

@@ -27,13 +27,7 @@
 <script src="lib/less/less.min.js"></script>
 </head>
 <body>
-	<!--头部块开始-->
-	<header id="header">
-		<a class="back" href="./buy.html"><img src="images/back.png"
-			alt="返回" /></a> 服务号 <a href="#" class="select"><img class="select"
-			src="images/select.png" alt="选项卡" /></a>
-	</header>
-	<!--头部块结束-->
+
 
 	<!--产品信息开始-->
 	<section id="product">
@@ -50,8 +44,7 @@
 			</div>
 		</div>
 		<div class="right">
-			查看历史&nbsp;&nbsp;<a
-				href="/business/mp/history?goodsId=${requestScope.currentGoods.goodsId}"><img
+			<a href="/business/mp/history?goodsId=${requestScope.currentGoods.goodsId}">查看历史&nbsp;&nbsp;<img
 				src="images/back_01.png" alt="" /></a>
 		</div>
 	</section>
