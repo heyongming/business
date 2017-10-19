@@ -14,7 +14,7 @@
 <!--添加视口 移动端适配-->
 <meta name="viewport"
 	content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-<title>历史</title>
+<title>查看已购买产品</title>
 <!--引入第三方框架-->
 <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.css" />
 <!--引入自己的less,自己写的css-->

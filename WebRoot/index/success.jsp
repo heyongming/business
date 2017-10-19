@@ -6,6 +6,7 @@
 	basePath = "/business/index/";
 %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,9 +24,35 @@
 <!--引入less文件的js-->
 <script src="lib/less/less.js"></script>
 <script src="lib/less/less.min.js"></script>
+<script type="text/javascript">
+	//禁止ios10缩放
+	window.onload = function() {
+		document.addEventListener('touchstart', function(event) {
+			if (event.touches.length > 1) {
+				event.preventDefault();
+			}
+		});
+		var lastTouchEnd = 0;
+		document.addEventListener('touchend', function(event) {
+			var now = (new Date()).getTime();
+			if (now - lastTouchEnd <= 300) {
+				event.preventDefault();
+			}
+			lastTouchEnd = now;
+		}, false)
+	}
+</script>
 </head>
 <body>
+	<c:if test="${empty sessionScope.buyuser}">
+		<script type="text/javascript">
+			location.href = "business/index/"
+		</script>
 
+	</c:if>
+	<header id="header">
+		<h2>审核通过</h2>
+	</header>
 	<section id="message">
 		<h2>您已审核通过！</h2>
 		<p>
@@ -71,5 +98,14 @@
 	<script src="lib/template.js"></script>
 	<!--引入自己写的首页js-->
 	<!--<script src="js/success.js"></script>-->
+	<script type="text/javascript">
+		$.ajax({
+			url : "/business/order/clearSession",
+			type : "POST",
+			success : function(data) {
+				console.log(data);
+			}
+		});
+	</script>
 </body>
 </html>

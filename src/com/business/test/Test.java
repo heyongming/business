@@ -3,6 +3,7 @@ package com.business.test;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+
 import com.business.util.mpPay.MpPayUtill;
 
 public class Test {
@@ -23,11 +24,14 @@ public class Test {
 		 * Date()).toString(); int endIndex=index1 = op.lastIndexOf("日");
 		 * System.out.println(op.substring(5, endIndex+1));
 		 */
+		/*
 		String key = MpPayUtill.CreateNoncestr() + MpPayUtill.CreateNoncestr();
 		
 		System.out.println(key+"位数为"+key.length());
 		String index="106.17.176.34, 103.44.145.245";
 		int indexOf=index.indexOf(",");
 		System.out.println(index.substring(0, indexOf));
+		*/
+	//	PdfToImageUtill.pdf2multiImage("D:/upload/pdf/4/367307429366464512.pdf", "D:/bbbbb.jpg", 4); 
 	}
 }

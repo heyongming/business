@@ -40,7 +40,12 @@ public class OrderDaoimpl implements IOrderDao {
 	@Override
 	public OrderForm selectByphone(String phone) {
 		// TODO Auto-generated method stub
-		return sessionTemplate.selectOne("order.selectByphone", phone);
+		List<OrderForm> list=sessionTemplate.selectList("order.selectByphone", phone);
+		if(list.size()>0)
+		{
+			return list.get(0);
+		}
+		return null;
 	}
 
 	@Override

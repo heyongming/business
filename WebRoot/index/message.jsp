@@ -26,9 +26,105 @@
 <!--引入less文件的js-->
 <script src="lib/less/less.js"></script>
 <script src="lib/less/less.min.js"></script>
+<script type="text/javascript">
+	//禁止ios10缩放
+	window.onload = function() {
+		document.addEventListener('touchstart', function(event) {
+			if (event.touches.length > 1) {
+				event.preventDefault();
+			}
+		});
+		var lastTouchEnd = 0;
+		document.addEventListener('touchend', function(event) {
+			var now = (new Date()).getTime();
+			if (now - lastTouchEnd <= 300) {
+				event.preventDefault();
+			}
+			lastTouchEnd = now;
+		}, false)
+	}
+</script>
+<style>
+/* 查看电子协议*/
+#smake {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	background-color: #fff;
+	z-index: 999;
+	display: none;
+}
+
+#smake .head {
+	width: 100%;
+	height: 0.5rem;
+	background-color: #e8dada;
+	position: relative;
+}
+
+#smake .head span {
+	font-size: 0.5rem;
+	position: absolute;
+	right: 0.2rem;
+	bottom: -0.1rem;
+}
+
+#smake iframe {
+	width: 100%;
+	height: 100%;
+}
+
+		#smakeAndriod{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: rgba(0,0,0,0.2);
+            z-index: 9999;
+            display: none;
+            text-align: center;
+        }
+        #smakeAndriod .con{
+            width: 100%;
+            height: 4rem;
+            background-color: #fff;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+       #smakeAndriod .con p{
+            margin: 0.3rem 0;
+        }
+        #smakeAndriod .con .head{
+            width: 100%;
+            height: 0.5rem;
+            background-color: #e8dada;
+            position: relative;
+        }
+        #smakeAndriod .con .head span{
+            font-size: 0.5rem;
+            position: absolute;
+            right: 0.2rem;
+            bottom: -0.1rem;
+        }
+       #smakeAndriod .con iframe{
+            dispaly: "none";
+        }
+</style>
 </head>
 <body>
+	<c:if test="${empty sessionScope.buyuser}">
+		<script type="text/javascript">
+			location.href = "business/index/"
+		</script>
 
+	</c:if>
+	<header id="header">
+		<h2>订单信息</h2>
+	</header>
 	<!--订单信息-->
 	<section id="product">
 		<img src="${sessionScope.buyGoodsList.imageUrl} " alt="" />
@@ -95,8 +191,21 @@
 			</ul>
 		</div>
 	</section>
-
-
+	<section id="smake">
+		<div class="head">
+			<span>×</span>
+		</div>
+		<iframe frameboder="0" class="pdfRanding" src=""></iframe>
+	</section>
+	<section id="smakeAndriod">
+		<div class="con">
+			<div class="head">
+			<span>×</span>
+		</div>
+		<p>下载完成后，请在本地查看。</p>
+		<iframe frameborder="0" class="pdfRanding" src=""></iframe>
+		</div>
+	</section>
 
 	<!-- 以下是所用到的js -->
 	<!--引入jQuery bootstrape依赖jQuery-->
@@ -110,9 +219,31 @@
 	<!--引入自己写的首页js-->
 	<script src="js/message.js"></script>
 	<script>
-		$("#look").click(function() {
-			window.open('/business/order/downloadPdf');
-			window.location.reload();
+		$(function() {
+			var ua = navigator.userAgent.toLowerCase();
+			$("#look").click(function() {	
+				$.ajax({
+					url : "/business/order/getPdfPath",
+					type : "POST",
+					success : function(data) {
+						alert(data.agreement)
+						data = JSON.parse(data);
+	
+						$(".pdfRanding").attr("src", data.agreement);
+					}
+				})
+				if (/android/.test(ua)) {
+					$("#smakeAndriod").css("display", "block");
+				}
+				$("#smake").css( "display", "block");
+			})
+			$(".head span").click(function() {
+				location.reload();
+					$("#smakeAndriod").css("display", "none");
+				$("#smake").css("display", "none");
+			
+			})
+	
 		})
 	</script>
 </body>

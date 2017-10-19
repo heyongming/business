@@ -1,16 +1,27 @@
+#header {
+  width: 100%;
+  height: 0.80rem;
+  background-color: #393a3f;
+  color: #fff;
+  text-align: center;
+}
+#header h2 {
+  line-height: 0.80rem;
+  font-size: 0.4rem;
+}
 /*µ¼º½¿é¿ªÊ¼*/
 #nav {
-  height: 0.8rem;
+  height: 0.9rem;
   line-height: 0.8rem;
   text-align: center;
   padding: 0 0.3rem;
-  display: flex;
   background-color: #fff;
   border-bottom: 1px solid #ebebeb;
 }
 #nav > a {
   font-size: 0.34rem;
-  flex: 1;
+  width: 23%;
+  display: inline-block;
 }
 #nav > .active {
   border-bottom: 4px solid #da251c;
@@ -56,7 +67,7 @@
 }
 #product .modal {
   display: none;
-  background-color: rgba(1, 1, 1, 0.5);
+  background-color: rgba(1, 1, 1, 0.2);
   z-index: 1;
 }
 #product .modal-dialog {
@@ -125,6 +136,7 @@
   line-height: 0.66rem;
   text-align: center;
   font-size: 0.66rem;
+  border-radius: 0;
 }
 #product .modal-dialog .modal-content > .middle > .right .text_box {
   height: 0.66rem;

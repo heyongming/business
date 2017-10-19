@@ -15,6 +15,7 @@ import javax.json.JsonObject;
 import org.apache.struts2.ServletActionContext;
 
 import com.alibaba.fastjson.JSONObject;
+import com.business.entitys.ResultMessage;
 import com.business.entitys.goods.GoodsList;
 import com.business.entitys.order.OrderForm;
 import com.business.entitys.service.ServiceTime;
@@ -23,6 +24,7 @@ import com.business.service.IGoodsOperationService;
 import com.business.service.IOrderService;
 import com.business.service.IServiceTimeService;
 import com.business.service.IUserService;
+import com.business.util.CheckErrorQiantaiUtill;
 import com.business.util.HtmlToPdf;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -163,7 +165,13 @@ public class OrderRiskAction extends ActionSupport {
 			GoodsList buyGoodsList = (GoodsList) session.get("buyGoodsList");
 			User userEntitys = (User) session.get("buyuser");// 购买者
 			OrderForm orderForm = (OrderForm) session.get("buyOrderResult");
+			if (!CheckErrorQiantaiUtill.checkSession(session)) {
+				ResultMessage resultMessage = new ResultMessage("-6", "false", "system all");
 
+				String json = JSONObject.toJSONString(resultMessage);
+				toJsonSteam(json);
+				return this.SUCCESS;
+			}
 			orderService.saveOrderStatus(userEntitys.getPhone());
 			orderForm.setOrderStatus(orderForm.getOrderStatus() + 1);
 			session.put("buyOrderResult", orderForm);
@@ -182,6 +190,13 @@ public class OrderRiskAction extends ActionSupport {
 
 		ActionContext actionContext = ActionContext.getContext();
 		Map session = actionContext.getSession();
+		if (!CheckErrorQiantaiUtill.checkSession(session)) {
+			ResultMessage resultMessage = new ResultMessage("-6", "false", "system all");
+
+			String json = JSONObject.toJSONString(resultMessage);
+			toJsonSteam(json);
+			return this.SUCCESS;
+		}
 		GoodsList buyGoodsList = (GoodsList) session.get("buyGoodsList");
 		User userEntitys = (User) session.get("buyuser");// 购买者
 		OrderForm orderForm = (OrderForm) session.get("buyOrderResult");
@@ -192,7 +207,7 @@ public class OrderRiskAction extends ActionSupport {
 		String json = serviceTimeService.savePdf(userEntitys, orderForm, buyGoodsList, "");
 		toJsonSteam(json);
 
-		return super.execute();
+		return this.SUCCESS;
 	}
 
 	public String toPdfData() throws Exception {
@@ -221,25 +236,55 @@ public class OrderRiskAction extends ActionSupport {
 
 	// 文件下载
 	public InputStream getInputStream() throws Exception {
-		
+
 		ActionContext actionContext = ActionContext.getContext();
 		Map session = actionContext.getSession();
 		GoodsList buyGoodsList = (GoodsList) session.get("buyGoodsList");
 		User userEntitys = (User) session.get("buyuser");// 购买者
 		OrderForm orderForm = (OrderForm) session.get("buyOrderResult");
 		ServiceTime serviceTime = serviceTimeService.findServiceTimeEntity(userEntitys, buyGoodsList);
-		System.out.println(serviceTime+"????");
+		System.out.println(serviceTime + "????");
 		String path = serviceTime.getRealAgreement();
 		fileName = orderForm.getOrderSerialNumber() + ".pdf";
-		System.out.println("到了"+path);
-		InputStream is=new FileInputStream(new File(path));
-		System.out.println(is+"应该不为空");
+		System.out.println("到了" + path);
+		InputStream is = new FileInputStream(new File(path));
+		System.out.println(is + "应该不为空");
 		return is;
+	}
+
+	/**
+	 * @return
+	 */
+	public String getPdfPath() {
+		ActionContext actionContext = ActionContext.getContext();
+		Map session = actionContext.getSession();
+		if (!CheckErrorQiantaiUtill.checkSession(session)) {
+			ResultMessage resultMessage = new ResultMessage("-6", "false", "system all");
+
+			String json = JSONObject.toJSONString(resultMessage);
+			toJsonSteam(json);
+			return this.SUCCESS;
+		}
+		GoodsList buyGoodsList = (GoodsList) session.get("buyGoodsList");
+		User userEntitys = (User) session.get("buyuser");// 购买者
+		OrderForm orderForm = (OrderForm) session.get("buyOrderResult");
+
+		orderService.saveOrderStatus(userEntitys.getPhone());
+		orderForm.setOrderStatus(orderForm.getOrderStatus() + 1);
+		session.put("buyOrderResult", orderForm);
+		ServiceTime serviceTime = serviceTimeService.findServiceTimeEntity(userEntitys, buyGoodsList);
+		String json = JSONObject.toJSONString(serviceTime);
+		toJsonSteam(json);
+
+		return this.SUCCESS;
 	}
 
 	public String downloadPdf() throws Exception {
 		ActionContext actionContext = ActionContext.getContext();
 		Map session = actionContext.getSession();
+		if (!CheckErrorQiantaiUtill.checkSession(session)) {
+			return this.INPUT;
+		}
 		GoodsList buyGoodsList = (GoodsList) session.get("buyGoodsList");
 		User userEntitys = (User) session.get("buyuser");// 购买者
 		OrderForm orderForm = (OrderForm) session.get("buyOrderResult");

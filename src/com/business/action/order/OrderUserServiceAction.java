@@ -15,6 +15,7 @@ import com.business.entitys.user.User;
 import com.business.job.MsgMeesage;
 import com.business.service.IOrderService;
 import com.business.service.IUserService;
+import com.cache.OrderCache;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -108,6 +109,11 @@ public class OrderUserServiceAction extends ActionSupport implements ModelDriven
 		session.put("buyOderForm", (OrderForm) map.get("buyOrder"));	
 		session.put("upGoodsList", (GoodsList) map.get("upGoodsList"));
 		session.put("buyuser", userEntitys);
+		OrderCache.buyuser.put(userEntitys.getUserId()+"", userEntitys); //存储到换成处
+		OrderCache.goodsListMap.put(userEntitys.getUserId()+"", goodsList);//存储到换成处
+		OrderCache.orderFromMap.put(userEntitys.getUserId()+"", (OrderForm) map.get("buyOrder"));//存储到换成处
+		OrderCache.upGoodsList.put(userEntitys.getUserId()+"", (GoodsList) map.get("upGoodsList"));//存储到换成处
+		
 		ResultMessage resultMessage = new ResultMessage("100", "ok", "生成账单成功");
 		String json = JSONObject.toJSONString(resultMessage);
 		toJsonSteam(json);

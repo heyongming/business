@@ -1,3 +1,14 @@
+#header {
+  width: 100%;
+  height: 0.80rem;
+  background-color: #393a3f;
+  color: #fff;
+  text-align: center;
+}
+#header h2 {
+  line-height: 0.80rem;
+  font-size: 0.4rem;
+}
 /*message begin*/
 #message {
   background-color: #fff;
@@ -48,7 +59,6 @@
 /*money begin*/
 #money {
   background-color: #fff;
-  margin-bottom: 4.22rem;
 }
 #money > p {
   height: 0.86rem;
@@ -88,7 +98,7 @@
   right: 0.3rem;
   background: url("../images/x_02.png") no-repeat;
   background-position: center center;
-  background-size: 0.3rem 0.3rem;
+  background-size: cover;
 }
 #money > ul > li > .active {
   width: 0.3rem;
@@ -99,21 +109,23 @@
   right: 0.3rem;
   background: url("../images/x_01.png") no-repeat;
   background-position: center center;
-  background-size: 0.3rem 0.3rem;
+  background-size: cover;
 }
 /*底部*/
 #footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
   height: 0.98rem;
   line-height: 0.98rem;
   font-size: 0.4rem;
   text-align: center;
-  display: flex;
 }
 #footer .left {
   background-color: #fff;
   width: 4.5rem;
   padding-left: 0.3rem;
-  flex: 2;
+  float:left;
 }
 #footer .left .price {
   color: #da251c;
@@ -122,5 +134,5 @@
   background-color: #da251c;
   width: 3rem;
   color: #fff;
-  flex: 1;
+  float: right;
 }

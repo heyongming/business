@@ -3,6 +3,7 @@
 	String path = request.getContextPath();
 	String basePath = "/business/index/";
 %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
 <html lang="en" id="htmlId">
@@ -28,9 +29,30 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script>
+<script type="text/javascript">
+	//禁止ios10缩放
+	window.onload = function() {
+		document.addEventListener('touchstart', function(event) {
+			if (event.touches.length > 1) {
+				event.preventDefault();
+			}
+		});
+		var lastTouchEnd = 0;
+		document.addEventListener('touchend', function(event) {
+			var now = (new Date()).getTime();
+			if (now - lastTouchEnd <= 300) {
+				event.preventDefault();
+			}
+			lastTouchEnd = now;
+		}, false)
+	}
+</script>
 </head>
 <body>
-
+	
+	<header id="header">
+		<h2>风险揭示书</h2>
+	</header>
 	<!--订单信息-->
 	<section id="product">
 		<h2 class="color">证券投资顾问业务风险揭示书</h2>
@@ -67,9 +89,8 @@
 		<p>本人已认真阅读并理解相关业务规则，证券投资顾问服务协议及本风险揭示书的全部内容，并愿意自行承担相关的投资风险和损失。</p>
 		<div class="bottom">
 			<label> <input type="radio" name="sex" value="1" />
-				<div class="option"></div>
-				<!--该div盛放的是优化后的按钮图片--> <span class="opt-text">
-					以上《风险揭示书》所有内容本人已阅读并完全理解。。</span>
+				<div class="option"></div> <!--该div盛放的是优化后的按钮图片--> <span
+				class="opt-text"> 以上《风险揭示书》所有内容本人已阅读并完全理解。。</span>
 			</label> <input type="button" id="btnbox" class="btnbox" onclick="msg()"
 				value="确认签署协议">
 		</div>

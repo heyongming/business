@@ -8,11 +8,13 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import com.alibaba.fastjson.JSONObject;
+import com.business.entitys.ResultMessage;
 import com.business.entitys.goods.GoodsList;
 import com.business.entitys.order.OrderForm;
 import com.business.service.IGoodsOperationService;
 import com.business.service.IOrderService;
 import com.business.service.IUserService;
+import com.business.util.CheckErrorQiantaiUtill;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -28,7 +30,7 @@ public class OrderQueryAction extends ActionSupport implements ModelDriven<Order
 	private IOrderService orderService;
 	@Resource
 	private IGoodsOperationService goodsOperationService;
-	
+
 	public IGoodsOperationService getGoodsOperationService() {
 		return goodsOperationService;
 	}
@@ -88,6 +90,7 @@ public class OrderQueryAction extends ActionSupport implements ModelDriven<Order
 
 	public String getWhereData() {
 		System.out.println(orderForm);
+
 		String json = orderService.findDataBywhere(orderForm);
 		// System.out.println(json + "!!!!");
 		toJsonSteam(json);
@@ -100,10 +103,12 @@ public class OrderQueryAction extends ActionSupport implements ModelDriven<Order
 	public String saveBuyGoodsList() {
 		ActionContext actionContext = ActionContext.getContext();
 		Map session = actionContext.getSession();
+
 		String json = goodsOperationService.queryGoodsListById(orderForm.getGoodsId());
 		GoodsList goodsList = JSONObject.parseObject(json, GoodsList.class);
 		session.put("buyGoodsList", goodsList);
 		session.put("buyOrderFrom", orderForm);
+
 		toJsonSteam(json);
 		return Action.SUCCESS;
 	}

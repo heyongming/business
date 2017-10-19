@@ -29,11 +29,9 @@
 <script src="lib/less/less.min.js"></script>
 </head>
 <body>
+
 	<!--头部块结束-->
-
 	<section id="message">
-
-
 		<div class="mes">
 			<p class="left">${requestScope.currentGoods.goodsName}</p>
 			<p class="color">服务到期：${requestScope.currentGoodsDay}</p>

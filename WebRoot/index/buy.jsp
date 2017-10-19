@@ -3,6 +3,7 @@
 	String path = request.getContextPath();
 	String basePath = "/business/index/";
 %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -23,9 +24,36 @@
 <!--引入less文件的js-->
 <script src="lib/less/less.js"></script>
 <script src="lib/less/less.min.js"></script>
+<script type="text/javascript">
+	//禁止ios10缩放
+	window.onload = function() {
+		document.addEventListener('touchstart', function(event) {
+			if (event.touches.length > 1) {
+				event.preventDefault();
+			}
+		});
+		var lastTouchEnd = 0;
+		document.addEventListener('touchend', function(event) {
+			var now = (new Date()).getTime();
+			if (now - lastTouchEnd <= 300) {
+				event.preventDefault();
+			}
+			lastTouchEnd = now;
+		}, false)
+	}
+</script>
+
 </head>
 <body>
+	<c:if test="${empty sessionScope.buyuser}">
+		<script type="text/javascript">
+			location.href = "business/index/"
+		</script>
 
+	</c:if>
+	<header id="header">
+		<h2>确认订单</h2>
+	</header>
 	<!--message开始-->
 	<section id="message">
 		<div id="left">
@@ -49,9 +77,11 @@
 	<section id="money">
 		<p>支付方式</p>
 		<ul>
-			<li id="zhifubao" value="1"><img src="images/zf.png" alt="" />
+			<!-- 			<li id="zhifubao" value="1"><img src="images/zf.png" alt="" />
 				<span>支付宝支付</span>
 				<div class="select"></div></li>
+				 -->
+
 			<li id="weixin" value="0"><img src="images/wx.png" alt="" /> <span
 				class="spanColor">微信支付</span>
 				<div class="active"></div></li>

@@ -462,6 +462,8 @@ public class OrderServiceImpl implements IOrderService {
 	@Override
 	public Map<String, Object> generateOrder(GoodsList goodsList, OrderForm orderForm, User user) {
 		// TODO Auto-generated method stub
+	
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("serviceUserId", user.getUserId());
 		List<ServiceTime> list = serviceTimeDao.selectByWhere(map); // 拿到该用户已有的产品

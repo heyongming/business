@@ -3,6 +3,7 @@
 	String path = request.getContextPath();
 	String basePath = "/business/index/";
 %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
 <html lang="en" id="htmlId">
@@ -29,10 +30,30 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script>
-
+<script type="text/javascript">
+	//禁止ios10缩放
+	window.onload = function() {
+		document.addEventListener('touchstart', function(event) {
+			if (event.touches.length > 1) {
+				event.preventDefault();
+			}
+		});
+		var lastTouchEnd = 0;
+		document.addEventListener('touchend', function(event) {
+			var now = (new Date()).getTime();
+			if (now - lastTouchEnd <= 300) {
+				event.preventDefault();
+			}
+			lastTouchEnd = now;
+		}, false)
+	}
+</script>
 </head>
 <body>
 
+	<header id="header">
+		<h2>服务协议</h2>
+	</header>
 	<!--订单信息-->
 	<section id="product">
 		<h2 class="title">证券投资顾问服务协议</h2>

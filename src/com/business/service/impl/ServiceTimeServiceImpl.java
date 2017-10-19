@@ -62,7 +62,7 @@ public class ServiceTimeServiceImpl implements IServiceTimeService {
 		String xnpath = "/business/upload/pdf/" + user.getUserId() + "/" + orderForm.getOrderSerialNumber() + ".pdf"; // web访问路径
 		st.setAgreement(xnpath);
 		st.setRealAgreement(path);
-		System.out.println("踩你妈" + st);
+		
 		int flog = serviceTimeDao.update(st);
 		String result = null;
 		if (flog > 0) {
