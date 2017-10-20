@@ -29,7 +29,7 @@
 <body>
 
 
-	<!--产品信息开始-->
+	<!-- 产品信息开始-->
 	<section id="product">
 		<div class="left">
 			<!-- 

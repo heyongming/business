@@ -32,5 +32,5 @@ public interface IServiceTimeDao {
 	int delete(Map<String, Object> map);
 	
 	int update(ServiceTime serviceTime);
-	
+	int updateBySubService();
 }

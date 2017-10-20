@@ -172,8 +172,10 @@ public class OrderRiskAction extends ActionSupport {
 				toJsonSteam(json);
 				return this.SUCCESS;
 			}
-			orderService.saveOrderStatus(userEntitys.getPhone());
-			orderForm.setOrderStatus(orderForm.getOrderStatus() + 1);
+			orderService.saveOrderFromrOderStatus(orderForm,3);
+
+			orderForm.setOrderStatus(3);
+			
 			session.put("buyOrderResult", orderForm);
 			System.out.println("进来了");
 			String json = serviceTimeService.savePdf(userEntitys, orderForm, buyGoodsList, null);
@@ -200,9 +202,9 @@ public class OrderRiskAction extends ActionSupport {
 		GoodsList buyGoodsList = (GoodsList) session.get("buyGoodsList");
 		User userEntitys = (User) session.get("buyuser");// 购买者
 		OrderForm orderForm = (OrderForm) session.get("buyOrderResult");
-		orderService.saveOrderStatus(userEntitys.getPhone());
+		orderService.saveOrderFromrOderStatus(orderForm,3);
 
-		orderForm.setOrderStatus(orderForm.getOrderStatus() + 1);
+		orderForm.setOrderStatus(3);
 		session.put("buyOrderResult", orderForm);
 		String json = serviceTimeService.savePdf(userEntitys, orderForm, buyGoodsList, "");
 		toJsonSteam(json);
@@ -269,8 +271,8 @@ public class OrderRiskAction extends ActionSupport {
 		User userEntitys = (User) session.get("buyuser");// 购买者
 		OrderForm orderForm = (OrderForm) session.get("buyOrderResult");
 
-		orderService.saveOrderStatus(userEntitys.getPhone());
-		orderForm.setOrderStatus(orderForm.getOrderStatus() + 1);
+		orderService.saveOrderFromrOderStatus(orderForm, 4);
+		orderForm.setOrderStatus(4);
 		session.put("buyOrderResult", orderForm);
 		ServiceTime serviceTime = serviceTimeService.findServiceTimeEntity(userEntitys, buyGoodsList);
 		String json = JSONObject.toJSONString(serviceTime);
@@ -289,7 +291,7 @@ public class OrderRiskAction extends ActionSupport {
 		User userEntitys = (User) session.get("buyuser");// 购买者
 		OrderForm orderForm = (OrderForm) session.get("buyOrderResult");
 
-		orderService.saveOrderStatus(userEntitys.getPhone());
+	//	orderService.saveOrderStatus(userEntitys.getPhone());
 		orderForm.setOrderStatus(orderForm.getOrderStatus() + 1);
 		session.put("buyOrderResult", orderForm);
 		return this.SUCCESS;

@@ -31,4 +31,9 @@ public interface IServiceTimeService {
 	 */
 	ServiceTime findServiceUserEntity(User user, GoodsList goodsList);
 
+	/*
+	 * 购买服务后每天减去一天的使用时间
+	 * 
+	 */
+	int subSertviceTime();
 }

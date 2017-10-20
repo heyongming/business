@@ -65,7 +65,7 @@ public class MpCodeAction extends ActionSupport {
 		
 
 		MpUserEntity entity = mpUserService.findUserInfo(mpCodeEntitys.getOpenid());
-		System.out.println(isover + "判断！！" + code);
+	//	System.out.println(isover + "判断！！" + code);
 		if (entity == null && isover) {
 
 			entity = MessAgeUtil.getMpUserEntity(mpCodeEntitys.getAccess_token(), mpCodeEntitys.getOpenid());

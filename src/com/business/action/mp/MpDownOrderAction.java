@@ -107,7 +107,7 @@ public class MpDownOrderAction extends ActionSupport implements ModelDriven<PayE
 		String outTradeNo = new SimpleDateFormat("YYYYMMDDHHmmssSSS").format(new Date()) + "-wap";
 		// 初始化
 		String param = CreateWapUrl(outTradeNo, ip, userEntitys, buyGoodsList, buyorderForm);
-		System.out.println(param);
+	//	System.out.println(param);
 		// 与微信的接口进行对接
 		String resp = MpPayUtill.sendPost(WxPayConfig.UNIFIEDORDER_INTERFACE, param, "utf-8");
 		Map<String, String> res = MpPayUtill.parseXml(resp);
@@ -118,13 +118,15 @@ public class MpDownOrderAction extends ActionSupport implements ModelDriven<PayE
 			} else {
 				code = -1;
 				message = res.get("err_code_des");
+				/*
 				System.out.println(
 						"wxWapPay error code" + res.get("err_code") + ", reason is " + res.get("err_code_des"));
+				*/
 			}
 		} else {
 			code = -1;
 			message = res.get("return_msg");
-			System.out.println("wxWapPay error reason is " + res.get("return_msg"));
+		//	System.out.println("wxWapPay error reason is " + res.get("return_msg"));
 		}
 		ResultMessage resultMessage = new ResultMessage(code + "", result, message);
 
@@ -179,7 +181,7 @@ public class MpDownOrderAction extends ActionSupport implements ModelDriven<PayE
 		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
 			ip = request.getRemoteAddr();
 		}
-		System.out.println(ip);
+	//	System.out.println(ip);
 		int indexOf = ip.indexOf(",");
 		if (indexOf > 0) {
 			return ip.substring(0, indexOf);

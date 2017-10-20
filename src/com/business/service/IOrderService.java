@@ -10,7 +10,7 @@ import com.business.entitys.user.User;
 public interface IOrderService {
 	String addOrder(OrderForm orderForm); // 添加订单
 
-	String saveOrderStatus(String phone); // 更改状态
+//	String saveOrderStatus(String phone); // 更改状态
 
 	boolean findIsbuy(String phone);// 是否购买了商品
 
@@ -75,4 +75,6 @@ public interface IOrderService {
 	Map<String, Object> saveBuyoeder(GoodsList buyGoodsList, OrderForm buyorderForm, User userEntitys, GoodsList upGoodsList);
 	
 	OrderActivationCode doClosingTheDeal(OrderForm orderForm);
+	
+	String saveOrderFromrOderStatus(OrderForm form,int orderStatus);
 }

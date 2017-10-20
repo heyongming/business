@@ -126,7 +126,7 @@ public class MpServiceAction extends ActionSupport {
 			}
 
 			entity = mpUserService.findUserInfo(mpCodeEntitys.getOpenid());
-			System.out.println(isover + "判断！！" + code);
+		//	System.out.println(isover + "判断！！" + code);
 			if (entity == null && isover) {
 
 				entity = MessAgeUtil.getMpUserEntity(mpCodeEntitys.getAccess_token(), mpCodeEntitys.getOpenid());
@@ -146,11 +146,14 @@ public class MpServiceAction extends ActionSupport {
 
 		User user = mpUserService.findOpenIdToUser(entity);
 		List<GoodsList> goodsList = mpUserService.findGetUserBuyGoodsList(user);
+		if (goodsList.size() == 0) {
+			return this.input();
+		}
 		session.put("loginUser", user);
 		session.put("loginUserGoodsList", goodsList);
 		session.put("loginUserGoodsListSize", goodsList.size());
 
-		System.out.println("User:" + user);
+	//	System.out.println("User:" + user);
 		System.out.println("goodsList:" + goodsList);
 
 		return this.SUCCESS;

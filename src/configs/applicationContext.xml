@@ -62,7 +62,7 @@
 				<value>classpath:com/business/entitys/order/*.xml</value>
 				<value>classpath:com/business/entitys/mp/*.xml</value>
 				<value>classpath:com/business/entitys/service/*.xml</value>
-								
+
 			</list>
 		</property>
 	</bean>
@@ -88,6 +88,7 @@
 			<tx:method name="update*" propagation="REQUIRED" />
 			<tx:method name="modify*" propagation="REQUIRED" />
 			<tx:method name="do*" propagation="REQUIRED" />
+			<tx:method name="sub*" propagation="REQUIRED" />
 		</tx:attributes>
 	</tx:advice>
 
@@ -98,40 +99,63 @@
 			expression="execution(* com.business.service.*.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="mycutPC" />
 	</aop:config>
-	 <!-- 定义目标bean和bean中的方法
-	   -->  
-    <bean id="SpringQtzJob" class="com.business.job.AccessTokenManager"/>  
-    <bean id="SpringQtzJobMethod" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
-	    <property name="targetObject">  
-	        <ref bean="SpringQtzJob"/>   
-	    </property>  
-	    <property name="targetMethod">
-	        <value>execute</value>  
-	    </property>    
-	</bean>  
-	
-	<bean id="rsh_simpleTrigger1" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">  
-        <property name="jobDetail" ref="SpringQtzJobMethod" />  
-        <property name="startDelay" value="500" />   
-        <property name="repeatInterval" value="0" />  
-        <property name="repeatCount" value="0" />  
-    </bean>  
-	   
-	    
-	<!-- ======================== 调度触发器 ======================== -->  
-	<bean id="CronTriggerBean" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
-	    <property name="jobDetail" ref="SpringQtzJobMethod"></property>  
-	    <property name="cronExpression"  value="0 0 */1 * * ?"></property>
-	</bean>  
-	  <!-- 0 37 19 * * ? -->
-	<!-- ======================== 调度工厂 ======================== -->  
-	<bean id="SpringJobSchedulerFactoryBean" lazy-init="false" autowire="no" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">  
-	    <property name="triggers">  
-	        <list>   
-	        	<ref bean="rsh_simpleTrigger1" />
-	            <ref bean="CronTriggerBean"/>   
-	        </list>  
-	    </property>  
-	</bean>   
+	<!-- 定义目标bean和bean中的方法 -->
+	<bean id="SpringQtzJob" class="com.business.job.AccessTokenManager" />
+	<bean id="ServiceSub" class="com.business.job.ServiceSubManger"></bean>
+	<bean id="SpringQtzJobMethod"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="SpringQtzJob" />
+
+		</property>
+		<property name="targetMethod">
+			<value>execute</value>
+		</property>
+	</bean>
+	<bean id="ServiceSubMethod"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="ServiceSub" />
+
+		</property>
+		<property name="targetMethod">
+			<value>subService</value>
+		</property>
+	</bean>
+
+	<bean id="rsh_simpleTrigger1"
+		class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+		<property name="jobDetail" ref="SpringQtzJobMethod" />
+		<property name="startDelay" value="500" />
+		<property name="repeatInterval" value="0" />
+		<property name="repeatCount" value="0" />
+	</bean>
+
+
+	<!-- ======================== 调度触发器 ======================== -->
+	<bean id="CronTriggerBean"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="SpringQtzJobMethod"></property>
+		<property name="cronExpression" value="0 0 */1 * * ?"></property>
+	</bean>
+	<!-- 0 37 19 * * ? -->
+	<!-- ======================== 调度触发器 ======================== -->
+	<bean id="ServiceSubTriggerBean"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="ServiceSubMethod"></property>
+		<property name="cronExpression" value="0 0 0 * * ?"></property>
+	</bean>
+	<!-- 0 37 19 * * ? -->
+	<!-- ======================== 调度工厂 ======================== -->
+	<bean id="SpringJobSchedulerFactoryBean" lazy-init="false"
+		autowire="no" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="rsh_simpleTrigger1" />
+				<ref bean="CronTriggerBean" />
+				<ref bean="ServiceSubTriggerBean"/>
+			</list>
+		</property>
+	</bean>
 
 </beans>

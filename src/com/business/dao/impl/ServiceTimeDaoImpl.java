@@ -27,7 +27,7 @@ public class ServiceTimeDaoImpl implements IServiceTimeDao {
 	@Override
 	public int insert(ServiceTime serviceTime) {
 		// TODO Auto-generated method stub
-		int id=sessionTemplate.insert("service.insertServiceTime", serviceTime);
+		int id = sessionTemplate.insert("service.insertServiceTime", serviceTime);
 		return id;
 	}
 
@@ -35,7 +35,7 @@ public class ServiceTimeDaoImpl implements IServiceTimeDao {
 	public List<ServiceTime> selectByWhere(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return sessionTemplate.selectList("service.selectBywehre", map);
-		
+
 	}
 
 	@Override
@@ -47,7 +47,13 @@ public class ServiceTimeDaoImpl implements IServiceTimeDao {
 	@Override
 	public int update(ServiceTime serviceTime) {
 		// TODO Auto-generated method stub
-		return  sessionTemplate.update("service.updateServiceTime", serviceTime);
+		return sessionTemplate.update("service.updateServiceTime", serviceTime);
+	}
+
+	@Override
+	public int updateBySubService() {
+		// TODO Auto-generated method stub
+		return sessionTemplate.update("service.updateBySubService");
 	}
 
 }

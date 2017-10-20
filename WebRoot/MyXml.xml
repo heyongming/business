@@ -1,14 +1,13 @@
 <xml>
-	<nonce_str><![CDATA[H1dSgARxaU53wKer]]></nonce_str>
-	<out_trade_no><![CDATA[201710289170350058-wap]]></out_trade_no>
+	<nonce_str><![CDATA[JSujKrdwZ1yaJjkc]]></nonce_str>
+	<out_trade_no><![CDATA[370883576863916032]]></out_trade_no>
 	<appid><![CDATA[wxaf9208856d550d06]]></appid>
 	<total_fee>1</total_fee>
-	<sign><![CDATA[4DAF5469DB66AC0E7E65AC0258ED57D2]]></sign>
+	<sign><![CDATA[C9F01E2909B6671C245ACB9AA69619C1]]></sign>
 	<trade_type><![CDATA[MWEB]]></trade_type>
+	<attach><![CDATA[{"errMsg":"370883576863916032","success":"4"}]]></attach>
 	<mch_id><![CDATA[1340345701]]></mch_id>
-	<body><![CDATA[test]]></body>
-	<notify_url><![CDATA[https://www.baidu.com]]></notify_url>
-	<spbill_create_ip><![CDATA[192.168.1.95]]></spbill_create_ip>
+	<body><![CDATA[添禄模拟盘（基础版）]]></body>
+	<notify_url><![CDATA[http://18f42658v7.iok.la/business/order/buyTogoodsListOrderFrom]]></notify_url>
+	<spbill_create_ip><![CDATA[116.236.212.42]]></spbill_create_ip>
 </xml>
-
-

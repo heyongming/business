@@ -64,6 +64,7 @@ $(function() {
 		}
 
 		/*提交数据*/
+		$(".spinner").show();
 		$.ajax({
 			url : "/business/order/checkUserInfo",
 			data : {
@@ -73,7 +74,8 @@ $(function() {
 				"rdCode" : recommended
 			},
 			success : function(data) {
-				var data=jQuery.parseJSON(data);
+				$(".spinner").hide();
+				var data = jQuery.parseJSON(data);
 				//alert(data.success)
 				if (data.success == "false") {
 					alert(data.errMsg);
@@ -81,6 +83,10 @@ $(function() {
 					location.href = '../index/buy.jsp'
 				}
 
+			},
+			error : function(XMLHttpRequest, textStatus, errorThrown) {
+				$(".spinner").hide();
+				alert("出现未知错误，请与客服联系，为您造成的不便，敬请谅解" + "状态码" + XMLHttpRequest.status + "错误信息" + XMLHttpRequest.readyState)
 			}
 		});
 		return;

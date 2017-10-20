@@ -69,7 +69,8 @@ public class OrderBuyAction extends ActionSupport implements ModelDriven<PayResu
 		Map<String, String> data = parseXml(request);
 		for (Entry<String, String> entry : data.entrySet()) {
 
-	//		System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
+			// System.out.println("Key = " + entry.getKey() + ", Value = " +
+			// entry.getValue());
 
 		}
 		ResultMessage result = JSONObject.parseObject(data.get("attach"), ResultMessage.class);
@@ -78,7 +79,7 @@ public class OrderBuyAction extends ActionSupport implements ModelDriven<PayResu
 		GoodsList buyGoodsList = OrderCache.goodsListMap.get(key);
 		OrderForm buyorderForm = OrderCache.orderFromMap.get(key);
 		GoodsList upGoodsList = OrderCache.upGoodsList.get(key);
-		if (userEntitys == null || buyGoodsList == null || buyorderForm == null ) {
+		if (userEntitys == null || buyGoodsList == null || buyorderForm == null) {
 			HashMap<String, Object> objMap = new HashMap<String, Object>();
 			objMap.put("return_code", "SUCCESS");
 			String xml = MpPayUtill.MapToXml(objMap);
@@ -100,7 +101,9 @@ public class OrderBuyAction extends ActionSupport implements ModelDriven<PayResu
 			// session.put("msg", map.get("msg"));
 			// session.put("buyOrderResult", map.get("buyOrder"));
 			OrderCache.msg.put(userEntitys.getUserId() + "", (ResultOrderActivationCodeEntitys) map.get("msg"));
-			OrderCache.buyOrderResult.put(userEntitys.getUserId() + "", (OrderForm) map.get("buyOrder"));
+			OrderForm tempOrder = (OrderForm) map.get("buyOrder");
+			tempOrder.setOpenId(data.get("transaction_id"));
+			OrderCache.buyOrderResult.put(userEntitys.getUserId() + "", tempOrder);
 			objMap.put("return_code", "SUCCESS");
 
 		} else {

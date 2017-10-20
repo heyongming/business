@@ -90,10 +90,16 @@
 			st.`userId`=#{pdfUserId}
 		</if>
 		<if test="serviceGoodsIdList!=null">
-			and st.`userId`=#{serviceUserId} and st.`isActivation`=1
+			and st.`userId`=#{serviceUserId} and st.`isActivation`=1 and st.`serviceDay`>0
 		</if>
 	</select>
-	
+	<update id="updateBySubService">
+		update
+		`serviceTime`
+		set
+		`serviceDay`=`serviceDay`-1
+		where `serviceDay`>0 and `isActivation`=1
+	</update>
 	<delete id="delete" parameterType="map">
 
 	</delete>

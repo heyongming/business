@@ -62,7 +62,7 @@ public class ServiceTimeServiceImpl implements IServiceTimeService {
 		String xnpath = "/business/upload/pdf/" + user.getUserId() + "/" + orderForm.getOrderSerialNumber() + ".pdf"; // web访问路径
 		st.setAgreement(xnpath);
 		st.setRealAgreement(path);
-		
+
 		int flog = serviceTimeDao.update(st);
 		String result = null;
 		if (flog > 0) {
@@ -97,5 +97,11 @@ public class ServiceTimeServiceImpl implements IServiceTimeService {
 		if (list.size() > 0)
 			return list.get(0);
 		return null;
+	}
+
+	@Override
+	public int subSertviceTime() {
+		// TODO Auto-generated method stub
+		return serviceTimeDao.updateBySubService();
 	}
 }

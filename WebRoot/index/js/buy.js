@@ -39,7 +39,7 @@ $(function() {
 					}
 				}
 			})
-		}, 4000)
+		}, 3000)
 	}
 	$.ajax({
 		url : "/business/order/checkBuy",
@@ -63,9 +63,10 @@ $(function() {
 	})
 
 	function buyClick() {
+		$(".spinner").show();
 		var checkId = 0;
 		if ($("#weixin").val() == 0) {
-			
+
 			//	alert("微信支付");
 			checkId = 1;
 			$.ajax(
@@ -75,17 +76,17 @@ $(function() {
 					data : {
 						"paymentMethod" : checkId,
 					},
-					
+
 					success : function(data) {
-						alert(data)
+						//	alert(data)
+						$(".spinner").hide();
 						data = JSON.parse(data);
-						alert(data)
+						//	alert(data)
 						location.href = data.errMsg;
 					},
 					error : function(XMLHttpRequest, textStatus, errorThrown) {
-						alert(XMLHttpRequest.status);
-						alert(XMLHttpRequest.readyState);
-						alert(textStatus);
+						$(".spinner").hide();
+						alert("出现未知错误，请与客服联系，为您造成的不便，敬请谅解" + "状态码" + XMLHttpRequest.status + "错误信息" + XMLHttpRequest.readyState)
 					}
 				}
 			)

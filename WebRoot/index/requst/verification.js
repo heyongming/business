@@ -14,7 +14,7 @@ $(function() {
 			alert("激活码格式错误");
 			return;
 		}
-		alert("??");
+		$(".spinner").show();
 		$.ajax(
 			{
 				url : "/business/mp/activation",
@@ -24,12 +24,19 @@ $(function() {
 				},
 				dataType : 'json',
 				success : function(data) {
+					$(".spinner").hide();
 					if (data.success == "true") {
 						location.href = "/business/mp/service";
 					} else {
 						alert(data.errMsg)
 					}
 
+				},
+				error:function(XMLHttpRequest, textStatus, errorThrown)
+				{
+					$(".spinner").hide();
+					alert("出现未知错误，请与客服联系，为您造成的不便，敬请谅解"+"状态码"+XMLHttpRequest.status+"错误信息"+XMLHttpRequest.readyState)
+					
 				}
 			}
 		)

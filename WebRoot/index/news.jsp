@@ -108,7 +108,7 @@
 	</section>
 
 
-	${requestScope.loginServiceArticle.serviceArticleNum}
+	
 	<!-- 以下是所用到的js -->
 	<!--引入jQuery bootstrape依赖jQuery-->
 	<script src="lib/jquery/jquery.js"></script>

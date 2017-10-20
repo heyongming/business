@@ -21,6 +21,29 @@
 <!--引入自己的less,自己写的css-->
 <link rel="stylesheet/less" href="css/base.less" />
 <link rel="stylesheet/less" href="css/message.less" />
+    <style>
+    .spinner {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        z-index: 9999;
+        background: rgba(233,233,233,0.6);
+        display: none;
+    }
+    .spinner .jiazai{
+        position: absolute;
+        width: 6rem;
+        height: 6rem;
+        left: 50%;
+        top:50%;
+        margin-top: -3rem;
+        margin-left: -3rem;
+        background: url("images/jiazai.gif") no-repeat;
+        background-position: center center;
+        background-size: cover;
+    }
+</style>
+
 <!--引入rem.js文件-->
 <script src="lib/rem/rem.js"></script>
 <!--引入less文件的js-->
@@ -118,7 +141,7 @@
 <body>
 	<c:if test="${empty sessionScope.buyuser}">
 		<script type="text/javascript">
-			location.href = "business/index/"
+			location.href = "/business/index/"
 		</script>
 
 	</c:if>
@@ -139,8 +162,8 @@
 		<p>手机号码：${sessionScope.buyuser.phone }</p>
 		<p>推&nbsp;&nbsp;荐&nbsp;&nbsp;码：${sessionScope.buyuser.rdCode }</p>
 		<p>订单编号：${sessionScope.buyOrderResult.orderSerialNumber }</p>
-		<p>支付编号：${sessionScope.buyOrderResult.orderSerialNumber }</p>
-		${sessionScope.buyOrderResult.orderStatus}
+		<p>支付编号：${sessionScope.buyOrderResult.openId }</p>
+		
 	</section>
 	<section id="process">
 		<h2>服务审核流程</h2>
@@ -226,7 +249,7 @@
 					url : "/business/order/getPdfPath",
 					type : "POST",
 					success : function(data) {
-						alert(data.agreement)
+					//	alert(data.agreement)
 						data = JSON.parse(data);
 	
 						$(".pdfRanding").attr("src", data.agreement);

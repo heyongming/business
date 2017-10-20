@@ -77,12 +77,11 @@ public class OrderAction extends ActionSupport implements ModelDriven<OrderForm>
 		return this.SUCCESS;
 	}
 
-	public String update() {
-		String jsonText = orderService.saveOrderStatus(phone);
-		toJsonSteam(jsonText);
-		return this.SUCCESS;
-	}
-
+	/*
+	 * public String update() { String jsonText =
+	 * orderService.saveOrderStatus(phone); toJsonSteam(jsonText); return
+	 * this.SUCCESS; }
+	 */
 	public String getactivationCode() {
 		String jsonText = orderService.saveOrderActivationCode(phone);
 		toJsonSteam(jsonText);

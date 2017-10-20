@@ -62,7 +62,6 @@ public class MpActivationAction extends ActionSupport {
 	@Override
 	public String execute() throws Exception {
 		// TODO Auto-generated method stub
-
 		ActionContext actionContext = ActionContext.getContext();
 		Map session = actionContext.getSession();
 

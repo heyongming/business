@@ -19,6 +19,30 @@
 <!--引入自己的less,自己写的css-->
 <link rel="stylesheet/less" href="css/base.less" />
 <link rel="stylesheet/less" href="css/buy.less" />
+<style>
+.spinner {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: 9999;
+	background: rgba(233, 233, 233, 0.6);
+	display: none;
+}
+
+.spinner .jiazai {
+	position: absolute;
+	width: 6rem;
+	height: 6rem;
+	left: 50%;
+	top: 50%;
+	margin-top: -3rem;
+	margin-left: -3rem;
+	background: url("images/jiazai.gif") no-repeat;
+	background-position: center center;
+	background-size: cover;
+}
+</style>
+
 <!--引入rem.js文件-->
 <script src="lib/rem/rem.js"></script>
 <!--引入less文件的js-->
@@ -51,6 +75,10 @@
 		</script>
 
 	</c:if>
+	<section class="spinner">
+		<div class="jiazai"></div>
+	</section>
+
 	<header id="header">
 		<h2>确认订单</h2>
 	</header>

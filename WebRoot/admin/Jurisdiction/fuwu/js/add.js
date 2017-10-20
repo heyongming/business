@@ -69,7 +69,7 @@ $(function() {
 						$("#j_mask").css("display", "none");
 						$("#j_formAdd").css("display", "none");
 						if (data.success == "true") {
-						//	show();
+							show();
 
 						} else {
 							alert(data.errMsg)
@@ -162,7 +162,7 @@ $(function() {
 				/*显示旧信息*/
 				//商品分类
 				console.log(data);
-				alert(data.goodsList.goodsId)
+			//	alert(data.goodsList.goodsId)
 				
 				//服务板块
 				var serviceTypeId;

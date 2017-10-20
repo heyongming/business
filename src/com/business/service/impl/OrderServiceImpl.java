@@ -90,7 +90,7 @@ public class OrderServiceImpl implements IOrderService {
 		result = JSONObject.toJSONString(message);
 		return result;
 	}
-
+/*
 	@Override
 	public String saveOrderStatus(String phone) {
 		// TODO Auto-generated method stub
@@ -109,7 +109,7 @@ public class OrderServiceImpl implements IOrderService {
 		result = JSONObject.toJSONString(message);
 		return result;
 	}
-
+*/
 	@Override
 	public boolean findIsbuy(String phone) {
 		// TODO Auto-generated method stub
@@ -462,8 +462,7 @@ public class OrderServiceImpl implements IOrderService {
 	@Override
 	public Map<String, Object> generateOrder(GoodsList goodsList, OrderForm orderForm, User user) {
 		// TODO Auto-generated method stub
-	
-		
+
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("serviceUserId", user.getUserId());
 		List<ServiceTime> list = serviceTimeDao.selectByWhere(map); // 拿到该用户已有的产品
@@ -503,5 +502,32 @@ public class OrderServiceImpl implements IOrderService {
 			return activationCode;
 		}
 		return null;
+	}
+
+	@Override
+	public String saveOrderFromrOderStatus(OrderForm form, int orderStatus) {
+		// TODO Auto-generated method stub
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("orderSerialNumber", form.getOrderSerialNumber());
+		ResultMessage message = null;
+		List<OrderForm> list = orderDao.getDataByWhere(map);
+		if (list.size() > 0) {
+			message = new ResultMessage("-2", "false", "user not find");
+			return JSONObject.toJSONString(message);
+
+		}
+
+		form.setOrderStatus(orderStatus);
+		int flog = orderDao.updateOrder(form);
+		String result = null;
+
+		if (flog > 0) {
+			message = new ResultMessage("1", "true", "update Success");
+
+		} else {
+			message = new ResultMessage("-1", "false", "update fail");
+		}
+		result = JSONObject.toJSONString(message);
+		return result;
 	}
 }

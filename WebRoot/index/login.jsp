@@ -21,35 +21,63 @@
 <!--引入rem.js文件-->
 <script src="lib/rem/rem.js"></script>
 <!--引入自己的less,自己写的css-->
+<style>
+.spinner {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: 9999;
+	background: rgba(233, 233, 233, 0.6);
+	display: none;
+}
+
+.spinner .jiazai {
+	position: absolute;
+	width: 6rem;
+	height: 6rem;
+	left: 50%;
+	top: 50%;
+	margin-top: -3rem;
+	margin-left: -3rem;
+	background: url("images/jiazai.gif") no-repeat;
+	background-position: center center;
+	background-size: cover;
+}
+</style>
+
 <link rel="stylesheet/less" href="css/base.less" />
 <link rel="stylesheet/less" href="css/login.less" />
 <!--引入less文件的js-->
 <script src="lib/less/less.js"></script>
 <script src="lib/less/less.min.js"></script>
-	<script type="text/javascript">
+<script type="text/javascript">
 	//禁止ios10缩放
-	window.onload = function () {
-	document.addEventListener('touchstart', function (event) {
-	if (event.touches.length > 1) {
-	event.preventDefault();
+	window.onload = function() {
+		document.addEventListener('touchstart', function(event) {
+			if (event.touches.length > 1) {
+				event.preventDefault();
+			}
+		});
+		var lastTouchEnd = 0;
+		document.addEventListener('touchend', function(event) {
+			var now = (new Date()).getTime();
+			if (now - lastTouchEnd <= 300) {
+				event.preventDefault();
+			}
+			lastTouchEnd = now;
+		}, false)
 	}
-	});
-	var lastTouchEnd = 0;
-	document.addEventListener('touchend', function (event) {
-	var now = (new Date()).getTime();
-	if (now - lastTouchEnd <= 300) {
-	event.preventDefault();
-	}
-	lastTouchEnd = now;
-	}, false)
-	}
-	</script>
+</script>
 </head>
 <body>
 	<header id="header">
-	<h2>填写资料</h2>
+		<h2>填写资料</h2>
 	</header>
 	<!--填写信息-->
+	<section class="spinner">
+		<div class="jiazai"></div>
+	</section>
+
 	<section id="message">
 		<form id="form">
 			<ul>
