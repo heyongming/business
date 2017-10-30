@@ -1,0 +1,89 @@
+#message {
+    width: 100%;
+    background-color: #fff;
+    margin: 0 auto 30px;
+    padding: 0 0 30px 86px;
+}
+#message > h2 {
+    text-align: center;
+    font-size: 0.16rem;
+    line-height: 0.4rem;
+    font-weight: 400;
+    color: #da251c;
+}
+#message > h3 {
+    color: #da251c;
+    font-size: 0.18rem;
+    margin-bottom: 0.1rem;
+}
+#message > p {
+    font-size: 0.16rem;
+    line-height: 0.3rem;
+}
+#message > p > span {
+    color: #da251c;
+}
+#message .twoYear {
+    position: relative;
+}
+#message .twoYear > .text {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding: 9px 0px;
+}
+#message > table {
+    margin: 16px 0;
+}
+#message > table tr:nth-of-type(even) {
+    color: #da251c;
+}
+#message > table td {
+    border: 1px solid #909090;
+    text-align: center;
+    width: 1rem;
+    height: 0.4rem;
+    line-height: 0.4rem;
+    font-size: 0.2rem;
+}
+#message > .img {
+    margin: 16px 0;
+}
+#message > .img > ul {
+    overflow: hidden;
+}
+#message > .img > ul > li {
+    float: left;
+    width: 2.8rem;
+    height: 1.8rem;
+    margin-right: 0.2rem;
+}
+#message > .img > ul > li > img {
+    width: 2.8rem;
+}
+#product{
+    width: 100%;
+    background-color: #fff;
+    margin: 0 auto 30px;
+    padding: 0 0 30px 86px;
+}
+#product > table {
+    margin: 16px 0;
+}
+#product > table tr th {
+    background-color: #f2f2f2;
+    border: 1px solid #909090;
+    width: 2rem;
+    height: 0.3rem;
+    text-align: center;
+    line-height: 0.3rem;
+    font-size: 0.1rem;
+}
+#product > table td {
+    border: 1px solid #909090;
+    width: 2rem;
+    height: 0.3rem;
+    text-align: center;
+    line-height: 0.3rem;
+    font-size: 0.1rem;
+}

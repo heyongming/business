@@ -39,9 +39,9 @@ public class ServiceTimeDaoImpl implements IServiceTimeDao {
 	}
 
 	@Override
-	public int delete(Map<String, Object> map) {
+	public int delete(int id) {
 		// TODO Auto-generated method stub
-		return sessionTemplate.delete("service.delete", map);
+		return sessionTemplate.delete("service.delete", id);
 	}
 
 	@Override

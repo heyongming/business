@@ -104,4 +104,55 @@ public class ServiceTimeServiceImpl implements IServiceTimeService {
 		// TODO Auto-generated method stub
 		return serviceTimeDao.updateBySubService();
 	}
+
+	@Override
+	public List<ServiceTime> findServiceUserEntityByUser(User user) {
+		// TODO Auto-generated method stub
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("serviceUserId", user.getUserId());
+
+		List<ServiceTime> list = serviceTimeDao.selectByWhere(map);
+		if (list.size() > 0)
+			return list;
+		return null;
+
+	}
+
+	@Override
+	public int updateServiceTime(ServiceTime serviceTime) {
+		// TODO Auto-generated method stub
+		return serviceTimeDao.update(serviceTime);
+
+	}
+
+	@Override
+	public List<ServiceTime> findAllData() {
+		// TODO Auto-generated method stub
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<ServiceTime> list = serviceTimeDao.selectByWhere(map);
+		return list;
+	}
+
+	@Override
+	public ServiceTime findDataById(int id) {
+		// TODO Auto-generated method stub
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("findKey", "寻找主键的数据");
+		map.put("findId", id);
+		List<ServiceTime> list = serviceTimeDao.selectByWhere(map);
+		if (list != null) {
+			if (list.size() > 0) {
+				return list.get(0);
+			}
+		}
+
+		return null;
+	}
+
+	@Override
+	public int deleteServiceTime(int id) {
+		// TODO Auto-generated method stub
+		return serviceTimeDao.delete(id);
+		
+	}
 }

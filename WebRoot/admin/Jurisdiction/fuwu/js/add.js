@@ -9,12 +9,14 @@ $(function() {
 			dataType : 'json',
 			success : function(data) {
 				// 渲染数据列表
-				var commBox=$("#goodsId")
-				
+				var commBox = $("#goodsId")
+			
 				$.each(data, function(i, e) {
-					var appendHtml="<option value="+e.goodsId+">"+e.goodsName+"</option>";
-					commBox.append(appendHtml);
+				
+					var appendHtml = "<option value=" + e.goodsId + ">" + e.goodsName + "</option>";
 					
+					commBox.append(appendHtml);
+
 				})
 			}
 		});
@@ -46,7 +48,6 @@ $(function() {
 			});
 			// 给表单提交按钮绑定事件
 			$("#submit").unbind('click').click(function() {
-
 				// 获取所有的表单数据
 				var articleContent = ue.getContent(); //获取富文本编辑器内容
 				var formData = new FormData();
@@ -57,6 +58,7 @@ $(function() {
 				formData.append("targetTime", $("#targetTime").val());
 				formData.append("author", $("#author").val());
 				formData.append("articleContent", articleContent);
+				$(".spinner").show();
 				$.ajax({
 					type : 'post',
 					url : '/business/serviceArticle/addServiceArticle',
@@ -66,6 +68,7 @@ $(function() {
 					dataType : 'json',
 					success : function(data) {
 						// 渲染数据列表
+						$(".spinner").hide();
 						$("#j_mask").css("display", "none");
 						$("#j_formAdd").css("display", "none");
 						if (data.success == "true") {
@@ -85,7 +88,7 @@ $(function() {
 		// 数据解析和渲染
 		var tag = '';
 		$.each(data, function(i, e) {
-		
+
 			//服务板块
 			var serviceTypeId;
 			if (e.serviceTypeId == 1) {
@@ -162,8 +165,8 @@ $(function() {
 				/*显示旧信息*/
 				//商品分类
 				console.log(data);
-			//	alert(data.goodsList.goodsId)
-				
+				//	alert(data.goodsList.goodsId)
+
 				//服务板块
 				var serviceTypeId;
 				if (data.serviceTypeId == 1) {
@@ -198,7 +201,7 @@ $(function() {
 					formData.append("author", $("#author").val());
 					formData.append("articleContent", articleContent);
 					formData.append("serviceArticleNum", thisServiceArticleNum);
-
+					$(".spinner").show();
 					$.ajax({
 						url : '/business/serviceArticle/updateServiceArtcle',
 						type : 'post',
@@ -208,6 +211,7 @@ $(function() {
 						contentType : false,
 						success : function(data) {
 							// 渲染数据列表
+							$(".spinner").hide();
 							$('#content').html("");
 
 							$("#j_mask").css("display", "none");

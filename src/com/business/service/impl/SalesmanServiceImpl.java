@@ -100,4 +100,11 @@ public class SalesmanServiceImpl implements ISalesmanService {
 		return null;
 	}
 
+	@Override
+	public int updateSaleman(Salesman salesman) {
+		// TODO Auto-generated method stub
+		return salesmanDao.update(salesman);
+
+	}
+
 }

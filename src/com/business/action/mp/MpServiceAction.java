@@ -145,6 +145,10 @@ public class MpServiceAction extends ActionSupport {
 		}
 
 		User user = mpUserService.findOpenIdToUser(entity);
+		if(user==null)
+		{
+			return this.input();
+		}
 		List<GoodsList> goodsList = mpUserService.findGetUserBuyGoodsList(user);
 		if (goodsList.size() == 0) {
 			return this.input();

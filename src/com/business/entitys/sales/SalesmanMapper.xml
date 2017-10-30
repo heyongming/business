@@ -28,4 +28,14 @@
 		`salesmanAndUser`(`userId`,`salesmanId`)
 		values(#{userId},#{salesmanId})
 	</insert>
+	<update id="update" parameterType="salesman">
+		update `salesman` set
+
+		`userName`=#{userName},
+		`passWord`=#{passWord},
+		`phone`=#{phone},
+		`type`=#{type}
+		where
+		`userId`=#{userId}
+	</update>
 </mapper>

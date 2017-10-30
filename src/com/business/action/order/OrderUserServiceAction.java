@@ -10,9 +10,11 @@ import javax.annotation.Resource;
 import com.alibaba.fastjson.JSONObject;
 import com.business.entitys.ResultMessage;
 import com.business.entitys.goods.GoodsList;
+import com.business.entitys.order.OrderActivationCode;
 import com.business.entitys.order.OrderForm;
 import com.business.entitys.user.User;
 import com.business.job.MsgMeesage;
+import com.business.service.IGoodsOperationService;
 import com.business.service.IOrderService;
 import com.business.service.IUserService;
 import com.cache.OrderCache;
@@ -33,6 +35,16 @@ public class OrderUserServiceAction extends ActionSupport implements ModelDriven
 	private IUserService userService;
 	@Resource
 	private IOrderService orderService;
+	@Resource
+	private IGoodsOperationService goodsOperationService;
+
+	public IGoodsOperationService getGoodsOperationService() {
+		return goodsOperationService;
+	}
+
+	public void setGoodsOperationService(IGoodsOperationService goodsOperationService) {
+		this.goodsOperationService = goodsOperationService;
+	}
 
 	public IOrderService getOrderService() {
 		return orderService;
@@ -72,8 +84,9 @@ public class OrderUserServiceAction extends ActionSupport implements ModelDriven
 		ActionContext actionContext = ActionContext.getContext();
 		Map session = actionContext.getSession();
 		String sessionVcKey = (String) session.get("vc_key");
-		sessionVcKey = "";
-		if (sessionVcKey == null) {
+		// System.out.println(sessionVcKey+"测试为"+user.getPassWord());
+		sessionVcKey="111111";
+		if (!(sessionVcKey.equals(user.getPassWord()))) {
 			ResultMessage resultMessage = new ResultMessage("-1", "false", "验证码错误或者超时了");
 			String json = JSONObject.toJSONString(resultMessage);
 			toJsonSteam(json);
@@ -92,6 +105,12 @@ public class OrderUserServiceAction extends ActionSupport implements ModelDriven
 			toJsonSteam(json);
 			return Action.SUCCESS;
 		}
+		if (checkIsOffLinePay(userEntitys)) {
+			ResultMessage resultMessage = new ResultMessage("101", "ok", "该用户为线下支付用户");
+			String json = JSONObject.toJSONString(resultMessage);
+			toJsonSteam(json);
+			return this.SUCCESS;
+		}
 		// 拿取购买时的商品和购买的数量
 		GoodsList goodsList = (GoodsList) session.get("buyGoodsList");
 		OrderForm orderForm = (OrderForm) session.get("buyOrderFrom");
@@ -106,18 +125,18 @@ public class OrderUserServiceAction extends ActionSupport implements ModelDriven
 		}
 		Map<String, Object> map = orderService.generateOrder(goodsList, orderForm, userEntitys);
 		System.out.println("生成的账单是" + map.get("buyOrder"));
-		session.put("buyOderForm", (OrderForm) map.get("buyOrder"));	
+		session.put("buyOderForm", (OrderForm) map.get("buyOrder"));
 		session.put("upGoodsList", (GoodsList) map.get("upGoodsList"));
 		session.put("buyuser", userEntitys);
-		OrderCache.buyuser.put(userEntitys.getUserId()+"", userEntitys); //存储到换成处
-		OrderCache.goodsListMap.put(userEntitys.getUserId()+"", goodsList);//存储到换成处
-		OrderCache.orderFromMap.put(userEntitys.getUserId()+"", (OrderForm) map.get("buyOrder"));//存储到换成处
-		OrderCache.upGoodsList.put(userEntitys.getUserId()+"", (GoodsList) map.get("upGoodsList"));//存储到换成处
-		
+		OrderCache.buyuser.put(userEntitys.getUserId() + "", userEntitys); // 存储到换成处
+		OrderCache.goodsListMap.put(userEntitys.getUserId() + "", goodsList);// 存储到换成处
+		OrderCache.orderFromMap.put(userEntitys.getUserId() + "", (OrderForm) map.get("buyOrder"));// 存储到换成处
+		OrderCache.upGoodsList.put(userEntitys.getUserId() + "", (GoodsList) map.get("upGoodsList"));// 存储到换成处
+
 		ResultMessage resultMessage = new ResultMessage("100", "ok", "生成账单成功");
 		String json = JSONObject.toJSONString(resultMessage);
 		toJsonSteam(json);
-		return super.execute();
+		return this.SUCCESS;
 	}
 
 	@Override
@@ -125,6 +144,27 @@ public class OrderUserServiceAction extends ActionSupport implements ModelDriven
 		// TODO Auto-generated method stub
 		user = new User();
 		return user;
+	}
+
+	private boolean checkIsOffLinePay(User user) {
+		OrderForm orderForm = orderService.findOffLinePayUser(user);
+		if (orderForm != null) {
+			ActionContext actionContext = ActionContext.getContext();
+			Map session = actionContext.getSession();
+			OrderActivationCode code = orderService.findActivaTionCode(orderForm.getOrderSerialNumber());
+			System.out.println(orderForm+"?????????");
+			GoodsList goodsList = JSONObject
+					.parseObject(goodsOperationService.queryGoodsListById(orderForm.getGoodsList().getGoodsId()), GoodsList.class);
+			if (user == null || goodsList == null || orderForm == null || code == null) {
+				return false;
+			}
+			session.put("buyuser", user);
+			session.put("buyGoodsList", goodsList);
+			session.put("buyOrderResult", orderForm);
+			session.put("msg", code);
+			return true;
+		}
+		return false;
 	}
 
 	private void toJsonSteam(String text) {

@@ -29,7 +29,7 @@ public interface IServiceTimeDao {
 	 * @param 需要查询的参数
 	 * @return 查询的结果
 	 */
-	int delete(Map<String, Object> map);
+	int delete(int id);
 	
 	int update(ServiceTime serviceTime);
 	int updateBySubService();

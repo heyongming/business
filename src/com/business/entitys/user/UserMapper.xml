@@ -30,7 +30,7 @@
 			<result property="headimgurl" column="headimgurl" />
 			<result property="privilege" column="privilege" />
 			<result property="unionid" column="unionid" />
-			
+
 		</collection>
 	</resultMap>
 	<insert id="addUser" parameterType="user" keyProperty="userId"
@@ -89,10 +89,14 @@
 	</update>
 	<select id="selectUserByWhere" parameterType="map" resultMap="userMap">
 		select * from `user` as us
-		left JOIN `mpuserentity` as mt on mt.`openid`=us.`openId`
+		left JOIN `mpuserentity` as mt on
+		mt.`openid`=us.`openId`
 		where 1=1
 		<if test="getUserDataByOpenId!=null">
-			 and us.`openId`=#{findOpenId}
+			and us.`openId`=#{findOpenId}
 		</if>
 	</select>
+	<delete id="delete" parameterType="int">
+		DELETE FROM `user` where `userId`=#{int}
+	</delete>
 </mapper>

@@ -54,26 +54,8 @@
 						<dl class="layui-nav-child">
 							<dd>
 								<a href="javascript:;" kit-target
-									data-options="{url:'fuwu/add.html',icon:'&#xe621;',title:'发表文章',id:'7'}">
+									data-options="{url:'fuwu/add.html',icon:'&#xe621;',title:'发表文章',id:'3'}">
 									<span>发表文章</span>
-								</a>
-							</dd>
-							<dd>
-								<a href="javascript:;" data-url="fuwu/revise.html"
-									data-icon="&#xe621;" data-title="修改文章" kit-target data-id='8'>
-									<span>修改文章</span>
-								</a>
-							</dd>
-							<dd>
-								<a href="javascript:;" data-url="fuwu/delect.html"
-									data-icon="&#xe621;" data-title="删除文章" kit-target data-id='9'>
-									<span>删除文章</span>
-								</a>
-							</dd>
-							<dd>
-								<a href="javascript:;" data-url="fuwu/history.html"
-									data-icon="&#xe621;" data-title="历史文章" kit-target data-id='10'>
-									<span>历史文章</span>
 								</a>
 							</dd>
 						</dl></li>

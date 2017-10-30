@@ -41,14 +41,10 @@
             <!-- 左侧导航区域（配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree" lay-filter="kitNavbar" kit-navbar>
                 <li class="layui-nav-item">
-                    <a class="" href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span> 合规管理</span></a>
+                    <a class="" href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span>合规管理</span></a>
                     <dl class="layui-nav-child">
                         <dd>
-                            <a href="javascript:;" kit-target data-options="{url:'hegui/audit.html',icon:'&#xe621;',title:'审核合规',id:'5'}">
-                                <span>审核合规</span></a>
-                        </dd>
-                        <dd>
-                            <a href="javascript:;" data-url="hegui/pass.html" data-icon="&#xe621;" data-title="已通过合规" kit-target data-id='6'>
+                            <a href="javascript:;" kit-target data-options="{url:'hegui/audit.html',icon:'&#xe621;',title:'已通过合规',id:'2'}">
                                 <span>已通过合规</span></a>
                         </dd>
                     </dl>

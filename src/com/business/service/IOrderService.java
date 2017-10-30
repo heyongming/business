@@ -1,16 +1,18 @@
 package com.business.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.business.entitys.goods.GoodsList;
 import com.business.entitys.order.OrderActivationCode;
 import com.business.entitys.order.OrderForm;
 import com.business.entitys.user.User;
+import com.business.temp.ResultOrderActivationCodeEntitys;
 
 public interface IOrderService {
 	String addOrder(OrderForm orderForm); // 添加订单
 
-//	String saveOrderStatus(String phone); // 更改状态
+	// String saveOrderStatus(String phone); // 更改状态
 
 	boolean findIsbuy(String phone);// 是否购买了商品
 
@@ -72,9 +74,27 @@ public interface IOrderService {
 	 *            升级前的商品 假如有的话
 	 * @return
 	 */
-	Map<String, Object> saveBuyoeder(GoodsList buyGoodsList, OrderForm buyorderForm, User userEntitys, GoodsList upGoodsList);
-	
+	Map<String, Object> saveBuyoeder(GoodsList buyGoodsList, OrderForm buyorderForm, User userEntitys,
+			GoodsList upGoodsList);
+
 	OrderActivationCode doClosingTheDeal(OrderForm orderForm);
+
+	String saveOrderFromrOderStatus(OrderForm form, int orderStatus);
+
+	/*
+	 * 查找该用户是否是线下付款的用户
+	 */
+	OrderForm findOffLinePayUser(User user);
+
+	/*
+	 * 根据订单号获得对应的激活码实体
+	 * 
+	 */
+	OrderActivationCode findActivaTionCode(String orderNo);
 	
-	String saveOrderFromrOderStatus(OrderForm form,int orderStatus);
+	/*
+	 * 
+	 * 获得线下支付的全部用户
+	 */
+	List<OrderForm> findOffLinePayAll();
 }

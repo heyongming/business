@@ -1,4 +1,4 @@
-package com.business.service ;
+package com.business.service;
 
 import java.util.List;
 
@@ -12,11 +12,13 @@ public interface ISalesmanService {
 
 	int delSalesman(int id);
 
+	int updateSaleman(Salesman salesman);
+
 	List<Salesman> getAllSalesman();
 
 	Salesman querySalesmanById(int id);
 
 	List<Salesman> querySalesmanByName(String name);
-	
-	User saveUser(User user,int salesmanId);
+
+	User saveUser(User user, int salesmanId);
 }

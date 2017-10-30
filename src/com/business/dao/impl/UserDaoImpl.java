@@ -67,4 +67,12 @@ public class UserDaoImpl implements IUserDao {
 		return sessionTemplate.selectList("user.selectUserByWhere", map);
 	}
 
+	@Override
+	public int delete(User user) {
+		// TODO Auto-generated method stub
+		return sessionTemplate.delete("user.delete", user.getUserId());
+	}
+
+
+
 }

@@ -109,8 +109,7 @@ public class UserAction extends ActionSupport implements ModelDriven<User> {
 		if (man == null || user == null) {
 			return Action.INPUT;
 		} else {
-			System.out.println("sss");
-			System.out.println(findUser);
+			
 			request.put("user", findUser);
 			return Action.SUCCESS;
 		}

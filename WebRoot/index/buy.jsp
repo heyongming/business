@@ -142,5 +142,7 @@
 	<script src="lib/template.js"></script>
 	<!--引入自己写的确认订单页面js-->
 	<script src="js/buy.js"></script>
+<!-- 	<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script> -->
+	
 </body>
 </html>

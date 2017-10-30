@@ -107,8 +107,9 @@ public class SalesmanAddUserAction extends ActionSupport implements ModelDriven<
 	@Override
 	public User getModel() {
 		// TODO Auto-generated method stub
+		System.out.println(user+"test");
 		user = new User();
-
+		System.out.println(user+"test");
 		return user;
 	}
 

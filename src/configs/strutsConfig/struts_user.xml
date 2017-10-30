@@ -40,7 +40,46 @@
 				<param name="inputName">bis</param>
 			</result>
 		</action>
-		
+		<action name="getAllUserData" class="com.business.action.user.UserQueryAction"
+
+			method="getAllData">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+
+				<param name="inputName">bis</param>
+			</result>
+		</action>
+
+		<action name="update" class="com.business.action.user.UserCurdAction"
+			method="update">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+
+				<param name="inputName">bis</param>
+			</result>
+		</action>
+		<action name="getUserEntitys" class="com.business.action.user.UserQueryAction"
+			method="getUserById">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+
+				<param name="inputName">bis</param>
+			</result>
+		</action>
+		<action name="delUser" class="com.business.action.user.UserCurdAction"
+			method="delete">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+
+				<param name="inputName">bis</param>
+			</result>
+		</action>
+		<action name="callBackUser" class="com.business.action.user.UserQueryAction"
+			method="getUserData">
+			<result name="success">/admin/Jurisdiction/hegui/pass.jsp
+			</result>
+			<result name="input">/admin/Jurisdiction/hegui/audit.jsp</result>
+		</action>
 	</package>
 
 

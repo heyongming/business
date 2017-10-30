@@ -157,7 +157,24 @@ public class SalesmanAction extends ActionSupport implements ModelDriven<Salesma
 		getJsonText(salesmanService.querySalesmanById(salesman.getUserId()));
 		return this.SUCCESS;
 	}
-
+	public String update()
+	{
+		Salesman sesionman = getSesion();
+		if (sesionman == null) {
+			ResultMessage message = new ResultMessage("-1", "false", " not login");
+			getJsonText(message);
+			return super.SUCCESS;
+		}
+		if (salesmanService.updateSaleman(salesman) > 0) {
+			ResultMessage message = new ResultMessage("1", "ture", "update successfully");
+			getJsonText(message);
+			return super.SUCCESS;
+		} else {
+			ResultMessage message = new ResultMessage("-2", "false", "update failed");
+			getJsonText(message);
+			return super.SUCCESS;
+		}
+	}
 	public String selectAll() {
 		Salesman sesionman = getSesion();
 		if (sesionman == null) {
@@ -186,7 +203,7 @@ public class SalesmanAction extends ActionSupport implements ModelDriven<Salesma
 			e1.printStackTrace();
 		}
 		try {
-			bis = new ByteArrayInputStream(jsonText.getBytes("GBK"));
+			bis = new ByteArrayInputStream(jsonText.getBytes("utf-8"));
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

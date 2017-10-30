@@ -13,9 +13,11 @@ public class WeiXinUtil {
 		String result = null;
 		Menu menu = new Menu();
 		ViewButton vb_1 = new ViewButton();
-		vb_1.setName("商域");
+		vb_1.setName("商城");
 		vb_1.setType("view");
-		vb_1.setUrl("http://www.txcf888.com");
+		String tempUrl = "http://18f42658v7.iok.la/business/mp/index";
+		tempUrl = MessAgeUtil.webLicensingnSapi_userinfo(tempUrl);
+		vb_1.setUrl(tempUrl);
 		ClickButton ck_1 = new ClickButton();
 		ck_1.setName("我的");
 		ck_1.setKey("100");
@@ -30,7 +32,7 @@ public class WeiXinUtil {
 		vk_1_2.setType("view");
 		url = MessAgeUtil.webLicensingnSapi_userinfo("http://18f42658v7.iok.la/business/mp/code");
 		vk_1_2.setUrl(url);
-		ck_1.setSub_button(new Button[] { vk_1_1,vk_1_2});
+		ck_1.setSub_button(new Button[] { vk_1_1, vk_1_2 });
 		/*
 		 * ClickButton ck1_1 = new ClickButton(); ClickButton ck2_1 = new
 		 * ClickButton(); ViewButton vb_3 = new ViewButton();

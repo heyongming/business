@@ -12,4 +12,5 @@ public interface ISalesmanDao {
 	List<Salesman> getAll();
 	List<Salesman> selectByName(String name);
 	int insertSalesmanId(SalesmanAndUser salesmanAndUser);
+	int update(Salesman salesman);
 }

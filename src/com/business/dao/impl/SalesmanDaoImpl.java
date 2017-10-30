@@ -63,4 +63,10 @@ public class SalesmanDaoImpl implements ISalesmanDao {
 		return sessionTemplate.insert("salesman.insertSalesmanAndUser", salesmanAndUser);
 	}
 
+	@Override
+	public int update(Salesman salesman) {
+		// TODO Auto-generated method stub
+		return sessionTemplate.update("salesman.update", salesman);
+	}
+
 }

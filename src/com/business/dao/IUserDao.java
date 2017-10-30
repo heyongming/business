@@ -22,5 +22,9 @@ public interface IUserDao {
 	User findByRdcode(String rdCode);
 
 	User findById(int id);
+
 	List<User> selectBywhere(Map<String, Object> map);
+	
+	int delete(User user);
+
 }

@@ -63,6 +63,32 @@ public class UserServiceImpl implements IUserService {
 		return tempUser;
 	}
 
-	
+	@Override
+	public User selectByRdCode(String rdCode) {
+		// TODO Auto-generated method stub
+		return userDao.findByRdcode(rdCode);
+	}
+
+	@Override
+	public List<User> getFullData() {
+		// TODO Auto-generated method stub
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		return userDao.selectBywhere(map);
+
+	}
+
+	@Override
+	public int updateUser(User user) {
+		// TODO Auto-generated method stub
+
+		return userDao.updateById(user);
+	}
+
+	@Override
+	public int delUser(User user) {
+		// TODO Auto-generated method stub
+		return userDao.delete(user);
+	}
 
 }

@@ -70,9 +70,9 @@
 					<label class="layui-form-label">商品分类：</label>
 					<div class="layui-input-inline">
 						<select name="goodsTypeId" class="layui-input" id="goodsTypeId">
-							<option value="短线" selected="">短线</option>
-							<option value="长线">长线</option>
-							<option value="模拟对股">模拟对股</option>
+							<option value="资讯" selected="">资讯</option>
+							
+							<option value="模拟账户">模拟账户</option>
 						</select>
 					</div>
 				</div>
@@ -217,7 +217,6 @@
 							<th>销售量</th>
 							<th>热门显示</th>
 							<th>上下架</th>
-
 							<th>购买上限</th>
 							<th>购买下限</th>
 							<th>服务期限</th>

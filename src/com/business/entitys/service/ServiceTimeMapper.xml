@@ -78,6 +78,8 @@
 		* from `serviceTime` as st
 		INNER JOIN goodsList as gl on
 		st.goodsId=gl.goodsId
+		INNER JOIN `user` as us on
+		us.`userId`=st.`userId`
 		where 1=1
 		<if test="serviceUserId!=null">
 			and st.`userId`=#{serviceUserId}
@@ -90,8 +92,13 @@
 			st.`userId`=#{pdfUserId}
 		</if>
 		<if test="serviceGoodsIdList!=null">
-			and st.`userId`=#{serviceUserId} and st.`isActivation`=1 and st.`serviceDay`>0
+			and st.`userId`=#{serviceUserId} and st.`isActivation`=1
+			and st.`serviceDay`>0
 		</if>
+		<if test="findKey!=null">
+			and st.`id`=#{findId}
+		</if>
+
 	</select>
 	<update id="updateBySubService">
 		update
@@ -100,8 +107,8 @@
 		`serviceDay`=`serviceDay`-1
 		where `serviceDay`>0 and `isActivation`=1
 	</update>
-	<delete id="delete" parameterType="map">
-
+	<delete id="delete" parameterType="int">
+		delete from `serviceTime` where `id`=#{int}
 	</delete>
 
 </mapper>

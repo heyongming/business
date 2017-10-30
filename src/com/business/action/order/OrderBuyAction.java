@@ -96,7 +96,7 @@ public class OrderBuyAction extends ActionSupport implements ModelDriven<PayResu
 		// 升级前的商品假如有的话
 		Map<String, Object> map = orderService.saveBuyoeder(buyGoodsList, buyorderForm, userEntitys, upGoodsList);
 		HashMap<String, Object> objMap = new HashMap<String, Object>();
-
+		
 		if (map != null) {
 			// session.put("msg", map.get("msg"));
 			// session.put("buyOrderResult", map.get("buyOrder"));

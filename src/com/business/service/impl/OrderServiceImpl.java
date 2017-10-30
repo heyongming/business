@@ -90,26 +90,19 @@ public class OrderServiceImpl implements IOrderService {
 		result = JSONObject.toJSONString(message);
 		return result;
 	}
-/*
-	@Override
-	public String saveOrderStatus(String phone) {
-		// TODO Auto-generated method stub
-		OrderForm orderForm = orderDao.selectByphone(phone);
-		System.out.println(orderForm);
-		orderForm.setOrderStatus(orderForm.getOrderStatus() + 1);
-		int flog = orderDao.updateOrder(orderForm);
-		String result = null;
-		ResultMessage message = null;
-		if (flog > 0) {
-			message = new ResultMessage("1", "true", "update Success");
 
-		} else {
-			message = new ResultMessage("-1", "false", "update fail");
-		}
-		result = JSONObject.toJSONString(message);
-		return result;
-	}
-*/
+	/*
+	 * @Override public String saveOrderStatus(String phone) { // TODO
+	 * Auto-generated method stub OrderForm orderForm =
+	 * orderDao.selectByphone(phone); System.out.println(orderForm);
+	 * orderForm.setOrderStatus(orderForm.getOrderStatus() + 1); int flog =
+	 * orderDao.updateOrder(orderForm); String result = null; ResultMessage
+	 * message = null; if (flog > 0) { message = new ResultMessage("1", "true",
+	 * "update Success");
+	 * 
+	 * } else { message = new ResultMessage("-1", "false", "update fail"); }
+	 * result = JSONObject.toJSONString(message); return result; }
+	 */
 	@Override
 	public boolean findIsbuy(String phone) {
 		// TODO Auto-generated method stub
@@ -397,7 +390,7 @@ public class OrderServiceImpl implements IOrderService {
 				serviceTimeDao.update(list.get(0));
 
 			}
-			int buyNum = Integer.parseInt(buyorderForm.getPaymentNumber()) * 30;
+			int buyNum = Integer.parseInt(buyorderForm.getPaymentNumber()) * 30 * buyGoodsList.getEffectiveTime();
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("serviceUserId", userEntitys.getUserId());
 			map.put("serviceGoodsId", buyGoodsList.getGoodsId());
@@ -529,5 +522,48 @@ public class OrderServiceImpl implements IOrderService {
 		}
 		result = JSONObject.toJSONString(message);
 		return result;
+	}
+
+	@Override
+	public OrderForm findOffLinePayUser(User user) {
+		// TODO Auto-generated method stub
+		Map<String, Object> orderForm = new HashMap<String, Object>();
+		orderForm.put("offLinePay", "检查是否在线下支付");
+		orderForm.put("offLineUserId", user.getUserId());
+		List<OrderForm> list = orderDao.getDataByWhere(orderForm);
+		if (list != null) {
+			if (list.size() > 0) {
+				return list.get(0);
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public OrderActivationCode findActivaTionCode(String orderNo) {
+		// TODO Auto-generated method stub
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("checkOrderSerialNumber", orderNo);
+		List<OrderActivationCode> list = orderDao.selectActivationCodeBywhere(map);
+		if (list != null) {
+			if (list.size() > 0) {
+				return list.get(0);
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public List<OrderForm> findOffLinePayAll() {
+		// TODO Auto-generated method stub
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("offLinePayList", "拿取线下支付的所以数据");
+		List<OrderForm> list = orderDao.getDataByWhere(map);
+		if (list != null) {
+			if (list.size() > 0) {
+				return list;
+			}
+		}
+		return null;
 	}
 }

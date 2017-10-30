@@ -58,24 +58,6 @@ basePath = "/business/admin/Jurisdiction/";
                                 <span>添加用户</span>
                             </a>
                         </dd>
-                        <dd>
-                            <a href="javascript:;" data-url="xiaoshou/exist.jsp"
-                               data-icon="&#xe621;" data-title="已添加用户" kit-target data-id='2'>
-                                <span>已添加用户</span>
-                            </a>
-                        </dd>
-                        <dd>
-                            <a href="javascript:;" kit-target
-                               data-options="{url:'xiaoshou/delete.jsp',icon:'&#xe621;',title:'删除用户',id:'3'}">
-                                <span>删除用户</span>
-                            </a>
-                        </dd>
-                        <dd>
-                            <a href="javascript:;" kit-target
-                               data-options="{url:'xiaoshou/revise.jsp',icon:'&#xe621;',title:'修改用户',id:'4'}">
-                                <span>修改用户</span>
-                            </a>
-                        </dd>
                     </dl></li>
                 <!--合规部-->
                 <li class="layui-nav-item"><a class="" href="javascript:;"><i
@@ -83,13 +65,7 @@ basePath = "/business/admin/Jurisdiction/";
                     <dl class="layui-nav-child">
                         <dd>
                             <a href="javascript:;" kit-target
-                               data-options="{url:'hegui/audit.jsp',icon:'&#xe621;',title:'审核合规',id:'5'}">
-                                <span>审核合规</span>
-                            </a>
-                        </dd>
-                        <dd>
-                            <a href="javascript:;" data-url="hegui/pass.jsp"
-                               data-icon="&#xe621;" data-title="已通过合规" kit-target data-id='6'>
+                               data-options="{url:'hegui/audit.jsp',icon:'&#xe621;',title:'已通过合规',id:'2'}">
                                 <span>已通过合规</span>
                             </a>
                         </dd>
@@ -100,10 +76,16 @@ basePath = "/business/admin/Jurisdiction/";
                     <dl class="layui-nav-child">
                         <dd>
                             <a href="javascript:;" kit-target
-                               data-options="{url:'fuwu/add.jsp',icon:'&#xe621;',title:'发表文章',id:'7'}">
+                                data-options="{url:'fuwu/add.jsp',icon:'&#xe621;',title:'发表文章',id:'3'}">
                                 <span>发表文章</span>
                             </a>
                         </dd>
+                    <dd>
+                        <a href="javascript:;" kit-target
+                            data-options="{url:'admin/service.jsp',icon:'&#xe621;',title:'服务权限',id:'10'}">
+                            <span>服务权限</span>
+                        </a>
+                    </dd>
                     </dl></li>
                 <!--管理员-->
                 <li class="layui-nav-item"><a class="" href="javascript:;"><i
@@ -111,8 +93,14 @@ basePath = "/business/admin/Jurisdiction/";
                     <dl class="layui-nav-child">
                         <dd>
                             <a href="javascript:;" kit-target
-                               data-options="{url:'admin/indent.jsp',icon:'&#xe621;',title:'订单管理',id:'11'}">
+                               data-options="{url:'admin/indent.jsp',icon:'&#xe621;',title:'订单管理',id:'4'}">
                                 <span>订单管理</span>
+                            </a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" kit-target
+                                data-options="{url:'admin/offline.jsp',icon:'&#xe621;',title:'线下购买',id:'9'}">
+                                <span>线下购买</span>
                             </a>
                         </dd>
                     </dl></li>
@@ -121,7 +109,7 @@ basePath = "/business/admin/Jurisdiction/";
                     <dl class="layui-nav-child">
                         <dd>
                             <a href="javascript:;" kit-target
-                               data-options="{url:'admin/user.jsp',icon:'&#xe621;',title:'账号管理',id:'12'}">
+                               data-options="{url:'admin/user.jsp',icon:'&#xe621;',title:'账号管理',id:'5'}">
                                 <span>账号管理</span>
                             </a>
                         </dd>
@@ -131,19 +119,19 @@ basePath = "/business/admin/Jurisdiction/";
                     <dl class="layui-nav-child">
                         <dd>
                             <a href="javascript:;" kit-target
-                               data-options="{url:'admin/add.jsp',icon:'&#xe621;',title:'添加商品',id:'13'}">
+                               data-options="{url:'admin/add.jsp',icon:'&#xe621;',title:'添加商品',id:'6'}">
                                 <span>添加商品</span>
                             </a>
                         </dd>
                         <dd>
                             <a href="javascript:;" kit-target
-                               data-options="{url:'admin/update.jsp',icon:'&#xe621;',title:'商品升级管理',id:'14'}">
+                               data-options="{url:'admin/update.jsp',icon:'&#xe621;',title:'商品升级管理',id:'7'}">
                                 <span>商品升级管理</span>
                             </a>
                         </dd>
                         <dd>
                             <a href="javascript:;" kit-target
-                               data-options="{url:'admin/look.jsp',icon:'&#xe621;',title:'查看商品关系',id:'15'}">
+                               data-options="{url:'admin/look.jsp',icon:'&#xe621;',title:'查看商品关系',id:'8'}">
                                 <span>查看商品关系</span>
                             </a>
                         </dd>

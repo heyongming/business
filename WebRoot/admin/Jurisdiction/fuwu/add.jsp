@@ -25,8 +25,25 @@ textarea {
 	display: block;
 }
 </style>
+<style>
+.spinner {
+	width: 100%;
+	height: 100%;
+	line-height: 100%;
+	text-align: center;
+	position: absolute;
+	z-index: 9999;
+	background: rgba(233, 233, 233, 0.6);
+	display: none;
+}
+</style>
+
 </head>
 <body>
+	<div class="spinner">
+		<img src="images/jiazai.gif" alt="" />
+	</div>
+
 	<div class="admin-main">
 		<!--添加按钮-->
 		<blockquote class="layui-elem-quote">
@@ -52,7 +69,7 @@ textarea {
 				<div class="layui-form-item">
 					<label class="layui-form-label">缩略图：</label>
 					<div class="layui-input-block fileImages">
-						<input type="file" name="thumbnail"  id="thumbnail"
+						<input type="file" name="thumbnail" id="thumbnail"
 							placeholder="上传缩略图"> <br>
 
 					</div>
@@ -61,7 +78,7 @@ textarea {
 					<label class="layui-form-label">商品：</label>
 					<div class="layui-input-inline">
 						<select name="goodsId" id="goodsId" class="layui-input">
-						
+
 						</select>
 					</div>
 				</div>
@@ -130,7 +147,7 @@ textarea {
 						</tr>
 					</thead>
 					<tbody id="content">
-						
+
 					</tbody>
 				</table>
 			</div>

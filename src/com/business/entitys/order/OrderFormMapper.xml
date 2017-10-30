@@ -14,8 +14,9 @@
 		<result property="paymentNumber" column="paymentNumber" />
 		<result property="rdCode" column="rdCode" />
 		<result property="invoiceInformation" column="invoiceInformation" />
-		<result property="integral" column="integral" />
-
+		<result property="goodsId" column="goodsId" />
+		<result property="userId" column="userId" />
+		
 
 		<collection property="goodsList" ofType="goodsList">
 			<id property="goodsId" column="goodsId" />
@@ -153,7 +154,13 @@
 
 		</if>
 		<if test="checkRdCode!=null">
-			and of.rdCode=#{checkRdCode}
+			and of.`rdCode`=#{checkRdCode}
+		</if>
+		<if test="offLinePay!=null">
+			and of.`userId`=#{offLineUserId} and of.`orderStatus`<![CDATA[ <> ]]>-1 and of.`paymentMethod`=3
+		</if>
+		<if test="offLinePayList!=null">
+			and of.`paymentMethod`=3
 		</if>
 	</select>
 	<select id="byAlldata" resultMap="orderFormMap">

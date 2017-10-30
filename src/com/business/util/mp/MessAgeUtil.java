@@ -381,4 +381,8 @@ public class MessAgeUtil {
 		MpUserEntity entity = JSONObject.parseObject(result, MpUserEntity.class);
 		return entity;
 	}
+	//获得时间搓
+	public static String create_timestamp() {
+        return Long.toString(System.currentTimeMillis() / 1000);
+    }
 }

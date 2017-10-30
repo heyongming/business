@@ -310,3 +310,12 @@ INNER JOIN `mpUserentity` AS ms ON ms.`openid`=us.`openId`
 		WHERE 1=1
 SELECT * FROM `serviceArticleDetails` AS sad INNER JOIN `user` AS us ON us.`userId`=sad.`evaluateId` 
 INNER JOIN `mpUserentity` AS ms ON ms.`openid`=us.`openId` AND sad.`serviceArticleNum`=1 ORDER BY `pointNumber` DESC 
+
+		UPDATE
+		`serviceTime`
+		SET
+		`serviceDay`=`serviceDay`-1
+		WHERE `serviceDay`>0 AND `isActivation`==1
+		`serviceDay`
+		
+`business`

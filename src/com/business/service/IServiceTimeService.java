@@ -1,5 +1,7 @@
 package com.business.service;
 
+import java.util.List;
+
 import com.business.entitys.goods.GoodsList;
 import com.business.entitys.order.OrderForm;
 import com.business.entitys.service.ServiceTime;
@@ -31,9 +33,36 @@ public interface IServiceTimeService {
 	 */
 	ServiceTime findServiceUserEntity(User user, GoodsList goodsList);
 
+	/**
+	 * @param user
+	 *            查询的用户
+	 * 
+	 * @return 对应的时间
+	 */
+	List<ServiceTime> findServiceUserEntityByUser(User user);
+
 	/*
 	 * 购买服务后每天减去一天的使用时间
 	 * 
 	 */
 	int subSertviceTime();
+
+	/*
+	 * 修改服务期限
+	 */
+	int updateServiceTime(ServiceTime serviceTime);
+
+	/*
+	 * 获得全量数据
+	 * 
+	 */
+	List<ServiceTime> findAllData();
+
+	/*
+	 * 根据主键获得相关数据
+	 * 
+	 */
+	ServiceTime findDataById(int id);
+	
+	int deleteServiceTime(int id);
 }

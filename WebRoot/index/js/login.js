@@ -65,12 +65,13 @@ $(function() {
 
 		/*提交数据*/
 		$(".spinner").show();
+
 		$.ajax({
 			url : "/business/order/checkUserInfo",
 			data : {
 				"userName" : username,
 				"phone" : $("#j_phone").val(),
-				"password" : password,
+				"passWord" : password,
 				"rdCode" : recommended
 			},
 			success : function(data) {
@@ -79,8 +80,10 @@ $(function() {
 				//alert(data.success)
 				if (data.success == "false") {
 					alert(data.errMsg);
-				} else {
+				} else if (data.code == "100") {
 					location.href = '../index/buy.jsp'
+				} else if (data.code = "101") {
+					location.href = '../index/message.jsp'
 				}
 
 			},

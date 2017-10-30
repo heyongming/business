@@ -44,12 +44,14 @@
 </script>
 </head>
 <body>
+<!-- 
 	<c:if test="${empty sessionScope.buyuser}">
 		<script type="text/javascript">
 			location.href = "/business/index/"
 		</script>
 
 	</c:if>
+	 -->
 	<header id="header">
 		<h2>审核通过</h2>
 	</header>

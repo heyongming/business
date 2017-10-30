@@ -46,13 +46,12 @@ $(function() {
 						});
 					}
 				});
-
-
-
 				//点击之前，默认显示热门的列表信息
 				$.ajax({
-					url : "/business/goods/getHotGoodsList",
-
+					url : "/business/goods/getTypeGoodsList",
+					data : {
+						"typeId" : 2
+					},
 					success : function(data) {
 
 						data = JSON.parse(data);
@@ -75,8 +74,8 @@ $(function() {
 				'<button type="button" data-goodsId="' + e.goodsId + '" class="btn btn-primary">购买</button>' +
 				'</div>' +
 				'<div class="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">' +
-				'</div>'+
-				'<div class="modal-dialog modal-sm" role="document">'+
+				'</div>' +
+				'<div class="modal-dialog modal-sm" role="document">' +
 				'</div>';
 		});
 		$("#product").html(tag);
@@ -84,13 +83,13 @@ $(function() {
 		$('.product').each(function(i, e) {
 			// 给购买按钮绑定事件
 			$(e).find('.btn-primary').click(function() {
-				 $('.modal').css('display',"block");
-	             $('.modal-dialog').css('display',"block");
-	             $('.modal').click(function(){
-	                  $(".modal").hide();
-	                  $('.modal-dialog').hide();
-	                  location.reload(); 
-	             });
+				$('.modal').css('display', "block");
+				$('.modal-dialog').css('display', "block");
+				$('.modal').click(function() {
+					$(".modal").hide();
+					$('.modal-dialog').hide();
+					location.reload();
+				});
 				var goodsId = $(this).attr("data-goodsId");
 				$.ajax({
 					url : '/business/goods/getgoodsListById',
@@ -104,16 +103,17 @@ $(function() {
 						console.log(data);
 						//data = JSON.parse(data);
 						var arryList = new Array();
-						arryList.push(data)
-						var goodsTypeId = data.goodTypes[0].goodsTypeId;
-						if (goodsTypeId == 2) { //短线
+						arryList.push(data);
+						//var goodsTypeId = data.goodTypes[0].goodsTypeId;
+						//判断哪一款产品，暂时不用此功能
+						/*if (goodsTypeId == 2) { //短线
 							buyTem(arryList);
 						} else if (goodsTypeId == 3) { //长线
 							buyTemLong(arryList);
 						} else if (goodsTypeId == 4) { //长线
-							buyMoni(arryList);
-						}
-
+							;
+						}*/
+						buyMoni(arryList);
 					}
 				});
 
@@ -122,7 +122,7 @@ $(function() {
 		});
 	}
 	// 短线最多三个月，购买详情页封装
-	function buyTem(arryList) {
+	/*function buyTem(arryList) {
 		console.log(arryList);
 		var tag = '';
 		$.each(arryList, function(i, e) {
@@ -197,9 +197,9 @@ $(function() {
 				}
 			});
 		});
-	}
+	}*/
 	// 长线两个月起步，购买详情页封装
-	function buyTemLong(arryList) {
+	/*function buyTemLong(arryList) {
 		console.log(arryList);
 		var tag = '';
 		$.each(arryList, function(i, e) {
@@ -268,10 +268,10 @@ $(function() {
 				}
 			});
 		});
-	}
-	// 模拟炒股，购买详情页封装
+	}*/
+	// 一份一份卖(之前为模拟炒股，购买详情页封装)
 	function buyMoni(arryList) {
-		console.log(arryList);
+		//console.log(arryList);
 		var tag = '';
 		$.each(arryList, function(i, e) {
 			tag += '<div class="modal-content">' +
@@ -334,8 +334,12 @@ $(function() {
 				},
 				dataType : 'json',
 				success : function(data) {
+					if (is_weixn()) {
+						location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxaf9208856d550d06&redirect_uri=http%3A%2F%2F18f42658v7.iok.la%2Fbusiness%2Fmp%2FoauthLogin&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+					} else {
+						location.href = "login.jsp";
+					}
 
-					location.href = "login.jsp";
 				}
 			});
 		});
@@ -346,11 +350,19 @@ $(function() {
 		var num = parseInt($(".text_box").val()); //商品数量
 
 		var price = $(".danjia").html(); //商品单价
-		console.log(num + "?" + price)
+
 		var total = price * num; //计算商品总价
 		allprice += total;
 
 		$(".num").children("span").text(num.toFixed(0));
 		$(".price").children("span").text(allprice.toFixed(0));
+	}
+	function is_weixn() {
+		var ua = navigator.userAgent.toLowerCase();
+		if (ua.match(/MicroMessenger/i) == "micromessenger") {
+			return true;
+		} else {
+			return false;
+		}
 	}
 });

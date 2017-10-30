@@ -59,24 +59,6 @@
 									<span>添加用户</span>
 								</a>
 							</dd>
-							<dd>
-								<a href="javascript:;" data-url="xiaoshou/exist.html"
-									data-icon="&#xe621;" data-title="已添加用户" kit-target data-id='2'>
-									<span>已添加用户</span>
-								</a>
-							</dd>
-							<dd>
-								<a href="javascript:;" kit-target
-									data-options="{url:'xiaoshou/delete.html',icon:'&#xe621;',title:'删除用户',id:'3'}">
-									<span>删除用户</span>
-								</a>
-							</dd>
-							<dd>
-								<a href="javascript:;" kit-target
-									data-options="{url:'xiaoshou/revise.html',icon:'&#xe621;',title:'修改用户',id:'4'}">
-									<span>修改用户</span>
-								</a>
-							</dd>
 						</dl></li>
 				</ul>
 			</div>
