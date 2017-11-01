@@ -81,7 +81,10 @@
 			<result name="success">/index/login.jsp</result>
 			<result name="input">/index/index.jsp</result>
 		</action>
-
+		<action name="mpScanCodePay" class="com.business.action.mp.MpScanCodePayAction">
+			<result name="success">/mbimc/weixin.jsp</result>
+			<result name="input">/mbimc/index.jsp</result>
+		</action>
 
 	</package>
 

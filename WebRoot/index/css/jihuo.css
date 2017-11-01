@@ -1,0 +1,29 @@
+#message {
+    background-color: #fff;
+    padding: 0.3rem;
+}
+#message > h2 {
+    font-size: 0.4rem;
+    color: #da251c;
+    margin: 0;
+    margin-bottom: 0.3rem;
+}
+#message > p {
+    font-size: 0.28rem;
+    color: #909090;
+    line-height: 0.46rem;
+}
+#message > p > span {
+    color: #da251c;
+}
+#message > div {
+    margin: 0.2rem 0;
+    text-align: center;
+}
+#message > div > img {
+    width: 60%;
+}
+
+#message > .prompt {
+    color: #da251c;
+}

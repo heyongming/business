@@ -21,27 +21,28 @@
 <!--引入自己的less,自己写的css-->
 <link rel="stylesheet/less" href="css/base.less" />
 <link rel="stylesheet/less" href="css/message.less" />
-    <style>
-    .spinner {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        z-index: 9999;
-        background: rgba(233,233,233,0.6);
-        display: none;
-    }
-    .spinner .jiazai{
-        position: absolute;
-        width: 6rem;
-        height: 6rem;
-        left: 50%;
-        top:50%;
-        margin-top: -3rem;
-        margin-left: -3rem;
-        background: url("images/jiazai.gif") no-repeat;
-        background-position: center center;
-        background-size: cover;
-    }
+<style>
+.spinner {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: 9999;
+	background: rgba(233, 233, 233, 0.6);
+	display: none;
+}
+
+.spinner .jiazai {
+	position: absolute;
+	width: 6rem;
+	height: 6rem;
+	left: 50%;
+	top: 50%;
+	margin-top: -3rem;
+	margin-left: -3rem;
+	background: url("images/jiazai.gif") no-repeat;
+	background-position: center center;
+	background-size: cover;
+}
 </style>
 
 <!--引入rem.js文件-->
@@ -99,43 +100,48 @@
 	height: 100%;
 }
 
-		#smakeAndriod{
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            background-color: rgba(0,0,0,0.2);
-            z-index: 9999;
-            display: none;
-            text-align: center;
-        }
-        #smakeAndriod .con{
-            width: 100%;
-            height: 4rem;
-            background-color: #fff;
-            position: absolute;
-            bottom: 0;
-            left: 0;
-        }
-       #smakeAndriod .con p{
-            margin: 0.3rem 0;
-        }
-        #smakeAndriod .con .head{
-            width: 100%;
-            height: 0.5rem;
-            background-color: #e8dada;
-            position: relative;
-        }
-        #smakeAndriod .con .head span{
-            font-size: 0.5rem;
-            position: absolute;
-            right: 0.2rem;
-            bottom: -0.1rem;
-        }
-       #smakeAndriod .con iframe{
-            dispaly: "none";
-        }
+#smakeAndriod {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: rgba(0, 0, 0, 0.2);
+	z-index: 9999;
+	display: none;
+	text-align: center;
+}
+
+#smakeAndriod .con {
+	width: 100%;
+	height: 4rem;
+	background-color: #fff;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}
+
+#smakeAndriod .con p {
+	margin: 0.3rem 0;
+}
+
+#smakeAndriod .con .head {
+	width: 100%;
+	height: 0.5rem;
+	background-color: #e8dada;
+	position: relative;
+}
+
+#smakeAndriod .con .head span {
+	font-size: 0.5rem;
+	position: absolute;
+	right: 0.2rem;
+	bottom: -0.1rem;
+}
+
+#smakeAndriod .con iframe {
+	dispaly: "none";
+}
 </style>
 </head>
 <body>
@@ -163,7 +169,7 @@
 		<p>推&nbsp;&nbsp;荐&nbsp;&nbsp;码：${sessionScope.buyuser.rdCode }</p>
 		<p>订单编号：${sessionScope.buyOrderResult.orderSerialNumber }</p>
 		<p>支付编号：${sessionScope.buyOrderResult.openId }</p>
-		
+
 	</section>
 	<section id="process">
 		<h2>服务审核流程</h2>
@@ -197,17 +203,17 @@
 
 				<c:if test="${(sessionScope.buyOrderResult.orderStatus) eq 4}">
 					<li>
-						<div></div> <a href="/business/order/success">查看服务激活码</a>
+						<div></div> <a id="code" href="/business/order/success">查看服务激活码</a>
 					</li>
 				</c:if>
 				<c:if test="${(sessionScope.buyOrderResult.orderStatus) gt 4}">
 					<li>
-						<div class="active"></div> <a class="disabled:true">查看服务激活码</a>
+						<div class="active"></div> <a id="code1" class="disabled:true">查看服务激活码</a>
 					</li>
 				</c:if>
 				<c:if test="${(sessionScope.buyOrderResult.orderStatus) lt 4}">
 					<li>
-						<div></div> <a class="disabled:true">查看服务激活码</a>
+						<div></div> <a id="code1" class="disabled:true">查看服务激活码</a>
 					</li>
 				</c:if>
 
@@ -223,10 +229,10 @@
 	<section id="smakeAndriod">
 		<div class="con">
 			<div class="head">
-			<span>×</span>
-		</div>
-		<p>下载完成后，请在本地查看。</p>
-		<iframe frameborder="0" class="pdfRanding" src=""></iframe>
+				<span>×</span>
+			</div>
+			<p>下载完成后，请在本地查看。</p>
+			<iframe frameborder="0" class="pdfRanding" src=""></iframe>
 		</div>
 	</section>
 
@@ -244,12 +250,12 @@
 	<script>
 		$(function() {
 			var ua = navigator.userAgent.toLowerCase();
-			$("#look").click(function() {	
+			$("#look").click(function() {
 				$.ajax({
 					url : "/business/order/getPdfPath",
 					type : "POST",
 					success : function(data) {
-					//	alert(data.agreement)
+						//	alert(data.agreement)
 						data = JSON.parse(data);
 	
 						$(".pdfRanding").attr("src", data.agreement);
@@ -258,13 +264,13 @@
 				if (/android/.test(ua)) {
 					$("#smakeAndriod").css("display", "block");
 				}
-				$("#smake").css( "display", "block");
+				$("#smake").css("display", "block");
 			})
 			$(".head span").click(function() {
 				location.reload();
-					$("#smakeAndriod").css("display", "none");
+				$("#smakeAndriod").css("display", "none");
 				$("#smake").css("display", "none");
-			
+	
 			})
 	
 		})

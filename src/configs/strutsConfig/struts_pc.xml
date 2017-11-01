@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+ "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN" 
+ "struts-2.3.dtd">
+
+<struts>
+
+
+
+
+	<package name="pc" extends="struts-default" namespace="/pc">
+		<action name="checkGoods" class="com.business.action.pc.PcGoodsAction"
+			method="ChoiceGoodsList">
+			<result name="success">/mbimc/order.jsp</result>
+			<result name="input">/mbimc/index.jsp</result>
+
+		</action>
+
+	</package>
+
+</struts>

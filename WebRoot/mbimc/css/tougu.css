@@ -1,0 +1,142 @@
+#touguContent {
+    width:100%;
+    height:100%;
+    background-color:#fff;
+    position:relative
+}
+.logo {
+    z-index:22;
+    position:absolute;
+    left:4%;
+    top:26px
+}
+.logo img {
+    width:100%
+}
+.touguMessage .touguTitle {
+    font-size: 26px;
+    line-height: 64px;
+    text-align: center;
+    color: #da251c;
+}
+#touguContent > .touguMessage {
+    width: 1100px;
+    height: 500px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -380px;
+    margin-left: -500px;
+    overflow: auto;
+    padding: 20px;
+}
+.twoSides {
+    font-size: 20px;
+    padding: 30px 30px 0;
+}
+.twoSides > p {
+    line-height: 47px;
+}
+.twoSides > p > span {
+    color: #da251c;
+}
+#ceshi {
+    width: 100%;
+    background-color: #fff;
+    padding: 30px;
+}
+#ceshi > h2 {
+    font-size: 26px;
+    line-height: 64px;
+    text-align: center;
+    line-height: 70px;
+    color: #da251c;
+}
+#ceshi > p {
+    line-height: 60px;
+    font-size: 20px;
+}
+#ceshi > p > span {
+    color: #da251c;
+}
+.product {
+    padding: 30px;
+    background-color: #fff;
+    color: #111;
+}
+.product span {
+    color: #da251c;
+}
+.product > h2 {
+    font-size: 26px;
+    line-height: 64px;
+}
+.product .title {
+    text-align: center;
+    line-height: 70px;
+    color: #da251c;
+}
+.product > .color {
+    color: #da251c;
+}
+.product > p {
+    color: #909090;
+    font-size: 20px;
+    margin-bottom: 10px;
+    text-indent: 2em;
+}
+.product > .message > p {
+    color: #909090;
+    font-size: 20px;
+    margin-bottom: 10px;
+    text-indent: 2em;
+}
+.product > .bottom {
+    margin-top: 50px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    background-color: #fff;
+    padding: 0 60px;
+    text-align: center;
+}
+.product > .bottom label {
+    width: 100%;
+    padding: 10px 0;
+    display: block;
+    font-weight: normal;
+}
+.product > .bottom label .option {
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    top: 15px;
+    left: 86px;
+    background: url(../images/x_02.png) no-repeat;
+    background-size: cover;
+}
+.product > .bottom label .opt-text {
+    font-size: 22px;
+    color: #111;
+    margin-left: 26px;
+}
+.product > .bottom label input[type="radio"] {
+    display: inline-block;
+    opacity: 0 ;
+}
+.product > .bottom label input[type="radio"]:checked + div {
+    background: url(../images/x_01.png) no-repeat;
+    background-size: cover;
+}
+.product > .bottom .btnbox {
+    width: 400px;
+    height: 70px;
+    line-height: 70px;
+    background-color: #da251c;
+    margin: 50px 0 40px;
+    color: #fff;
+    font-size: 30px;
+    border: 0;
+    border-radius: 10px;
+    outline: none;
+}

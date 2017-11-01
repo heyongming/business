@@ -1,3 +1,6 @@
+body {
+  background-color: #fff;
+}
 #header {
   width: 100%;
   height: 0.80rem;
@@ -9,46 +12,67 @@
   line-height: 0.80rem;
   font-size: 0.4rem;
 }
-#product {
-  padding: 0.3rem;
-  background-color: #fff;
-  color: #111;
-  margin-bottom: 3.2rem;
-}
-#product span {
-  color: #da251c;
-}
-#product > .twoSides {
+.twoSides {
   font-size: 0.28rem;
-  padding-bottom: 0.1rem;
+  padding: 0.3rem 0.3rem 0;
 }
-#product > .twoSides > p {
+.twoSides > p {
   line-height: 0.6rem;
 }
-#product > h2 {
+.twoSides > p > span {
+  color: #da251c;
+}
+#ceshi {
+  width: 100%;
+  background-color: #fff;
+  padding: 0.3rem;
+}
+#ceshi > h2 {
   font-size: 0.32rem;
   line-height: 0.64rem;
-}
-#product .title {
   text-align: center;
   line-height: 0.7rem;
   color: #da251c;
 }
-#product > .color {
+#ceshi > p {
+  line-height: 0.6rem;
+  font-size: 0.3rem;
+}
+#ceshi > p > span {
   color: #da251c;
 }
-#product > p {
+.product {
+  padding: 0.3rem;
+  background-color: #fff;
+  color: #111;
+}
+.product span {
+  color: #da251c;
+}
+.product > h2 {
+  font-size: 0.32rem;
+  line-height: 0.64rem;
+}
+.product .title {
+  text-align: center;
+  line-height: 0.7rem;
+  color: #da251c;
+}
+.product > .color {
+  color: #da251c;
+}
+.product > p {
   color: #909090;
   font-size: 0.28rem;
   margin-bottom: 0.1rem;
   text-indent: 2em;
 }
-#product > .message > p {
+.product > .message > p {
   color: #909090;
   font-size: 0.28rem;
   margin-bottom: 0.1rem;
 }
-#product > .bottom {
+.product > .bottom {
   margin-top: 0.5rem;
   position: fixed;
   left: 0;
@@ -56,13 +80,13 @@
   background-color: #fff;
   padding: 0 0.3rem;
 }
-#product > .bottom label {
+.product > .bottom label {
   width: 100%;
-  padding: 0.1rem 0px;
+  padding: 0.1rem 0;
   display: block;
   font-weight: normal;
 }
-#product > .bottom label .option {
+.product > .bottom label .option {
   width: 0.3rem;
   height: 0.3rem;
   position: absolute;
@@ -71,20 +95,20 @@
   background: url(../images/x_02.png) no-repeat;
   background-size: cover;
 }
-#product > .bottom label .opt-text {
+.product > .bottom label .opt-text {
   font-size: 0.32rem;
   color: #111;
   margin-left: 0.26rem;
 }
-#product > .bottom label input[type="radio"] {
+.product > .bottom label input[type="radio"] {
   display: inline-block;
   opacity: 0 ;
 }
-#product > .bottom label input[type="radio"]:checked + div {
+.product > .bottom label input[type="radio"]:checked + div {
   background: url(../images/x_01.png) no-repeat;
   background-size: cover;
 }
-#product > .bottom .btnbox {
+.product > .bottom .btnbox {
   width: 100%;
   height: 1rem;
   line-height: 1rem;
@@ -94,4 +118,7 @@
   font-size: 0.4rem;
   border: 0;
   border-radius: 0.1rem;
+}
+.xieyi {
+  margin-bottom: 4rem;
 }

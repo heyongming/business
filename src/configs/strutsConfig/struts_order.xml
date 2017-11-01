@@ -115,6 +115,8 @@
 		<action name="success" class="com.business.action.order.OrderAction"
 			method="orderSuccess">
 			<result name="success">/index/success.jsp</result>
+			<result name="login">/mbimc/success.jsp</result>
+			<result name="pcInput">/mbimc/index.jsp</result>
 			<result name="input">/index/index.jsp</result>
 
 		</action>

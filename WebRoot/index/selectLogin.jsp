@@ -62,13 +62,16 @@
 			window.location = "/business/index/index.jsp";
 		</script>
 	</c:if>
-		
-		<script type="text/javascript">
+
+	<script type="text/javascript">
 		var id="${sessionScope.loginUserGoodsListSize}";
-		
+		if(id==1)
+		{
 		window.location = "/business/mp/mpService?goodsId="+${sessionScope.loginUserGoodsList[0].goodsId};
+		}
+		
 		</script>
-	
+
 	<section id="message">
 		<h2>查看已购买产品</h2>
 		<div class="product">

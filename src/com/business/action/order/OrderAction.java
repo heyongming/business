@@ -19,6 +19,7 @@ import com.business.entitys.order.OrderForm;
 import com.business.entitys.user.User;
 import com.business.service.IOrderService;
 import com.business.util.CheckErrorQiantaiUtill;
+import com.business.util.SendMsg;
 import com.cache.OrderCache;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
@@ -32,6 +33,14 @@ public class OrderAction extends ActionSupport implements ModelDriven<OrderForm>
 	private static final long serialVersionUID = -2258648444083444451L;
 	private OrderForm orderForm;
 	private String phone;
+	private String isPc;
+	public String getIsPc() {
+		return isPc;
+	}
+
+	public void setIsPc(String isPc) {
+		this.isPc = isPc;
+	}
 
 	public String getPhone() {
 		return phone;
@@ -95,16 +104,31 @@ public class OrderAction extends ActionSupport implements ModelDriven<OrderForm>
 		Map session = actionContext.getSession();
 		Map request = (Map) ActionContext.getContext().get("request");
 		if (!CheckErrorQiantaiUtill.checkSession(session)) {
+			if (isPc != null)
+			{
+				return "pcInput";
+			}
 			return this.INPUT;
 		}
 		GoodsList buyGoodsList = (GoodsList) session.get("buyGoodsList");
 		User userEntitys = (User) session.get("buyuser");// 购买者
 		OrderForm orderForm = (OrderForm) session.get("buyOrderResult");
 		// session.clear(); // 清理缓存
+		 
 		OrderActivationCode orderActivationCode = orderService.doClosingTheDeal(orderForm);
+		String result = SendMsg.sendMsg(userEntitys.getPhone(),
+		"您购买的产品为："+buyGoodsList.getGoodsName()+ "，本次服务激活码为："+orderActivationCode.getActivationCode()+ "。请妥善保存激活码，服务一旦激活，激活码自动失效。" );
 		System.out.println(orderActivationCode + "!!!!!!");
 		request.put("orderActivationCode", orderActivationCode);
-		return Action.SUCCESS;
+		if(isPc==null)
+		{
+			return Action.SUCCESS;
+		}
+		else
+		{
+			return Action.LOGIN;
+		}
+		
 	}
 
 	public String clearData() {

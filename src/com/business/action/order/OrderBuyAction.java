@@ -103,6 +103,7 @@ public class OrderBuyAction extends ActionSupport implements ModelDriven<PayResu
 			OrderCache.msg.put(userEntitys.getUserId() + "", (ResultOrderActivationCodeEntitys) map.get("msg"));
 			OrderForm tempOrder = (OrderForm) map.get("buyOrder");
 			tempOrder.setOpenId(data.get("transaction_id"));
+										  
 			OrderCache.buyOrderResult.put(userEntitys.getUserId() + "", tempOrder);
 			objMap.put("return_code", "SUCCESS");
 

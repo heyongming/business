@@ -65,8 +65,8 @@ public class OrderCheckAction extends ActionSupport {
 			} else {
 				System.out.println("?????????进来了啊");
 				resultMessage = new ResultMessage("1", "true", "跳");
-				OrderCache.msg.remove(userEntitys.getUserId());
-				OrderCache.buyOrderResult.remove(userEntitys.getUserId());
+				OrderCache.msg.remove(userEntitys.getUserId()+"");
+				OrderCache.buyOrderResult.remove(userEntitys.getUserId()+"");
 				session.put("msg", resultMessage);
 				session.put("buyOrderResult", orderForm);
 

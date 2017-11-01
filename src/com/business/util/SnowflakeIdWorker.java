@@ -1,5 +1,8 @@
 package com.business.util;
 
+import java.util.Date;
+import java.util.Random;
+
 import org.springframework.stereotype.Repository;
 
 /**
@@ -83,8 +86,9 @@ public class SnowflakeIdWorker {
 		this.workerId = workerId;
 		this.datacenterId = datacenterId;
 	}
+
 	public SnowflakeIdWorker() {
-		long workerId=0,datacenterId=0;
+		long workerId = 0, datacenterId = 0;
 		if (workerId > maxWorkerId || workerId < 0) {
 			throw new IllegalArgumentException(
 					String.format("worker Id can't be greater than %d or less than 0", maxWorkerId));
@@ -96,6 +100,7 @@ public class SnowflakeIdWorker {
 		this.workerId = workerId;
 		this.datacenterId = datacenterId;
 	}
+
 	// ==============================Methods==========================================
 	/**
 	 * 获得下一个ID (该方法是线程安全的)
@@ -103,36 +108,16 @@ public class SnowflakeIdWorker {
 	 * @return SnowflakeId
 	 */
 	public synchronized long nextId() {
-		long timestamp = timeGen();
-
-		// 如果当前时间小于上一次ID生成的时间戳，说明系统时钟回退过这个时候应当抛出异常
-		if (timestamp < lastTimestamp) {
-			throw new RuntimeException(String.format(
-					"Clock moved backwards.  Refusing to generate id for %d milliseconds", lastTimestamp - timestamp));
+		Date today = new Date();
+		String time = today.getTime() + "";
+		time = time.substring(4, time.length());
+		time = 3110 + time;
+		Random random = new Random();
+		for (int i = 0; i < 5; i++) {
+			time += random.nextInt(10);
 		}
+		return Long.parseLong(time);
 
-		// 如果是同一时间生成的，则进行毫秒内序列
-		if (lastTimestamp == timestamp) {
-			sequence = (sequence + 1) & sequenceMask;
-			// 毫秒内序列溢出
-			if (sequence == 0) {
-				// 阻塞到下一个毫秒,获得新的时间戳
-				timestamp = tilNextMillis(lastTimestamp);
-			}
-		}
-		// 时间戳改变，毫秒内序列重置
-		else {
-			sequence = 0L;
-		}
-
-		// 上次生成ID的时间截
-		lastTimestamp = timestamp;
-
-		// 移位并通过或运算拼到一起组成64位的ID
-		return ((timestamp - twepoch) << timestampLeftShift) //
-				| (datacenterId << datacenterIdShift) //
-				| (workerId << workerIdShift) //
-				| sequence;
 	}
 
 	/**

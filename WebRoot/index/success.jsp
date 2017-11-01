@@ -20,7 +20,7 @@
 <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.css" />
 <!--引入自己的less,自己写的css-->
 <link rel="stylesheet/less" href="css/base.less" />
-<link rel="stylesheet/less" href="css/success.less" />
+<link rel="stylesheet/less" href="css/pass.css" />
 <!--引入less文件的js-->
 <script src="lib/less/less.js"></script>
 <script src="lib/less/less.min.js"></script>
@@ -44,7 +44,7 @@
 </script>
 </head>
 <body>
-<!-- 
+	<!-- 
 	<c:if test="${empty sessionScope.buyuser}">
 		<script type="text/javascript">
 			location.href = "/business/index/"
@@ -52,40 +52,18 @@
 
 	</c:if>
 	 -->
-	<header id="header">
-		<h2>审核通过</h2>
-	</header>
 	<section id="message">
 		<h2>您已审核通过！</h2>
-		<p>
+		<p> 
 			您的产品为:<span>${sessionScope.buyGoodsList.goodsName}</span>
 		</p>
 		<p>
-			您的服务激活码为:<span>${requestScope.orderActivationCode.activationCode}</span>
-		</p>
-		<p>关注下方公众号，立即享受服务吧！</p>
-		<div>
-			<img class="erweima" src="images/erweima.png" alt="" />
-		</div>
-		<p class="font">
-			<span>如何激活服务？</span>
-		</p>
-		<p>
-			第一步：微信扫描二维码或搜索<span>“迈步投资”</span>或<span>“MBIMC888”</span>关注微信服务号。
-		</p>
-		<p>
-			第二步：点击菜单右侧-<span>【我的】</span>-<span>【服务激活】</span>
+			您的服务激活码为:<span class="big">${requestScope.orderActivationCode.activationCode}</span>
 		</p>
 		<div>
-			<img src="images/photo.png" alt="" />
+			<img src="images/erweima.png" alt="" />
 		</div>
-		<p>
-			第三步：输入<span>【服务激活码】</span>，点击激活，收到激活成功 通知。
-		</p>
-		<div>
-			<img src="images/photo.png" alt="" />
-		</div>
-		<p class="prompt">小提示：服务过程中，有任何问题可询问在线客服。</p>
+		<a href="jihuo.html">如何激活服务？</a>
 	</section>
 
 
