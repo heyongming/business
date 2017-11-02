@@ -99,6 +99,14 @@
 			<result name="input">/index/index.jsp</result>
 
 		</action>
+		<action name="getFxPdf" class="com.business.action.order.OrderRiskAction"
+			method="toFxPdf">
+			<result name="success">/index/fengxian.jsp</result>
+			<result name="input">/index/index.jsp</result>
+
+		</action>
+
+
 		<action name="downloadPdf" class="com.business.action.order.OrderRiskAction"
 			method="downloadPdf">
 

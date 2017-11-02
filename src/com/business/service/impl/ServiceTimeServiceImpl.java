@@ -49,7 +49,7 @@ public class ServiceTimeServiceImpl implements IServiceTimeService {
 
 		path = path + "//" + orderForm.getOrderSerialNumber() + ".pdf";
 		if (isDanger == null) {
-			if (HtmlToPdf.convert("http://localhost/business/index/fengxian.jsp", path)) {
+			if (HtmlToPdf.convert("http://localhost/business/order/getFxPdf?userId="+ user.getUserId(), path)) {
 
 			}
 		} else {

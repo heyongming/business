@@ -172,10 +172,10 @@ public class OrderRiskAction extends ActionSupport {
 				toJsonSteam(json);
 				return this.SUCCESS;
 			}
-			orderService.saveOrderFromrOderStatus(orderForm,3);
+			orderService.saveOrderFromrOderStatus(orderForm, 3);
 
 			orderForm.setOrderStatus(3);
-			
+
 			session.put("buyOrderResult", orderForm);
 			System.out.println("进来了");
 			String json = serviceTimeService.savePdf(userEntitys, orderForm, buyGoodsList, null);
@@ -202,7 +202,7 @@ public class OrderRiskAction extends ActionSupport {
 		GoodsList buyGoodsList = (GoodsList) session.get("buyGoodsList");
 		User userEntitys = (User) session.get("buyuser");// 购买者
 		OrderForm orderForm = (OrderForm) session.get("buyOrderResult");
-		orderService.saveOrderFromrOderStatus(orderForm,3);
+		orderService.saveOrderFromrOderStatus(orderForm, 3);
 
 		orderForm.setOrderStatus(3);
 		session.put("buyOrderResult", orderForm);
@@ -233,7 +233,19 @@ public class OrderRiskAction extends ActionSupport {
 
 		session.put("buyGoodsList", goodsList);
 
-		return super.execute();
+		return this.SUCCESS;
+	}
+
+	public String toFxPdf() throws Exception {
+		ActionContext actionContext = ActionContext.getContext();
+		Map session = actionContext.getSession();
+
+		User user = userService.findByUser(userId);
+		if (user == null) {
+			return this.INPUT;
+		}
+		session.put("buyuser", user);
+		return this.SUCCESS;
 	}
 
 	// 文件下载
@@ -291,7 +303,7 @@ public class OrderRiskAction extends ActionSupport {
 		User userEntitys = (User) session.get("buyuser");// 购买者
 		OrderForm orderForm = (OrderForm) session.get("buyOrderResult");
 
-	//	orderService.saveOrderStatus(userEntitys.getPhone());
+		// orderService.saveOrderStatus(userEntitys.getPhone());
 		orderForm.setOrderStatus(orderForm.getOrderStatus() + 1);
 		session.put("buyOrderResult", orderForm);
 		return this.SUCCESS;
