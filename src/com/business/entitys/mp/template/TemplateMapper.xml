@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "mybatis-3-mapper.dtd">
+<mapper namespace="template">
+	<!-- <resultMap type="template" id="templateMap"> <id property="TemplateId" 
+		column="TemplateId" /> <result property="first" column="first" /> <result 
+		property="firstColor" column="firstColor" /> <result property="keyword1" 
+		column="keyword1" /> <result property="keyword2" column="keyword2" /> <result 
+		property="keyword3" column="keyword3" /> <result property="keyword4" column="keyword4" 
+		/> <result property="keyword1Color" column="keyword1Color" /> <result property="keyword2Color" 
+		column="keyword2Color" /> <result property="resetUrl" column="resetUrl" /> 
+		<result property="keyword3Color" column="keyword3Color" /> <result property="keyword4Color" 
+		column="keyword4Color" /> <result property="remark" column="remark" /> <result 
+		property="remarkColor" column="remarkColor" /> <result property="insertTime" 
+		column="insertTime" /> <result property="clickCount" column="clickCount" 
+		/> <collection property="templateType" ofType="templateType"> <id property="TemplateTypeId" 
+		column="goodsTypeId" /> <result property="TemplateTypeName" column="TemplateTypeName" 
+		/> <result property="clickCount" column="clickCount" /> </collection> </resultMap> -->
+	<insert id="addTemplate" parameterType="template" keyProperty="TemplateId"
+		useGeneratedKeys="true">
+		insert into template
+		(`first`,`firstColor`,`keyword1`,
+		`keyword2`,`keyword3`,`keyword4`,`keyword5`,
+		`keyword1Color`,`keyword2Color`,`resetUrl`,
+		`keyword3Color`,`keyword4Color`,`keyword5Color`,`remark`,
+		`remarkColor`,`insertTime`,`clickCount`,`evCount`
+		)
+		values(
+		#{first},#{firstColor},#{keyword1},
+		#{keyword2},#{keyword3},#{keyword4},#{keyword5},
+		#{keyword1Color},#{keyword2Color},#{resetUrl},
+		#{keyword3Color},#{keyword4Color},#{keyword5Color},#{remark},
+		#{remarkColor},#{insertTime},#{clickCount},#{evCount}
+		)
+	</insert>
+	<insert id="addtemplateMapping" parameterType="templateMapping">
+		insert into
+		templatemapping
+		(`TemplateId`,`TemplateTypeId`
+
+		)
+		values(
+		#{TemplateId},#{TemplateTypeId}
+		)
+	</insert>
+	<update id="updateTemplateClick" parameterType="int">
+
+
+		UPDATE template set `clickCount`=`clickCount`+1
+		where `TemplateId`=#{int}
+
+	</update>
+	<update id="updateTemplateTypeClick" parameterType="int">
+
+		UPDATE templatetype SET `clickCount`=`clickCount`+1
+		WHERE `TemplateTypeId` =(
+		SELECT tp.TemplateTypeId FROM `templatemapping` AS tp
+		WHERE
+		tp.TemplateId=#{int}
+		)
+
+	</update>
+	<update id="updateTemplateEvClick" parameterType="int">
+
+
+		UPDATE template set `evCount`=`evCount`+1
+		where `TemplateId`=#{int}
+
+	</update>
+	<update id="updateTemplateTypeEvClick" parameterType="int">
+
+		UPDATE templatetype SET `evCount`=`evCount`+1
+		WHERE `TemplateTypeId` =(
+		SELECT tp.TemplateTypeId FROM `templatemapping` AS tp
+		WHERE
+		tp.TemplateId=#{int}
+		)
+
+	</update>
+	<insert id="insertIp" parameterType="iptable">
+		insert into
+		ipTable
+		(`TemplateId`,`ip`
+
+		)
+		values(
+		#{TemplateId},#{ip}
+		)
+	</insert>
+	<select id="selectIp" parameterType="iptable" resultType="iptable">
+		select * from `ipTable` where `TemplateId`=#{TemplateId} and `ip`=#{ip}
+	</select>
+	<!-- <select id="getAllGoods" resultMap="goodsListMap" parameterType="String"> 
+		SELECT gl.*,gt.`goodsTypeName` FROM goodstypes AS gts INNER JOIN goodslist 
+		AS gl ON gl.`goodsId`=gts.`goodsId` INNER JOIN goodsType AS gt ON gt.`goodsTypeId`=gts.`goodsTypeId` 
+		where 1=1 and #{String} </select> <insert id="addGoodsList" parameterType="goodsList" 
+		keyProperty="goodsId" useGeneratedKeys="true"> insert into `goodsList`(`goodsPrice`,`goodsName`,`imageUrl`,`inventory`,`salesVolume`,`isShelves`,`weight`) 
+		values(#{goodsPrice},#{goodsName},#{imageUrl},#{inventory},#{salesVolume},#{isShelves},#{weight}) 
+		</insert> <insert id="addTypes" parameterType="goodsTypes"> insert into `goodsTypes`(`goodsId`,`goodsTypeId`) 
+		values(#{goodsId},#{goodsTypeId}) </insert> -->
+</mapper>

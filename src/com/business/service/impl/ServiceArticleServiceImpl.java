@@ -1,6 +1,7 @@
 package com.business.service.impl;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -11,14 +12,20 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Repository;
 
 import com.alibaba.fastjson.JSONObject;
+import com.business.dao.IGoodsListDao;
 import com.business.dao.IServiceArticleDao;
 import com.business.dao.IServiceArticleDetailsDao;
+import com.business.dao.IUserDao;
 import com.business.entitys.ResultMessage;
+import com.business.entitys.goods.GoodsList;
+import com.business.entitys.mp.template.Template;
 import com.business.entitys.service.ServiceArticle;
 import com.business.entitys.service.ServiceArticleDetails;
 import com.business.entitys.service.ServiceArticleHelper;
 import com.business.entitys.user.User;
 import com.business.service.IServiceArticleService;
+import com.business.service.IUserService;
+import com.business.util.SenMsgThread;
 
 @Repository("serviceArticleService")
 public class ServiceArticleServiceImpl implements IServiceArticleService {
@@ -26,6 +33,25 @@ public class ServiceArticleServiceImpl implements IServiceArticleService {
 	private IServiceArticleDao serviceArticleDao;
 	@Resource
 	private IServiceArticleDetailsDao serviceArticleDetailsDao;
+	@Resource
+	private IUserDao userDao;
+	@Resource
+	private IGoodsListDao goodsListDao;
+	public IGoodsListDao getGoodsListDao() {
+		return goodsListDao;
+	}
+
+	public void setGoodsListDao(IGoodsListDao goodsListDao) {
+		this.goodsListDao = goodsListDao;
+	}
+
+	public IUserDao getUserDao() {
+		return userDao;
+	}
+
+	public void setUserDao(IUserDao userDao) {
+		this.userDao = userDao;
+	}
 
 	public IServiceArticleDetailsDao getServiceArticleDetailsDao() {
 		return serviceArticleDetailsDao;
@@ -48,9 +74,29 @@ public class ServiceArticleServiceImpl implements IServiceArticleService {
 		// TODO Auto-generated method stub
 		int flog = serviceArticleDao.insert(serviceArticle);
 		ResultMessage resultMessage = null;
+
 		if (flog > 0) {
 			resultMessage = new ResultMessage("1", "true", "添加成功");
-
+			int goodsId = serviceArticle.getGoodsId();
+			GoodsList goodsList=goodsListDao.queryByGoodsId(goodsId);
+			Map<String, Object> map=new HashMap<String, Object>();
+			map.put("haveGoodsIdUser", "获得用户拥有此商品的LIST");
+			map.put("haveGoodsId", goodsId);
+			List<User> list=userDao.selectBywhere(map);
+			List<String> openIdList=new ArrayList<String>();
+			for(User user:list)
+			{	
+				if(user.getMpUserEntity()!=null)
+				{
+					if((user.getMpUserEntity().getOpenid()).length()>5)
+					{
+						openIdList.add(user.getMpUserEntity().getOpenid());
+					}	
+				}
+					
+			}
+			SenMsgThread senMsgThread=new SenMsgThread(0, new Template(), "upDR8Yi1RkjSwiyQ51WZf1t6XxLjUGOFlPhqQrM8OGY", flog, openIdList, serviceArticle, goodsList);
+			senMsgThread.start();
 		} else {
 			resultMessage = new ResultMessage("-1", "false", "添加失败,请及时联系管理员");
 		}
@@ -145,7 +191,7 @@ public class ServiceArticleServiceImpl implements IServiceArticleService {
 	@Override
 	public List<ServiceArticleDetails> doDetailsToServiceArticle(ServiceArticle serviceArticle) {
 		// TODO Auto-generated method stub
-		serviceArticle.setReadingNumber(serviceArticle.getReadingNumber()+1);
+		serviceArticle.setReadingNumber(serviceArticle.getReadingNumber() + 1);
 		serviceArticleDao.update(serviceArticle);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("getEvaluateList", "获得该文章下的所有评论");

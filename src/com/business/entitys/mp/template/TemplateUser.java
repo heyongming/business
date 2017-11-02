@@ -43,6 +43,12 @@ private Miniprogram miniprogram;
 		return data;
 	}
 
+	@Override
+	public String toString() {
+		return "TemplateUser [touser=" + touser + ", template_id=" + template_id + ", url=" + url + ", miniprogram="
+				+ miniprogram + ", data=" + data + "]";
+	}
+
 	public void setData(TemplateCtent data) {
 		this.data = data;
 	}

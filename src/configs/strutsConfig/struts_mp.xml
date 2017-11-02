@@ -85,7 +85,11 @@
 			<result name="success">/mbimc/weixin.jsp</result>
 			<result name="input">/mbimc/index.jsp</result>
 		</action>
-
+		<action name="serviceArticleHd"
+			class="com.business.action.mp.MpCheckServiceArticleAction">
+			<result name="success">/index/news.jsp</result>
+			<result name="input">/index/index.jsp</result>
+		</action>
 	</package>
 
 

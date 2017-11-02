@@ -91,4 +91,18 @@ public class UserServiceImpl implements IUserService {
 		return userDao.delete(user);
 	}
 
+	@Override
+	public User findOpenIdToUser(String openId) {
+		// TODO Auto-generated method stub
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("findOpenIdToService", "检测改用户是否可以享有该服务");
+		map.put("findOpenId", openId);
+
+		List<User> list = userDao.selectBywhere(map);
+		if (list.size() > 0) {
+			return list.get(0);
+		}
+		return null;
+	}
+
 }

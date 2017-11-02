@@ -35,6 +35,7 @@ public class Test {
 		 */
 		// PdfToImageUtill.pdf2multiImage("D:/upload/pdf/4/367307429366464512.pdf",
 		// "D:/bbbbb.jpg", 4);
+		/*
 		Date today = new Date();
 		String time = today.getTime() + "";
 		time = time.substring(4, time.length());
@@ -44,6 +45,9 @@ public class Test {
 			time += random.nextInt(10);
 		}
 		Long.parseLong(time);
-
+	*/
+		Date d = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日");
+		System.out.println("当前时间：" + sdf.format(d));
 	}
 }

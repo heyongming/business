@@ -111,7 +111,7 @@ public class MpServiceArticleAction extends ActionSupport implements ModelDriven
 		}
 		ServiceArticle article = serviceArticleService.findByServiceArticleNum(serviceArticle.getServiceArticleNum());
 		List<ServiceArticleDetails> det = serviceArticleService.doDetailsToServiceArticle(article);
-		System.out.println(det+"????????????");
+		
 		request.setAttribute("loginServiceArticle", article);
 		request.setAttribute("loginServiceArticleDetails", det);
 		int index = serviceArticleService.isDoThumbsUp(user, article);

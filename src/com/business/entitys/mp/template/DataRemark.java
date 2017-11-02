@@ -1,7 +1,12 @@
 package com.business.entitys.mp.template;
 
 public class DataRemark {
-	  private String value;
+	  @Override
+	public String toString() {
+		return "DataRemark [value=" + value + ", color=" + color + "]";
+	}
+
+	private String value;
 	    
 	    private String color;
 

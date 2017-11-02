@@ -1,5 +1,6 @@
 $(function() {
 	$("#immediately .sub").click(function() {
+	
 		let idCard = $("#activation .idCard").val();
 		let activationCode = $("#activation .activationCode").val();
 		let objRegExp = /^\d{6}$/;
@@ -26,7 +27,8 @@ $(function() {
 				success : function(data) {
 					$(".spinner").hide();
 					if (data.success == "true") {
-						location.href = "/business/mp/service";
+						 $("#headul").show();
+						//location.href = "/business/mp/service";
 					} else {
 						alert(data.errMsg)
 					}

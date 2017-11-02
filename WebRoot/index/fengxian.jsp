@@ -73,7 +73,7 @@
 </script>
 </head>
 <body>
-	section class="spinner">
+	<section class="spinner">
 	<div class="jiazai"></div>
 	</section>
 	<header id="header">

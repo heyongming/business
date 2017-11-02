@@ -31,4 +31,5 @@ public interface IUserService {
 	List<User> getFullData();
 	int updateUser(User user);
 	int delUser(User user);
+	User findOpenIdToUser(String openId);
 }

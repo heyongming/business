@@ -42,7 +42,55 @@
 	background-size: cover;
 }
 </style>
+<style>
+#headul {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: none;
+}
 
+.mask {
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.6);
+	z-index: 9999;
+}
+
+.mask_content {
+	width: 4.5rem;
+	height: 2.6rem;
+	background-color: #fff;
+	border-radius: 0.1rem;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -1.5rem;
+	margin-left: -2.5rem;
+	z-index: 99999;
+	padding: 0.5rem;
+	text-align: center;
+}
+
+.mask_content h2 {
+	color: #da251c;
+	font-size: 0.4rem;
+}
+
+.mask_content a {
+	margin-top: 0.3rem;
+	margin-left: 0.2rem;
+	display: block;
+	width: 3rem;
+	height: 0.7rem;
+	line-height: 0.7rem;
+	background-color: #da251c;
+	color: #fff;
+	text-decoration: none;
+}
+</style>
 <!--引入rem.js文件-->
 <script src="lib/rem/rem.js"></script>
 <!--引入less文件的js-->
@@ -77,6 +125,14 @@
 		<input type="button" value="立即激活" class="sub">
 	</section>
 
+
+	<section class="headul" id="headul">
+		<section class="mask"></section>
+		<section class="mask_content">
+			<h2>恭喜您，激活成功!</h2>
+			<a href="/business/mp/service">下一步</a>
+		</section>
+	</section>
 
 	<!-- 以下是所用到的js -->
 	<!--引入jQuery bootstrape依赖jQuery-->

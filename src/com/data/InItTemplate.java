@@ -7,6 +7,8 @@ import com.business.entitys.mp.template.TemplateUser;
 public class InItTemplate {
 	public static TemplateUser getTemplateCtent(String openid,String template_id)
 	{
+		return null;
+		/*
 		TemplateUser ctent=new TemplateUser();
 		ctent.setTouser(openid);
 		ctent.setTemplate_id(template_id);
@@ -19,5 +21,6 @@ public class InItTemplate {
 		templateCtent.setThresholdPrice(new DataRemark("10", "#173177"));
 		ctent.setData(templateCtent);
 		return ctent;
+		*/
 	}
 }

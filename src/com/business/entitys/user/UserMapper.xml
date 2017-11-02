@@ -95,8 +95,34 @@
 		<if test="getUserDataByOpenId!=null">
 			and us.`openId`=#{findOpenId}
 		</if>
+		<if test="haveGoodsIdUser!=null">
+			and us.`userId` IN (
+			SELECT st.userId FROM `servicetime` AS
+			st
+			WHERE st.`goodsId`=#{haveGoodsId} and st.`serviceDay`  &gt; 0
+			)
+		</if>
+		<if test="findOpenIdToService!=null">
+			and us.`openId`=#{findOpenId} and us.`userid` in
+			(
+			select `userId` from `servicetime` as st
+			where st.`serviceDay`  &gt; 0 and us.`userId` =st.`userId`
+			)
+		</if>
 	</select>
 	<delete id="delete" parameterType="int">
-		DELETE FROM `user` where `userId`=#{int}
+		DELETE FROM `user` where
+		`userId`=#{int}
 	</delete>
+	<select id="selectHaveGoodsIdUser" parameterType="int"
+		resultMap="userMap">
+		SELECT * FROM `user` AS us
+		WHERE us.`userId` IN (
+		SELECT
+		st.userId FROM `servicetime` AS st
+		WHERE
+		st.`goodsId`='10038'
+		)
+
+	</select>
 </mapper>
