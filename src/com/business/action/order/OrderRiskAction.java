@@ -172,9 +172,9 @@ public class OrderRiskAction extends ActionSupport {
 				toJsonSteam(json);
 				return this.SUCCESS;
 			}
-			orderService.saveOrderFromrOderStatus(orderForm, 3);
+			orderService.saveOrderFromrOderStatus(orderForm, -1);
 
-			orderForm.setOrderStatus(3);
+			orderForm.setOrderStatus(-1);
 
 			session.put("buyOrderResult", orderForm);
 			System.out.println("进来了");
@@ -202,9 +202,9 @@ public class OrderRiskAction extends ActionSupport {
 		GoodsList buyGoodsList = (GoodsList) session.get("buyGoodsList");
 		User userEntitys = (User) session.get("buyuser");// 购买者
 		OrderForm orderForm = (OrderForm) session.get("buyOrderResult");
-		orderService.saveOrderFromrOderStatus(orderForm, 3);
+		orderService.saveOrderFromrOderStatus(orderForm, -1);
 
-		orderForm.setOrderStatus(3);
+		orderForm.setOrderStatus(-1);
 		session.put("buyOrderResult", orderForm);
 		String json = serviceTimeService.savePdf(userEntitys, orderForm, buyGoodsList, "");
 		toJsonSteam(json);

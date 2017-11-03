@@ -69,7 +69,7 @@ $(function() {
 				'<div class="product">' +
 				'<div class="left">' +
 				'<p>' + e.goodsName + ' </p>' +
-				'<p class="price">￥' + e.goodsPrice + '</p>' +
+				'<p class="price" style="display:none">￥' + e.goodsPrice + '</p>' +
 				'</div>' +
 				'<button type="button" data-goodsId="' + e.goodsId + '" class="btn btn-primary">购买</button>' +
 				'</div>' +
@@ -283,7 +283,7 @@ $(function() {
 				'<p class="productTitle more" data-goodsId="' + e.goodsId + '">' + e.goodsName + '</p>' +
 				'<span class="danjia" style="display:none" >' + e.goodsPrice + '</span>' +
 				'<p class="num">已选份数*<span></span></p>' +
-				'<p class="price">￥<span class="zongjia"></span></p>' +
+				'<p class="price" style="display:none">￥<span class="zongjia"></span></p>' +
 				'</div>' +
 				'</div>' +
 				'<div class="middle">' +

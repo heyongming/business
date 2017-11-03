@@ -504,7 +504,8 @@ public class OrderServiceImpl implements IOrderService {
 		map.put("orderSerialNumber", form.getOrderSerialNumber());
 		ResultMessage message = null;
 		List<OrderForm> list = orderDao.getDataByWhere(map);
-		if (list.size() > 0) {
+		
+		if (list.size() == 0) {
 			message = new ResultMessage("-2", "false", "user not find");
 			return JSONObject.toJSONString(message);
 

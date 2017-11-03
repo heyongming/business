@@ -17,11 +17,9 @@ public class MpTest {
 		AccessToken accessToken = JSONObject.parseObject(json, AccessToken.class);
 		System.out.println(accessToken.getAccess_token());
 
-		/*
-		 * String menu = WeiXinUtil.initMenu(); String msg =
-		 * WeiXinUtil.sendMenu(AccessTokenManager.Access_Token, menu);
-		 * System.out.println(msg);
-		 */
+		String menu = WeiXinUtil.initMenu();
+		String msg = WeiXinUtil.sendMenu(AccessTokenManager.Access_Token, menu);
+		System.out.println(msg);
 
 		/*
 		 * String urlAddr = "http://m.mbimc.com/business/mp/oauthLogin";

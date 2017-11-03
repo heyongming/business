@@ -22,7 +22,7 @@
 .spinner {
 	width: 100%;
 	height: 100%;
-	position: absolute;
+	position: fixed;
 	z-index: 9999;
 	background: rgba(233, 233, 233, 0.6);
 	display: none;
@@ -310,7 +310,8 @@
 					success : function(data) {
 						//alert(data.msg);
 						$(".spinner").hide();
-						location.href = '../index/message.jsp'
+						console.log(data);
+						location.href = '/business/order/success'
 					},
 					error : function(XMLHttpRequest, textStatus, errorThrown) {
 						$(".spinner").hide();

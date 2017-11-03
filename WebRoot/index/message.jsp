@@ -25,7 +25,7 @@
 .spinner {
 	width: 100%;
 	height: 100%;
-	position: absolute;
+	position: fixed;
 	z-index: 9999;
 	background: rgba(233, 233, 233, 0.6);
 	display: none;
@@ -169,9 +169,22 @@
 		<p>推&nbsp;&nbsp;荐&nbsp;&nbsp;码：${sessionScope.buyuser.rdCode }</p>
 		<p>订单编号：${sessionScope.buyOrderResult.orderSerialNumber }</p>
 		<p>支付编号：${sessionScope.buyOrderResult.openId }</p>
-
 	</section>
 	<section id="process">
+		<c:if test="${(sessionScope.buyOrderResult.orderStatus) eq 2}">
+			<c:if
+				test="${(sessionScope.buyGoodsList.goodTypes[0].goodsTypeId) eq 4}">
+				<a id="code" href="../index/agreement.jsp">下一步，签署《服务协议》</a>
+			</c:if>
+			<c:if
+				test="${(sessionScope.buyGoodsList.goodTypes[0].goodsTypeId) lt 4}">
+				<a id="code" href="../index/fengxian.jsp">下一步，签署《服务协议》</a>
+			</c:if>
+
+		</c:if>
+
+	</section>
+	<%-- <section id="process">
 		<h2>服务审核流程</h2>
 		<div class="bottom">
 			<p></p>
@@ -219,7 +232,8 @@
 
 			</ul>
 		</div>
-	</section>
+	</section> --%>
+	<!-- 
 	<section id="smake">
 		<div class="head">
 			<span>×</span>
@@ -235,7 +249,7 @@
 			<iframe frameborder="0" class="pdfRanding" src=""></iframe>
 		</div>
 	</section>
-
+ -->
 	<!-- 以下是所用到的js -->
 	<!--引入jQuery bootstrape依赖jQuery-->
 	<script src="lib/jquery/jquery.js"></script>

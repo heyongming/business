@@ -1,23 +1,27 @@
+body{
+    background-color: #fff;
+}
+
 #message {
     background-color: #fff;
     padding: 0.3rem;
 }
 #message > h2 {
-    font-size: 0.4rem;
+    font-size: 0.5rem;
     color: #da251c;
     margin: 0;
     margin-bottom: 0.4rem;
 }
 #message > p {
-    font-size: 0.28rem;
+    font-size: 0.36rem;
     color: #909090;
-    line-height: 0.76rem;
+    line-height: 1rem;
 }
 #message > p > span {
     color: #da251c;
 }
 #message > p > .big {
-    font-size: 0.4rem;
+    font-size: 0.58rem;
 }
 #message > div {
     margin: 0.4rem 0;
@@ -27,10 +31,28 @@
     width: 45%;
 }
 
-#message > a {
+#message > .op {
+    width: 100%;
+    height: 1rem;
     font-size: 0.4rem;
-    color: #da251c;
-    text-decoration: underline;
+    line-height: 1rem;
+    text-align: center;
+    background-color: #da251c;
+    border-radius: 0.05rem;
+    color: #fff;
+    margin: 0.7rem 0 1rem;
+}
+#message > ul li:nth-of-type(1){
+    float: left;
+}
+#message > ul li:nth-of-type(2){
+    float: right;
+}
+#message > ul li:nth-of-type(1) a{
+    color:#da251c;
 }
 
+#message > ul li:nth-of-type(2) a{
+    color:#969494;
+}
 

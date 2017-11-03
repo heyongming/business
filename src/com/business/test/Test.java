@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
 
+import com.business.util.mp.MessAgeUtil;
 import com.business.util.mpPay.MpPayUtill;
 
 public class Test {
@@ -46,8 +47,12 @@ public class Test {
 		}
 		Long.parseLong(time);
 	*/
+		/*
 		Date d = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日");
 		System.out.println("当前时间：" + sdf.format(d));
+		*/
+		String url = MessAgeUtil.webLicensingnSapi_userinfo("http://m.mbimc.com/business/mp/code");
+		System.out.println(url);
 	}
 }
