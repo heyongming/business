@@ -10,11 +10,11 @@ $(function() {
 			success : function(data) {
 				// 渲染数据列表
 				var commBox = $("#goodsId")
-			
+
 				$.each(data, function(i, e) {
-				
+
 					var appendHtml = "<option value=" + e.goodsId + ">" + e.goodsName + "</option>";
-					
+
 					commBox.append(appendHtml);
 
 				})
@@ -97,6 +97,8 @@ $(function() {
 				serviceTypeId = "中报";
 			} else if (e.serviceTypeId == 3) {
 				serviceTypeId = "晚报";
+			} else if (e.serviceTypeId == 4) {
+				serviceTypeId = "策略";
 			}
 			tag += '<tr>' +
 				'<td>' + e.serviceArticleNum + '</td>' +
@@ -175,6 +177,8 @@ $(function() {
 					serviceTypeId = "中报";
 				} else if (data.serviceTypeId == 3) {
 					serviceTypeId = "晚报";
+				} else if (e.serviceTypeId == 4) {
+					serviceTypeId = "策略";
 				}
 				$("#serviceArticleTitle").val(data.serviceArticleTitle);
 				//     $("#thumbnail").val(data.thumbnail);

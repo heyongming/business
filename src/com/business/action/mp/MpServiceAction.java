@@ -111,6 +111,7 @@ public class MpServiceAction extends ActionSupport {
 		ActionContext actionContext = ActionContext.getContext();
 		Map session = actionContext.getSession();
 		MpUserEntity entity = (MpUserEntity) session.get("mpUser");
+		/*
 		if (entity == null) {
 			HttpServletRequest request = ServletActionContext.getRequest();
 
@@ -126,7 +127,7 @@ public class MpServiceAction extends ActionSupport {
 			}
 
 			entity = mpUserService.findUserInfo(mpCodeEntitys.getOpenid());
-		//	System.out.println(isover + "判断！！" + code);
+			// System.out.println(isover + "判断！！" + code);
 			if (entity == null && isover) {
 
 				entity = MessAgeUtil.getMpUserEntity(mpCodeEntitys.getAccess_token(), mpCodeEntitys.getOpenid());
@@ -134,19 +135,17 @@ public class MpServiceAction extends ActionSupport {
 			}
 			session.put("mpUser", entity);
 		}
-		/*
-		 * entity = new MpUserEntity("oEMmVuOtjSjRmjL6E1Szv6lKrvUY", "月光的指引",
-		 * "0", "", "", "",
-		 * "http://wx.qlogo.cn/mmopen/vi_32/31QVdlsGfaAIEBVQgFibkqG2N1zuUJCCe8a9det1D84JxAQ9REB2ZQuQrQCytY0TSgtficrgcPmyhVvu5wY0dJUA/0",
-		 * "[]", "");
-		 */
+		*/
+		entity = new MpUserEntity("oEMmVuOtjSjRmjL6E1Szv6lKrvUY", "月光的指引", "0", "", "", "",
+				"http://wx.qlogo.cn/mmopen/vi_32/31QVdlsGfaAIEBVQgFibkqG2N1zuUJCCe8a9det1D84JxAQ9REB2ZQuQrQCytY0TSgtficrgcPmyhVvu5wY0dJUA/0",
+				"[]", "");
+
 		if (entity == null) {
 			return this.input();
 		}
 
 		User user = mpUserService.findOpenIdToUser(entity);
-		if(user==null)
-		{
+		if (user == null) {
 			return this.input();
 		}
 		List<GoodsList> goodsList = mpUserService.findGetUserBuyGoodsList(user);
@@ -157,7 +156,7 @@ public class MpServiceAction extends ActionSupport {
 		session.put("loginUserGoodsList", goodsList);
 		session.put("loginUserGoodsListSize", goodsList.size());
 
-	//	System.out.println("User:" + user);
+		// System.out.println("User:" + user);
 		System.out.println("goodsList:" + goodsList);
 
 		return this.SUCCESS;

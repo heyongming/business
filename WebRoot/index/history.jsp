@@ -74,6 +74,8 @@
 					href="/business/mp/history?goodsId=${requestScope.currentGoods.goodsId}&serviceTypeId=2">午评</a>
 				<a
 					href="/business/mp/history?goodsId=${requestScope.currentGoods.goodsId}&serviceTypeId=3">晚评</a>
+				<a
+					href="/business/mp/history?goodsId=${requestScope.currentGoods.goodsId}&serviceTypeId=4">策略</a>
 			</c:if>
 			<c:if test="${requestScope.ServiceTypeId==2}">
 				<a
@@ -83,6 +85,8 @@
 					class="active">午评</a>
 				<a
 					href="/business/mp/history?goodsId=${requestScope.currentGoods.goodsId}&serviceTypeId=3">晚评</a>
+				<a
+					href="/business/mp/history?goodsId=${requestScope.currentGoods.goodsId}&serviceTypeId=4">策略</a>
 			</c:if>
 			<c:if test="${requestScope.ServiceTypeId==3}">
 				<a
@@ -92,6 +96,19 @@
 				<a
 					href="/business/mp/history?goodsId=${requestScope.currentGoods.goodsId}&serviceTypeId=3"
 					class="active">晚评</a>
+				<a
+					href="/business/mp/history?goodsId=${requestScope.currentGoods.goodsId}&serviceTypeId=4">策略</a>
+			</c:if>
+			<c:if test="${requestScope.ServiceTypeId==4}">
+				<a
+					href="/business/mp/history?goodsId=${requestScope.currentGoods.goodsId}&serviceTypeId=1">早评</a>
+				<a
+					href="/business/mp/history?goodsId=${requestScope.currentGoods.goodsId}&serviceTypeId=2">午评</a>
+				<a
+					href="/business/mp/history?goodsId=${requestScope.currentGoods.goodsId}&serviceTypeId=3">晚评</a>
+				<a
+					href="/business/mp/history?goodsId=${requestScope.currentGoods.goodsId}&serviceTypeId=4"
+					class="active">策略</a>
 			</c:if>
 		</div>
 		<c:forEach var="item" items="${requestScope.zpServiceArticle}"

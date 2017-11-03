@@ -90,6 +90,7 @@ textarea {
 							<option value="1" selected="">早报</option>
 							<option value="2">中报</option>
 							<option value="3">晚报</option>
+							<option value="4">策略</option>
 						</select>
 					</div>
 				</div>

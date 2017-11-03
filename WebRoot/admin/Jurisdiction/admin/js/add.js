@@ -12,8 +12,9 @@ $(function() {
 		renderData(op);
 	*/
 	function show() {
+		
 		$.ajax({
-			url : '/business/goods/getgoodsListData',
+			url : '/business/goods/getgoodsListData?date1234='+new Date().getTime(),
 			type : 'post',
 
 			dataType : 'json',
@@ -76,7 +77,7 @@ $(function() {
 				// formData += '&flag=1';
 				$.ajax({
 					type : 'post',
-					url : '/business/goods/addGoods',
+					url : '/business/goods/addGoods?date1234='+new Date().getTime(),
 					data : formData,
 					processData : false,
 					contentType : false,
@@ -158,7 +159,7 @@ $(function() {
 			td.find('a:eq(1)').click(function() {
 				$(this).parent().parent().remove();
 				$.ajax({
-					url : '/business/goods/delGoods',
+					url : '/business/goods/delGoods?date1234='+new Date().getTime(),
 					type : 'post',
 					data : {
 						goodsId : goodsId
@@ -176,7 +177,7 @@ $(function() {
 	var imageUrl;
 	function updateData(goodsId) {
 		$.ajax({
-			url : '/business/goods/getgoodsListById',
+			url : '/business/goods/getgoodsListById?date1234='+new Date().getTime(),
 			type : 'post',
 			data : {
 				goodsId : goodsId
@@ -267,7 +268,7 @@ $(function() {
 
 					$.ajax({
 						type : 'post',
-						url : '/business/goods/updateGoodsImage',
+						url : '/business/goods/updateGoodsImage?date1234='+new Date().getTime(),
 						data : formData,
 						dataType : 'json',
 						processData : false,

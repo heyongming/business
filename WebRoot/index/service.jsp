@@ -44,7 +44,8 @@
 			</div>
 		</div>
 		<div class="right">
-			<a href="/business/mp/history?goodsId=${requestScope.currentGoods.goodsId}">查看历史&nbsp;&nbsp;<img
+			<a
+				href="/business/mp/history?goodsId=${requestScope.currentGoods.goodsId}">查看历史&nbsp;&nbsp;<img
 				src="images/back_01.png" alt="" /></a>
 		</div>
 	</section>
@@ -58,7 +59,8 @@
 					<img src="images/product.png" alt="" />
 					<div class="moring">
 						<p>股市早报</p>
-						<a href="/business/mp/serviceArticle?serviceArticleNum=${item.serviceArticleNum}">立即阅读</a>
+						<a
+							href="/business/mp/serviceArticle?serviceArticleNum=${item.serviceArticleNum}">立即阅读</a>
 					</div>
 				</div>
 			</c:if>
@@ -67,7 +69,8 @@
 					<img src="images/product.png" alt="" />
 					<div class="moring">
 						<p>股市中报</p>
-						<a href="/business/mp/serviceArticle?serviceArticleNum=${item.serviceArticleNum}">立即阅读</a>
+						<a
+							href="/business/mp/serviceArticle?serviceArticleNum=${item.serviceArticleNum}">立即阅读</a>
 					</div>
 				</div>
 
@@ -78,14 +81,24 @@
 					<img src="images/product.png" alt="" />
 					<div class="moring">
 						<p>股市晚报</p>
-						<a href="/business/mp/serviceArticle?serviceArticleNum=${item.serviceArticleNum}">立即阅读</a>
+						<a
+							href="/business/mp/serviceArticle?serviceArticleNum=${item.serviceArticleNum}">立即阅读</a>
 					</div>
 				</div>
 			</c:if>
-
+			<c:if test="${item.serviceTypeId==4}">
+				<div class="reader">
+					<img src="images/product.png" alt="" />
+					<div class="moring">
+						<p>策略</p>
+						<a
+							href="/business/mp/serviceArticle?serviceArticleNum=${item.serviceArticleNum}">立即阅读</a>
+					</div>
+				</div>
+			</c:if>
 		</c:forEach>
 
-	
+
 	</section>
 
 
