@@ -16,7 +16,7 @@
 		<result property="invoiceInformation" column="invoiceInformation" />
 		<result property="goodsId" column="goodsId" />
 		<result property="userId" column="userId" />
-		
+
 
 		<collection property="goodsList" ofType="goodsList">
 			<id property="goodsId" column="goodsId" />
@@ -88,10 +88,11 @@
 		`paymentNumber`=#{paymentNumber},
 		`rdCode`=#{rdCode},
 		`invoiceInformation`=#{invoiceInformation},
-		`integral`=#{integral},
-		`orderSerialNumber`=#{orderSerialNumber}
+		`integral`=#{integral}
+
 		where
-		`userId`=#{userId} and orderStatus!=-1
+
+		`orderSerialNumber`=#{orderSerialNumber} and `userId`=#{userId} and orderStatus!=-1
 
 	</update>
 	<select id="selectByphone" parameterType="String" resultType="orderForm">
@@ -157,7 +158,8 @@
 			and of.`rdCode`=#{checkRdCode}
 		</if>
 		<if test="offLinePay!=null">
-			and of.`userId`=#{offLineUserId} and of.`orderStatus`<![CDATA[ <> ]]>-1 and of.`paymentMethod`=3
+			and of.`userId`=#{offLineUserId} and of.`orderStatus`<![CDATA[ <> ]]>-1
+			and of.`paymentMethod`=3
 		</if>
 		<if test="offLinePayList!=null">
 			and of.`paymentMethod`=3
