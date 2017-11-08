@@ -25,6 +25,8 @@ $(function() {
 			}
 		});
 	}
+	//富文本编辑器操作
+		var ue = UE.getEditor('articleContent');
 	/*点击添加，提交*/
 	function addData() {
 		$("#add").click(function() {
@@ -38,7 +40,7 @@ $(function() {
 			// 给表单提交按钮绑定事件
 			$("#submit").unbind('click').click(function() {
 				// 获取所有的表单数据
-
+				var articleContent = ue.getContent(); //获取富文本编辑器内容
 				var formData = new FormData();
 				//	formData.append("goodsId", $("#goodsId").val());
 				formData.append("file", $("#imageUrl")[0].files[0], $("#imageUrl")[0].files[0].name);
@@ -52,17 +54,12 @@ $(function() {
 
 				formData.append("minMon", $("select[name='minMon']").val());
 				formData.append("maxMon", $("select[name='maxMon']").val());
-
+				formData.append("hotGoods", articleContent);
 				var isBlend = 0;
 				if ($("select[name='isBlend']").val() =="是") {
 					isBlend = 1;
 				}
 				formData.append("isBlend", isBlend);
-				var hot = 0;
-				if ($("select[name='hotGoods']").val() == "是") {
-					hot = 1;
-				}
-				formData.append("hotGoods", hot);
 				var isShelves = 0;
 				if ($("select[name='isShelves']").val() == "是") {
 					isShelves = 1;
@@ -72,9 +69,6 @@ $(function() {
 				for (var i = 0; i < 10; i++) {
 					console.log(io.next())
 				}
-				console.log(formData);
-
-				// formData += '&flag=1';
 				$.ajax({
 					type : 'post',
 					url : '/business/goods/addGoods?date1234='+new Date().getTime(),
@@ -104,10 +98,6 @@ $(function() {
 		$.each(data, function(i, e) {
 			var goodsTypeEntity = e.goodTypes;
 			var goodsName = goodsTypeEntity[0].goodsTypeName;
-			hotGoods = "否";
-			if (e.hotGoods == 1) {
-				hotGoods = "是";
-			}
 			isShelves = "下架";
 			if (e.isShelves == 1) {
 				isShelves = "上架";
@@ -127,14 +117,13 @@ $(function() {
 				'<td>' + e.goodsPrice + '</td>' +
 				'<td>' + e.inventory + '</td>' +
 				'<td>' + e.salesVolume + '</td>' +
-				'<td>' + hotGoods + '</td>' +
 				'<td>' + isShelves + '</td>' +
 
 				'<td>' + e.maxMon + '</td>' +
 				'<td>' + e.minMon + '</td>' +
 				'<td>' + e.effectiveTime + '</td>' +
 				'<td>' + isBlend + '</td>' +
-
+				'<td>...</td>' +
 				'<td><a href="javascript:;" class="layui-btn layui-btn-mini">编辑</a><a href="javascript:;" class="layui-btn layui-btn-danger layui-btn-mini">删除</a></td>' +
 				'</tr>';
 		});
@@ -185,14 +174,9 @@ $(function() {
 			dataType : 'json',
 			success : function(data) {
 				/*显示旧信息*/
-				var hotGoods = "是",
-					isShelves = "是",
+				var isShelves = "是",
 					isBlend="是";
-					
-				if (data.hotGoods == 0) {
-					hotGoods = "否"
-				}
-
+				
 				if (data.isShelves == 0) {
 					isShelves = "否";
 				}
@@ -203,7 +187,7 @@ $(function() {
 				
 				//	data.hotGoods
 				//	data.isShelves
-				console.log(data)
+				//console.log(data)
 				$("#goodsId").val(data.goodsId);
 				//		$("#imageUrl").val(data.imageUrl);
 				imageUrl = data.imageUrl;
@@ -214,19 +198,18 @@ $(function() {
 				$("#goodsPrice").val(data.goodsPrice);
 				$("#inventory").val(data.inventory);
 				$("#salesVolume").val(data.salesVolume);
-				$("#selectbyGoods").val(hotGoods);
 				$("#isShelvesGoods").val(isShelves);
 				$("#maxMon").val(data.maxMon);
 				$("#minMon").val(data.minMon);
 				$("#effectiveTime").val(data.effectiveTime);
 				$("#isBlend").val(isBlend);
-				
+				ue.setContent(data.hotGoods); //获取原有富文本编辑器内容
 				// 重新绑定表单提交事件
 				$('#submit').unbind('click').click(function() {
 					// 获取更新后的表单数据
+					var articleContent = ue.getContent(); //获取富文本编辑器内容
 					var formData = new FormData();
 					//	formData.append("goodsId", $("#goodsId").val());
-
 					formData.append("goodsId", $("#goodsId").val());
 					formData.append("goodsName", $("#goodsName").val());
 					formData.append("goodsTypeName", $("select[name='goodsTypeId']").val());
@@ -238,18 +221,13 @@ $(function() {
 
 					formData.append("minMon", $("select[name='minMon']").val());
 					formData.append("maxMon", $("select[name='maxMon']").val());
-
+					formData.append("hotGoods", articleContent);
 					var isBlend = 0;
 					if ($("select[name='isBlend']").val() =="是") {
 						isBlend = 1;
 					}
-					
 					formData.append("isBlend", isBlend);
-					var hot = 0;
-					if ($("select[name='hotGoods']").val() == "是") {
-						hot = 1;
-					}
-					formData.append("hotGoods", hot);
+
 					var isShelves = 0;
 					if ($("select[name='isShelves']").val() == "是") {
 						isShelves = 1;

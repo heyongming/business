@@ -1,0 +1,74 @@
+body{
+    background-color: #fff;
+}
+.layui-table{
+    padding-right: 10px;
+}
+.layui-table > .layui-form > h3 {
+    text-align: center;
+    font-size: 16px;
+    line-height: 40px;
+    font-weight: 400;
+    color: #da251c;
+}
+.layui-form-label{
+    padding: 9px 0px;
+    width: 100px;
+}
+.upload{
+    margin-left: 20px;
+}
+.upload input{
+    margin: 10px 0;
+}
+.upload h3 {
+    font-size: 20px;
+    color: #da251c;
+    margin-bottom: 10px;
+}
+.layui-btn{
+    margin-top: 20px;
+    font-size: 20px;
+}
+
+.layui-table img {
+    max-width: 20px;
+}
+
+.select {
+    padding-left: 20px;
+    font-size: 30px;
+    line-height: 60px;
+    margin-top: 15px;
+    position: relative;
+}
+.select h2{
+    text-align: center;
+    font-size: 18px;
+    line-height: 40px;
+    font-weight: 400;
+    color: #da251c;
+}
+.select p{
+    font-size: 18px;
+    line-height: 40px;
+}
+.select .tit{
+    font-size: 18px;
+    color: #da251c;
+    font-weight: 700;
+}
+
+.select .layui-input-block{
+    margin-left: 0;
+}
+.layui-input-block .layui-btn{
+    width: 200px;
+    height: 50px;
+    line-height: 50px;
+    padding: 0;
+    font-size: 28px;
+    border-radius: 10px;
+}
+
+

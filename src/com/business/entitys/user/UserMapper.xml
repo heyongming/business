@@ -82,7 +82,8 @@
 		`Grade`=#{Grade},
 		`userStatus`=#{userStatus},
 		`idCard`=#{idCard},
-		`rdCode`=#{rdCode}
+		`rdCode`=#{rdCode},
+		`answer`=#{answer}
 		where
 		`userId`=#{userId}
 
@@ -99,15 +100,20 @@
 			and us.`userId` IN (
 			SELECT st.userId FROM `servicetime` AS
 			st
-			WHERE st.`goodsId`=#{haveGoodsId} and st.`serviceDay`  &gt; 0
+			WHERE st.`goodsId`=#{haveGoodsId} and st.`serviceDay` &gt; 0
 			)
 		</if>
 		<if test="findOpenIdToService!=null">
 			and us.`openId`=#{findOpenId} and us.`userid` in
 			(
-			select `userId` from `servicetime` as st
-			where st.`serviceDay`  &gt; 0 and us.`userId` =st.`userId`
+			select
+			`userId` from `servicetime` as st
+			where st.`serviceDay` &gt; 0 and
+			us.`userId` =st.`userId`
 			)
+		</if>
+		<if test="findUserByIdcard!=null">
+			and us.`idCard`=#{findIdcard}
 		</if>
 	</select>
 	<delete id="delete" parameterType="int">

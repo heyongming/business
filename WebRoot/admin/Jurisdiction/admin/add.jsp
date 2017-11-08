@@ -108,15 +108,6 @@
 					</div>
 				</div>
 				<div class="layui-form-item">
-					<label class="layui-form-label">热门显示：</label>
-					<div class="layui-input-inline">
-						<select name="hotGoods" class="layui-input" id="selectbyGoods">
-							<option value="是" selected="">是</option>
-							<option value="否">否</option>
-						</select>
-					</div>
-				</div>
-				<div class="layui-form-item">
 					<label class="layui-form-label">上下架：</label>
 					<div class="layui-input-inline">
 						<select name="isShelves" class="layui-input" id="isShelvesGoods">
@@ -192,12 +183,22 @@
                         </select>
                     </div>
                 </div>
+                <div class="layui-form-item">
+					<label class="layui-form-label">文章详情：</label>
+					<div class="layui-input-block">
+						<script id="articleContent" name="articleContent" required
+						lay-verify="required" type="text/plain">
+
+						</script>
+					</div>
+				</div>
 				<div class="layui-form-item">
 					<div class="layui-input-block">
 						<button class="layui-btn" id="submit">立即提交</button>
 						<button type="reset" class="layui-btn layui-btn-primary">重置</button>
 					</div>
 				</div>
+				
 			</form>
 		</div>
 
@@ -215,12 +216,12 @@
 							<th>定价</th>
 							<th>库存</th>
 							<th>销售量</th>
-							<th>热门显示</th>
 							<th>上下架</th>
 							<th>购买上限</th>
 							<th>购买下限</th>
 							<th>服务期限</th>
 							<th>是否混合</th>
+							<th>产品详情</th>
 							<th>操作</th>
 						</tr>
 					</thead>
@@ -255,9 +256,11 @@
 	<script src="../lib/jquery/jquery.js"></script>
 	<script src="../lib/layui/layui.js"></script>
 	<script src="../lib/bootstrap/js/bootstrap.js"></script>
-	<script src="../lib/template.js"></script>
-	<!--引入颜色选择器-->
-	<script src="../lib/template.js"></script>
+	<!-- 配置文件 -->
+	<script type="text/javascript" src="../lib/uditor/ueditor.config.js"></script>
+	<!-- 编辑器源码文件 -->
+	<script type="text/javascript" src="../lib/uditor/ueditor.all.js"></script>
+	<script type="text/javascript" src="../lib/uditor/ueditor.parse.js"></script>
 	<script type="text/javascript" src="js/add.js"></script>
 	<!--预览图片-->
 	<script>

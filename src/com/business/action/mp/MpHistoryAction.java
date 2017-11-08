@@ -1,5 +1,10 @@
 package com.business.action.mp;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -8,7 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.ServletActionContext;
 
+import com.alibaba.fastjson.JSONObject;
 import com.business.entitys.goods.GoodsList;
+import com.business.entitys.mp.temp.ResultMsg;
 import com.business.entitys.service.ServiceArticle;
 import com.business.entitys.service.ServiceTime;
 import com.business.entitys.user.User;
@@ -20,8 +27,8 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
-public class MpHistoryAction extends ActionSupport  {
-	
+public class MpHistoryAction extends ActionSupport {
+
 	@Resource
 	private IMpUserService mpUserService;
 	@Resource
@@ -30,14 +37,15 @@ public class MpHistoryAction extends ActionSupport  {
 	private IServiceTimeService serviceTimeService;
 	@Resource
 	private IServiceArticleService serviceArticleService;
-	private int serviceTypeId=0;
+	private String date;
+	private InputStream bis;
 
-	public int getServiceTypeId() {
-		return serviceTypeId;
+	public InputStream getBis() {
+		return bis;
 	}
 
-	public void setServiceTypeId(int serviceTypeId) {
-		this.serviceTypeId = serviceTypeId;
+	public void setBis(InputStream bis) {
+		this.bis = bis;
 	}
 
 	public IServiceArticleService getServiceArticleService() {
@@ -56,6 +64,14 @@ public class MpHistoryAction extends ActionSupport  {
 		this.mpUserService = mpUserService;
 	}
 
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
 	public IGoodsOperationService getGoodsOperationService() {
 		return goodsOperationService;
 	}
@@ -72,8 +88,6 @@ public class MpHistoryAction extends ActionSupport  {
 		this.serviceTimeService = serviceTimeService;
 	}
 
-
-
 	@Override
 	public String execute() throws Exception {
 		// TODO Auto-generated method stub
@@ -85,18 +99,55 @@ public class MpHistoryAction extends ActionSupport  {
 		if (user == null || goodsList == null) {
 			return this.input();
 		}
-		if(serviceTypeId==0)
-		{
-			serviceTypeId=1;
+		if (date == null) {
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd?HH:mm:ss");// 设置日期格式
+			String str = df.format(new Date()).toString();
+			int index = str.lastIndexOf("?");
+			date = str.subSequence(0, index).toString();
+
 		}
-		List<ServiceArticle> list = serviceArticleService.doHistoryData(goodsList.getGoodsId(), serviceTypeId);
+		date = date.replaceAll("/", "-");
+		List<ServiceArticle> list = serviceArticleService.doHistoryDateData(goodsList.getGoodsId(), date);
 		ServiceTime serviceTime = serviceTimeService.findServiceUserEntity(user, goodsList);
 		request.setAttribute("zpServiceArticle", list);
 		request.setAttribute("currentGoods", goodsList);
 		request.setAttribute("currentGoodsDay", serviceTime.getServiceDay());
 		request.setAttribute("currentServiceTypeId", serviceTime.getServiceDay());
-		
+
 		return this.SUCCESS;
+	}
+
+	public String getHistyData() throws Exception {
+		ActionContext actionContext = ActionContext.getContext();
+		Map session = actionContext.getSession();
+		HttpServletRequest request = ServletActionContext.getRequest();
+		User user = ((User) session.get("loginUser"));
+		GoodsList goodsList = (GoodsList) session.get("serviceGoodsList");
+		if (user == null || goodsList == null) {
+			toJsonSteam("[]");
+			return this.SUCCESS;
+		}
+		if (date == null) {
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd?HH:mm:ss");// 设置日期格式
+			String str = df.format(new Date()).toString();
+			int index = str.lastIndexOf("?");
+			date = str.subSequence(0, index).toString();
+
+		}
+		date = date.replaceAll("/", "-");
+		List<ServiceArticle> list = serviceArticleService.doHistoryDateData(goodsList.getGoodsId(), date);
+		toJsonSteam(JSONObject.toJSONString(list));
+		return this.SUCCESS;
+	}
+
+	private void toJsonSteam(String text) {
+		try {
+			bis = new ByteArrayInputStream(text.getBytes("utf-8"));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			bis = null;
+			e.printStackTrace();
+		}
 	}
 
 }

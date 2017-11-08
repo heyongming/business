@@ -2,53 +2,167 @@
   padding: 0.3rem;
   background-color: #fff;
 }
-#message > .mes > p {
-  font-size: 0.32rem;
-  color: #111;
-  line-height: 0.6rem;
-}
-#message > .mes > .color {
-  color: #da251c;
-  font-size: 0.24rem;
-}
-#message #nav {
-  height: 0.8rem;
-  line-height: 0.8rem;
-  text-align: center;
-  display: flex;
-  background-color: #fff;
-  border-bottom: 1px solid #ebebeb;
-}
-#message #nav > a {
-  font-size: 0.34rem;
-  color: #909090;
-  font-family: PingFangSC-Regular, sans-serif;
-  flex: 1;
-}
-#message #nav > .active {
-  border-bottom: 4px solid #da251c;
-  color: #da251c;
-}
-#message .news > a {
+#message .news >#mes > a {
   line-height: 2.58rem;
   border-bottom: 1px solid #ebebeb;
   padding: 0.3rem 0;
   display: flex;
 }
-#message .news > a > .left {
+#message .news >#mes > a > .left {
   flex: 1;
 }
-#message .news > a > .left > p {
+#message .news >#mes > a > .left > p {
   color: #111;
   font-size: 0.32rem;
   line-height: 0.53rem;
 }
-#message .news > a > .left > .date {
+#message .news >#mes > a > .left > .date {
   color: #909090;
   font-size: 0.24rem;
 }
-#message .news > a > img {
+#message .news >#mes > a > img {
   flex: 1;
   height: 2rem;
 }
-/*?????鿪ʼ*/
+.wrap {
+  width: 100%;
+  border-bottom: 0.01rem solid #ddd;
+}
+
+.wrap-main>table {
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  line-height: 0.4rem;
+  cursor: pointer;
+  border-color: #cccccc;
+}
+.top{
+  text-align: center;
+  position: relative;
+}
+#showdate{
+  font-size: 0.36rem;
+}
+.prevSweek{
+  position: absolute;
+  top:0;
+  left:0;
+  width: 0.5rem;
+  height: 0.5rem;
+  background:url("../images/prevSweek.png");
+  background-position: center center;
+  background-size: cover;
+}
+.nextSweek{
+  position: absolute;
+  top:0;
+  right:0;
+  width: 0.5rem;
+  height: 0.5rem;
+  background:url("../images/nextSweek.png");
+  background-position: center center;
+  background-size: cover;
+}
+#week >td{
+  color: #da251c;
+  font-size: 0.3rem;
+  padding: 0.1rem 0;
+  text-align: center;
+}
+.wrap-main .list,.wrap-main .list>ul {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.wrap-main .list {
+  padding-top: 0.5rem;
+}
+
+.wrap-main .list>ul>li {
+  width: 80%;
+  margin: 0 auto;
+  padding-top: 0.2rem;
+}
+
+.wrap-main .list>ul>li:nth-child(3) div {
+  margin-left: 1rem;
+  line-height: 40px;
+}
+
+.wrap-main .list>ul>li:nth-child(3) div label {
+  width: 30%;
+  display: inline-block;
+}
+
+.wrap-main .list>ul>li>span {
+  display: inline-block;
+  width: 100px;
+  line-height: 0.4rem;
+}
+
+.wrap-main .list>ul>li>select {
+  width: 70%;
+  height: 0.4rem;
+  border: 1px solid #cccccc;
+  border-radius: 0.03rem;
+  font-size: 0.16rem;
+  text-indent: 0.1rem;
+}
+
+.wrap-main .list>ul>li>select>option {
+  line-height: 30px;
+  border: 1px solid #cccccc;
+}
+
+#mytable tr td{
+  font-size: 0.3rem;
+  padding: 0.2rem;
+  text-align: center;
+}
+.wrap-main .list>ul>li>input {
+  width: 70%;
+  line-height: 0.39rem;
+  border: 1px solid #cccccc;
+  border-radius: 0.03rem;
+  font-size: 016rem;
+  text-indent: 0.1rem;
+}
+
+.wrap-main .list>ul>li>button {
+  line-height: 0.4rem;
+  font-size: 0.16rem;
+  width: 1.5rem;
+  outline: none;
+  background-color: #1e9be8;
+  border-radius: 0.05rem;
+  color: #ffffff;
+  margin-left: 40%;
+  margin-top: 5%;
+}
+.active {
+  width: 0.4rem;
+  height: 0.4rem;
+  background:url("../images/yuan.png");
+  background-position: center center;
+  background-size: cover;
+  color: #fff;
+}
+#noMessage{
+  text-align: center;
+  margin: 1rem 0;
+  display: none;
+}
+
+#noMessage .logo{
+  width: 3rem;
+  margin-left: 2rem;
+  margin-bottom: 0.6rem;
+}
+#noMessage .logo img{
+  width: 100%;
+}
+#noMessage h2{
+  font-size: 0.5rem;
+  color: #9d9d9d;
+}

@@ -37,6 +37,7 @@ public class ServiceArticleServiceImpl implements IServiceArticleService {
 	private IUserDao userDao;
 	@Resource
 	private IGoodsListDao goodsListDao;
+
 	public IGoodsListDao getGoodsListDao() {
 		return goodsListDao;
 	}
@@ -78,24 +79,22 @@ public class ServiceArticleServiceImpl implements IServiceArticleService {
 		if (flog > 0) {
 			resultMessage = new ResultMessage("1", "true", "添加成功");
 			int goodsId = serviceArticle.getGoodsId();
-			GoodsList goodsList=goodsListDao.queryByGoodsId(goodsId);
-			Map<String, Object> map=new HashMap<String, Object>();
+			GoodsList goodsList = goodsListDao.queryByGoodsId(goodsId);
+			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("haveGoodsIdUser", "获得用户拥有此商品的LIST");
 			map.put("haveGoodsId", goodsId);
-			List<User> list=userDao.selectBywhere(map);
-			List<String> openIdList=new ArrayList<String>();
-			for(User user:list)
-			{	
-				if(user.getMpUserEntity()!=null)
-				{
-					if((user.getMpUserEntity().getOpenid()).length()>5)
-					{
+			List<User> list = userDao.selectBywhere(map);
+			List<String> openIdList = new ArrayList<String>();
+			for (User user : list) {
+				if (user.getMpUserEntity() != null) {
+					if ((user.getMpUserEntity().getOpenid()).length() > 5) {
 						openIdList.add(user.getMpUserEntity().getOpenid());
-					}	
+					}
 				}
-					
+
 			}
-			SenMsgThread senMsgThread=new SenMsgThread(0, new Template(), "upDR8Yi1RkjSwiyQ51WZf1t6XxLjUGOFlPhqQrM8OGY", flog, openIdList, serviceArticle, goodsList);
+			SenMsgThread senMsgThread = new SenMsgThread(0, new Template(),
+					"upDR8Yi1RkjSwiyQ51WZf1t6XxLjUGOFlPhqQrM8OGY", flog, openIdList, serviceArticle, goodsList);
 			senMsgThread.start();
 		} else {
 			resultMessage = new ResultMessage("-1", "false", "添加失败,请及时联系管理员");
@@ -245,6 +244,22 @@ public class ServiceArticleServiceImpl implements IServiceArticleService {
 		}
 
 		return 1;
+	}
+
+	@Override
+	public List<ServiceArticle> doHistoryDateData(int goodsId, String date) {
+		// TODO Auto-generated method stub
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("doHistoryDateData", "获取这个商品历史时间所发布的消息");
+		map.put("doHistoryDateDataId", goodsId);
+		map.put("doHistoryDateDataIdTime", date);
+	
+
+		List<ServiceArticle> list = serviceArticleDao.selectBywhere(map);
+
+		return list;
+		
 	}
 
 }

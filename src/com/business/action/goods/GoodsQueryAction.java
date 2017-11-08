@@ -3,13 +3,16 @@ package com.business.action.goods;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.alibaba.fastjson.JSONObject;
 import com.business.entitys.goods.GoodsList;
 import com.business.entitys.user.User;
 import com.business.service.IGoodsOperationService;
 import com.opensymphony.xwork2.Action;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
@@ -21,6 +24,7 @@ public class GoodsQueryAction extends ActionSupport implements ModelDriven<Goods
 	@Resource
 	private IGoodsOperationService GoodsOperationService;
 	private GoodsList goodsList;
+
 	public void setGoodsList(GoodsList goodsList) {
 		this.goodsList = goodsList;
 	}
@@ -92,8 +96,20 @@ public class GoodsQueryAction extends ActionSupport implements ModelDriven<Goods
 	}
 
 	public String getHotGoodsList() {
-		String json=GoodsOperationService.queryGoodsListWhenHot(goodsList);
+		String json = GoodsOperationService.queryGoodsListWhenHot(goodsList);
 		toJsonSteam(json);
+		return Action.SUCCESS;
+	}
+
+	public String getdetailsById() throws Exception {
+
+		Map request = (Map) ActionContext.getContext().get("request");
+		String json = GoodsOperationService.queryGoodsListById(goodsList.getGoodsId());
+		if (json.length() < 10) {
+			return this.input();
+		}
+		GoodsList goodsList = JSONObject.parseObject(json, GoodsList.class);
+		request.put("details", goodsList);
 		return Action.SUCCESS;
 	}
 
@@ -110,8 +126,8 @@ public class GoodsQueryAction extends ActionSupport implements ModelDriven<Goods
 	@Override
 	public GoodsList getModel() {
 		// TODO Auto-generated method stub
-		goodsList=new GoodsList();
-		
+		goodsList = new GoodsList();
+
 		return goodsList;
 	}
 }

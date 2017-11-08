@@ -102,6 +102,11 @@
 			st.`serviceTypeId`=#{historyType}
 			ORDER BY st.`currentDate` desc
 		</if>
+		<if test="doHistoryDateData!=null">
+			and st.`currentDate` like concat('%',#{doHistoryDateDataIdTime},'%')
+			and st.`goodsId`=#{doHistoryDateDataId}
+			ORDER BY st.`serviceTypeId` desc
+		</if>
 	</select>
 	<delete id="deleteServiceArticle" parameterType="String">
 		delete from

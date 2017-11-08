@@ -105,4 +105,17 @@ public class UserServiceImpl implements IUserService {
 		return null;
 	}
 
+	@Override
+	public User fingUserByIdcard(String idCard) {
+		// TODO Auto-generated method stub
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("findUserByIdcard", "查找身份证对应的User");
+		map.put("findIdcard", idCard);
+		List<User> list = userDao.selectBywhere(map);
+		if (list.size() > 0) {
+			return list.get(0);
+		}
+		return null;
+	}
+
 }

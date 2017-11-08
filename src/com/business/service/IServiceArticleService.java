@@ -41,6 +41,7 @@ public interface IServiceArticleService {
 	 *            拿取该文章的相关评论
 	 * @return
 	 */
+
 	List<ServiceArticleDetails> doDetailsToServiceArticle(ServiceArticle serviceArticle);
 
 	/**
@@ -58,6 +59,7 @@ public interface IServiceArticleService {
 	 * @return 评论的返回结果
 	 */
 	ResultMessage doComment(ServiceArticleDetails serviceArticleDetails);
+
 	/**
 	 * @param user
 	 *            检测点赞人
@@ -66,4 +68,6 @@ public interface IServiceArticleService {
 	 * @return 返回的结果
 	 */
 	int isDoThumbsUp(User user, ServiceArticle serviceArticle);
+
+	List<ServiceArticle> doHistoryDateData(int goodsId, String date);
 }

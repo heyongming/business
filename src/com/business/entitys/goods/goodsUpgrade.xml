@@ -25,7 +25,7 @@
 			<result property="minMon" column="minMon" />
 			<result property="maxMon" column="maxMon" />
 			<result property="isBlend" column="isBlend" />
-
+			<result property="hotGoods" column="hotGoods" />
 		</collection>
 
 		<collection property="UpgradeGoodsList" ofType="goodsList">
@@ -63,8 +63,8 @@
 		,gl2.hotGoods as uhotGoods
 		,gl2.minMon as uminMon
 		,gl2.maxMon as umaxMon
-		,gl2.isBlend as uisBlend 
-		
+		,gl2.isBlend as uisBlend
+
 
 		FROM
 		goodslistUpgrade AS gu
@@ -106,8 +106,8 @@
 		,gl2.hotGoods as uhotGoods
 		,gl2.minMon as uminMon
 		,gl2.maxMon as umaxMon
-		,gl2.isBlend as uisBlend 
-		
+		,gl2.isBlend as uisBlend
+
 		FROM
 		goodslistUpgrade AS gu
 		INNER JOIN
@@ -125,6 +125,6 @@
 		</if>
 
 	</select>
-	
+
 
 </mapper>

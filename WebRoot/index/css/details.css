@@ -1,0 +1,163 @@
+#message {
+  width: 100%;
+}
+#message #header {
+  width: 100%;
+  background-color: #393a3f;
+  height: 0.8rem;
+  color: #fff;
+  text-align: center;
+}
+#message #header h2 {
+  font-size: 0.4rem;
+  line-height: 0.8rem;
+}
+#message #top {
+  width: 100%;
+  background-color: #fff;
+  margin-bottom: 0.2rem;
+}
+#message #top img {
+  width: 100%;
+}
+#message #top div {
+  padding: 0.3rem;
+}
+#message #top div p {
+  font-size: 0.34rem;
+  line-height: 0.8rem;
+}
+#message #top div .span {
+  color: #da251c;
+}
+#message #top div .xl {
+  font-size: 0.28rem;
+  border-top: 1px solid #ebebeb;
+  color: #909090;
+}
+#message #top div .xl span {
+  color: #111;
+}
+#message #details {
+  background-color: #fff;
+  margin-bottom: 1rem;
+}
+#message #details h2 {
+  height: 0.9rem;
+  line-height: 0.9rem;
+  font-size: 0.34rem;
+  text-align: center;
+}
+#message #details .tp {
+  padding: 0.3rem;
+}
+#message #footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+#message #footer button {
+  width: 100%;
+  height: 0.98rem;
+  line-height: 0.98rem;
+  text-align: center;
+  font-size: 0.4rem;
+  color: #fff;
+  background-color: #da251c;
+  border: 0;
+}
+#message .modal {
+  display: none;
+  background-color: rgba(1, 1, 1, 0.2);
+  z-index: 1;
+}
+#message .modal-dialog {
+  display: none;
+  background-color: #fff;
+  width: 100%;
+  z-index: 999;
+  position: fixed;
+  bottom: 0;
+  margin: 0;
+}
+#message .modal-dialog .modal-content {
+  border: 0;
+  border-radius: 0;
+  box-shadow: 0;
+  -webkit-box-shadow: 0;
+}
+#message .modal-dialog .modal-content > .top {
+  height: 2.6rem;
+  border: 0;
+  padding: 0 0 0.3rem 0.3rem;
+}
+#message .modal-dialog .modal-content > .top > .img {
+  width: 3rem;
+  height: 2rem;
+  float: left;
+}
+#message .modal-dialog .modal-content > .top > .img > img {
+  width: 100%;
+}
+#message .modal-dialog .modal-content > .top > div {
+  float: left;
+  margin-top: 0.3rem;
+}
+#message .modal-dialog .modal-content > .top > div p {
+  font-size: 0.32rem;
+  line-height: 0.56rem;
+}
+#message .modal-dialog .modal-content > .top > div > .more {
+  width: 3.9rem;
+}
+#message .modal-dialog .modal-content > .top > div > .num {
+  color: #909090;
+  font-size: 0.3rem;
+}
+#message .modal-dialog .modal-content > .top > div > .price {
+  color: #da251c;
+  font-size: 0.32rem;
+}
+#message .modal-dialog .modal-content > .middle {
+  height: 1rem;
+  line-height: 1rem;
+  background-color: #fff;
+  padding: 0 0.3rem;
+  font-size: 0.32rem;
+}
+#message .modal-dialog .modal-content > .middle > .left {
+  float: left;
+}
+#message .modal-dialog .modal-content > .middle > .right {
+  float: right;
+}
+#message .modal-dialog .modal-content > .middle > .right .min,
+#message .modal-dialog .modal-content > .middle > .right .add {
+  width: 0.7rem;
+  line-height: 0.66rem;
+  text-align: center;
+  font-size: 0.66rem;
+  border-radius: 0;
+}
+#message .modal-dialog .modal-content > .middle > .right .text_box {
+  height: 0.66rem;
+  width: 0.7rem;
+  border: 0;
+  text-align: center;
+}
+#message .modal-dialog .modal-content > .bottom {
+  width: 100%;
+  height: 0.98rem;
+  line-height: 0.98rem;
+  background-color: #da251c;
+  display: block;
+  text-align: center;
+  font-size: 0.4rem;
+}
+#message .modal-dialog .modal-content > .bottom a {
+  width: 100%;
+  height: 0.98rem;
+  display: inline-block;
+  color: #fff;
+}

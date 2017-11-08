@@ -32,4 +32,5 @@ public interface IUserService {
 	int updateUser(User user);
 	int delUser(User user);
 	User findOpenIdToUser(String openId);
+	User fingUserByIdcard(String idCard);
 }

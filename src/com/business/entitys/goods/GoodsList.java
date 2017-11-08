@@ -12,19 +12,28 @@ public class GoodsList {
 	private int inventory;
 	private int salesVolume;
 	private int isShelves;
-	private int hotGoods;
+	private String hotGoods;
 	private int weight;
 	private int effectiveTime;
 	private int minMon;
 	private int maxMon;
 	private int isBlend;
 
+	@Override
+	public String toString() {
+		return "GoodsList [goodsId=" + goodsId + ", goodsPrice=" + goodsPrice + ", goodsName=" + goodsName
+				+ ", imageUrl=" + imageUrl + ", dateManufacture=" + dateManufacture + ", inventory=" + inventory
+				+ ", salesVolume=" + salesVolume + ", isShelves=" + isShelves + ", hotGoods=" + hotGoods + ", weight="
+				+ weight + ", effectiveTime=" + effectiveTime + ", minMon=" + minMon + ", maxMon=" + maxMon
+				+ ", isBlend=" + isBlend + ", goodTypes=" + goodTypes + "]";
+	}
+
 	public GoodsList() {
 		super();
 	}
 
 	public GoodsList(int goodsId, int goodsPrice, String goodsName, String imageUrl, String dateManufacture,
-			int inventory, int salesVolume, int isShelves, int hotGoods, int weight, int effectiveTime, int minMon,
+			int inventory, int salesVolume, int isShelves, String hotGoods, int weight, int effectiveTime, int minMon,
 			int maxMon, int isBlend, List<GoodsType> goodTypes) {
 		super();
 		this.goodsId = goodsId;
@@ -42,15 +51,6 @@ public class GoodsList {
 		this.maxMon = maxMon;
 		this.isBlend = isBlend;
 		this.goodTypes = goodTypes;
-	}
-
-	@Override
-	public String toString() {
-		return "GoodsList [goodsId=" + goodsId + ", goodsPrice=" + goodsPrice + ", goodsName=" + goodsName
-				+ ", imageUrl=" + imageUrl + ", dateManufacture=" + dateManufacture + ", inventory=" + inventory
-				+ ", salesVolume=" + salesVolume + ", isShelves=" + isShelves + ", hotGoods=" + hotGoods + ", weight="
-				+ weight + ", effectiveTime=" + effectiveTime + ", minMon=" + minMon + ", maxMon=" + maxMon
-				+ ", isBlend=" + isBlend + ", goodTypes=" + goodTypes + "]";
 	}
 
 	public int getGoodsId() {
@@ -117,11 +117,11 @@ public class GoodsList {
 		this.isShelves = isShelves;
 	}
 
-	public int getHotGoods() {
+	public String getHotGoods() {
 		return hotGoods;
 	}
 
-	public void setHotGoods(int hotGoods) {
+	public void setHotGoods(String hotGoods) {
 		this.hotGoods = hotGoods;
 	}
 

@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.css" />
 <!--引入自己的less,自己写的css-->
 <link rel="stylesheet/less" href="css/base.less" />
-<link rel="stylesheet/less" href="css/history.less" />
+
 <!--引入rem.js文件-->
 <script src="lib/rem/rem.js"></script>
 <!--引入less文件的js-->

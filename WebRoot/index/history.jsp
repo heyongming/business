@@ -6,13 +6,11 @@
 	basePath = "/business/index/";
 %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<base href="<%=basePath%>">
-
 <meta charset="utf-8">
+<base href="<%=basePath%>">
 <!--添加视口 移动端适配-->
 <meta name="viewport"
 	content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -21,8 +19,7 @@
 <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.css" />
 <!--引入自己的less,自己写的css-->
 <link rel="stylesheet/less" href="css/base.less" />
-<link rel="stylesheet/less" href="css/history.less" />
-<!--引入rem.js文件-->
+<link rel="stylesheet" href="css/history.css" />
 <style>
 .spinner {
 	width: 100%;
@@ -45,8 +42,30 @@
 	background-position: center center;
 	background-size: cover;
 }
+
+#noMessage {
+	text-align: center;
+	margin: 1rem 0;
+	display: none;
+}
+
+#noMessage .logo {
+	width: 3rem;
+	margin-left: 2rem;
+	margin-bottom: 0.6rem;
+}
+
+#noMessage .logo img {
+	width: 100%;
+}
+
+#noMessage h2 {
+	font-size: 0.5rem;
+	color: #9d9d9d;
+}
 </style>
 
+<!--引入rem.js文件-->
 <script src="lib/rem/rem.js"></script>
 <!--引入less文件的js-->
 <script src="lib/less/less.js"></script>
@@ -57,75 +76,52 @@
 		<div class="jiazai"></div>
 	</section>
 
-	<!--头部块结束-->
 	<section id="message">
-		<div class="mes">
-			<p class="left">${requestScope.currentGoods.goodsName}</p>
-			<p class="color">服务到期：${requestScope.currentGoodsDay}</p>
-		</div>
-		<div id="nav">
-
-
-			<c:if test="${requestScope.ServiceTypeId==1}">
-				<a
-					href="/business/mp/history?goodsId=${requestScope.currentGoods.goodsId}&serviceTypeId=1"
-					class="active">早评</a>
-				<a
-					href="/business/mp/history?goodsId=${requestScope.currentGoods.goodsId}&serviceTypeId=2">午评</a>
-				<a
-					href="/business/mp/history?goodsId=${requestScope.currentGoods.goodsId}&serviceTypeId=3">晚评</a>
-				<a
-					href="/business/mp/history?goodsId=${requestScope.currentGoods.goodsId}&serviceTypeId=4">策略</a>
-			</c:if>
-			<c:if test="${requestScope.ServiceTypeId==2}">
-				<a
-					href="/business/mp/history?goodsId=${requestScope.currentGoods.goodsId}&serviceTypeId=1">早评</a>
-				<a
-					href="/business/mp/history?goodsId=${requestScope.currentGoods.goodsId}&serviceTypeId=2"
-					class="active">午评</a>
-				<a
-					href="/business/mp/history?goodsId=${requestScope.currentGoods.goodsId}&serviceTypeId=3">晚评</a>
-				<a
-					href="/business/mp/history?goodsId=${requestScope.currentGoods.goodsId}&serviceTypeId=4">策略</a>
-			</c:if>
-			<c:if test="${requestScope.ServiceTypeId==3}">
-				<a
-					href="/business/mp/history?goodsId=${requestScope.currentGoods.goodsId}&serviceTypeId=1">早评</a>
-				<a
-					href="/business/mp/history?goodsId=${requestScope.currentGoods.goodsId}&serviceTypeId=2">午评</a>
-				<a
-					href="/business/mp/history?goodsId=${requestScope.currentGoods.goodsId}&serviceTypeId=3"
-					class="active">晚评</a>
-				<a
-					href="/business/mp/history?goodsId=${requestScope.currentGoods.goodsId}&serviceTypeId=4">策略</a>
-			</c:if>
-			<c:if test="${requestScope.ServiceTypeId==4}">
-				<a
-					href="/business/mp/history?goodsId=${requestScope.currentGoods.goodsId}&serviceTypeId=1">早评</a>
-				<a
-					href="/business/mp/history?goodsId=${requestScope.currentGoods.goodsId}&serviceTypeId=2">午评</a>
-				<a
-					href="/business/mp/history?goodsId=${requestScope.currentGoods.goodsId}&serviceTypeId=3">晚评</a>
-				<a
-					href="/business/mp/history?goodsId=${requestScope.currentGoods.goodsId}&serviceTypeId=4"
-					class="active">策略</a>
-			</c:if>
-		</div>
-		<c:forEach var="item" items="${requestScope.zpServiceArticle}"
-			varStatus="status">
-			<div class="news">
-				<a
-					href="/business/mp/serviceArticle?serviceArticleNum=${item.serviceArticleNum}">
-					<div class="left">
-						<p>${item.serviceArticleTitle}</p>
-						<p class="date">${item.currentDate}</p>
-					</div> <img src="${item.thumbnail}" alt="" />
-				</a>
+		<div class="wrap">
+			<div class="wrap-main">
+				<div class="top">
+					<div class="prevSweek" onclick="previousWeek()"></div>
+					<span id="showdate"></span> 
+					<div class="nextSweek" onclick="nextWeek()"></div>
+				</div>
+				<table>
+					<tr id="week">
+						<td>一</td>
+						<td>二</td>
+						<td>三</td>
+						<td>四</td>
+						<td>五</td>
+						<td>六</td>
+						<td>日</td>
+					</tr>
+				</table>
+				<table id="mytable">
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+				</table>
+				<div class="newtime" style="display:none"></div>
+				<div class="datetime" style="display:none">
+					<input type="text">
+				</div>
 			</div>
-		</c:forEach>
+		</div>
 
-
+		<div class="news">
+			<div id="mes"></div>
+			<div id="noMessage">
+				<div class="logo"><img src="images/logo.png" alt=""/></div>
+				<h2>暂时还没有数据哦</h2>
+			</div>
+		</div>
 	</section>
+
 	<!-- 以下是所用到的js -->
 	<!--引入jQuery bootstrape依赖jQuery-->
 	<script src="lib/jquery/jquery.js"></script>
@@ -133,9 +129,8 @@
 	<script src="lib/zepto-js/zepto.min.js"></script>
 	<!--引入bootstrape的js文件-->
 	<script src="lib/bootstrap/js/bootstrap.js"></script>
-	<!--引入模板js-->
-	<script src="lib/template.js"></script>
 	<!--引入自己写的首页js-->
-	<!--<script src="js/history.js"></script>-->
+	<script src="js/date.js"></script>
+	<script src="js/history.js"></script>
 </body>
 </html>

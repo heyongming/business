@@ -16,7 +16,7 @@
 		<result property="minMon" column="minMon" />
 		<result property="maxMon" column="maxMon" />
 		<result property="isBlend" column="isBlend" />
-
+		<result property="hotGoods" column="hotGoods"/>
 
 		<collection property="goodTypes" ofType="goodsType">
 			<id property="goodsTypeId" column="goodsTypeId" />

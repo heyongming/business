@@ -91,11 +91,14 @@
 				console.log(data);
 			}
 		});
-		if (is_weixn()) {
-			window.location = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxaf9208856d550d06&redirect_uri=http%3A%2F%2Fm.mbimc.com%2Fbusiness%2Fmp%2Fcode&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
-		} else {
-			window.location = "weixin://";
+		$(".op").click(function() {
+			if (is_weixn()) {
+				window.location = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxaf9208856d550d06&redirect_uri=http%3A%2F%2Fm.mbimc.com%2Fbusiness%2Fmp%2Fcode&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+			} else {
+				window.location = "weixin://";
+			}
 		}
+		)
 		function is_weixn() {
 			var ua = navigator.userAgent.toLowerCase();
 			if (ua.match(/MicroMessenger/i) == "micromessenger") {

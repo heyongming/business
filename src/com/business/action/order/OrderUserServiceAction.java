@@ -114,7 +114,10 @@ public class OrderUserServiceAction extends ActionSupport implements ModelDriven
 		// 拿取购买时的商品和购买的数量
 		GoodsList goodsList = (GoodsList) session.get("buyGoodsList");
 		OrderForm orderForm = (OrderForm) session.get("buyOrderFrom");
-
+		System.out.println(goodsList+"???");
+		System.out.println(userEntitys+"???");
+		System.out.println(orderForm+"???");
+		
 		String resultMsg = orderService.CheckGoodListAndOrderFrom(goodsList, orderForm, userEntitys);
 		ResultMessage message = (ResultMessage) JSONObject.parseObject(resultMsg, ResultMessage.class);
 		System.out.println(message);

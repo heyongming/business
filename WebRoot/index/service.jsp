@@ -56,7 +56,7 @@
 			varStatus="status">
 			<c:if test="${item.serviceTypeId==1}">
 				<div class="reader">
-					<img src="images/product.png" alt="" />
+					<img src="${item.thumbnail}" alt="" />
 					<div class="moring">
 						<p>股市早报</p>
 						<a
@@ -66,7 +66,7 @@
 			</c:if>
 			<c:if test="${item.serviceTypeId==2}">
 				<div class="reader">
-					<img src="images/product.png" alt="" />
+					<img src="${item.thumbnail}" alt="" />
 					<div class="moring">
 						<p>股市中报</p>
 						<a
@@ -78,7 +78,7 @@
 
 			<c:if test="${item.serviceTypeId==3}">
 				<div class="reader">
-					<img src="images/product.png" alt="" />
+					<img src="${item.thumbnail}" alt="" />
 					<div class="moring">
 						<p>股市晚报</p>
 						<a
@@ -88,7 +88,7 @@
 			</c:if>
 			<c:if test="${item.serviceTypeId==4}">
 				<div class="reader">
-					<img src="images/product.png" alt="" />
+					<img src="${item.thumbnail}" alt="" />
 					<div class="moring">
 						<p>策略</p>
 						<a

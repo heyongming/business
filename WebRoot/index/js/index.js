@@ -65,7 +65,7 @@ $(function() {
 	function dataTem(data) {
 		var tag = '';
 		$.each(data, function(i, e) {
-			tag += '<img class="productImages" src="' + e.imageUrl + '" alt="产品图"/>' +
+			tag += '<img class="productImages" data-goodsId="' + e.goodsId + '" src="' + e.imageUrl + '" alt="产品图"/>' +
 				'<div class="product">' +
 				'<div class="left">' +
 				'<p>' + e.goodsName + ' </p>' +
@@ -79,8 +79,29 @@ $(function() {
 				'</div>';
 		});
 		$("#product").html(tag);
+		$('#product').each(function(i, e) {
+			// 给图片绑定事件
+						$(e).find('.productImages').click(function() {
+						
+							var goodsId = $(this).attr("data-goodsId");
+							location.href="/business/goods/detailsData?goodsId="+goodsId;
+							/*$.ajax({
+								url : 'aa',
+								type : 'post',
+								data : {
+									"goodsId" : goodsId
+								},
+								dataType : 'json',
+								success : function(data) {
+									location.href = "details.jsp";
+								}
+							}); */
+
+						});
+		})
 		//弹出购买页
 		$('.product').each(function(i, e) {
+			
 			// 给购买按钮绑定事件
 			$(e).find('.btn-primary').click(function() {
 				$('.modal').css('display', "block");
@@ -91,6 +112,7 @@ $(function() {
 					location.reload();
 				});
 				var goodsId = $(this).attr("data-goodsId");
+				
 				$.ajax({
 					url : '/business/goods/getgoodsListById',
 					type : 'post',
@@ -99,6 +121,7 @@ $(function() {
 					},
 					dataType : 'json',
 					success : function(data) {
+
 						// 购买详情页渲染
 						console.log(data);
 						//data = JSON.parse(data);

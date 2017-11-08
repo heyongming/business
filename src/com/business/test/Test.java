@@ -1,5 +1,6 @@
 package com.business.test;
 
+import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
@@ -52,7 +53,12 @@ public class Test {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日");
 		System.out.println("当前时间：" + sdf.format(d));
 		*/
-		String url = MessAgeUtil.webLicensingnSapi_userinfo("http://m.mbimc.com/business/mp/code");
-		System.out.println(url);
+	//	String url = MessAgeUtil.webLicensingnSapi_userinfo("http://m.mbimc.com/business/mp/code");
+//		System.out.println(url);
+		String url="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx546cbae0fe9d436d&redirect_uri=https%3A%2F%2Fwww.ezhaoxi.com%2Fv%2Fwx%2FknowledgeStore%2Findex%2F1217%3F_url%3D%252Fv%252Fwx%252FknowledgeStore%252Findex%252F1217&response_type=code&scope=snsapi_userinfo&state=ZHAOXI#wechat_redirect";
+		System.out.println(URLDecoder.decode(url));
+		
+		
+	
 	}
 }

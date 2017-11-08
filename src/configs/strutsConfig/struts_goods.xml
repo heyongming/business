@@ -140,7 +140,11 @@
 				<param name="inputName">bis</param>
 			</result>
 		</action>
-		
+		<action name="detailsData" class="com.business.action.goods.GoodsQueryAction"
+			method="getdetailsById">
+			<result name="success">/index/details.jsp</result>
+			<result name="index">/index/index.jsp</result>
+		</action>
 	</package>
 
 </struts>
