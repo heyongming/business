@@ -26,33 +26,33 @@
 <script src="lib/less/less.js"></script>
 <script src="lib/less/less.min.js"></script>
 <style>
-#message {
-	padding: 0.3rem;
+body{
+    background-color: #fff;
 }
-
-#message h2 {
-	font-size: 0.36rem;
-	text-align: center;
-	margin-bottom: 0.3rem;
-	color: #da251c;
+#message{
+    padding: 0.3rem;
 }
-
-#message .product {
-	padding: 0 0.2rem;
+#message h2{
+    font-size: 0.56rem;
+    text-align: center;
+    margin: 0.9rem;
+    color: #da251c;
 }
-
-#message .product ul li {
-	width: 100%;
-	height: 0.6rem;
-	line-height: 0.6rem;
-	text-align: center;
-	background-color: #f5f5f5;
-	border-radius: 0.05rem;
-	margin-bottom: 0.2rem;
+#message .product{
+    padding: 0 0.2rem;
 }
-
-#message .product ul li a {
-	font-size: 0.28rem;
+#message .product ul li{
+    width: 100%;
+    height: 1.6rem;
+    line-height: 1.6rem;
+    text-align: center;
+    background-color: #da251c;
+    margin: 0.8rem 0;
+    border-radius: 0.2rem;
+}
+#message .product ul li a{
+    font-size: 0.36rem;
+    color: #fff;
 }
 </style>
 </head>
@@ -67,13 +67,13 @@
 		var id="${sessionScope.loginUserGoodsListSize}";
 		if(id==1)
 		{
-		window.location = "/business/mp/mpService?goodsId="+${sessionScope.loginUserGoodsList[0].goodsId};
+		//window.location = "/business/mp/mpService?goodsId="+${sessionScope.loginUserGoodsList[0].goodsId};
 		}
 		
 		</script>
 
 	<section id="message">
-		<h2>查看已购买产品</h2>
+		<h2>我的服务</h2>
 		<div class="product">
 			<ul>
 				<c:forEach var="item" items="${sessionScope.loginUserGoodsList}"

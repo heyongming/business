@@ -10,8 +10,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<base href="<%=basePath%>">
 <!--添加视口 移动端适配-->
+<base href="<%=basePath%>">
 <meta name="viewport"
 	content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <title>推广页</title>
@@ -30,12 +30,59 @@
 <body>
 	<div class="layui-table">
 		<form class="layui-form" action="" enctype="multipart/form-data">
+			<h3>合规客户资料提交</h3>
+			<div class="layui-form-item">
+				<label class="layui-form-label">客户姓名：</label>
+				<div class="layui-input-block">
+					<input type="text" id="userName" name="userName" required
+						lay-verify="aa|required" autocomplete="off" class="layui-input">
+				</div>
+			</div>
+			<div class="layui-form-item" pane="">
+				<label class="layui-form-label">性别：</label>
+				<div class="layui-input-block">
+					<input type="radio" name="type" value="男" title="男" checked="">
+					<input type="radio" name="type" value="女" title="女">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">住址：</label>
+				<div class="layui-input-block">
+					<input type="text" id="addRess" name="addRess" required
+						lay-verify="aa|required" autocomplete="off" class="layui-input">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">身份证号：</label>
+				<div class="layui-input-block">
+					<input type="text" id="idCard" name="idCard" required
+						lay-verify="aa|required" autocomplete="off" class="layui-input">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">推荐码：</label>
+				<div class="layui-input-block">
+					<input type="text" id="rdCard" name="rdCard" required
+						lay-verify="aa|required" autocomplete="off" class="layui-input">
+				</div>
+			</div>
+			<!--上传照片-->
+			<div class="upload">
+				<h3>身份核验</h3>
+				<!--    <div class="layui-upload">
+            <button type="button" class="layui-btn" id="test2">上传身份证正反面</button>
+            <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                预览图：
+                <div class="layui-upload-list" id="demo2">
+                </div>
+            </blockquote>
+        </div>
+         -->
+				身份证正面: <input type="file" name="file" class="file" /> 身份证反面: <input
+					type="file" name="file" class="file1" />
 
+			</div>
 
-
-
-	
-	
 			<div class="select">
 				<h2>投资者风险承受能力问卷</h2>
 				<p>本问卷旨在了解客户可承受的风险程度等情况，借此协助客户选择合适的产品或服务类别，以符合客户的风险承受能力。</p>
@@ -263,15 +310,6 @@
 
 
 			</div>
-			
-			<div class="layui-form-item">
-				<label class="layui-form-label">身份证号：</label>
-				<div class="layui-input-block">
-					<input type="text" id="idCard" name="idCard" required
-						lay-verify="aa|required" autocomplete="off" class="layui-input">
-				</div>
-			</div>
-			
 			<!---->
 			<div class="layui-form-item">
 				<div class="layui-input-block">
@@ -330,8 +368,14 @@
 	
 			//监听提交表单
 			form.on('submit(formDemo)', function(data) {
-		
-		
+				//获取文本框的值
+				var userName = $("#userName").val();
+				// var type1 = $("input[name='type']:checked").val();
+				var type = 0;
+				if (type == "男") {
+					type = 1;
+				}
+				var addRess = $("#addRess").val();
 				var idCard = $("#idCard").val();
 				var one = $("input[name='one']:checked").val();
 				var two = $("input[name='two']:checked").val();
@@ -364,16 +408,21 @@
 					",11=" + eleven + ",12=" + twelven + ",13=" + thirteen + ",14=" + fourteen + ",15=" + fifteen + ",16=" + sixteen + ",17=" +
 					seventeen + ",18=" + eighteen + ",19=" + nineteen + ",20=" + twenty;
 				var fromdata = new FormData();
+				var rdCard = $("#rdCard").val();
+				alert(rdCard)
 				fromdata.enctype = "multipart/from-data";
-	
-		
+				fromdata.append("rdCode", rdCard);
+				fromdata.append("userName", userName);
+				fromdata.append("type", type);
+				fromdata.append("addRess", addRess);
 				fromdata.append("answer", answer);
 				fromdata.append("idCard", idCard);
-				
+				fromdata.append("file", $(".file")[0].files[0], $(".file")[0].files[0].name);
+				fromdata.append("file", $(".file1")[0].files[0], $(".file1")[0].files[0].name);
 				// console.log(fromdata);
 				//发送ajax
 				$.ajax({
-					url : "/business/user/answerCommit",
+					url : "/business/user/commitTheData",
 					type : "post",
 					dataType : "json",
 					data : fromdata,
@@ -383,8 +432,8 @@
 					success : function(data) {
 						//console.log(data);
 						/*提交成功，跳转*/
-					
-						alert(data.errMsg)
+						alert(data.errMsg);
+	
 	
 					},
 					error : function() {
