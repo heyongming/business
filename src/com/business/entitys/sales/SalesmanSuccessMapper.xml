@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "mybatis-3-mapper.dtd">
+<mapper namespace="salesmanSuccess">
+	<resultMap type="salesmanSuccess" id="salesmanSuccessMap">
+		<id property="successId" column="successId" />
+		<result property="customerName" column="customerName" />
+		<result property="customerPhone" column="customerPhone" />
+		<result property="customerPhoneRdCode" column="customerPhoneRdCode" />
+		<result property="serviceSalesman" column="serviceSalesman" />
+		<result property="orderPhone" column="orderPhone" />
+		<result property="orderWxId" column="orderWxId" />
+		<result property="orderDate" column="orderDate" />
+		<result property="goodsId" column="goodsId" />
+		<result property="allPrice" column="allPrice" />
+		<result property="payMthod" column="payMthod" />
+		<result property="payVoucher" column="payVoucher" />
+		<result property="orderNumber" column="orderNumber" />
+		<result property="isUpgrade" column="isUpgrade" />
+		<result property="isInvoice" column="isInvoice" />
+
+		<collection property="goodsList" ofType="goodsList">
+			<id property="goodsId" column="goodsId" />
+			<result property="goodsName" column="goodsName" />
+
+		</collection>
+		<collection property="salesman" ofType="salesman">
+			<id property="userId" column="serviceSalesman" />
+			<result property="userName" column="userName" />
+
+		</collection>
+	</resultMap>
+	<insert id="insertSalesmanSuccess" parameterType="salesmanSuccess">
+		insert into
+		`salesmanSuccess`(`customerName`,`customerPhone`,`customerPhoneRdCode`,
+		`serviceManager`,`serviceSalesman`,`orderPhone`,`orderWxId`,
+		`orderDate`,`goodsId`,`allPrice`,`payMthod`,
+		`payVoucher`,`orderNumber`,`isUpgrade`,`isInvoice`
+		)
+		values(#{customerName},#{customerPhone},#{customerPhoneRdCode},
+		#{serviceManager},#{serviceSalesman},#{orderPhone},#{orderWxId},
+		#{orderDate},#{goodsId},#{allPrice},#{payMthod},
+		#{payVoucher},#{orderNumber},#{isUpgrade},#{isInvoice}
+		)
+	</insert>
+	<select id="selectWhere" parameterType="map" resultMap="salesmanSuccessMap">
+		select *
+		from `salesmanSuccess` as ss
+		inner join `goodsList` as gl on
+		ss.`goodsId`=gl.`goodsId`
+		inner join `salesman` as sm on
+		sm.`userId`=ss.`serviceSalesman`
+
+		where 1=1
+		<if test="findOrderSucces!=null">
+			and successId=#{findById}
+		</if>
+
+	</select>
+</mapper>

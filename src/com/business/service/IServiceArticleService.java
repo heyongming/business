@@ -69,5 +69,5 @@ public interface IServiceArticleService {
 	 */
 	int isDoThumbsUp(User user, ServiceArticle serviceArticle);
 
-	List<ServiceArticle> doHistoryDateData(int goodsId, String date);
+	List<ServiceArticle> doHistoryDateData(int goodsId, String date,int userId);
 }

@@ -15,6 +15,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.business.dao.IGoodsListDao;
 import com.business.dao.IServiceArticleDao;
 import com.business.dao.IServiceArticleDetailsDao;
+import com.business.dao.IServiceTimeDao;
 import com.business.dao.IUserDao;
 import com.business.entitys.ResultMessage;
 import com.business.entitys.goods.GoodsList;
@@ -22,6 +23,7 @@ import com.business.entitys.mp.template.Template;
 import com.business.entitys.service.ServiceArticle;
 import com.business.entitys.service.ServiceArticleDetails;
 import com.business.entitys.service.ServiceArticleHelper;
+import com.business.entitys.service.ServiceTime;
 import com.business.entitys.user.User;
 import com.business.service.IServiceArticleService;
 import com.business.service.IUserService;
@@ -37,6 +39,16 @@ public class ServiceArticleServiceImpl implements IServiceArticleService {
 	private IUserDao userDao;
 	@Resource
 	private IGoodsListDao goodsListDao;
+	@Resource
+	private IServiceTimeDao serviceTimeDao;
+
+	public IServiceTimeDao getServiceTimeDao() {
+		return serviceTimeDao;
+	}
+
+	public void setServiceTimeDao(IServiceTimeDao serviceTimeDao) {
+		this.serviceTimeDao = serviceTimeDao;
+	}
 
 	public IGoodsListDao getGoodsListDao() {
 		return goodsListDao;
@@ -247,19 +259,30 @@ public class ServiceArticleServiceImpl implements IServiceArticleService {
 	}
 
 	@Override
-	public List<ServiceArticle> doHistoryDateData(int goodsId, String date) {
+	public List<ServiceArticle> doHistoryDateData(int goodsId, String date, int userId) {
 		// TODO Auto-generated method stub
 		Map<String, Object> map = new HashMap<String, Object>();
-		
+		map.put("serviceGoodsIdList", "test");
+		map.put("serviceUserId", userId);
+		List<ServiceTime> serviceTimelist = serviceTimeDao.selectByWhere(map);
+		String lostTime=null;
+		for (ServiceTime time : serviceTimelist) {
+			if (time.getGoodsId() == goodsId) {
+				lostTime=time.getServiceTime();
+			}
+		}
+		if (lostTime == null) {
+			return null;
+		}
+		map = new HashMap<String, Object>();
 		map.put("doHistoryDateData", "获取这个商品历史时间所发布的消息");
 		map.put("doHistoryDateDataId", goodsId);
 		map.put("doHistoryDateDataIdTime", date);
-	
-
+		map.put("lostTime",lostTime);
 		List<ServiceArticle> list = serviceArticleDao.selectBywhere(map);
 
 		return list;
-		
+
 	}
 
 }

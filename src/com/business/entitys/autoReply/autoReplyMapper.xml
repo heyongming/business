@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "mybatis-3-mapper.dtd">
+<mapper namespace="autoReply">
+	<resultMap type="listUserQuery" id="listUserQueryMap">
+		<result property="luqId" column="luqId" />
+		<result property="userId" column="userId" />
+		<result property="ip" column="ip" />
+		<result property="questions" column="questions" />
+		<result property="QueryTime" column="QueryTime" />
+		<collection property="user" ofType="user">
+			<id property="userId" column="userId" />
+			<result property="passWord" column="passWord" />
+			<result property="createTime" column="createTime" />
+			<result property="type" column="type" />
+			<result property="userName" column="userName" />
+			<result property="Email" column="Email" />
+			<result property="openId" column="openId" />
+			<result property="phone" column="phone" />
+			<result property="addRess" column="addRess" />
+			<result property="integral" column="integral" />
+			<result property="Grade" column="Grade" />
+			<result property="userStatus" column="userStatus" />
+			<result property="idCard" column="idCard" />
+			<result property="rdCode" column="rdCode" />
+			<result property="answer" column="answer" />
+			<result property="idImage" column="idImage" />
+
+			<collection property="mpUserEntity" ofType="mpUser">
+				<id property="openid" column="openid" />
+				<result property="nickname" column="nickname" />
+				<result property="sex" column="sex" />
+				<result property="province" column="province" />
+				<result property="city" column="city" />
+				<result property="country" column="country" />
+				<result property="headimgurl" column="headimgurl" />
+				<result property="privilege" column="privilege" />
+				<result property="unionid" column="unionid" />
+
+			</collection>
+		</collection>
+	</resultMap>
+	<resultMap type="messageManagement" id="messageManagementMap">
+		<result property="mmId" column="mmId" />
+		<result property="messageTime" column="messageTime" />
+		<result property="phone" column="phone" />
+		<result property="messageType" column="messageType" />
+		<result property="ip" column="ip" />
+		<result property="userId" column="userId" />
+		<result property="messageContent" column="messageContent" />
+		<result property="messageImage" column="messageImage" />
+
+		<collection property="user" ofType="user">
+			<id property="userId" column="userId" />
+			<result property="passWord" column="passWord" />
+			<result property="createTime" column="createTime" />
+			<result property="type" column="type" />
+			<result property="userName" column="userName" />
+			<result property="Email" column="Email" />
+			<result property="openId" column="openId" />
+			<result property="phone" column="phone" />
+			<result property="addRess" column="addRess" />
+			<result property="integral" column="integral" />
+			<result property="Grade" column="Grade" />
+			<result property="userStatus" column="userStatus" />
+			<result property="idCard" column="idCard" />
+			<result property="rdCode" column="rdCode" />
+			<result property="answer" column="answer" />
+			<result property="idImage" column="idImage" />
+
+			<collection property="mpUserEntity" ofType="mpUser">
+				<id property="openid" column="openid" />
+				<result property="nickname" column="nickname" />
+				<result property="sex" column="sex" />
+				<result property="province" column="province" />
+				<result property="city" column="city" />
+				<result property="country" column="country" />
+				<result property="headimgurl" column="headimgurl" />
+				<result property="privilege" column="privilege" />
+				<result property="unionid" column="unionid" />
+
+			</collection>
+		</collection>
+	</resultMap>
+
+
+	<insert id="addAutoReply" parameterType="autoReply">
+		insert into
+		`autoReply`(`Keyword`,`replyContent`,`matchingMethod`,`replyMode`)
+		values(#{Keyword},#{replyContent},#{matchingMethod},#{replyMode})
+	</insert>
+	<insert id="inertListUserQuery" parameterType="listUserQuery">
+		insert into
+		`listUserQuery`
+		(`userId`,`ip`,`questions`)
+		values
+		(#{userId},#{ip},#{questions})
+	</insert>
+	<insert id="inertfixedAnswer" parameterType="fixedAnswer">
+		insert into
+		`fixedAnswer`
+		(`problem`,`answer`)
+		values
+		(#{problem},#{answer})
+	</insert>
+	<insert id="inertMessageManagement" parameterType="messageManagement">
+		insert into
+		`messageManagement`
+		(`phone`,`messageType`,`ip`,`userId`,`messageContent`,`messageImage`)
+		values
+		(#{phone},#{messageType},#{ip},#{userId},#{messageContent},#{messageImage})
+	</insert>
+	<update id="updateAutoReply" parameterType="autoReply">
+		update `autoReply`
+		set
+		`Keyword`=#{Keyword},
+		`replyContent`=#{replyContent},
+		`matchingMethod`=#{matchingMethod},
+		`replyMode`=#{replyMode}
+		where
+		`arId`=#{arId}
+
+	</update>
+	<update id="updatefixedAnswer" parameterType="fixedAnswer">
+		update
+		`fixedAnswer`
+		set
+		`problem`=#{problem},
+		`answer`=#{answer}
+		where
+		`fdid`=#{fdid}
+
+	</update>
+	<delete id="delAutoReply" parameterType="int">
+		delete from `autoReply`
+		where `arId`=#{int}
+	</delete>
+	<delete id="delfixedAnswer" parameterType="int">
+		delete from
+		`fixedAnswer`
+		where `fdid`=#{int}
+	</delete>
+	<select id="selectAutoReplyByWhere" parameterType="map"
+		resultType="autoReply">
+		select * from `autoReply`
+		where 1=1
+		<if test="findByArIdEntity!=null">
+			and `arId`=#{findByArId}
+		</if>
+		<if test="findByquestionsQueryData!=null">
+		   and Keyword like  CONCAT('%',#{findquestions},'%' )  
+		</if>
+	</select>
+	<select id="selectListUserQueryByWhere" parameterType="map"
+		resultMap="listUserQueryMap">
+		select * from `listUserQuery` as lq
+		left join `user` as us on
+		us.`userId`=lq.`userId`
+		left join `mpservice` as mp on
+		mp.`openId`=us.`openId`
+		where 1=1
+		<if test="findByUSerIdAndIpUserQueryData!=null">
+			and lq.`userId`=#{findUserId} and lq.`ip`=#{findIp}
+		</if>
+		
+	</select>
+	<select id="selectListUserQueryIPWhere" parameterType="map"
+		resultMap="listUserQueryMap">
+		select * from
+		( select userId,ip from `listuserquery`
+		GROUP BY
+		userId,ip ) ipUser
+		left join `USER` as us on
+		us.`userId`=ipUser.`userId`
+
+	</select>
+
+	<select id="selectFixedAnswerByWhere" parameterType="map"
+		resultType="fixedAnswer">
+		select * from `fixedAnswer`
+		where 1=1
+		<if test="findByIdDate!=null">
+			and fdId=#{findById}
+
+		</if>
+	</select>
+	<select id="selectMessageManagementByWhere" parameterType="map"
+		resultMap="messageManagementMap">
+		select * from `messageManagement`as mm
+		left join `user` as us on
+		us.`userId`=mm.`userId`
+		left join `mpservice` as mp on
+		mp.`openId`=us.`openId`
+		where 1=1
+
+		<if test="findByTypeDate!=null">
+			and messageType=#{findByType}
+		</if>
+		<if test="findByIdDate!=null">
+			and messageType=#{findById}
+		</if>
+	</select>
+</mapper>

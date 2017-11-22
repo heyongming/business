@@ -154,13 +154,13 @@ public class SenMsgThread extends Thread {
 
 		String typeName = null;
 		if (serviceArticle.getServiceTypeId() == 1) {
-			typeName = "早报";
+			typeName = "添禄早评";
 		} else if (serviceArticle.getServiceTypeId() == 2) {
-			typeName = "中报";
+			typeName = "添禄午评";
 		} else if (serviceArticle.getServiceTypeId() == 3) {
-			typeName = "晚报";
+			typeName = "添禄晚评";
 		} else if (serviceArticle.getServiceTypeId() == 4) {
-			typeName = "策略";
+			typeName = "添禄策略";
 		}
 		template.setFirst("【"+typeName +"】"+ ",最新资讯火热出炉！\n");
 		template.setFirstColor("#FF0000");

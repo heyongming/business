@@ -177,7 +177,7 @@ $(function() {
 					serviceTypeId = "中报";
 				} else if (data.serviceTypeId == 3) {
 					serviceTypeId = "晚报";
-				} else if (e.serviceTypeId == 4) {
+				} else if (data.serviceTypeId == 4) {
 					serviceTypeId = "策略";
 				}
 				$("#serviceArticleTitle").val(data.serviceArticleTitle);

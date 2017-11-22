@@ -107,7 +107,7 @@ public class MpHistoryAction extends ActionSupport {
 
 		}
 		date = date.replaceAll("/", "-");
-		List<ServiceArticle> list = serviceArticleService.doHistoryDateData(goodsList.getGoodsId(), date);
+		List<ServiceArticle> list = serviceArticleService.doHistoryDateData(goodsList.getGoodsId(), date,user.getUserId());
 		ServiceTime serviceTime = serviceTimeService.findServiceUserEntity(user, goodsList);
 		request.setAttribute("zpServiceArticle", list);
 		request.setAttribute("currentGoods", goodsList);
@@ -135,7 +135,7 @@ public class MpHistoryAction extends ActionSupport {
 
 		}
 		date = date.replaceAll("/", "-");
-		List<ServiceArticle> list = serviceArticleService.doHistoryDateData(goodsList.getGoodsId(), date);
+		List<ServiceArticle> list = serviceArticleService.doHistoryDateData(goodsList.getGoodsId(), date,user.getUserId());
 		toJsonSteam(JSONObject.toJSONString(list));
 		return this.SUCCESS;
 	}

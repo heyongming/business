@@ -1,0 +1,28 @@
+body{
+    background-color: #fff;
+}
+#content {
+    width: 1024px;
+    padding: 30px;
+}
+#content #form {
+    text-align: center;
+}
+#content #form h2 {
+    text-align: center;
+    color: #da251c;
+    font-size: 24px;
+    margin: 20px;
+}
+#content #form table tr td {
+    border: 1px solid #ddd;
+    padding: 7px;
+    text-align: center;
+    width: 1%;
+}
+#images{
+    height: 100px;
+}
+#images img{
+    height: 100%;
+}

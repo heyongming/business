@@ -1,6 +1,8 @@
 package com.business.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -10,6 +12,7 @@ import com.business.dao.ISalesmanDao;
 import com.business.dao.IUserDao;
 import com.business.entitys.sales.Salesman;
 import com.business.entitys.sales.SalesmanAndUser;
+import com.business.entitys.sales.SalesmanSuccess;
 import com.business.entitys.user.User;
 import com.business.service.ISalesmanService;
 
@@ -105,6 +108,37 @@ public class SalesmanServiceImpl implements ISalesmanService {
 		// TODO Auto-generated method stub
 		return salesmanDao.update(salesman);
 
+	}
+
+	@Override
+	public int saveSalesManSuccess(SalesmanSuccess salesmanSuccess) {
+		// TODO Auto-generated method stub
+		return salesmanDao.insertSuccesSalesMan(salesmanSuccess);
+	}
+
+	@Override
+	public List<SalesmanSuccess> getSalesmanSuccessFullData() {
+		// TODO Auto-generated method stub
+		Map<String, Object> map=new HashMap<String, Object>();
+		return salesmanDao.selectBySalesmanSuccessWhere(map);
+		
+	}
+
+	@Override
+	public SalesmanSuccess getSalesmanById(int id) {
+		// TODO Auto-generated method stub
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("findOrderSucces","找到成功交易的人对应的订单");
+		map.put("findById", id);
+		List<SalesmanSuccess> list=salesmanDao.selectBySalesmanSuccessWhere(map);
+		if(list!=null)
+		{
+			if(list.size()>0)
+			{
+				return list.get(0);
+			}
+		}
+		return null;
 	}
 
 }

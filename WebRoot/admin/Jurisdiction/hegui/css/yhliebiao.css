@@ -1,0 +1,93 @@
+#message {
+    width: 100%;
+    padding: 20px 30px;
+}
+#message h2 {
+    text-align: center;
+    font-size: 0.18rem;
+    line-height: 0.2rem;
+    font-weight: 400;
+    color: #da251c;
+    margin-bottom: 0.1rem;
+}
+/*ÐÞ¸Ä*/
+#x_hideFormAdd {
+    position: absolute;
+    top: 15px;
+    right: 30px;
+    width: 30px;
+    height: 30px;
+    line-height: 20px;
+    text-align: center;
+    font-size: 30px;
+    color: #000;
+}
+#x_mask{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: 0.15;
+    display: none;
+}
+
+#x_formAdd {
+    width: 800px;
+    height: 700px;
+    background-color: #fff;
+    padding: 30px;
+    overflow: auto;
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    margin-left: -400px;
+    background: #fff;
+    display: none;
+    z-index: 999;
+}
+.form-add-title {
+    background-color: #f7f7f7;
+    border-width: 1px 1px 0 1px;
+    border-bottom: 0;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.form-add-title span {
+    width: auto;
+    font-size: 16px;
+    font-weight: bold;
+    color: rgb(102, 102, 102);
+    text-indent: 12px;
+    padding: 8px 0px 10px;
+    margin-right: 10px;
+    display: block;
+    overflow: hidden;
+    text-align: left;
+}
+
+.form-add-title div {
+    width: 16px;
+    height: 20px;
+    position: absolute;
+    right: 10px;
+    top: 6px;
+    font-size: 30px;
+    line-height: 16px;
+    cursor: pointer;
+}
+.layui-form-label {
+    float: left;
+    display: block;
+    padding: 9px 15px;
+    width: 200px;
+    font-weight: 400;
+    text-align: left;
+}
+.layui-input {
+    display: block;
+    width: 80%;
+    padding-left: 10px;
+}

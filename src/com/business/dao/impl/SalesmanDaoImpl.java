@@ -1,6 +1,7 @@
 package com.business.dao.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.business.dao.ISalesmanDao;
 import com.business.entitys.sales.Salesman;
 import com.business.entitys.sales.SalesmanAndUser;
+import com.business.entitys.sales.SalesmanSuccess;
 
 @Repository("salesmanDao")
 public class SalesmanDaoImpl implements ISalesmanDao {
@@ -67,6 +69,18 @@ public class SalesmanDaoImpl implements ISalesmanDao {
 	public int update(Salesman salesman) {
 		// TODO Auto-generated method stub
 		return sessionTemplate.update("salesman.update", salesman);
+	}
+
+	@Override
+	public int insertSuccesSalesMan(SalesmanSuccess salesmanSuccess) {
+		// TODO Auto-generated method stub
+		return sessionTemplate.insert("salesmanSuccess.insertSalesmanSuccess", salesmanSuccess);
+	}
+
+	@Override
+	public List<SalesmanSuccess> selectBySalesmanSuccessWhere(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return sessionTemplate.selectList("salesmanSuccess.selectWhere",map);
 	}
 
 }

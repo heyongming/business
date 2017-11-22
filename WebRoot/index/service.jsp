@@ -58,7 +58,7 @@
 				<div class="reader">
 					<img src="${item.thumbnail}" alt="" />
 					<div class="moring">
-						<p>股市早报</p>
+						<p>添禄早评</p>
 						<a
 							href="/business/mp/serviceArticle?serviceArticleNum=${item.serviceArticleNum}">立即阅读</a>
 					</div>
@@ -68,7 +68,7 @@
 				<div class="reader">
 					<img src="${item.thumbnail}" alt="" />
 					<div class="moring">
-						<p>股市中报</p>
+						<p>添禄午评</p>
 						<a
 							href="/business/mp/serviceArticle?serviceArticleNum=${item.serviceArticleNum}">立即阅读</a>
 					</div>
@@ -80,7 +80,7 @@
 				<div class="reader">
 					<img src="${item.thumbnail}" alt="" />
 					<div class="moring">
-						<p>股市晚报</p>
+						<p>添禄晚评</p>
 						<a
 							href="/business/mp/serviceArticle?serviceArticleNum=${item.serviceArticleNum}">立即阅读</a>
 					</div>
@@ -90,7 +90,7 @@
 				<div class="reader">
 					<img src="${item.thumbnail}" alt="" />
 					<div class="moring">
-						<p>策略</p>
+						<p>添禄策略</p>
 						<a
 							href="/business/mp/serviceArticle?serviceArticleNum=${item.serviceArticleNum}">立即阅读</a>
 					</div>

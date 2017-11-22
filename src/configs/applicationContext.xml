@@ -62,6 +62,7 @@
 				<value>classpath:com/business/entitys/order/*.xml</value>
 				<value>classpath:com/business/entitys/mp/*.xml</value>
 				<value>classpath:com/business/entitys/service/*.xml</value>
+				<value>classpath:com/business/entitys/autoReply/*.xml</value>
 
 			</list>
 		</property>
@@ -131,7 +132,8 @@
 		<property name="repeatCount" value="0" />
 	</bean>
 
-
+	
+	
 	<!-- ======================== 调度触发器 ======================== -->
 	<bean id="CronTriggerBean"
 		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
@@ -153,9 +155,8 @@
 			<list>
 				<ref bean="rsh_simpleTrigger1" />
 				<ref bean="CronTriggerBean" />
-				<ref bean="ServiceSubTriggerBean"/>
+				<ref bean="ServiceSubTriggerBean" />
 			</list>
 		</property>
 	</bean>
-
 </beans>

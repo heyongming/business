@@ -3,6 +3,7 @@ package com.business.service;
 import java.util.List;
 
 import com.business.entitys.sales.Salesman;
+import com.business.entitys.sales.SalesmanSuccess;
 import com.business.entitys.user.User;
 
 public interface ISalesmanService {
@@ -21,4 +22,8 @@ public interface ISalesmanService {
 	List<Salesman> querySalesmanByName(String name);
 
 	User saveUser(User user, int salesmanId);
+	
+	int saveSalesManSuccess(SalesmanSuccess salesmanSuccess);
+	List<SalesmanSuccess> getSalesmanSuccessFullData();
+	SalesmanSuccess getSalesmanById(int id);
 }

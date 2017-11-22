@@ -59,6 +59,12 @@
 									<span>添加用户</span>
 								</a>
 							</dd>
+							<dd>
+								<a href="javascript:;" kit-target
+									data-options="{url:'xiaoshou/performance.jsp',icon:'&#xe621;',title:'客户成交表',id:'2'}">
+									<span>客户成交表</span>
+								</a>
+							</dd>
 						</dl></li>
 				</ul>
 			</div>

@@ -49,7 +49,7 @@ $(function() {
 				$("#noMessage").show();
 				return;
 			}
-			$(".news").html(tag);
+			$(".mes").html(tag);
 		},
 		error : function() {
 			$("#noMessage").show();
@@ -65,8 +65,9 @@ $(function() {
 		// alert($(".newtime").find("input").eq(num).val())
 		$(".datetime").find("input").val($(".newtime").find("input").eq(num).val());
 		var date = $(".datetime").find("input").val();
-		var dt = new Date(date.replace(/-/, "/")).Format("yyyy-MM-dd");
+		var dt = new Date(date.replace(/-/g, "/")).Format("yyyy-MM-dd");
 		$(".spinner").show();
+		
 		$.ajax({
 			url : "/business/mp/gethistory",
 			dataType : "json",

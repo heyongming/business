@@ -105,6 +105,7 @@
 		<if test="doHistoryDateData!=null">
 			and st.`currentDate` like concat('%',#{doHistoryDateDataIdTime},'%')
 			and st.`goodsId`=#{doHistoryDateDataId}
+			and st.`currentDate` > #{lostTime}
 			ORDER BY st.`serviceTypeId` desc
 		</if>
 	</select>

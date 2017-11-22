@@ -3,7 +3,9 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "mybatis-3-config.dtd">
 <configuration>
-	 <settings> <setting name="logImpl" value="STDOUT_LOGGING" /> </settings> 
+	<settings>
+		<setting name="logImpl" value="STDOUT_LOGGING" />
+	</settings>
 	<typeAliases>
 		<typeAlias type="com.business.entitys.sales.Salesman" alias="salesman" />
 		<typeAlias type="com.business.entitys.sales.SalesmanAndUser"
@@ -37,7 +39,16 @@
 			alias="serviceArticleHelper" />
 		<typeAlias type="com.business.entitys.service.ServiceArticleDetailsHelper"
 			alias="serviceArticleDetailsHelper" />
-
-
+		<typeAlias type="com.business.entitys.sales.SalesmanSuccess"
+			alias="salesmanSuccess" />
+		<typeAlias type="com.business.entitys.autoReply.AutoReply"
+			alias="autoReply" />
+		<typeAlias type="com.business.entitys.autoReply.ListUserQuery"
+			alias="listUserQuery" />
+		<typeAlias type="com.business.entitys.autoReply.MessageManagement"
+			alias="messageManagement" />
+		<typeAlias type="com.business.entitys.autoReply.FixedAnswer"
+			alias="fixedAnswer" />
+			
 	</typeAliases>
 </configuration>

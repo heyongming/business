@@ -24,7 +24,8 @@
 	<constant name="struts.multipart.maxSize" value="10701096" />
 	<!-- 设置上传文件的临时文件夹,默认使用javax.servlet.context.tempdir -->
 	<constant name="struts.multipart.saveDir " value="d:/tmp" />
-
+ 
+ 	<constant name="struts.action.excludePattern" value=".*Socket,.*ws"/>
 	<package name="mp" namespace="/" extends="struts-default">
 		<action name="init" class="com.business.action.mp.WeiXinInitAction">
 			<result type="stream">
