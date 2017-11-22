@@ -1,4 +1,4 @@
-package com.business.job;
+package com.business.entitys.Schedule;
 /** 
  *  
 * @Description: 计划任务信息 
