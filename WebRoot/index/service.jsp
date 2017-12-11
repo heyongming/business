@@ -40,7 +40,7 @@
 		 -->
 			<div class="product">
 				<p class="pro">${requestScope.currentGoods.goodsName}</p>
-				<p class="date">服务到期日：${requestScope.currentGoodsDay}天</p>
+				<p class="date">服务到期日：${requestScope.currentGoodsDay}</p>
 			</div>
 		</div>
 		<div class="right">

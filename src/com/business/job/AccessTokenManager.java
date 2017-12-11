@@ -6,7 +6,7 @@ import com.business.util.HttpClientUtil;
 public class AccessTokenManager {
 	public static final String APPID = "wxaf9208856d550d06";
 	public static final String AppSecret = "ca46edf66cc057941962edd6d20fb4d9";
-	public static String Access_Token = "wtCtYeKxt-UMFyiI_VZLtb4_TRkERM6eMa9Rgqg8lAsHqPcBS1O53m4GyQfjFJRRCbNO1pQqO5OUup2ETWxNdZQWtxgT65y8WGrDuV9YMJlrP8fxOMT7PB8HnGsPK_e3PPRcAIAEEG";
+	public static String Access_Token = "rkfr26jqLFang7Ao8AjALC3VAdiKVmYHhHtZrVxF0DbStgm3bLroDFL1QQpkFSGGb4KcuTBgjVO3TP-IszWiJvA5Lu1IeLWzvdB_GzWCRbq5qKik9WQg00RqtUFkJLcCSZMaAEAZGT";
 
 	public void execute() {
 

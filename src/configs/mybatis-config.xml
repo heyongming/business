@@ -49,6 +49,7 @@
 			alias="messageManagement" />
 		<typeAlias type="com.business.entitys.autoReply.FixedAnswer"
 			alias="fixedAnswer" />
-			
+		<typeAlias type="com.business.entitys.Schedule.ScheduleJob"
+			alias="scheduleJob" />
 	</typeAliases>
 </configuration>

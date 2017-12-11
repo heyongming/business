@@ -43,6 +43,7 @@ $(function() {
 				var articleContent = ue.getContent(); //获取富文本编辑器内容
 				var formData = new FormData();
 				//	formData.append("goodsId", $("#goodsId").val());
+				
 				formData.append("file", $("#imageUrl")[0].files[0], $("#imageUrl")[0].files[0].name);
 				formData.append("goodsName", $("#goodsName").val());
 				formData.append("goodsTypeName", $("select[name='goodsTypeId']").val());

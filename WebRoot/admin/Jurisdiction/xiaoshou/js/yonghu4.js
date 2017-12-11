@@ -103,7 +103,7 @@ $(function() {
 			contentType : false,
 			data : formData,
 			success : function(data) {
-				alert("提交成功");
+				alert(data.errMsg)
 			},
 			error : function() {
 				alert("上传失败");

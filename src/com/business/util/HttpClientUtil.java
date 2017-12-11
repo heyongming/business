@@ -22,6 +22,7 @@ public class HttpClientUtil {
 			HttpEntity entity = response.getEntity();
 			if (entity != null) {
 				result = EntityUtils.toString(entity, "utf-8");
+				System.out.println(result);
 			}
 		} catch (Exception e) {
 			// TODO: handle exception

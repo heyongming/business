@@ -112,31 +112,25 @@ public class MpServiceAction extends ActionSupport {
 		Map session = actionContext.getSession();
 		MpUserEntity entity = (MpUserEntity) session.get("mpUser");
 		/*
-		if (entity == null) {
-			HttpServletRequest request = ServletActionContext.getRequest();
-
-			MpCodeEntitys mpCodeEntitys = null;
-			Boolean isover = true;
-
-			if (CodeHelpEr.map.get(code) != null) {
-				isover = false;
-				mpCodeEntitys = (MpCodeEntitys) CodeHelpEr.map.get(code);
-			} else {
-				mpCodeEntitys = MessAgeUtil.GetwebpagesCode(code);
-				CodeHelpEr.map.put(code, mpCodeEntitys);
-			}
-
-			entity = mpUserService.findUserInfo(mpCodeEntitys.getOpenid());
-			// System.out.println(isover + "判断！！" + code);
-			if (entity == null && isover) {
-
-				entity = MessAgeUtil.getMpUserEntity(mpCodeEntitys.getAccess_token(), mpCodeEntitys.getOpenid());
-				mpUserService.addMpUser(entity);
-			}
-			session.put("mpUser", entity);
-		}
-		*/
-		entity = new MpUserEntity("oEMmVuOtjSjRmjL6E1Szv6lKrvUY", "月光的指引", "0", "", "", "",
+		 * if (entity == null) { HttpServletRequest request =
+		 * ServletActionContext.getRequest();
+		 * 
+		 * MpCodeEntitys mpCodeEntitys = null; Boolean isover = true;
+		 * 
+		 * if (CodeHelpEr.map.get(code) != null) { isover = false; mpCodeEntitys
+		 * = (MpCodeEntitys) CodeHelpEr.map.get(code); } else { mpCodeEntitys =
+		 * MessAgeUtil.GetwebpagesCode(code); CodeHelpEr.map.put(code,
+		 * mpCodeEntitys); }
+		 * 
+		 * entity = mpUserService.findUserInfo(mpCodeEntitys.getOpenid()); //
+		 * System.out.println(isover + "判断！！" + code); if (entity == null &&
+		 * isover) {
+		 * 
+		 * entity = MessAgeUtil.getMpUserEntity(mpCodeEntitys.getAccess_token(),
+		 * mpCodeEntitys.getOpenid()); mpUserService.addMpUser(entity); }
+		 * session.put("mpUser", entity); }
+		 */
+		entity = new MpUserEntity("oEMmVuPW5Omw8bvLL6x0B5dPW0xQ", "月光的指引", "0", "", "", "",
 				"http://wx.qlogo.cn/mmopen/vi_32/31QVdlsGfaAIEBVQgFibkqG2N1zuUJCCe8a9det1D84JxAQ9REB2ZQuQrQCytY0TSgtficrgcPmyhVvu5wY0dJUA/0",
 				"[]", "");
 
@@ -179,7 +173,15 @@ public class MpServiceAction extends ActionSupport {
 
 		request.setAttribute("currentTime", getDateTime());
 		request.setAttribute("currentGoods", gl);
-		request.setAttribute("currentGoodsDay", serviceTime.getServiceDay());
+		java.util.Calendar rightNow = java.util.Calendar.getInstance();
+		java.text.SimpleDateFormat sim = new java.text.SimpleDateFormat("yyyy年MM月dd日");// 得到当前时间，+3天
+
+		rightNow.add(java.util.Calendar.DAY_OF_MONTH, serviceTime.getServiceDay());
+
+		String date = sim.format(rightNow.getTime());
+
+
+		request.setAttribute("currentGoodsDay",  date);
 		session.put("serviceGoodsList", gl);
 		return this.SUCCESS;
 	}

@@ -46,6 +46,7 @@
 
 			${requestScope.loginServiceArticle.articleContent}</div>
 		<div class="amount">
+		<!-- 
 			<span>阅读&nbsp;${requestScope.loginServiceArticle.readingNumber}</span>&nbsp;&nbsp;&nbsp;
 			<span class="btn" id="btn"> <c:if
 					test="${requestScope.isDoThumbsUp==0}">
@@ -57,6 +58,7 @@
 				</c:if>
 
 			</span>
+			 -->
 			<p href="#">
 				写评论 <img src="images/pencil.png" alt="" />
 			</p>

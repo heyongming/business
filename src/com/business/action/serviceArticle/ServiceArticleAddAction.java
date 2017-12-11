@@ -22,6 +22,7 @@ public class ServiceArticleAddAction extends ActionSupport implements ModelDrive
 	 */
 	private static final long serialVersionUID = 8277931358208446942L;
 	private InputStream bis;
+
 	public InputStream getBis() {
 		return bis;
 	}
@@ -29,9 +30,11 @@ public class ServiceArticleAddAction extends ActionSupport implements ModelDrive
 	public void setBis(InputStream bis) {
 		this.bis = bis;
 	}
+
 	private ServiceArticle serviceArticle;
 	@Resource
 	private IServiceArticleService serviceArticleService;
+
 	public IServiceArticleService getServiceArticleService() {
 		return serviceArticleService;
 	}
@@ -47,14 +50,15 @@ public class ServiceArticleAddAction extends ActionSupport implements ModelDrive
 	public void setServiceArticle(ServiceArticle serviceArticle) {
 		this.serviceArticle = serviceArticle;
 	}
-	//文件相关描述
+
+	// 文件相关描述
 	private File file;
 	private String fileFileName;
 	private String fileContentType;
 	private String savePath;
 	private String fictitiousPath;
-	//文件相关描述
-	
+	// 文件相关描述
+
 	public File getFile() {
 		return file;
 	}
@@ -105,7 +109,7 @@ public class ServiceArticleAddAction extends ActionSupport implements ModelDrive
 	@Override
 	public String execute() throws Exception {
 		// TODO Auto-generated method stub
-		System.out.println(serviceArticle+"???");
+
 		String random = RandomUtill.randomUtil();
 		fictitiousPath = fictitiousPath + serviceArticle.getServiceArticleTitle() + random;
 		savePath = savePath + serviceArticle.getServiceArticleTitle() + random;
@@ -132,6 +136,7 @@ public class ServiceArticleAddAction extends ActionSupport implements ModelDrive
 		toJsonSteam(result);
 		return super.execute();
 	}
+
 	private boolean createDir(String destDirName) {
 		File dir = new File(destDirName);
 		if (dir.exists()) {// 判断目录是否存在
@@ -150,6 +155,12 @@ public class ServiceArticleAddAction extends ActionSupport implements ModelDrive
 		}
 
 	}
+
+	private Boolean startTask() {
+		
+		return true;
+	}
+
 	private void toJsonSteam(String text) {
 		try {
 			bis = new ByteArrayInputStream(text.getBytes("utf-8"));

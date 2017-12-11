@@ -67,7 +67,7 @@ body{
 		var id="${sessionScope.loginUserGoodsListSize}";
 		if(id==1)
 		{
-		//window.location = "/business/mp/mpService?goodsId="+${sessionScope.loginUserGoodsList[0].goodsId};
+			window.location = "/business/mp/mpService?goodsId="+${sessionScope.loginUserGoodsList[0].goodsId};
 		}
 		
 		</script>
