@@ -65,4 +65,6 @@ public interface IServiceTimeService {
 	ServiceTime findDataById(int id);
 	
 	int deleteServiceTime(int id);
+	
+	List<User> findBuyGoodsUser(int goodsId);
 }

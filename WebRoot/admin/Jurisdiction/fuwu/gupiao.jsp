@@ -71,7 +71,7 @@
                     <select name="goodsId" id="goodsId" required
                             lay-verify="required" class="layui-input">
                         <option value="">请选择</option>
-                        <option value="1">1</option>
+                      
 
                     </select>
                 </div>
@@ -158,10 +158,7 @@
 
                 </tbody>
             </table>
-            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
-                <legend>自定义首页、尾页、上一页、下一页文本</legend>
-            </fieldset>
-            <div id="demo3"></div>
+            
         </div>
         <div id="page" style="text-align: center"></div>
     </fieldset>

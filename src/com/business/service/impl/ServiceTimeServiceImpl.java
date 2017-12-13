@@ -1,6 +1,7 @@
 package com.business.service.impl;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,7 +50,7 @@ public class ServiceTimeServiceImpl implements IServiceTimeService {
 
 		path = path + "//" + orderForm.getOrderSerialNumber() + ".pdf";
 		if (isDanger == null) {
-			if (HtmlToPdf.convert("http://localhost/business/order/getFxPdf?userId="+ user.getUserId(), path)) {
+			if (HtmlToPdf.convert("http://localhost/business/order/getFxPdf?userId=" + user.getUserId(), path)) {
 
 			}
 		} else {
@@ -153,6 +154,25 @@ public class ServiceTimeServiceImpl implements IServiceTimeService {
 	public int deleteServiceTime(int id) {
 		// TODO Auto-generated method stub
 		return serviceTimeDao.delete(id);
-		
+
+	}
+
+	@Override
+	public List<User> findBuyGoodsUser(int goodsId) {
+		// TODO Auto-generated method stub
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("serviceGoodsId", goodsId);
+		List<ServiceTime> list = serviceTimeDao.selectByWhere(map);
+		List<User> userList = new ArrayList<User>();
+		for (ServiceTime serviceTime : list) {
+			if (serviceTime.getUser().getMpUserEntity() != null) {
+				userList.add(serviceTime.getUser());
+			}
+
+		}
+		if (userList.size() > 0) {
+			return userList;
+		}
+		return null;
 	}
 }

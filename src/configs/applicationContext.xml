@@ -63,7 +63,8 @@
 				<value>classpath:com/business/entitys/mp/*.xml</value>
 				<value>classpath:com/business/entitys/service/*.xml</value>
 				<value>classpath:com/business/entitys/autoReply/*.xml</value>
-
+				<value>classpath:com/business/entitys/redDot/*.xml</value>
+				
 			</list>
 		</property>
 	</bean>

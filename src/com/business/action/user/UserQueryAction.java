@@ -92,13 +92,36 @@ public class UserQueryAction extends ActionSupport implements ModelDriven<User> 
 		Map request = (Map) ActionContext.getContext().get("request");
 		User findUser = userService.findByUser(user.getUserId());
 		List<ServiceTime> list = serviceTimeService.findServiceUserEntityByUser(findUser);
-		if (findUser == null ) {
+		if (findUser == null) {
 			return this.INPUT;
 		}
-	
+
 		request.put("user", findUser);
 		request.put("serviceList", list);
 
+		return this.SUCCESS;
+	}
+
+	private int goodsId;
+
+	public int getGoodsId() {
+		return goodsId;
+	}
+
+	public void setGoodsId(int goodsId) {
+		this.goodsId = goodsId;
+	}
+
+	public String getBuyGoodsUser() {
+		List<User> list=serviceTimeService.findBuyGoodsUser(goodsId);
+		if(list==null)
+		{
+			toJsonSteam("[]");
+		}
+		else
+		{
+			toJsonSteam(JSONObject.toJSONString(list));
+		}
 		return this.SUCCESS;
 	}
 

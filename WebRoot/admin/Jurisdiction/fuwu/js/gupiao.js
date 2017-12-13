@@ -23,7 +23,7 @@ $(function() {
     }
     function show() {
         $.ajax({
-            url : "/business/serviceArticle/getFullData",
+           url : "/business/productOperationReport/getAllData",
             type : 'post',
             dataType : 'json',
             success : function(data) {
@@ -50,19 +50,27 @@ $(function() {
                 // 获取所有的表单数据
                 var redContent = ue.getContent(); //获取富文本编辑器内容
                 var formData = new FormData();
-                formData.append("redTitle", $("#redTitle").val());  //红点标题
+                formData.append("porTitle", $("#redTitle").val());  //红点标题
                 formData.append("goodsId", $("select[name='goodsId']").val());  //商品
-                formData.append("redContent", redContent); //红点内容
-                formData.append("gupiaoCode", $("#gupiaoCode").val());  //股票代码
-                formData.append("gupiaoName", $("#gupiaoName").val());  //股票名称
-                formData.append("nowPrice", $("#nowPrice").val()); //当前价
-                formData.append("weiPrice", $("#weiPrice").val());  //预警价
-                formData.append("tiTime", $("#tiTime").val());  //提醒时间
-                formData.append("endContent", $("#endContent").val());  //结束语
+                formData.append("porCtent", redContent); //红点内容
+                formData.append("keyword1", $("#gupiaoCode").val());  //股票代码
+                formData.append("keyword2", $("#gupiaoName").val());  //股票名称
+                formData.append("keyword3", $("#nowPrice").val()); //当前价
+                formData.append("keyword4", $("#weiPrice").val());  //预警价
+                formData.append("keyword5", $("#tiTime").val());  //提醒时间
+                formData.append("remark", $("#endContent").val());  //结束语
+                //标题颜色
+                formData.append("porTitleClor", "#FF0000");  //红点标题
+                formData.append("keyword1Clor", "#0000FF");  //股票代码
+                formData.append("keyword2Clor", "#0000FF");  //股票名称
+                formData.append("keyword3Clor", "#FF0000"); //当前价
+                formData.append("keyword4Clor", "#FF0000");  //预警价
+                formData.append("keyword5Clor","#FF0000");  //提醒时间
+                formData.append("remarkClor", "#FF0000");  //结束语
                 $(".spinner").show();
                 $.ajax({
                     type : 'post',
-                    url : '/business/serviceArticle/addServiceArticle',
+                    url : '/business/productOperationReport/insertPor',
                     data : formData,
                     processData : false,
                     contentType : false,
@@ -74,7 +82,7 @@ $(function() {
                         $("#j_mask").css("display", "none");
                         $("#j_formAdd").css("display", "none");
                         if (data.success == "true") {
-                            show();
+                       //     show();
                         } else {
                             alert(data.errMsg)
                         }
@@ -94,11 +102,11 @@ $(function() {
         var tag = '';
         $.each(data, function(i, e) {
             tag += '<tr>' +
-                '<td>红点ID</td>'+
-                '<td>红点标题</td>'+
-                '<td>商品名称</td>'+
-                '<td>发送时间</td>'+
-                '<td>操作</td>'+
+                '<td>'+e.porId+'</td>'+
+                '<td>'+e.porTitle+'</td>'+
+                '<td>'+e.goodsList.goodsName+'</td>'+
+                '<td>'+e.createTime+'</td>'+
+               
                 '<td><a href="javascript:;" class="layui-btn layui-btn-mini">编辑</a></td>' +
                 '</tr>';
         });
@@ -124,40 +132,33 @@ $(function() {
     //封装更新操作
     function updateData(serviceArticleNum) {
         $.ajax({
-            url : "/business/serviceArticle/findById",
+            url : "/business/productOperationReport/getDataById",
             type : 'post',
             data : {
-                serviceArticleNum : serviceArticleNum
+            	porId : serviceArticleNum
             },
             dataType : 'json',
             success : function(data) {
                 /*显示旧信息*/
-                $("#redTitle").val(data.redTitle);  //红点标题
+                $("#redTitle").val(data.porTitle);  //红点标题
                 $("#goodsId").val(data.goodsId);//商品
-                ue.setContent(data.redContent);//红点内容
-                $("#gupiaoCode").val(data.gupiaoCode);//股票代码
-                $("#gupiaoName").val(data.gupiaoName);//股票名称
-                $("#nowPrice").val(data.nowPrice);//当前价
-                $("#weiPrice").val(data.weiPrice);//预警价
-                $("#tiTime").val(data.tiTime);//提醒时间
-                $("#endContent").val(data.endContent);//结束语
+                ue.setContent(data.porCtent);//红点内容
+                $("#gupiaoCode").val(data.keyword1);//股票代码
+                $("#gupiaoName").val(data.keyword2);//股票名称
+                $("#nowPrice").val(data.keyword3);//当前价
+                $("#weiPrice").val(data.keyword4);//预警价
+                $("#tiTime").val(data.keyword5);//提醒时间
+                $("#endContent").val(data.remark);//结束语
                 // 重新绑定表单提交事件
                 $('#btn').unbind('click').click(function() {
                     // 获取所有的表单数据
                     var redContent = ue.getContent(); //获取富文本编辑器内容
                     var formData = new FormData();
-                    formData.append("redTitle", $("#redTitle").val());  //红点标题
-                    formData.append("goodsId", $("select[name='goodsId']").val());  //商品
-                    formData.append("redContent", redContent); //红点内容
-                    formData.append("gupiaoCode", $("#gupiaoCode").val());  //股票代码
-                    formData.append("gupiaoName", $("#gupiaoName").val());  //股票名称
-                    formData.append("nowPrice", $("#nowPrice").val()); //当前价
-                    formData.append("weiPrice", $("#weiPrice").val());  //预警价
-                    formData.append("tiTime", $("#tiTime").val());  //提醒时间
-                    formData.append("endContent", $("#endContent").val());  //结束语
+                    formData.append("porId", serviceArticleNum)
+                    formData.append("porCtent", redContent); //红点内容
                     $(".spinner").show();
                     $.ajax({
-                        url : '/business/serviceArticle/updateServiceArtcle',
+                        url : '/business/productOperationReport/updatePor',
                         type : 'post',
                         data : formData,
                         dataType : 'json',

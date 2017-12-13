@@ -138,7 +138,7 @@ public class UserAction extends ActionSupport implements ModelDriven<User> {
 		}
 		String num = (int) ((Math.random() * 9 + 1) * 100000) + "";
 		System.out.println(user.getPhone());
-		 String result = SendMsg.sendMsg(user.getPhone(), "您好的的验证码是" + num);
+		 String result = SendMsg.sendMsg(user.getPhone(),  num+"");
 		session.put("vc_key", num);
 		System.out.println("num"+num);
 		System.out.println(session.get("vc_key"));

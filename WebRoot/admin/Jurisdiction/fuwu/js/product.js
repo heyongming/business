@@ -28,7 +28,7 @@ $(function() {
     /*页面初始化*/
     function show() {
         $.ajax({
-            url : "/business/serviceArticle/getFullData",
+           url : "/business/productRunningReportt/getAllData",
             type : 'post',
             dataType : 'json',
             success : function(data) {
@@ -58,11 +58,10 @@ $(function() {
         var tag = '';
         $.each(data, function(i, e) {
             tag += '<tr>' +
-                '<td>红点ID</td>'+
-                '<td>红点标题</td>'+
-                '<td>商品名称</td>'+
-                '<td>发送时间</td>'+
-                '<td>操作</td>'+
+                '<td>'+e.porId+'</td>'+
+                '<td>'+e.porTitle+'</td>'+
+                '<td>'+e.goodsList.goodsName+'</td>'+
+                '<td>'+e.createTime+'</td>'+
                 '<td><a href="javascript:;" class="layui-btn layui-btn-mini">编辑</a></td>' +
                 '</tr>';
         });
@@ -89,32 +88,68 @@ $(function() {
     //封装更新操作
     function updateData(redId) {
         $.ajax({
-            url : "/business/serviceArticle/findById",
+            url : "/business/productRunningReportt/getDataById",
             type : 'post',
             data : {
-                "redId" : redId
+                "porId" : redId
             },
             dataType : 'json',
             success : function(data) {
                 /*显示旧信息*/
-                $("#redTitle").val(data.redTitle); //红点标题
+                $("#redTitle").val(data.porTitle); //红点标题
                 $("#goodsId").val(data.goodsId); //商品
                 var goodsIdValue = data.goodsId;
                 tableCon(goodsIdValue);//表格
-                ue.setContent(data.redContent);//红点内容
-                $("#produceName").val(data.produceName); //产品名称
-                $("#serviceName").val(data.serviceName); //服务名称
-                $("#sendTime").val(data.sendTime); //发布时间
-                $("#reported").val(data.reported); //报告摘要
-                $("#endContent").val(data.endContent); //结束语
+                ue.setContent(data.porCtent);//红点内容
+                $("#produceName").val(data.keyword1); //产品名称
+                $("#serviceName").val(data.keyword2); //服务名称
+                $("#sendTime").val(data.keyword3); //发布时间
+                $("#reported").val(data.keyword4); //报告摘要
+                $("#endContent").val(data.remark); //结束语
                 // 重新绑定表单提交事件
-                btnForm();
+                $("#btn").unbind('click').click(function() {
+                	//表格验证
+       
+                    // 获取所有的表单数据
+                    var redContent = ue.getContent(); //获取富文本编辑器内容
+                    var formData = new FormData();
+                    formData.append("porId",redId);
+                
+                    formData.append("porCtent", redContent); //红点内容
+                   
+                    $(".spinner").show();
+                    $.ajax({
+                        type : 'post',
+                        url : '/business/productRunningReportt/updatePor',
+                        data : formData,
+                        processData : false,
+                        contentType : false,
+                      //  traditional: true,
+                        dataType : 'json',
+                        success : function(data) {
+                            // 渲染数据列表
+                            alert("修改成功");
+                            $(".spinner").hide();
+                            $("#j_mask").css("display", "none");
+                            $("#j_formAdd").css("display", "none");
+                            if (data.success == "true") {
+                                show();
+                            } else {
+                                alert(data.errMsg)
+                            }
+                        },
+                        error:function(){
+                            alert("添加失败，请联系管理员");
+                        }
+                    });
+                    return false;
+                });
             }
         });
     }
     //提交数据
     function btnForm(){
-        // 给表单提交按钮绑定事件
+    	// 给表单提交按钮绑定事件
         $("#btn").unbind('click').click(function() {
             if(yanZheng==0){
                 //表格验证
@@ -129,24 +164,34 @@ $(function() {
                 }
             }
             // 获取所有的表单数据
+           
             var redContent = ue.getContent(); //获取富文本编辑器内容
             var formData = new FormData();
-            formData.append("redTitle", $("#redTitle").val());  //红点标题
+            formData.append("porTitle", $("#redTitle").val());  //红点标题
             formData.append("goodsId", $("select[name='goodsId']").val());  //商品
-            formData.append("tableArr", tableArr);  //表格
-            formData.append("redContent", redContent);  //红点内容
-            formData.append("produceName", $("#produceName").val());  //产品名称
-            formData.append("serviceName", $("#serviceName").val());  //服务名称
-            formData.append("sendTime", $("#sendTime").val());  //发布时间
-            formData.append("reported", $("#reported").val()); //报告摘要
-            formData.append("endContent", $("#endContent").val()); //结束语
+            formData.append("porCtent", redContent); //红点内容
+            formData.append("keyword1", $("#produceName").val());  //产品名称
+            formData.append("keyword2", $("#serviceName").val());  //服务名称
+            formData.append("keyword3", $("#sendTime").val()); //发布时间
+            formData.append("arryUser", tableArr);  //表格
+            formData.append("keyword4", $("#reported").val());  //报告摘要
+            formData.append("remark", $("#endContent").val());  //结束语
+            
+            //颜色
+            formData.append("porTitleClor", "#FF0000");  //红点标题
+            formData.append("keyword1Clor", "#0000FF");  //股票代码
+            formData.append("keyword2Clor", "#0000FF");  //股票名称
+            formData.append("keyword3Clor", "#FF0000"); //当前价
+            formData.append("keyword4Clor", "#FF0000");  //预警价
+            formData.append("remarkClor", "#FF0000");  //结束语
             $(".spinner").show();
             $.ajax({
                 type : 'post',
-                url : '/business/serviceArticle/addServiceArticle',
+                url : '/business/productRunningReportt/insertPor',
                 data : formData,
                 processData : false,
                 contentType : false,
+              //  traditional: true,
                 dataType : 'json',
                 success : function(data) {
                     // 渲染数据列表
@@ -171,13 +216,13 @@ $(function() {
     function tableCon(goodsIdValue){
         $.ajax({
             type : 'post',
-            url : '...',
+            url : '/business/user/getBuyGoodsUser',
             data : {
-                "goodsIdValue":goodsIdValue
+                "goodsId":goodsIdValue
             },
             dataType : 'json',
             success : function(data) {
-                if(data.state==0){
+                if(data=="[]"){
                     alert("此产品下无用户数据");
                     yanZheng = 1;
                 }
@@ -186,11 +231,11 @@ $(function() {
                 $.each(data, function(i, e) {
                     tag+='<tr>'+
                         '<td>'+
-                        '<input type="checkbox" name="tableContent" value="id"/>'+
+                        '<input type="checkbox" name="tableContent" value="'+e.userId+'"/>'+
                         '</td>'+
-                        '<td>姓名</td>'+
-                        '<td>身份证</td>'+
-                        '<td>微信昵称</td>'+
+                        '<td>'+e.userName+'</td>'+
+                        '<td>'+e.idCard+'</td>'+
+                        '<td>'+e.mpUserEntity.nickname+'</td>'+
                         '</tr>';
                 })
                 $("#j_tb").html(tag);

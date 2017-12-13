@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "mybatis-3-mapper.dtd">
+<mapper namespace="redDot">
+	<resultMap type="productOperationReport" id="productOperationReportMap">
+		<id property="porId" column="porId" />
+		<result property="porTitle" column="porTitle" />
+		<result property="porTitleClor" column="porTitleClor" />
+		<result property="goodsId" column="goodsId" />
+		<result property="sendTime" column="sendTime" />
+		<result property="createTime" column="createTime" />
+		<result property="porCtent" column="porCtent" />
+		<result property="templateID" column="templateID" />
+		<result property="keyword1" column="keyword1" />
+		<result property="keyword2" column="keyword2" />
+		<result property="keyword1Clor" column="keyword1Clor" />
+		<result property="keyword2Clor" column="keyword2Clor" />
+		<result property="keyword3" column="keyword3" />
+		<result property="keyword4" column="keyword4" />
+		<result property="keyword3Clor" column="keyword3Clor" />
+		<result property="keyword4Clor" column="keyword4Clor" />
+		<result property="keyword5" column="keyword5" />
+		<result property="keyword5Clor" column="keyword5Clor" />
+		<result property="keyword6" column="keyword6" />
+		<result property="keyword6Clor" column="keyword6Clor" />
+		<result property="keyword7" column="keyword7" />
+		<result property="keyword7Clor" column="keyword7Clor" />
+		<result property="remark" column="remark" />
+		<result property="remarkClor" column="remarkClor" />
+		<result property="userList" column="userList" />
+		<collection property="goodsList" ofType="goodsList">
+			<id property="goodsId" column="goodsId" />
+			<result property="goodsPrice" column="goodsPrice" />
+			<result property="dateManufacture" column="dateManufacture" />
+			<result property="goodsName" column="goodsName" />
+			<result property="imageUrl" column="imageUrl" />
+			<result property="inventory" column="inventory" />
+			<result property="salesVolume" column="salesVolume" />
+			<result property="isShelves" column="isShelves" />
+			<result property="weight" column="weight" />
+			<result property="effectiveTime" column="effectiveTime" />
+			<result property="hotGoods" column="hotGoods" />
+			<result property="minMon" column="minMon" />
+			<result property="maxMon" column="maxMon" />
+			<result property="isBlend" column="isBlend" />
+
+			<collection property="goodTypes" ofType="goodsType">
+				<id property="goodsTypeId" column="goodsTypeId" />
+				<result property="goodsTypeName" column="goodsTypeName" />
+			</collection>
+		</collection>
+	</resultMap>
+	<sql id="Base_Por_Column_List">
+		porId,
+		porTitle,porTitleClor,por.goodsId,sendTime,
+		createTime,porCtent,templateID,keyword1,
+		keyword1Clor,keyword2,keyword2Clor,keyword3,
+		keyword3Clor,keyword4,keyword4Clor,keyword5,
+		keyword5Clor,keyword6,keyword6Clor,keyword7,
+		keyword7Clor,remark,remarkClor,userList,
+		goodsName
+
+	</sql>
+	<insert id="insertProductOperationReport" parameterType="productOperationReport"
+
+		keyProperty="porId" useGeneratedKeys="true">
+		insert
+		into
+		`productOperationReport`
+		(
+		`porTitle`,`porTitleClor`,`goodsId`,`sendTime`,
+		`createTime`,`porCtent`,`templateID`,`keyword1`,
+		`keyword1Clor`,`keyword2`,`keyword2Clor`,`keyword3`,
+		`keyword3Clor`,`keyword4`,`keyword4Clor`,`keyword5`,
+		`keyword5Clor`,`keyword6`,`keyword6Clor`,`keyword7`,
+		`keyword7Clor`,`remark`,`remarkClor`,`userList`
+		)
+		values(
+		#{porTitle},#{porTitleClor},#{goodsId},#{sendTime},
+		#{createTime},#{porCtent},#{templateID},#{keyword1},
+		#{keyword1Clor},#{keyword2},#{keyword2Clor},#{keyword3},
+		#{keyword3Clor},#{keyword4},#{keyword4Clor},#{keyword5},
+		#{keyword5Clor},#{keyword6},#{keyword6Clor},#{keyword7},
+		#{keyword7Clor},#{remark},#{remarkClor},#{userList}
+		)
+	</insert>
+	<update id="updateProductOperationReport" parameterType="productOperationReport">
+		update `productOperationReport`
+		<set>
+			<if test="porCtent != null">
+				porCtent = #{porCtent},
+			</if>
+
+		</set>
+		where porId=#{porId}
+	</update>
+	<select id="selectWhere" parameterType="map"
+		resultMap="productOperationReportMap">
+		select
+		<include refid="Base_Por_Column_List" />
+		from
+		`productOperationReport` as por
+		inner join `goodsList` as gl
+		on
+		gl.`goodsId`=por.`goodsId`
+		where 1=1
+		<if test="tempDataList!=null">
+			and por.`templateID`=#{tempDataId}
+		</if>
+		<if test="tempDataByIdEntity!=null">
+			and por.`porId`=#{tempDataById}
+		</if>
+
+	</select>
+</mapper>

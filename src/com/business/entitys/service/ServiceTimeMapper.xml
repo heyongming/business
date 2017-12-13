@@ -49,7 +49,18 @@
 			<result property="rdCode" column="rdCode" />
 			<result property="answer" column="answer" />
 			<result property="idImage" column="idImage" />
+			<collection property="mpUserEntity" ofType="mpUser">
+				<id property="openid" column="openid" />
+				<result property="nickname" column="nickname" />
+				<result property="sex" column="sex" />
+				<result property="province" column="province" />
+				<result property="city" column="city" />
+				<result property="country" column="country" />
+				<result property="headimgurl" column="headimgurl" />
+				<result property="privilege" column="privilege" />
+				<result property="unionid" column="unionid" />
 
+			</collection>
 		</collection>
 
 
@@ -80,12 +91,15 @@
 		st.goodsId=gl.goodsId
 		INNER JOIN `user` as us on
 		us.`userId`=st.`userId`
+		left join `mpuserentity` as mpy on 
+		us.`openId`=mpy.`openid`
 		where 1=1
 		<if test="serviceUserId!=null">
 			and st.`userId`=#{serviceUserId}
 		</if>
 		<if test="serviceGoodsId!=null">
 			and st.`goodsId`=#{serviceGoodsId}
+			and st.`isActivation`=1
 		</if>
 		<if test="pdfUserId!=null">
 			and st.`goodsId`=#{pdfGoodsId} and
@@ -108,7 +122,8 @@
 		where `serviceDay`>0 and `isActivation`=1
 	</update>
 	<delete id="delete" parameterType="int">
-		delete from `serviceTime` where `id`=#{int}
+		delete from `serviceTime`
+		where `id`=#{int}
 	</delete>
 
 </mapper>

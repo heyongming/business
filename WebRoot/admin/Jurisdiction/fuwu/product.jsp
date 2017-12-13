@@ -71,7 +71,7 @@ textarea {
 					<div class="layui-input-inline">
 						<select name="goodsId" id="goodsId" required lay-verify="required"
 							class="layui-input">
-							<option value="">请选择</option>
+							
 
 						</select>
 					</div>
