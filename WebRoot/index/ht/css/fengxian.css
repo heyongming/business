@@ -1,0 +1,31 @@
+#header {
+  width: 100%;
+  height: 80px;
+  background-color: #393a3f;
+  color: #fff;
+  text-align: center;
+}
+#header h2 {
+  line-height: 80px;
+  font-size: 40px;
+}
+#product {
+  padding: 30px;
+  background-color: #fff;
+  color: #111;
+  margin-bottom: 280px;
+}
+#product .color {
+  color: #da251c;
+}
+#product > h2 {
+  font-size: 32px;
+  line-height: 70px;
+  text-align: center;
+}
+#product > p {
+  color: #909090;
+  font-size: 28.000000000000004px;
+  margin-bottom: 10px;
+  text-indent: 2em;
+}
