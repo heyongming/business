@@ -11,11 +11,7 @@
 <title>${RequestScope.msg.porTitle}</title>
 </head>
 <body>
-	<c:if test="${empty RequestScope.msg } ">
-		<script type="text/javascript">
-			window.location.href = "/business/redDot/notFind.jsp"
-		</script>
-	</c:if>
-	<div id="message">${RequestScope.msg.porCtent }</div>
+	
+	<div id="message">${requestScope.msg.porCtent }</div>
 </body>
 </html>

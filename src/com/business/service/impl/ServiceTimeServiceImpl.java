@@ -161,7 +161,8 @@ public class ServiceTimeServiceImpl implements IServiceTimeService {
 	public List<User> findBuyGoodsUser(int goodsId) {
 		// TODO Auto-generated method stub
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("serviceGoodsId", goodsId);
+		map.put("buyGoodsUserList", "拉取购买该商品下的所有用户");
+		map.put("buyGoodsUserGoods", goodsId);
 		List<ServiceTime> list = serviceTimeDao.selectByWhere(map);
 		List<User> userList = new ArrayList<User>();
 		for (ServiceTime serviceTime : list) {

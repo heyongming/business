@@ -3,6 +3,19 @@ package com.business.entitys.redDot;
 import com.business.entitys.goods.GoodsList;
 
 public class ProductOperationReport {
+	@Override
+	public String toString() {
+		return "ProductOperationReport [porId=" + porId + ", porTitle=" + porTitle + ", porTitleClor=" + porTitleClor
+				+ ", goodsList=" + goodsList + ", goodsId=" + goodsId + ", sendTime=" + sendTime + ", createTime="
+				+ createTime + ", porCtent=" + porCtent + ", templateID=" + templateID + ", keyword1=" + keyword1
+				+ ", keyword1Clor=" + keyword1Clor + ", keyword2=" + keyword2 + ", keyword2Clor=" + keyword2Clor
+				+ ", keyword3=" + keyword3 + ", keyword3Clor=" + keyword3Clor + ", keyword4=" + keyword4
+				+ ", keyword4Clor=" + keyword4Clor + ", keyword5=" + keyword5 + ", keyword5Clor=" + keyword5Clor
+				+ ", keyword6=" + keyword6 + ", keyword6Clor=" + keyword6Clor + ", keyword7=" + keyword7
+				+ ", keyword7Clor=" + keyword7Clor + ", remark=" + remark + ", remarkClor=" + remarkClor + ", userList="
+				+ userList + "]";
+	}
+
 	private int porId;
 	private String porTitle;
 	private String porTitleClor;

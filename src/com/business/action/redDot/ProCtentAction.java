@@ -59,6 +59,7 @@ public class ProCtentAction extends ActionSupport implements ModelDriven<Product
 		Map request = (Map) ActionContext.getContext().get("request");
 
 		ProductOperationReport result = redDotService.selectCtentById(productOperationReport.getPorId());
+	
 		if (result == null) {
 			return this.INPUT;
 		} else {

@@ -77,19 +77,19 @@ public class SenMsgThread extends Thread {
 	private void initPro(ProductOperationReport productOperationReport) {
 
 		template.setFirst(productOperationReport.getPorTitle()+"\n");
-		template.setFirstColor("#FF0000");
+		template.setFirstColor(productOperationReport.getPorTitleClor());
 		template.setKeyword1(productOperationReport.getKeyword1()+"\n");
-		template.setKeyword1Color("#FF0000");
+		template.setKeyword1Color(productOperationReport.getKeyword1Clor());
 		template.setKeyword2(productOperationReport.getKeyword2()+"\n");
-		template.setKeyword2Color("#000000");
+		template.setKeyword2Color(productOperationReport.getKeyword2Clor());
 		template.setKeyword3(productOperationReport.getKeyword3()+"\n");
-		template.setKeyword3Color("#000000");
+		template.setKeyword3Color(productOperationReport.getKeyword3Clor());
 		template.setKeyword4(productOperationReport.getKeyword4()+"\n");
-		template.setKeyword4Color("#000000");
+		template.setKeyword4Color(productOperationReport.getKeyword4Clor());
 		template.setKeyword5(productOperationReport.getKeyword5()+"\n");
-		template.setKeyword5Color("#000000");
+		template.setKeyword5Color(productOperationReport.getKeyword5Clor());
 		template.setRemark(productOperationReport.getRemark()+"\n");
-		template.setRemarkColor("#FF0000");
+		template.setRemarkColor(productOperationReport.getRemarkClor());
 		
 	}
 

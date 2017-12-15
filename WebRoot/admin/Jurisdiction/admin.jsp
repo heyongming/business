@@ -98,6 +98,18 @@
 									<span>服务权限</span>
 								</a>
 							</dd>
+								<dd>
+								<a href="javascript:;" kit-target
+									data-options="{url:'fuwu/gupiao.jsp',icon:'&#xe621;',title:'股票到价通知',id:'40'}">
+									<span>股票到价通知</span>
+								</a>
+							</dd>
+								<dd>
+								<a href="javascript:;" kit-target
+									data-options="{url:'fuwu/product.jsp',icon:'&#xe621;',title:'产品运行报告通',id:'41'}">
+									<span>产品运行报告通</span>
+								</a>
+							</dd>
 						</dl></li>
 					<!--管理员-->
 					<li class="layui-nav-item"><a class="" href="javascript:;"><i

@@ -91,7 +91,7 @@
 		st.goodsId=gl.goodsId
 		INNER JOIN `user` as us on
 		us.`userId`=st.`userId`
-		left join `mpuserentity` as mpy on 
+		left join `mpuserentity` as mpy on
 		us.`openId`=mpy.`openid`
 		where 1=1
 		<if test="serviceUserId!=null">
@@ -112,7 +112,10 @@
 		<if test="findKey!=null">
 			and st.`id`=#{findId}
 		</if>
-
+		<if test="buyGoodsUserList!=null">
+			and st.`goodsId`=#{buyGoodsUserGoods}
+			and st.`isActivation`=1
+		</if>
 	</select>
 	<update id="updateBySubService">
 		update
