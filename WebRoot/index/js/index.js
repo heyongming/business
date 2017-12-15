@@ -65,7 +65,7 @@ $(function() {
 	function dataTem(data) {
 		var tag = '';
 		$.each(data, function(i, e) {
-			tag += '<img class="productImages" data-goodsId="' + e.goodsId + '" src="' + e.imageUrl + '" alt="产品图"/>' +
+			tag += '<img class="productImages"  data-goodsId="' + e.goodsId + '" src="' + e.imageUrl + '" alt="产品图"/>' +
 				'<div class="product">' +
 				'<div class="left">' +
 				'<p>' + e.goodsName + ' </p>' +
@@ -101,7 +101,6 @@ $(function() {
 		})
 		//弹出购买页
 		$('.product').each(function(i, e) {
-			
 			// 给购买按钮绑定事件
 			$(e).find('.btn-primary').click(function() {
 				$('.modal').css('display', "block");
@@ -112,7 +111,6 @@ $(function() {
 					location.reload();
 				});
 				var goodsId = $(this).attr("data-goodsId");
-				
 				$.ajax({
 					url : '/business/goods/getgoodsListById',
 					type : 'post',
@@ -121,7 +119,6 @@ $(function() {
 					},
 					dataType : 'json',
 					success : function(data) {
-
 						// 购买详情页渲染
 						console.log(data);
 						//data = JSON.parse(data);
@@ -358,7 +355,7 @@ $(function() {
 				dataType : 'json',
 				success : function(data) {
 					if (is_weixn()) {
-						location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxaf9208856d550d06&redirect_uri=http%3A%2F%2F18f42658v7.iok.la%2Fbusiness%2Fmp%2FoauthLogin&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+						location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxaf9208856d550d06&redirect_uri=http%3A%2F%2Fm.mbimc.com%2Fbusiness%2Fmp%2FoauthLogin&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
 					} else {
 						location.href = "login.jsp";
 					}

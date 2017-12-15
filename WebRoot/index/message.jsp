@@ -25,7 +25,7 @@
 .spinner {
 	width: 100%;
 	height: 100%;
-	position: fixed;
+	position: absolute;
 	z-index: 9999;
 	background: rgba(233, 233, 233, 0.6);
 	display: none;
@@ -159,7 +159,7 @@
 		<img src="${sessionScope.buyGoodsList.imageUrl} " alt="" />
 		<div>
 			<p>${sessionScope.buyGoodsList.goodsName }</p>
-			<p class="price">$
+			<p class="price">￥
 				${sessionScope.buyOrderResult.actualPurchasePriceGoods}</p>
 		</div>
 	</section>

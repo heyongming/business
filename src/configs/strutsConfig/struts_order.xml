@@ -95,13 +95,13 @@
 		</action>
 		<action name="getPdfData" class="com.business.action.order.OrderRiskAction"
 			method="toPdfData">
-			<result name="success">/index/agreement.jsp</result>
+			<result name="success">/index/ht/agreement.jsp</result>
 			<result name="input">/index/index.jsp</result>
 
 		</action>
 		<action name="getFxPdf" class="com.business.action.order.OrderRiskAction"
 			method="toFxPdf">
-			<result name="success">/index/fengxian.jsp</result>
+			<result name="success">/index/ht/fengxian.jsp</result>
 			<result name="input">/index/index.jsp</result>
 
 		</action>
@@ -122,7 +122,7 @@
 		</action>
 		<action name="success" class="com.business.action.order.OrderAction"
 			method="orderSuccess">
-			<result name="success">/index/success.jsp</result>
+			<result name="success" type="redirect">/mp/service</result>
 			<result name="login">/mbimc/success.jsp</result>
 			<result name="pcInput">/mbimc/index.jsp</result>
 			<result name="input">/index/index.jsp</result>

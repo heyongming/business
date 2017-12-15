@@ -46,6 +46,7 @@ public class MpIndexAction extends ActionSupport {
 		Map session = actionContext.getSession();
 		MpUserEntity entity = (MpUserEntity) session.get("mpUser");
 		if (entity == null) {
+			/*
 			HttpServletRequest request = ServletActionContext.getRequest();
 
 			MpCodeEntitys mpCodeEntitys = null;
@@ -66,6 +67,10 @@ public class MpIndexAction extends ActionSupport {
 				entity = MessAgeUtil.getMpUserEntity(mpCodeEntitys.getAccess_token(), mpCodeEntitys.getOpenid());
 				mpUserService.addMpUser(entity);
 			}
+			*/
+			entity = new MpUserEntity("oEMmVuOtjSjRmjL6E1Szv6lKrvUY", "月光的指引", "0", "", "", "",
+					"http://wx.qlogo.cn/mmopen/vi_32/31QVdlsGfaAIEBVQgFibkqG2N1zuUJCCe8a9det1D84JxAQ9REB2ZQuQrQCytY0TSgtficrgcPmyhVvu5wY0dJUA/0",
+					"[]", "");
 			session.put("mpUser", entity);
 		}
 

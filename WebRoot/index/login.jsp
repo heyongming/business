@@ -17,6 +17,9 @@
 	content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <title>填写资料</title>
 <!--引入第三方框架-->
+<link rel="icon" href ="mbimc.ico" />
+<link rel="shortcut icon" href="mbimc.ico" />
+
 <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.css" />
 <!--引入rem.js文件-->
 <script src="lib/rem/rem.js"></script>

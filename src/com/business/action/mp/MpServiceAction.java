@@ -130,10 +130,10 @@ public class MpServiceAction extends ActionSupport {
 		 * mpCodeEntitys.getOpenid()); mpUserService.addMpUser(entity); }
 		 * session.put("mpUser", entity); }
 		 */
-		entity = new MpUserEntity("oEMmVuPW5Omw8bvLL6x0B5dPW0xQ", "月光的指引", "0", "", "", "",
+		entity = new MpUserEntity("oEMmVuOtjSjRmjL6E1Szv6lKrvUY", "月光的指引", "0", "", "", "",
 				"http://wx.qlogo.cn/mmopen/vi_32/31QVdlsGfaAIEBVQgFibkqG2N1zuUJCCe8a9det1D84JxAQ9REB2ZQuQrQCytY0TSgtficrgcPmyhVvu5wY0dJUA/0",
 				"[]", "");
-
+		session.put("mpUser", entity);
 		if (entity == null) {
 			return this.input();
 		}

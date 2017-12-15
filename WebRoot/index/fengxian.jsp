@@ -9,7 +9,6 @@
 <html lang="en" id="htmlId">
 <head>
 <meta charset="utf-8">
-<base href="<%=basePath%>">
 <!--添加视口 移动端适配-->
 <meta name="viewport"
 	content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -75,7 +74,7 @@
 </head>
 <body>
 	<section class="spinner">
-	<div class="jiazai"></div>
+		<div class="jiazai"></div>
 	</section>
 	<header id="header">
 		<h2>证券投资顾问服务协议</h2>
@@ -83,10 +82,10 @@
 	<section class="twoSides">
 		<p>
 			甲方：<span>${sessionScope.buyuser.userName}</span>
+		</p>
 		<p>
-			身份证号码：<span>${sessionScope.buyuser.phone}</span>
-		<p>
-			住址：<span>*******************（系统自动识别）</span>
+			身份证号码：<span>${sessionScope.buyuser.idCard}</span>
+		</p>
 		<p>乙方：上海迈步投资管理有限公司</p>
 		<p>地址：上海市黄浦区淡水路277号SOHO复兴广场B楼B503室</p>
 	</section>
@@ -311,7 +310,6 @@
 					success : function(data) {
 						//alert(data.msg);
 						$(".spinner").hide();
-						console.log(data);
 						location.href = '/business/order/success'
 					},
 					error : function(XMLHttpRequest, textStatus, errorThrown) {

@@ -17,6 +17,9 @@
 	content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <title>服务号</title>
 <!--引入第三方框架-->
+　<link rel="icon" href ="mbimc.ico" />
+ <link rel="shortcut icon" href="mbimc.ico"  />
+
 <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.css" />
 <!--引入自己的less,自己写的css-->
 <link rel="stylesheet/less" href="css/base.less" />
@@ -46,7 +49,7 @@
 
 			${requestScope.loginServiceArticle.articleContent}</div>
 		<div class="amount">
-		<!-- 
+			<!-- 
 			<span>阅读&nbsp;${requestScope.loginServiceArticle.readingNumber}</span>&nbsp;&nbsp;&nbsp;
 			<span class="btn" id="btn"> <c:if
 					test="${requestScope.isDoThumbsUp==0}">

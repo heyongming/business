@@ -187,4 +187,30 @@ public class MpUserServiceImpl implements IMpUserService {
 
 	}
 
+	@Override
+	public int doActivationService(User user, OrderActivationCode code) {
+		// TODO Auto-generated method stub
+
+		orderDao.updatecheckStatus(code.getOrderSerialNumber());
+
+		Map<String, Object> orderForm = new HashMap<String, Object>();
+		orderForm.put("orderSerialNumber", code.getOrderSerialNumber());
+
+		List<OrderForm> list = orderDao.getDataByWhere(orderForm);
+		if (list.size() > 0) {
+			Map<String, Object> map = new HashMap<String, Object>();
+
+			map.put("serviceUserId", user.getUserId());
+			map.put("serviceGoodsId", list.get(0).getGoodsList().getGoodsId());
+
+			List<ServiceTime> tagerServiceTime = serviceTimeDao.selectByWhere(map);
+			ServiceTime sv = tagerServiceTime.get(0);
+			sv.setIsActivation(1);
+
+			return serviceTimeDao.update(sv);
+		}
+
+		return 0;
+	}
+
 }

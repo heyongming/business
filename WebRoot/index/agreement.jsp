@@ -83,11 +83,10 @@
 	</header>
 	<section class="twoSides">
 		<p>
-			甲方：<span>${sessionScope.buyuser.userName}</span>
+			甲方：<span>${sessionScope.buyuser.userName}</span></p>
 		<p>
-			身份证号码：<span>${sessionScope.buyuser.phone}</span>
-		<p>
-			住址：<span>*******************（系统自动识别）</span>
+			身份证号码：<span>${sessionScope.buyuser.idCard}</span></p>
+		
 		<p>乙方：上海迈步投资管理有限公司</p>
 		<p>地址：上海市黄浦区淡水路277号SOHO复兴广场B楼B503室</p>
 	</section>
@@ -206,7 +205,7 @@
 		/*点击提交*/
 		function msg() {
 			var html = $("#htmlId").html();
-		
+			console.log(html);
 			var inputValue = $("input[type='radio']:checked").val();
 			if (inputValue != 1) {
 				alert("请签约");
@@ -222,8 +221,7 @@
 					success : function(data) {
 						//alert(data.msg);
 						$(".spinner").hide();
-						console.log(data);
-						location.href = '/business/order/success';
+					location.href = '/business/order/success';
 					},
 					error : function(XMLHttpRequest, textStatus, errorThrown) {
 						$(".spinner").hide();

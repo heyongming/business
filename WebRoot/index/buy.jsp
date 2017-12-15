@@ -15,6 +15,10 @@
 	content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <title>确认订单</title>
 <!--引入第三方框架-->
+
+<link rel="icon" href ="mbimc.ico" />
+ <link rel="shortcut icon" href="mbimc.ico"  />
+
 <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.css" />
 <!--引入自己的less,自己写的css-->
 <link rel="stylesheet/less" href="css/base.less" />
@@ -142,7 +146,5 @@
 	<script src="lib/template.js"></script>
 	<!--引入自己写的确认订单页面js-->
 	<script src="js/buy.js"></script>
-<!-- 	<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script> -->
-	
 </body>
 </html>

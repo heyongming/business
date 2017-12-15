@@ -28,6 +28,7 @@ $(function() {
 		}
 	}
 	if (is_weixn()) {
+		
 		//在微信浏览器里调用微信支付
 		$(".right").click(function() {
 			buyClick();

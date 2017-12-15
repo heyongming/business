@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 import com.alibaba.fastjson.JSONObject;
 import com.business.entitys.ResultMessage;
 import com.business.entitys.goods.GoodsList;
+import com.business.entitys.mp.MpUserEntity;
 import com.business.entitys.order.OrderActivationCode;
 import com.business.entitys.order.OrderForm;
 import com.business.entitys.user.User;
@@ -83,9 +84,16 @@ public class OrderUserServiceAction extends ActionSupport implements ModelDriven
 		// TODO Auto-generated method stub
 		ActionContext actionContext = ActionContext.getContext();
 		Map session = actionContext.getSession();
+		MpUserEntity mpUser = (MpUserEntity) session.get("mpUser");
 		String sessionVcKey = (String) session.get("vc_key");
 		// System.out.println(sessionVcKey+"测试为"+user.getPassWord());
-		sessionVcKey="111111";
+		sessionVcKey = "111111";
+		if (mpUser == null) {
+			ResultMessage resultMessage = new ResultMessage("-4", "false", "微信拉取错误");
+			String json = JSONObject.toJSONString(resultMessage);
+			toJsonSteam(json);
+			return Action.SUCCESS;
+		}
 		if (!(sessionVcKey.equals(user.getPassWord()))) {
 			ResultMessage resultMessage = new ResultMessage("-1", "false", "验证码错误或者超时了");
 			String json = JSONObject.toJSONString(resultMessage);
@@ -105,6 +113,8 @@ public class OrderUserServiceAction extends ActionSupport implements ModelDriven
 			toJsonSteam(json);
 			return Action.SUCCESS;
 		}
+		userEntitys.setOpenId(mpUser.getOpenid());
+		userService.updateUser(userEntitys);
 		if (checkIsOffLinePay(userEntitys)) {
 			ResultMessage resultMessage = new ResultMessage("101", "ok", "该用户为线下支付用户");
 			String json = JSONObject.toJSONString(resultMessage);
@@ -114,10 +124,7 @@ public class OrderUserServiceAction extends ActionSupport implements ModelDriven
 		// 拿取购买时的商品和购买的数量
 		GoodsList goodsList = (GoodsList) session.get("buyGoodsList");
 		OrderForm orderForm = (OrderForm) session.get("buyOrderFrom");
-		System.out.println(goodsList+"???");
-		System.out.println(userEntitys+"???");
-		System.out.println(orderForm+"???");
-		
+
 		String resultMsg = orderService.CheckGoodListAndOrderFrom(goodsList, orderForm, userEntitys);
 		ResultMessage message = (ResultMessage) JSONObject.parseObject(resultMsg, ResultMessage.class);
 		System.out.println(message);
@@ -155,9 +162,9 @@ public class OrderUserServiceAction extends ActionSupport implements ModelDriven
 			ActionContext actionContext = ActionContext.getContext();
 			Map session = actionContext.getSession();
 			OrderActivationCode code = orderService.findActivaTionCode(orderForm.getOrderSerialNumber());
-			System.out.println(orderForm+"?????????");
-			GoodsList goodsList = JSONObject
-					.parseObject(goodsOperationService.queryGoodsListById(orderForm.getGoodsList().getGoodsId()), GoodsList.class);
+			System.out.println(orderForm + "?????????");
+			GoodsList goodsList = JSONObject.parseObject(
+					goodsOperationService.queryGoodsListById(orderForm.getGoodsList().getGoodsId()), GoodsList.class);
 			if (user == null || goodsList == null || orderForm == null || code == null) {
 				return false;
 			}

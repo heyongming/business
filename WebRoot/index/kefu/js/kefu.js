@@ -2,7 +2,7 @@ $(function() {
 
     //检测浏览器是否支持websocket
     if(window.WebSocket){
-        ws = new WebSocket("ws://18f42658v7.iok.la/business/testws");
+        ws = new WebSocket("ws://m.mbimc.com/business/testws");
         //连接成功，发送数据
         ws.onopen = function (data) {
             alert('连接成功');

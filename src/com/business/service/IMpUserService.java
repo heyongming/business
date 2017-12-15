@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.business.entitys.goods.GoodsList;
 import com.business.entitys.mp.MpUserEntity;
+import com.business.entitys.order.OrderActivationCode;
 import com.business.entitys.user.User;
 
 /**
@@ -42,13 +43,24 @@ public interface IMpUserService {
 
 	/**
 	 * @param user
+	 *            要被激活的实体
+	 * @param code
+	 *            激活码
+	
+	 * @return 激活是否成功
+	 */
+	public int doActivationService(User user, OrderActivationCode code);
+
+	/**
+	 * @param user
 	 *            用户购买过的产品
 	 * @return 购买的商品列表
 	 */
 	public List<GoodsList> findGetUserBuyGoodsList(User user);
-	
+
 	/**
-	 * @param mpUserEntity 需要跟user对应微信用户
+	 * @param mpUserEntity
+	 *            需要跟user对应微信用户
 	 * @return 与之对应的user
 	 */
 	public User findOpenIdToUser(MpUserEntity mpUserEntity);

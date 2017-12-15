@@ -17,6 +17,7 @@ import com.business.entitys.goods.GoodsList;
 import com.business.entitys.order.OrderActivationCode;
 import com.business.entitys.order.OrderForm;
 import com.business.entitys.user.User;
+import com.business.service.IMpUserService;
 import com.business.service.IOrderService;
 import com.business.util.CheckErrorQiantaiUtill;
 import com.business.util.SendMsg;
@@ -34,6 +35,7 @@ public class OrderAction extends ActionSupport implements ModelDriven<OrderForm>
 	private OrderForm orderForm;
 	private String phone;
 	private String isPc;
+
 	public String getIsPc() {
 		return isPc;
 	}
@@ -52,6 +54,17 @@ public class OrderAction extends ActionSupport implements ModelDriven<OrderForm>
 
 	@Resource
 	private IOrderService orderService;
+	@Resource
+
+	private IMpUserService mpUserService;
+
+	public IMpUserService getMpUserService() {
+		return mpUserService;
+	}
+
+	public void setMpUserService(IMpUserService mpUserService) {
+		this.mpUserService = mpUserService;
+	}
 
 	private InputStream bis;
 
@@ -104,8 +117,7 @@ public class OrderAction extends ActionSupport implements ModelDriven<OrderForm>
 		Map session = actionContext.getSession();
 		Map request = (Map) ActionContext.getContext().get("request");
 		if (!CheckErrorQiantaiUtill.checkSession(session)) {
-			if (isPc != null)
-			{
+			if (isPc != null) {
 				return "pcInput";
 			}
 			return this.INPUT;
@@ -113,22 +125,22 @@ public class OrderAction extends ActionSupport implements ModelDriven<OrderForm>
 		GoodsList buyGoodsList = (GoodsList) session.get("buyGoodsList");
 		User userEntitys = (User) session.get("buyuser");// 购买者
 		OrderForm orderForm = (OrderForm) session.get("buyOrderResult");
-		// session.clear(); // 清理缓存
-		 
+		session.clear(); // 清理缓存
+
 		OrderActivationCode orderActivationCode = orderService.doClosingTheDeal(orderForm);
-		String result = SendMsg.sendMsg(userEntitys.getPhone(),
-		"您购买的产品为："+buyGoodsList.getGoodsName()+ "，本次服务激活码为："+orderActivationCode.getActivationCode()+ "。请妥善保存激活码，服务一旦激活，激活码自动失效。" );
-		System.out.println(orderActivationCode + "!!!!!!");
-		request.put("orderActivationCode", orderActivationCode);
-		if(isPc==null)
-		{
-			return Action.SUCCESS;
-		}
-		else
-		{
-			return Action.LOGIN;
+		int flog = mpUserService.doActivationService(userEntitys, orderActivationCode);
+		if (flog == 1) {
+			if (isPc == null) {
+				return Action.SUCCESS;
+			} else {
+				return Action.LOGIN;
+			}
+
+		} else {
+			return this.INPUT;
 		}
 		
+
 	}
 
 	public String clearData() {

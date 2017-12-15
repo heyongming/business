@@ -370,7 +370,7 @@
 				}
 				var addRess = $("#addRess").val();
 				var idCard = $("#idCard").val();
-				var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+					var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
 				if (reg.test(idCard) === false) {
 					alert("身份证输入不合法");
 					return false;
@@ -434,7 +434,7 @@
 						if (data == null) {
 							location.href = '/business/admin/login/login.jsp'
 						} else {
-	
+							
 							location.href = '/business/user/getUser?userId=' + data.userId;
 						}
 	

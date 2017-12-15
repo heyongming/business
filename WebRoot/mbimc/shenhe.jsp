@@ -135,7 +135,7 @@
 						//	alert(data.agreement)
 						data = JSON.parse(data);
 	
-						var url = "http://18f42658v7.iok.la" + data.agreement;
+						var url = "http://m.mbimc.com" + data.agreement;
 						//	alert(url);
 						window.open(url);
 						location.reload(true);

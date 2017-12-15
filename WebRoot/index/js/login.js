@@ -65,13 +65,13 @@ $(function() {
 
 		/*提交数据*/
 		$(".spinner").show();
-
 		$.ajax({
 			url : "/business/order/checkUserInfo",
 			data : {
 				"userName" : username,
 				"phone" : $("#j_phone").val(),
 				"passWord" : password,
+				
 				"rdCode" : recommended
 			},
 			success : function(data) {

@@ -99,7 +99,7 @@
 		</if>
 		<if test="serviceGoodsId!=null">
 			and st.`goodsId`=#{serviceGoodsId}
-			and st.`isActivation`=1
+			and st.`isActivation`=-1
 		</if>
 		<if test="pdfUserId!=null">
 			and st.`goodsId`=#{pdfGoodsId} and

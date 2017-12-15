@@ -16,10 +16,13 @@
 	content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <title>查看已购买产品</title>
 <!--引入第三方框架-->
+<link rel="icon" href="mbimc.ico" />
+<link rel="shortcut icon" href="mbimc.ico" />
+
 <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.css" />
 <!--引入自己的less,自己写的css-->
 <link rel="stylesheet/less" href="css/base.less" />
-
+<link rel="stylesheet/less" href="css/history.less" />
 <!--引入rem.js文件-->
 <script src="lib/rem/rem.js"></script>
 <!--引入less文件的js-->
@@ -65,15 +68,15 @@ body{
 
 	<script type="text/javascript">
 		var id="${sessionScope.loginUserGoodsListSize}";
-		if(id==1)
-		{
+			if(id==1)
+			{
 			window.location = "/business/mp/mpService?goodsId="+${sessionScope.loginUserGoodsList[0].goodsId};
-		}
+			}
 		
 		</script>
 
 	<section id="message">
-		<h2>我的服务</h2>
+		<h2>查看已购买产品</h2>
 		<div class="product">
 			<ul>
 				<c:forEach var="item" items="${sessionScope.loginUserGoodsList}"
