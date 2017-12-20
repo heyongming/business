@@ -17,7 +17,9 @@ import com.cache.OrderCache;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
-
+/*
+ * 交易检查Action
+ */
 public class OrderCheckAction extends ActionSupport {
 	private InputStream bis;
 
@@ -28,7 +30,7 @@ public class OrderCheckAction extends ActionSupport {
 	public void setBis(InputStream bis) {
 		this.bis = bis;
 	}
-
+	//检查交易是否结束，可以参考下单的逻辑方便理解
 	@Override
 	public String execute() throws Exception {
 		// TODO Auto-generated method stub
@@ -44,16 +46,10 @@ public class OrderCheckAction extends ActionSupport {
 		User userEntitys = (User) session.get("buyuser");
 		ResultMessage resultMessage = null;
 		if (userEntitys != null) {
-			System.out.println(userEntitys + "用户实体");
-			System.out.println(OrderCache.msg.size());
-			System.out.println(OrderCache.buyOrderResult.size());
 
-			for (Entry<String, ResultOrderActivationCodeEntitys> entry : OrderCache.msg.entrySet()) {
-				System.out.println("key= " + entry.getKey() + " and value= " + entry.getValue());
-			}
+			//微信回调会清除缓存，判断缓存即可知道交易是否结束
 			ResultOrderActivationCodeEntitys msg = OrderCache.msg.get(userEntitys.getUserId() + "");
 			OrderForm orderForm = OrderCache.buyOrderResult.get(userEntitys.getUserId() + "");
-			System.out.println(msg + "????" + orderForm);
 			if (orderForm == null || msg == null) {
 				msg = (ResultOrderActivationCodeEntitys) session.get("msg");
 				orderForm = (OrderForm) session.get("buyOrderResult");
@@ -63,7 +59,6 @@ public class OrderCheckAction extends ActionSupport {
 					resultMessage = new ResultMessage("2", "true", "交易已经结束");
 				}
 			} else {
-				System.out.println("?????????进来了啊");
 				resultMessage = new ResultMessage("1", "true", "跳");
 				OrderCache.msg.remove(userEntitys.getUserId()+"");
 				OrderCache.buyOrderResult.remove(userEntitys.getUserId()+"");

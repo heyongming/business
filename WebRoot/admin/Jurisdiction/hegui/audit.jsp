@@ -9,7 +9,7 @@
 <head>
 <base href="<%=basePath%>">
 <meta charset="utf-8">
-<title>已添加客户</title>
+<title>已通过合规</title>
 <meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport"
@@ -24,13 +24,8 @@
 <body>
 	<div id="message">
 		<!-- 弹窗 -->
-		<div id="x_mask"></div>
 		<div id="x_formAdd">
 			<form class="layui-form" id="formId" enctype="multipart/form-data">
-				<div class="form-add-title">
-					<span>修改客户信息</span>
-					<div id="x_hideFormAdd">x</div>
-				</div>
 				<div class="layui-form-item">
 					<label class="layui-form-label">客户姓名：</label>
 					<div class="layui-input-block">
@@ -55,7 +50,7 @@
 				</div>
 			</form>
 		</div>
-		<h2>已添加客户</h2>
+		<h2>已通过合规</h2>
 		<!-- 表格-->
 		<table class="layui-table admin-table">
 			<thead>
@@ -76,8 +71,6 @@
 	</div>
 	<script src="../lib/jquery/jquery.js"></script>
 	<script src="../lib/layui/layui.js"></script>
-	<!--引入颜色选择器-->
-	<script src="../lib/template.js"></script>
 	<script type="text/javascript" src="js/audit.js"></script>
 </body>
 </html>

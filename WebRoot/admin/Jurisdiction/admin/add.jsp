@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>已添加客户</title>
+<title>添加商品</title>
 <meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport"
@@ -232,27 +232,6 @@
 			</div>
 		</fieldset>
 	</div>
-	<!--数据模板拼接-->
-	<script type="text/html" id="tableTem">
-    {{each result as value}}
-    <tr>
-        <td>{{value.goodsId}}</td>
-        <td style="width: 45px; height: 30px"><img style="height: 30px" src="{{value.imageUrl}}" alt=""/></td>
-        <td>{{value.goodsName}}</td>
-        <td>{{value.goodsTypeId}}</td>
-        <td>{{value.weight}}</td>
-        <td>{{value.goodsPrice}}</td>
-        <td>{{value.inventory}}</td>
-        <td>{{value.salesVolume}}</td>
-        <td>{{value.hotGoods}}</td>
-        <td>{{value.isShelves}}</td>
-        <td>
-            <a href="javascript:;" class="layui-btn layui-btn-mini">编辑</a>
-            <a href="javascript:;" class="layui-btn layui-btn-danger layui-btn-mini">删除</a>
-        </td>
-    </tr>
-    {{/each}}
-</script>
 	<script src="../lib/jquery/jquery.js"></script>
 	<script src="../lib/layui/layui.js"></script>
 	<script src="../lib/bootstrap/js/bootstrap.js"></script>

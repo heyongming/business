@@ -1,6 +1,13 @@
-$(function() {
-	show(); /*初始化*/
-	addData(); /*添加*/
+layui.use([ 'form', 'layer','laydate'], function() {
+    var form = layui.form
+        ,$ = layui.jquery
+        ,layer = layui.layer
+        ,laydate = layui.laydate;
+    $(function(){
+        form.render();
+        show();  //展示数据
+        addData(); /*添加*/
+    })
 	function show() {
 		$.ajax({
 			url : '/business/salesman/getUserAll',
@@ -8,7 +15,6 @@ $(function() {
 			dataType : 'json',
 			success : function(data) {
 				// 渲染数据列表
-
 				renderData(data);
 			}
 		});
@@ -16,13 +22,15 @@ $(function() {
 	/*点击添加，提交*/
 	function addData() {
 		$("#add").click(function() {
-			$("#j_mask").css("display", "block");
-			$("#j_formAdd").css("display", "block");
-			//关闭
-			$("#j_hideFormAdd").click(function() {
-				$("#j_mask").css("display", "none");
-				$("#j_formAdd").css("display", "none");
-			});
+			layer.open({
+                type: 1,
+                title: ['添加权限', 'font-size:18px'],
+                area: ['1000px', '700px'],
+                content: $("#j_formAdd"),
+                end: function () {
+                    $("#j_formAdd").hide()
+                }
+            })
 			// 给表单提交按钮绑定事件
 			$("#submit").unbind('click').click(function() {
 				// 获取所有的表单数据
@@ -40,9 +48,11 @@ $(function() {
 					dataType : 'json',
 					success : function(data) {
 						// 渲染数据列表
+						$('#content').html("");
+						
+                        layer.msg('添加成功');
 						show();
-						$("#j_mask").css("display", "none");
-						$("#j_formAdd").css("display", "none");
+						layer.closeAll('page');
 					}
 				});
 				return false;
@@ -76,31 +86,40 @@ $(function() {
 			var id = $(e).find('td:eq(0)').text();
 			// 给修改按钮绑定事件
 			td.find('a:eq(0)').click(function() {
-				//先弹出
-				$("#j_mask").css("display", "block");
-				$("#j_formAdd").css("display", "block");
-				//关闭
-				$("#j_hideFormAdd").click(function() {
-					$("#j_mask").css("display", "none");
-					$("#j_formAdd").css("display", "none");
-				});
+				layer.open({
+	                type: 1,
+	                title: ['添加权限', 'font-size:18px'],
+	                area: ['1000px', '700px'],
+	                content: $("#j_formAdd"),
+	                end: function () {
+	                    $("#j_formAdd").hide()
+	                }
+	            })
 				updateData(id);
 			});
 			// 给删除按钮绑定事件
 			td.find('a:eq(1)').click(function() {
-				$(this).parent().parent().remove();
-				$.ajax({
-					url : '/business/salesman/delUser',
-					type : 'post',
-					data : {
-						"userId" : id
-					},
-					dataType : 'json',
-					success : function(data) {
-						// 删除后渲染数据列表
-						show();
-					}
-				});
+				layer.confirm('确定删除此条数据吗？', {
+                    btn: ['确定', '取消'] //按钮
+                }, function () {
+                	$.ajax({
+    					url : '/business/salesman/delUser',
+    					type : 'post',
+    					data : {
+    						"userId" : id
+    					},
+						dataType : 'json',
+						success : function(data) {
+							// 删除后渲染数据列表
+							if (data.success == "true") {
+								layer.msg('删除成功');
+								show();
+							} else {
+								layer.msg(data.errMsg);
+							}
+						}
+					});
+                })
 			});
 		});
 	}
@@ -115,7 +134,6 @@ $(function() {
 			dataType : 'json',
 			success : function(data) {
 				/*显示旧信息*/
-
 				$("#userName").val(data.userName);
 				$("#passWord").val(data.passWord);
 				$("#quanXian").val(data.type);
@@ -125,7 +143,6 @@ $(function() {
 					// 获取更新后的表单数据
 					var formData = new FormData();
 					formData.append("userId", id);
-					
 					formData.append("userName", $("#userName").val());
 					formData.append("passWord", $("#passWord").val());
 					formData.append("type", $("select[name='quanXian']").val());
@@ -138,12 +155,11 @@ $(function() {
 						processData : false,
 						contentType : false,
 						success : function(data) {
-							console.log("修改成功!");
-							// 渲染数据列表
 							$('#content').html("");
+							//修改成功
+	                        layer.msg('修改成功');
 							show();
-							$("#j_mask").css("display", "none");
-							$("#j_formAdd").css("display", "none");
+							layer.closeAll('page');
 						}
 					});
 					return false;
@@ -151,4 +167,5 @@ $(function() {
 			}
 		});
 	}
+	
 })

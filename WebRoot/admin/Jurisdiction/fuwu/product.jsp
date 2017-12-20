@@ -31,7 +31,7 @@ textarea {
 	height: 100%;
 	line-height: 100%;
 	text-align: center;
-	position: absolute;
+	position: fixed;
 	z-index: 9999;
 	background: rgba(233, 233, 233, 0.6);
 	display: none;

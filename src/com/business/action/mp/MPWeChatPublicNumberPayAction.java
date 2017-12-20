@@ -29,7 +29,9 @@ import com.cache.OrderCache;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
-
+/*
+ * 微信支付
+ */
 public class MPWeChatPublicNumberPayAction extends ActionSupport implements ModelDriven<PayEntitys> {
 	/**
 	 * 

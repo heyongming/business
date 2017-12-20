@@ -30,8 +30,7 @@
 		</action>
 		<action name="addGoods" class="com.business.action.goods.GoodsAddAction">
 
-			<param name="savePath">D:/upload/goods/</param>
-			<param name="fictitiousPath">/business/upload/goods/</param>
+		
 
 
 			<interceptor-ref name="fileUpload">
@@ -68,8 +67,7 @@
 		</action>
 		<action name="updateGoodsImage" class="com.business.action.goods.GoodsUpdateAction"
 			method="updateGoodsImage">
-			<param name="savePath">D:/upload/goods/</param>
-			<param name="fictitiousPath">/business/upload/goods/</param>
+			
 			<interceptor-ref name="fileUpload">
 				<!-- 文件过滤 -->
 				<param name="allowedTypes">image/bmp,image/png,image/gif,image/jpeg</param>

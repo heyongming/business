@@ -132,13 +132,9 @@
 	</div>
 
 	<script src="../lib/layui/layui.js"></script>
-	<!--引入颜色选择器-->
 	<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
-	<script type="text/javascript" src="../lib/jqueryColour/spectrum.js"></script>
-	<script type='text/javascript' src='../lib/jqueryColour/docs/docs.js'></script>
 	<script>
 		var str = "${requestScope.user.answer}";
-		str = "1=D,2=C,3=A,4=C,5=B,6=D,7=D,8=A E ,9=E,10=C,11=A E ,12=A,13=D,14=D,15=D,16=E,17=D,18=D,19=E,20=C";
 		var regex = str.split(",");
 	
 		var log1 = regex[0];

@@ -28,7 +28,10 @@ import com.business.util.CheckErrorQiantaiUtill;
 import com.business.util.HtmlToPdf;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
-
+/*
+ * 交易协议Action
+ * 
+ */
 public class OrderRiskAction extends ActionSupport {
 
 	/**
@@ -172,12 +175,13 @@ public class OrderRiskAction extends ActionSupport {
 				toJsonSteam(json);
 				return this.SUCCESS;
 			}
+			//OrderForm为-1代表交易结束 2 代表刚刚开单 3表示刚刚签完协议（现在已经废弃）
 			orderService.saveOrderFromrOderStatus(orderForm, -1);
 
 			orderForm.setOrderStatus(-1);
 
 			session.put("buyOrderResult", orderForm);
-			System.out.println("进来了");
+			//保存PDF 并且生成PDF
 			String json = serviceTimeService.savePdf(userEntitys, orderForm, buyGoodsList, null);
 			toJsonSteam(json);
 
@@ -187,7 +191,7 @@ public class OrderRiskAction extends ActionSupport {
 		}
 		return super.execute();
 	}
-
+	//同上
 	public String topdfFx() throws Exception {
 
 		ActionContext actionContext = ActionContext.getContext();
@@ -211,18 +215,14 @@ public class OrderRiskAction extends ActionSupport {
 
 		return this.SUCCESS;
 	}
-
+	//pdf回调
 	public String toPdfData() throws Exception {
 
 		ActionContext actionContext = ActionContext.getContext();
 		Map session = actionContext.getSession();
 		User user = userService.findByUser(userId);
 		String goodsListStr = GoodsOperationService.queryGoodsListById(goodsId);
-		System.out.println(goodsListStr);
 		GoodsList goodsList = JSONObject.parseObject(goodsListStr, GoodsList.class);
-		System.out.println("!!" + "userId" + userId + "goodsId" + goodsId + "orderNum" + oderId);
-		System.out.println("chengong" + user);
-		System.out.println("chengong" + goodsList);
 		OrderForm tempForm = new OrderForm();
 		tempForm.setOrderSerialNumber(oderId);
 		String orderFormstr = orderService.findDataBywhere(tempForm);
@@ -235,7 +235,7 @@ public class OrderRiskAction extends ActionSupport {
 
 		return this.SUCCESS;
 	}
-
+	//pdf回调
 	public String toFxPdf() throws Exception {
 		ActionContext actionContext = ActionContext.getContext();
 		Map session = actionContext.getSession();
@@ -257,12 +257,9 @@ public class OrderRiskAction extends ActionSupport {
 		User userEntitys = (User) session.get("buyuser");// 购买者
 		OrderForm orderForm = (OrderForm) session.get("buyOrderResult");
 		ServiceTime serviceTime = serviceTimeService.findServiceTimeEntity(userEntitys, buyGoodsList);
-		System.out.println(serviceTime + "????");
 		String path = serviceTime.getRealAgreement();
 		fileName = orderForm.getOrderSerialNumber() + ".pdf";
-		System.out.println("到了" + path);
 		InputStream is = new FileInputStream(new File(path));
-		System.out.println(is + "应该不为空");
 		return is;
 	}
 

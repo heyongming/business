@@ -31,7 +31,7 @@
             height: 100%;
             line-height: 100%;
             text-align: center;
-            position: absolute;
+            position: fixed;
             z-index: 9999;
             background: rgba(233, 233, 233, 0.6);
             display: none;
@@ -51,23 +51,24 @@
         </a>
     </blockquote>
     <!-- 弹窗 -->
-    <div id="j_mask" class="mask"></div>
     <div id="j_formAdd" class="form-add">
         <form class="layui-form" enctype="multipart/form-data" action="/">
-            <div class="form-add-title">
-                <span>线下购买信息录入</span>
-                <div id="j_hideFormAdd">x</div>
-            </div>
-            <ul>
-                <li>推荐码：<input type="text" name="referralCode" id="referralCode"/></li>
-                <li>
-                    <label>购买的产品：</label>
-                    <select name="product" id="product">
+        	<div class="layui-form-item">
+				<label class="layui-form-label">推荐码：</label>
+				<div class="layui-input-block">
+					<input type="text" id="referralCode" name="referralCode"
+						autocomplete="off" required  lay-verify="required" class="layui-input">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">购买的产品：</label>
+				<select name="product" id="product">
                     
-                    </select>
-                </li>
-                <li>购买数量：
-                    <select name="number" id="number">
+                </select>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">购买数量：</label>
+				<select name="number" id="number">
                         <option value="1" selected="">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -81,14 +82,25 @@
                         <option value="11">11</option>
                         <option value="12">12</option>
                     </select>
-                </li>
-                <li>支付金额：<input type="text" name="money" id="money"/></li>
-            </ul>
-            <div class="submit"><input type="button" id="btn" class="btnbox" value="立即提交"></div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">支付金额：</label>
+				<div class="layui-input-block">
+					<input type="text" id="money" name="money"
+						autocomplete="off" required  lay-verify="required|number" class="layui-input">
+				</div>
+			</div>
+			<div class="layui-form-item">
+					<div class="layui-input-block">
+						     <button class="layui-btn" lay-submit lay-filter="btn">立即提交</button>
+						<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+					</div>
+				</div>
+           
         </form>
     </div>
     <fieldset class="layui-elem-field">
-        <legend>数据列表</legend>
+        <legend>线下购买数据列表</legend>
         <div class="layui-field-box layui-form">
             <table class="layui-table admin-table">
                 <thead>

@@ -9,7 +9,7 @@
 <head>
     <base href="<%=basePath%>">
     <meta charset="utf-8">
-    <title>自动回复</title>
+    <title>固定回答</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -31,7 +31,7 @@
             height: 100%;
             line-height: 100%;
             text-align: center;
-            position: absolute;
+            position: fixed;
             z-index: 9999;
             background: rgba(233, 233, 233, 0.6);
             display: none;
@@ -109,14 +109,7 @@
 <script type="text/javascript" src="../lib/uditor/ueditor.all.js"></script>
 <script type="text/javascript" src="../lib/uditor/ueditor.parse.js"></script>
 <script type="text/javascript" src="js/guding.js"></script>
-<script>
-    layui.use(['jquery','form'], function() {
-        var form = layui.form,
-                $=layui.jquery;
 
-
-    });
-</script>
 </body>
 
 </html>

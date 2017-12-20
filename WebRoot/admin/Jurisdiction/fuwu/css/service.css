@@ -1,0 +1,37 @@
+
+.form-add {
+    display: none;
+}
+.layui-form{
+	margin-top: 20px;
+}
+
+.layui-form-item >.layui-form-label{
+    padding: 12px 0;
+    width: 100px;
+}
+.layui-form select {
+    display: block;
+    margin-left: 10px;
+}
+.form-item{
+    line-height: 40px;
+}
+.layui-form-item {
+    margin-right: 15px;
+}
+.form-item input{
+    border-radius: 4px;
+    width: 262px;
+    height: 32px;
+    border: 1px solid #909090;
+}
+.form-submit {
+    text-align: center;
+}
+
+.form-submit input {
+    width: 170px;
+    height: 32px;
+    margin-bottom: 100px;
+}

@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>添加用户</title>
+<title>商品升级管理</title>
 <base href="<%=basePath%>">
 <meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">

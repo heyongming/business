@@ -1,0 +1,123 @@
+.content {
+  /*header begin*/
+  /*header end*/
+  /*operateMes begin*/
+  /*operateMes end*/
+  /*information begin*/
+  /*information end*/
+  /*footer begin*/
+  /*footer end*/
+}
+.content .header {
+  padding: 0.3rem;
+}
+.content .header .market {
+  width: 1.97rem;
+  margin: 0.25rem auto;
+}
+.content .header .market img {
+  width: 100%;
+}
+.content .header .message {
+  font-size: 0.3rem;
+  line-height: 0.43rem;
+}
+.content .header .message p {
+  margin: 0.25rem 0;
+  text-indent: 2em;
+}
+.content .header .message img {
+  width: 100% !important;
+}
+.content .operateMes {
+  padding: 0.3rem;
+  font-size: 0.24rem;
+  color: #cf5963;
+}
+.content .operateMes .operate {
+  width: 1.97rem;
+  margin: 0.25rem auto;
+}
+.content .operateMes .operate img {
+  width: 100%;
+}
+.content .operateMes .messageTop {
+  overflow: hidden;
+}
+.content .operateMes .messageTop div {
+  float: left;
+  margin: 0.3rem 0.84rem;
+  text-align: center;
+}
+.content .operateMes .messageTop div span {
+  font-size: 0.32rem;
+  color: #ff2033;
+  margin: 0.3rem 0;
+  display: block;
+}
+.content .operateMes .messageMid {
+  overflow: hidden;
+}
+.content .operateMes .messageMid div {
+  float: left;
+  margin: 0.3rem 0.26rem;
+  text-align: center;
+}
+.content .operateMes .messageMid div span {
+  font-size: 0.32rem;
+  color: #ff2033;
+  margin: 0.3rem 0;
+  display: block;
+}
+.content .information .bgImg {
+  width: 100%;
+}
+.content .information .bgImg img {
+  width: 100%;
+}
+.content .information .message {
+  margin: 0 0.3rem;
+  background-color: #d7574b;
+  margin-top: -1.34rem;
+}
+.content .information .message table tr th {
+  font-size: 0.24rem;
+  color: #ecc36a;
+  font-weight: 400;
+  padding: 0.2rem 0.11rem;
+  text-align: center;
+}
+.content .information .message table tr td {
+  font-size: 0.22rem;
+  color: #fff;
+  text-align: center;
+  padding: 0.2rem 0;
+}
+.content .information .message .title {
+  color: #ffda8a;
+  font-size: 0.32rem;
+  text-align: center;
+  margin: 0.3rem 0 0.64rem;
+}
+.content .information .message .tableFoot {
+  border-top: 1px solid #bc3c30;
+}
+.content .information .message .tableFoot tr th {
+  padding: 0.4rem 0.42rem 0.2rem;
+}
+.content .information .message ul li {
+  width: 100%;
+  border-bottom: 0.22rem solid #d7574b;
+}
+.content .information .message ul li img {
+  width: 100%;
+}
+.content .footer {
+  padding: 0.42rem 0.3rem;
+  font-size: 0.2rem;
+  line-height: 0.4rem;
+  color: #909090;
+}
+.content .footer .title {
+  color: #d6574b;
+}

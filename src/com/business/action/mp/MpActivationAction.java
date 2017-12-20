@@ -17,7 +17,7 @@ import com.opensymphony.xwork2.ActionSupport;
 public class MpActivationAction extends ActionSupport {
 
 	/**
-	 * 
+	 * MpActivationAction 激活接口已遗弃
 	 */
 	private static final long serialVersionUID = -530243844438335944L;
 	@Resource
@@ -66,7 +66,6 @@ public class MpActivationAction extends ActionSupport {
 		Map session = actionContext.getSession();
 
 		MpUserEntity mpUserEntity = (MpUserEntity) session.get("mpUser");
-     	mpUserEntity=new MpUserEntity("oEMmVuOtjSjRmjL6E1Szv6lKrvUY", "月光的指引", "0", "", "", "", "http://wx.qlogo.cn/mmopen/vi_32/31QVdlsGfaAIEBVQgFibkqG2N1zuUJCCe8a9det1D84JxAQ9REB2ZQuQrQCytY0TSgtficrgcPmyhVvu5wY0dJUA/0", "[]", "");
 		if (mpUserEntity == null) {
 			ResultMessage message = new ResultMessage("-4", "false", "您没有权限");
 			String json = JSONObject.toJSONString(message);

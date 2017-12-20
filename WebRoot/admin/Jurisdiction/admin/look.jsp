@@ -9,7 +9,7 @@
 <head>
     <meta charset="utf-8">
     <base href="<%=basePath%>">
-    <title>添加用户</title>
+    <title>查看商品关系</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -74,7 +74,6 @@
 
 </div>
 <script src="../lib/layui/layui.js"></script>
-<!--引入颜色选择器-->
 <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
 
 <script type="text/javascript" src="js/look.js"></script>

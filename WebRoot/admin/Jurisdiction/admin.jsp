@@ -94,7 +94,7 @@
 							</dd>
 							<dd>
 								<a href="javascript:;" kit-target
-									data-options="{url:'admin/service.jsp',icon:'&#xe621;',title:'服务权限',id:'10'}">
+									data-options="{url:'fuwu/service.jsp',icon:'&#xe621;',title:'服务权限',id:'10'}">
 									<span>服务权限</span>
 								</a>
 							</dd>

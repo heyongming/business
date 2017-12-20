@@ -23,7 +23,7 @@ import com.opensymphony.xwork2.ModelDriven;
 public class MpCheckServiceArticleAction extends ActionSupport implements ModelDriven<ServiceArticle> {
 
 	/**
-	 * 
+	 * 微信文章详情页处理Action
 	 */
 	@Resource
 	private IUserService userService;
@@ -88,10 +88,10 @@ public class MpCheckServiceArticleAction extends ActionSupport implements ModelD
 		ActionContext actionContext = ActionContext.getContext();
 		Map session = actionContext.getSession();
 		session.put("loginUser", user);
-		request.setAttribute("loginServiceArticle", findserviceArticle);
-		request.setAttribute("loginServiceArticleDetails", det);
+		request.setAttribute("loginServiceArticle", findserviceArticle); //文章
+		request.setAttribute("loginServiceArticleDetails", det); //评论
 		int index = serviceArticleService.isDoThumbsUp(user, findserviceArticle);
-		request.setAttribute("isDoThumbsUp", index);
+		request.setAttribute("isDoThumbsUp", index); //点赞数
 		return this.SUCCESS;
 	}
 

@@ -21,22 +21,33 @@ import com.business.entitys.autoReply.AutoReply;
 import com.business.entitys.autoReply.MessageManagement;
 import com.business.entitys.user.User;
 import com.business.service.ICustomerService;
+import com.business.util.PacthUtill;
 import com.business.util.RandomUtill;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
+/**
+ * 留言板的Action
+ * 
+ * @ActionSupport 为struts2的提供的上下文的一个类
+ * @ModelDriven 该方法返回一个用于接收用户输入数据的模型对象。
+ */
 public class MessageManagementAction extends ActionSupport implements ModelDriven<MessageManagement> {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 5153326258682581235L;
 
-	// 文件相关描述
+	// 上传的文件
 	private File file;
+	// 上传的文件 的文件名
 	private String fileFileName;
+	// 上传文件的类型
 	private String fileContentType;
+	// 保存本地的路径 在项目的路径下面的/configs/pacth.properties里面配置
 	private String savePath;
+	// web访问的路径 在项目的路径下面的/configs/pacth.properties里面配置
 	private String fictitiousPath;
 
 	public File getFile() {
@@ -87,7 +98,11 @@ public class MessageManagementAction extends ActionSupport implements ModelDrive
 		this.messageManagement = messageManagement;
 	}
 
+	// 留言板对应的实体类
 	private MessageManagement messageManagement;
+	/*
+	 * 注入对应的Service层
+	 */
 	@Resource
 	private ICustomerService customerService;
 
@@ -107,45 +122,84 @@ public class MessageManagementAction extends ActionSupport implements ModelDrive
 		this.bis = bis;
 	}
 
+	/*
+	 * AJAX处理完毕返回的流
+	 */
 	private InputStream bis;
 
+	/*
+	 * 默认的处理的方法 执行添加操作 入口与struts_Customer.xml配置文件对应
+	 * 
+	 * @see com.opensymphony.xwork2.ActionSupport#execute()
+	 */
+	@Override
+	public MessageManagement getModel() {
+		// TODO Auto-generated method stub
+		messageManagement = new MessageManagement();
+		return messageManagement;
+	}
+
+	/*
+	 * 默认的处理的方法 执行添加操作 入口与struts_Customer.xml配置文件对应
+	 * 
+	 * @see com.opensymphony.xwork2.ActionSupport#execute()
+	 */
 	@Override
 	public String execute() throws Exception {
 		// TODO Auto-generated method stub
+		// 从配置文件获得用户上传文件的根保存路径
+		savePath = PacthUtill.getPacthVal("MessageManagementPath");
+		// 从配置中获得web根访问路径
+		fictitiousPath = PacthUtill.getPacthVal("MessageManagementFictitiousPath");
+		// 获得struts2的上下文
 		ActionContext actionContext = ActionContext.getContext();
+		// 获得session
 		Map session = actionContext.getSession();
+		// 获得request
 		HttpServletRequest request = ServletActionContext.getRequest();
+		// 从session中拿取用户
 		User user = (User) session.get("loginUser");
-
+		// 拿取用户的IP
 		String ip = getIpAddr(request);
-		System.out.println(ip);
+
 		messageManagement.setIp(ip);
 		if (user != null) {
+			// 把登录后的用户做记录
 			messageManagement.setUserId(user.getUserId());
 		}
 		if (file != null) {
+			// 生成随机数
 			String random = RandomUtill.randomUtil();
+			// 生成web访问的全路径
 			fictitiousPath = fictitiousPath + messageManagement.getMessageContent() + random;
+			// 生成文件夹保存的全路径
 			savePath = savePath + messageManagement.getMessageContent() + random;
 			String tempPath = "";
+			// 判断文件夹是否存在
 			while (!(createDir(savePath))) {
-
+				// 存在则继续生成，直到生成为止
 				random = RandomUtill.randomUtil();
 				fictitiousPath = fictitiousPath + messageManagement.getMessageContent() + random;
 				savePath = savePath + messageManagement.getMessageContent() + random;
 			}
+			// 输入流
 			InputStream is = new FileInputStream(file);
+			// 输出流
 			OutputStream os = new FileOutputStream(new File(savePath, fileFileName));
 			byte[] buffer = new byte[500];
+			// 保存文件
 			while (-1 != (is.read(buffer, 0, buffer.length))) {
 
 				os.write(buffer);
 			}
 			os.close();
 			is.close();
+			// 生成web访问的全路径
 			tempPath = tempPath + fictitiousPath + "/" + fileFileName;
+			// 保存全路径
 			messageManagement.setMessageImage(tempPath);
 		}
+		// 调用Servicec层代码
 		int flog = customerService.saveMessageManagement(messageManagement);
 		ResultMessage resultMessage = null;
 		if (flog > 0) {
@@ -153,12 +207,17 @@ public class MessageManagementAction extends ActionSupport implements ModelDrive
 		} else {
 			resultMessage = new ResultMessage("-1", "false", "插入失败");
 		}
+		// 把对应的JAVA实体类 转换成json格式最后转成流传给前端
 		toJsonSteam(JSONObject.toJSONString(resultMessage));
+		// 执行完毕
 		return this.SUCCESS;
 	}
 
+	/*
+	 * 执行查找的操作 获得MessageManagement类的相应类型数据 入口与struts_Customer.xml配置文件对应
+	 */
 	public String findAutoReplyByTypeName() {
-
+		// 执行查询
 		List<MessageManagement> list = customerService
 				.findMessageManagementByTypeData(messageManagement.getMessageType());
 
@@ -167,15 +226,21 @@ public class MessageManagementAction extends ActionSupport implements ModelDrive
 		} else {
 			toJsonSteam(JSONObject.toJSONString(list));
 		}
+		// 执行完毕
 		return this.SUCCESS;
 	}
 
+	/*
+	 * 执行查找的操作 获得MessageManagement类的全量数据 入口与struts_Customer.xml配置文件对应
+	 */
 	public String getFullAutoData() {
 		List<MessageManagement> list = customerService.findMessageManagementFullDate();
 		toJsonSteam(JSONObject.toJSONString(list));
 		return this.SUCCESS;
 	}
-
+	/*
+	 * 执行查找的操作 获得ListUserQuery类根据Id查   入口与struts_Customer.xml配置文件对应
+	 */
 	public String getFullMsgDataById() {
 		MessageManagement messageManage = customerService.findMessageManagementById(messageManagement.getMmId());
 		if (messageManage == null) {
@@ -208,7 +273,7 @@ public class MessageManagementAction extends ActionSupport implements ModelDrive
 		 */
 		return this.SUCCESS;
 	}
-
+	// 把JSON字符串转换成流
 	private void toJsonSteam(String text) {
 		try {
 			bis = new ByteArrayInputStream(text.getBytes("utf-8"));
@@ -231,7 +296,6 @@ public class MessageManagementAction extends ActionSupport implements ModelDrive
 		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
 			ip = request.getRemoteAddr();
 		}
-		// System.out.println(ip);
 		int indexOf = ip.indexOf(",");
 		if (indexOf > 0) {
 			return ip.substring(0, indexOf);
@@ -239,28 +303,18 @@ public class MessageManagementAction extends ActionSupport implements ModelDrive
 		return ip;
 
 	}
-
-	@Override
-	public MessageManagement getModel() {
-		// TODO Auto-generated method stub
-		messageManagement = new MessageManagement();
-		return messageManagement;
-	}
-
+	//根据传入的字符串创建文件夹
 	private boolean createDir(String destDirName) {
 		File dir = new File(destDirName);
 		if (dir.exists()) {// 判断目录是否存在
-			System.out.println("创建目录失败，目标目录已存在！");
 			return false;
 		}
 		if (!destDirName.endsWith(File.separator)) {// 结尾是否以"/"结束
 			destDirName = destDirName + File.separator;
 		}
 		if (dir.mkdirs()) {// 创建目标目录
-			System.out.println("创建目录成功！" + destDirName);
 			return true;
 		} else {
-			System.out.println("创建目录失败！");
 			return false;
 		}
 

@@ -12,7 +12,9 @@ import com.business.entitys.service.ServiceTime;
 import com.business.service.IServiceTimeService;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
-
+/*
+ * 服务期限查询Action
+ */
 public class ServiceTimeQueryAction extends ActionSupport implements ModelDriven<ServiceTime> {
 	/**
 	 * 

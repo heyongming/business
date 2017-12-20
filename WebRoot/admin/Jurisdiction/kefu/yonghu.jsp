@@ -49,13 +49,9 @@
 
     </blockquote>
     <!-- 弹窗 -->
-    <div id="j_mask" class="mask"></div>
     <div id="j_formAdd" class="form-add">
         <form class="layui-form" id="formId" enctype="multipart/form-data">
-            <div class="form-add-title">
-                <span>客户提问</span>
-                <div id="j_hideFormAdd">x</div>
-            </div>
+     
                 <ul id="liuyanUl">
 
                 </ul>
@@ -84,12 +80,6 @@
 <script src="../lib/jquery/jquery.js"></script>
 <script src="../lib/layui/layui.js"></script>
 <script type="text/javascript" src="js/yonghu.js"></script>
-<script>
-    layui.use(['jquery','form'], function() {
-        var form = layui.form,
-                $=layui.jquery;
-    });
-</script>
 </body>
 
 </html>

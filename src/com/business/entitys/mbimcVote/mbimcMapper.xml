@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "mybatis-3-mapper.dtd">
+<mapper namespace="mbimcVote">
+	<sql id="base_column">
+		mvId,title,marketAnalysis,
+		initialFunds,capitalBalance ,
+		totalAssets,totalMarketValue,totalProfitAndLoss,
+		assetChart,netValueTrendChart,mvTime
+	</sql>
+	<sql id="base_mvas_column">
+		msId,msCode,msName,
+		msPosition,msProportion,msCostPrice,
+		msLatestPrice,msMarketValue,msProfitAndRatio,
+		mvId,msTime
+	</sql>
+	<sql id="base_mvasy_column">
+		mvsId,mvsDate,mvsName,
+		mvsCode,mvsBuyIn,mvsSellOut,
+		mvsPrice,mvsNumber,mvId,
+		mvsTime
+	</sql>
+	<insert id="insertMbimcVote" parameterType="mbimcVote"
+		keyProperty="mvId" useGeneratedKeys="true">
+		insert into
+		`mbimcVote`
+		(
+		`title`,`marketAnalysis`,`initialFunds`,
+		`capitalBalance`,`totalAssets`,`totalMarketValue`,
+		`totalProfitAndLoss`,`assetChart`,`netValueTrendChart`
+		)
+		values(
+		#{title},#{marketAnalysis},#{initialFunds},
+		#{capitalBalance},#{totalAssets},#{totalMarketValue},
+		#{totalProfitAndLoss},#{assetChart},#{netValueTrendChart}
+		)
+
+	</insert>
+	<insert id="insertMbimcVoteAndSituation" parameterType="mbimcVoteAndSituation">
+		insert
+		into `mbimcVoteAndSituation`
+		(`msCode`,`msName`,`msPosition`,
+		`msProportion`,`msCostPrice`,`msLatestPrice`,
+		`msMarketValue`,`msProfitAndRatio`,`mvId`
+		)
+		values
+		(
+		#{msCode},#{msName},#{msPosition},
+		#{msProportion},#{msCostPrice},#{msLatestPrice},
+		#{msMarketValue},#{msProfitAndRatio},#{mvId}
+		)
+	</insert>
+	<insert id="insertMbimcVoteAndStrategy" parameterType="mbimcVoteAndStrategy">
+		insert
+		into `mbimcVoteAndStrategy`
+		(
+		`mvsDate`,`mvsName`,`mvsCode`,
+		`mvsBuyIn`,`mvsSellOut`,`mvsPrice`,
+		`mvsNumber`,`mvId`
+		)
+		values(
+		#{mvsDate},#{mvsName},#{mvsCode},
+		#{mvsBuyIn},#{mvsSellOut},#{mvsPrice},
+		#{mvsNumber},#{mvId}
+		)
+	</insert>
+	<update id="updateMbimcVote" parameterType="mbimcVote">
+		update `mbimcVote`
+		set
+		`title`=#{title},
+		`marketAnalysis`=#{marketAnalysis},
+		`initialFunds`=#{initialFunds},
+		`capitalBalance`=#{capitalBalance},
+		`totalAssets`=#{totalAssets},
+		`totalMarketValue`=#{totalMarketValue},
+		`totalProfitAndLoss`=#{totalProfitAndLoss},
+		`assetChart`=#{assetChart},
+		`netValueTrendChart`=#{netValueTrendChart}
+		where mvId=#{mvId}
+	</update>
+	<delete id="delMbimcVote" parameterType="int">
+		delete from `mbimcVote`
+		where `mvId`=#{int}
+	</delete>
+	<delete id="delMbimcVoteAndStrategy" parameterType="map">
+		delete from
+		`mbimcVoteAndStrategy`
+		where 1=1
+		<if test="mvId!=null">
+			and `mvId`=#{mvId}
+		</if>
+		<if test="mvsId!=null">
+			`mvsId`=#{mvsId}
+		</if>
+	</delete>
+	<delete id="delMbimcVoteAndSituation" parameterType="map">
+		delete from `mbimcVoteAndSituation`
+		where 1=1
+		<if test="mvId!=null">
+			and `mvId`=#{mvId}
+		</if>
+		<if test="msId!=null">
+			`msId`=#{msId}
+		</if>
+
+	</delete>
+	<select id="selectMbimcVoteBywhere" parameterType="map"
+		resultType="mbimcVote">
+		select
+		<include refid="base_column" />
+		from `mbimcVote`
+		where 1=1
+		<if test="findKey!=null">
+		and	mvId=#{mvId}
+		</if>
+	</select>
+	<select id="selectMbimcVoteAndSituationBywhere" parameterType="map"
+		resultType="mbimcVoteAndSituation">
+		select
+		<include refid="base_mvas_column" />
+		from `mbimcVoteAndSituation`
+		where 1=1
+		<if test="findKey!=null">
+			and msId=#{msId}
+		</if>
+
+
+	</select>
+	<select id="selectMbimcVoteAndStrategyBywhere" parameterType="map"
+		resultType="mbimcVoteAndStrategy">
+		select
+		<include refid="base_mvasy_column" />
+		from `mbimcVoteAndStrategy`
+		where 1=1
+		<if test="findKey!=nyll">
+		and	mvsId=#{mvsId}
+		</if>
+
+	</select>
+</mapper>

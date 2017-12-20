@@ -105,6 +105,7 @@ public class ServiceArticleServiceImpl implements IServiceArticleService {
 				}
 
 			}
+			//推送红点！相关API查看微信接口
 			SenMsgThread senMsgThread = new SenMsgThread(0, new Template(),
 					"upDR8Yi1RkjSwiyQ51WZf1t6XxLjUGOFlPhqQrM8OGY", flog, openIdList, serviceArticle, goodsList);
 			senMsgThread.start();

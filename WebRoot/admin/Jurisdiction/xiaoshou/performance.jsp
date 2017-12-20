@@ -19,9 +19,6 @@
     <link rel="stylesheet" href="css/yonghu4.css"/>
     <!--引入rem.js文件-->
     <script src="../lib/rem/rem.js"></script>
-    <!--引入less文件的js-->
-    <script src="../lib/less/less.js"></script>
-    <script src="../lib/less/less.min.js"></script>
 </head>
 <body>
 <div id="content">
@@ -93,9 +90,7 @@
     </form>
 </div>
 <script src="../lib/layui/layui.js"></script>
-<!--引入颜色选择器-->
 <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
-<script type="text/javascript" src="../lib/jqueryColour/spectrum.js"></script>
 <script type="text/javascript" src="js/yonghu4.js"></script>
 <!--预览图片-->
 <script>

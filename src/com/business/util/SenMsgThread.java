@@ -142,8 +142,9 @@ public class SenMsgThread extends Thread {
 	 * 发送文章
 	 */
 	private void sendServiceArticle() {
+		String domainName=PacthUtill.getPacthVal("domainName");
 		try {
-			String url = "http://18f42658v7.iok.la/business/mp/serviceArticleHd?serviceArticleNum=" + serviceId;
+			String url = "http://"+domainName+"/business/mp/serviceArticleHd?serviceArticleNum=" + serviceId;
 			url = MessAgeUtil.webLicensingnSapi_userinfo(url);
 			template.setResetUrl(url);
 			ResultMsg resultMsg = null;
@@ -165,8 +166,9 @@ public class SenMsgThread extends Thread {
 	 * 发送红点
 	 */
 	private void sendProductOperationReport() {
+		String domainName=PacthUtill.getPacthVal("domainName");
 		try {													
-			String url = "http://18f42658v7.iok.la/business/redDot/redCent?porId=" + productOperationReport.getPorId();
+			String url = "http://"+domainName+"/business/redDot/redCent?porId=" + productOperationReport.getPorId();
 			System.out.println(url);
 			url = MessAgeUtil.webLicensingnSapi_userinfo(url);
 			template.setResetUrl(url);

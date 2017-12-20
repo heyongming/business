@@ -15,7 +15,9 @@ import com.business.util.mp.CodeHelpEr;
 import com.business.util.mp.MessAgeUtil;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
-
+/*
+ * 微信授权拉取用户 action
+ */
 public class MpCodeAction extends ActionSupport {
 	@Resource
 	private IMpUserService mpUserService;
@@ -52,7 +54,7 @@ public class MpCodeAction extends ActionSupport {
 
 		MpCodeEntitys mpCodeEntitys = null;
 		Boolean isover = true;
-	
+		//在缓存中有code 就不去拉取 ，没有则去拉取
 		if (CodeHelpEr.map.get(code) != null) {
 			isover = false;
 			mpCodeEntitys=(MpCodeEntitys) CodeHelpEr.map.get(code);
@@ -65,7 +67,6 @@ public class MpCodeAction extends ActionSupport {
 		
 
 		MpUserEntity entity = mpUserService.findUserInfo(mpCodeEntitys.getOpenid());
-	//	System.out.println(isover + "判断！！" + code);
 		if (entity == null && isover) {
 
 			entity = MessAgeUtil.getMpUserEntity(mpCodeEntitys.getAccess_token(), mpCodeEntitys.getOpenid());

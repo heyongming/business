@@ -30,7 +30,9 @@ import com.cache.OrderCache;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
-
+/*
+ * 交易购买Action 微信回调的接口，详情参考微信的下单接口
+ */
 public class OrderBuyAction extends ActionSupport implements ModelDriven<PayResult> {
 	/**
 	 * 
@@ -116,7 +118,6 @@ public class OrderBuyAction extends ActionSupport implements ModelDriven<PayResu
 		OrderCache.orderFromMap.remove(key);
 		OrderCache.upGoodsList.remove(key);
 		String xml = MpPayUtill.MapToXml(objMap);
-		System.out.println(xml);
 		toJsonSteam(JSONObject.toJSONString(xml));
 
 		return this.SUCCESS;

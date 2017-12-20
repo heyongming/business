@@ -8,14 +8,23 @@ import javax.annotation.Resource;
 
 import com.business.service.IGoodsOperationService;
 import com.opensymphony.xwork2.ActionSupport;
-
+/**
+ * 商品刪除Action
+ * 
+ * @ActionSupport 为struts2的提供的上下文的一个类
+ * @ModelDriven 该方法返回一个用于接收用户输入数据的模型对象。
+ */
 public class GoodsDelAction extends ActionSupport {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -3841533684393147198L;
+	//注入service层
 	@Resource
 	private IGoodsOperationService GoodsOperationService;
+	/*
+	 * AJAX处理完毕返回的流
+	 */
 	private InputStream bis;
 
 	public InputStream getBis() {
@@ -43,7 +52,11 @@ public class GoodsDelAction extends ActionSupport {
 	public void setGoodsId(int goodsId) {
 		this.goodsId = goodsId;
 	}
-
+	/*
+	 * 执行删除操作
+	 * (non-Javadoc)
+	 * @see com.opensymphony.xwork2.ActionSupport#execute()
+	 */
 	@Override
 	public String execute() throws Exception {
 		// TODO Auto-generated method stub
@@ -51,7 +64,7 @@ public class GoodsDelAction extends ActionSupport {
 		toJsonSteam(json);
 		return super.execute();
 	}
-
+	// 把JSON字符串转换成流
 	private void toJsonSteam(String text) {
 		try {
 			bis = new ByteArrayInputStream(text.getBytes("GBK"));

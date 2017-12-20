@@ -85,9 +85,7 @@ public class OrderUserServiceAction extends ActionSupport implements ModelDriven
 		ActionContext actionContext = ActionContext.getContext();
 		Map session = actionContext.getSession();
 		MpUserEntity mpUser = (MpUserEntity) session.get("mpUser");
-		String sessionVcKey = (String) session.get("vc_key");
-		// System.out.println(sessionVcKey+"测试为"+user.getPassWord());
-		sessionVcKey = "111111";
+		String sessionVcKey = (String) session.get("vc_key"); //验证码
 		if (mpUser == null) {
 			ResultMessage resultMessage = new ResultMessage("-4", "false", "微信拉取错误");
 			String json = JSONObject.toJSONString(resultMessage);
@@ -115,7 +113,8 @@ public class OrderUserServiceAction extends ActionSupport implements ModelDriven
 		}
 		userEntitys.setOpenId(mpUser.getOpenid());
 		userService.updateUser(userEntitys);
-		if (checkIsOffLinePay(userEntitys)) {
+		//检查是否是线下支付
+		if (checkIsOffLinePay(userEntitys)) { 
 			ResultMessage resultMessage = new ResultMessage("101", "ok", "该用户为线下支付用户");
 			String json = JSONObject.toJSONString(resultMessage);
 			toJsonSteam(json);
@@ -127,14 +126,11 @@ public class OrderUserServiceAction extends ActionSupport implements ModelDriven
 
 		String resultMsg = orderService.CheckGoodListAndOrderFrom(goodsList, orderForm, userEntitys);
 		ResultMessage message = (ResultMessage) JSONObject.parseObject(resultMsg, ResultMessage.class);
-		System.out.println(message);
 		if (message.getSuccess().equals("false")) {
-			System.out.println("进来了");
 			toJsonSteam(resultMsg);
 			return Action.SUCCESS;
 		}
 		Map<String, Object> map = orderService.generateOrder(goodsList, orderForm, userEntitys);
-		System.out.println("生成的账单是" + map.get("buyOrder"));
 		session.put("buyOderForm", (OrderForm) map.get("buyOrder"));
 		session.put("upGoodsList", (GoodsList) map.get("upGoodsList"));
 		session.put("buyuser", userEntitys);
@@ -162,7 +158,6 @@ public class OrderUserServiceAction extends ActionSupport implements ModelDriven
 			ActionContext actionContext = ActionContext.getContext();
 			Map session = actionContext.getSession();
 			OrderActivationCode code = orderService.findActivaTionCode(orderForm.getOrderSerialNumber());
-			System.out.println(orderForm + "?????????");
 			GoodsList goodsList = JSONObject.parseObject(
 					goodsOperationService.queryGoodsListById(orderForm.getGoodsList().getGoodsId()), GoodsList.class);
 			if (user == null || goodsList == null || orderForm == null || code == null) {

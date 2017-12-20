@@ -13,7 +13,7 @@ import com.opensymphony.xwork2.ModelDriven;
 
 public class GoodsUpgradeAction extends ActionSupport implements ModelDriven<GoodsListUpgrade> {
 	/**
-	 * 
+	 * 已丢弃接口
 	 */
 	private static final long serialVersionUID = 6787537866640466536L;
 	private GoodsListUpgrade goodsListUpgrade;

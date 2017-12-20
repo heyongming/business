@@ -1,6 +1,14 @@
-$(function() {
-    show(); /*初始化*/
-    addData();  //添加
+layui.use([ 'form', 'layer','laydate'], function() {
+    var form = layui.form
+        ,$ = layui.jquery
+        ,layer = layui.layer
+        ,laydate = layui.laydate;
+    $(function(){
+        form.render();
+        show();  //展示数据
+        addData();  //添加数据
+    })
+    //展示数据
     function show() {
         $.ajax({
             url : "/business/order/getOffPayFullData",
@@ -15,13 +23,15 @@ $(function() {
     /*点击添加，提交*/
     function addData() {
         $("#add").click(function() {
-            $("#j_mask").css("display", "block");
-            $("#j_formAdd").css("display", "block");
-            //关闭
-            $("#j_hideFormAdd").click(function() {
-                $("#j_mask").css("display", "none");
-                $("#j_formAdd").css("display", "none");
-            });
+        	layer.open({
+                type: 1,
+                title: ['线下购买信息录入', 'font-size:18px'],
+                area: ['1000px', '700px'],
+                content: $("#j_formAdd"),
+                end: function () {
+                    $("#j_formAdd").hide()
+                }
+            })
             $.ajax({
                 url:"/business/goods/getAllData",
                 type:"post",
@@ -32,24 +42,11 @@ $(function() {
                     $.each(data, function(i, e) {
                         tag += '<option value="'+e.goodsId+'">'+e.goodsName+'</option>';
                     });
-                    $('#product').append(tag);
+                    $('#product').html(tag);
                     // 给表单提交按钮绑定事件
-                    $("#btn").unbind('click').click(function() {
+                    form.on('submit(btn)', function(data) {
                         var money = $("#money").val();
                         var referralCode = $("#referralCode").val();
-                        if(referralCode==""){
-                            alert("推荐码不能为空");
-                            return false;
-                        }
-                        if(money==""){
-                            alert("金额不能为空");
-                            return false;
-                        }
-                        var number = /^\d*$/;
-                        if(!number.test(money)){
-                            alert("金额只能为数字");
-                            return false;
-                        }
                         var formData = new FormData();
                         formData.append("rdCode", $("#referralCode").val());
                         formData.append("goodsId", $("select[name='product']").val());
@@ -63,14 +60,16 @@ $(function() {
                             contentType : false,
                             dataType : 'json',
                             success : function(data) {
-                                // 渲染数据列表
-                                $("#j_mask").css("display", "none");
-                                $("#j_formAdd").css("display", "none");
-                                if (data.success == "true") {
-                                    show();
-                                } else {
-                                    alert(data.errMsg)
-                                }
+                            	$('#content').html("");
+    							if (data.success == "true") {
+    								//修改成功
+    		                        layer.msg('修改成功');
+    								show();
+    								layer.closeAll('page');
+    							} else {
+    								//修改失败
+    		                        layer.msg(data.errMsg);
+    							}
                             }
                         });
                         return false;
@@ -99,30 +98,35 @@ $(function() {
                // '<td><a href="javascript:;" class="layui-btn layui-btn-danger layui-btn-mini">删除</a></td>'+
                 '</tr>';
         });
-        $('#content').append(tag);
-        // 给删除按钮绑定单击事件
+        $('#content').html(tag);
+        // 删除
         $('#content tr').each(function(i, e) {
             var td = $(e).find('td:last-of-type');
             var userId = $(e).find('td:eq(0)').text(); //用户id
-            // 给删除按钮绑定事件
+            // 删除
             td.find('a:eq(0)').click(function() {
-                $(this).parent().parent().remove();
-                $.ajax({
-                    url : '/business/serviceArticle/deleteServiceArtcle',
-                    type : 'post',
-                    data : {
-                        userId : userId
-                    },
-                    dataType : 'json',
-                    success : function(data) {
-                        // 删除后渲染数据列表
-                        if (data.success == "true") {
-                            show();
-                        } else {
-                            alert(data.errMsg)
-                        }
-                    }
-                });
+            	layer.confirm('确定删除此条数据吗？', {
+                    btn: ['确定', '取消'] //按钮
+                }, function () {
+                    $.ajax({
+                    	 url : '/business/serviceArticle/deleteServiceArtcle',
+                         type : 'post',
+                         data : {
+                             userId : userId
+                         },
+						dataType : 'json',
+						success : function(data) {
+							// 删除后渲染数据列表
+							if (data.success == "true") {
+								layer.msg('删除成功');
+								show();
+							} else {
+								layer.msg(data.errMsg);
+							}
+						}
+					});
+                })
+            	
             });
         });
     }

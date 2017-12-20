@@ -16,6 +16,7 @@ import com.business.entitys.ResultMessage;
 import com.business.entitys.sales.Salesman;
 import com.business.entitys.user.User;
 import com.business.service.IUserService;
+import com.business.util.PacthUtill;
 import com.business.util.RandomUtill;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
@@ -113,6 +114,8 @@ public class UserIdentityAction extends ActionSupport implements ModelDriven<Use
 	@Override
 	public String execute() throws Exception {
 		// TODO Auto-generated method stub
+		savePath=PacthUtill.getPacthVal("userImageSavePath");
+		fictitiousPath=PacthUtill.getPacthVal("userImageFictitiousPath");
 		ResultMessage message = null;
 		if (file == null) {
 			message = new ResultMessage("-1", "false", "文件不存在，所以提交失败");

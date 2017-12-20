@@ -27,7 +27,9 @@ import com.cache.OrderCache;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
-
+/*
+ * 微信下单Action 不明白可以查看微信下单的API
+ */
 public class MpDownOrderAction extends ActionSupport implements ModelDriven<PayEntitys> {
 	/**
 	 * 
@@ -58,7 +60,7 @@ public class MpDownOrderAction extends ActionSupport implements ModelDriven<PayE
 		payEntitys = new PayEntitys();
 		return payEntitys;
 	}
-
+	//注入SnowflakeIdWorker算法
 	@Resource
 	private SnowflakeIdWorker snowflakeIdWorker;
 
@@ -69,11 +71,11 @@ public class MpDownOrderAction extends ActionSupport implements ModelDriven<PayE
 	public void setSnowflakeIdWorker(SnowflakeIdWorker snowflakeIdWorker) {
 		this.snowflakeIdWorker = snowflakeIdWorker;
 	}
-
+	
 	public String downOrder() throws Exception {
 		ActionContext actionContext = ActionContext.getContext();
 		Map session = actionContext.getSession();
-		GoodsList buyGoodsList = (GoodsList) session.get("buyGoodsList"); //
+		GoodsList buyGoodsList = (GoodsList) session.get("buyGoodsList"); 
 		// 购买的商品
 		OrderForm buyorderForm = (OrderForm) session.get("buyOderForm");//
 
@@ -82,7 +84,7 @@ public class MpDownOrderAction extends ActionSupport implements ModelDriven<PayE
 		// 购买的时候的账单
 		User userEntitys = (User) session.get("buyuser");// 购买者
 		GoodsList upGoodsList = (GoodsList) session.get("upGoodsList");//
-		// 升级前的商品假如有的话
+		// 升级前的商品假如有的话 
 		// 检测代码
 		User checkUserEntitys = OrderCache.buyuser.get(userEntitys.getUserId());
 		GoodsList checkBuyGoodsList = OrderCache.goodsListMap.get(userEntitys.getUserId());
@@ -107,7 +109,6 @@ public class MpDownOrderAction extends ActionSupport implements ModelDriven<PayE
 		String outTradeNo = new SimpleDateFormat("YYYYMMDDHHmmssSSS").format(new Date()) + "-wap";
 		// 初始化
 		String param = CreateWapUrl(outTradeNo, ip, userEntitys, buyGoodsList, buyorderForm);
-	//	System.out.println(param);
 		// 与微信的接口进行对接
 		String resp = MpPayUtill.sendPost(WxPayConfig.UNIFIEDORDER_INTERFACE, param, "utf-8");
 		Map<String, String> res = MpPayUtill.parseXml(resp);
@@ -181,7 +182,6 @@ public class MpDownOrderAction extends ActionSupport implements ModelDriven<PayE
 		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
 			ip = request.getRemoteAddr();
 		}
-	//	System.out.println(ip);
 		int indexOf = ip.indexOf(",");
 		if (indexOf > 0) {
 			return ip.substring(0, indexOf);

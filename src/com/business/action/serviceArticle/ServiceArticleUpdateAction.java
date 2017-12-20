@@ -12,6 +12,7 @@ import javax.annotation.Resource;
 
 import com.business.entitys.service.ServiceArticle;
 import com.business.service.IServiceArticleService;
+import com.business.util.PacthUtill;
 import com.business.util.RandomUtill;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
@@ -110,7 +111,8 @@ public class ServiceArticleUpdateAction extends ActionSupport implements ModelDr
 	@Override
 	public String execute() throws Exception {
 		// TODO Auto-generated method stub
-		System.out.println(serviceArticle + "???");
+		savePath=PacthUtill.getPacthVal("serviceArticlePath");
+		fictitiousPath=PacthUtill.getPacthVal("serviceArticlefictitiousPath");
 		ServiceArticle tempServiceArticle = serviceArticleService
 				.findByServiceArticleNum(serviceArticle.getServiceArticleNum());
 		String op = tempServiceArticle.getThumbnail();
@@ -127,7 +129,6 @@ public class ServiceArticleUpdateAction extends ActionSupport implements ModelDr
 			index = op.lastIndexOf("/");
 			op = op.substring(index + 1, op.length());
 			InputStream is = new FileInputStream(file);
-			System.out.println(savePath + op + "????????");
 			OutputStream os = new FileOutputStream(new File(savePath + op, fileFileName));
 			byte[] buffer = new byte[500];
 			while (-1 != (is.read(buffer, 0, buffer.length))) {

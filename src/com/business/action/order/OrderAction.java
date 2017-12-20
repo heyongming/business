@@ -26,7 +26,9 @@ import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
-
+/*
+ * 交易的Action
+ */
 public class OrderAction extends ActionSupport implements ModelDriven<OrderForm> {
 	/**
 	 * 
@@ -34,6 +36,7 @@ public class OrderAction extends ActionSupport implements ModelDriven<OrderForm>
 	private static final long serialVersionUID = -2258648444083444451L;
 	private OrderForm orderForm;
 	private String phone;
+	//是否是PC端
 	private String isPc;
 
 	public String getIsPc() {
@@ -99,11 +102,7 @@ public class OrderAction extends ActionSupport implements ModelDriven<OrderForm>
 		return this.SUCCESS;
 	}
 
-	/*
-	 * public String update() { String jsonText =
-	 * orderService.saveOrderStatus(phone); toJsonSteam(jsonText); return
-	 * this.SUCCESS; }
-	 */
+	//此接口已废弃
 	public String getactivationCode() {
 		String jsonText = orderService.saveOrderActivationCode(phone);
 		toJsonSteam(jsonText);
@@ -126,8 +125,9 @@ public class OrderAction extends ActionSupport implements ModelDriven<OrderForm>
 		User userEntitys = (User) session.get("buyuser");// 购买者
 		OrderForm orderForm = (OrderForm) session.get("buyOrderResult");
 		session.clear(); // 清理缓存
-
+		//获得激活码
 		OrderActivationCode orderActivationCode = orderService.doClosingTheDeal(orderForm);
+		//激活操作
 		int flog = mpUserService.doActivationService(userEntitys, orderActivationCode);
 		if (flog == 1) {
 			if (isPc == null) {
@@ -142,7 +142,7 @@ public class OrderAction extends ActionSupport implements ModelDriven<OrderForm>
 		
 
 	}
-
+	//清理数据
 	public String clearData() {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpSession session1 = request.getSession();
@@ -184,7 +184,6 @@ public class OrderAction extends ActionSupport implements ModelDriven<OrderForm>
 		// TODO Auto-generated method stub
 
 		orderForm = new OrderForm();
-		System.out.println(orderForm);
 
 		return orderForm;
 	}

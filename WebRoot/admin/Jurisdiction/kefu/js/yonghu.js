@@ -1,5 +1,12 @@
-$(function() {
-	show(); /*初始化*/
+layui.use([ 'form', 'layer','laydate'], function() {
+    var form = layui.form
+        ,$ = layui.jquery
+        ,layer = layui.layer
+        ,laydate = layui.laydate;
+    $(function(){
+        form.render();
+        show();  //展示数据
+    })
 	function show() {
 		$.ajax({
 			url : "/business/customer/getFullUserIp",
@@ -32,14 +39,15 @@ $(function() {
 
 			// 给查看按钮绑定事件
 			td.find('a:eq(0)').click(function() {
-				//先弹出
-				$("#j_mask").css("display", "block");
-				$("#j_formAdd").css("display", "block");
-				//关闭
-				$("#j_hideFormAdd").click(function() {
-					$("#j_mask").css("display", "none");
-					$("#j_formAdd").css("display", "none");
-				});
+				layer.open({
+	                type: 1,
+	                title: ['客户留言', 'font-size:18px'],
+	                area: ['1000px', '700px'],
+	                content: $("#j_formAdd"),
+	                end: function () {
+	                    $("#j_formAdd").hide()
+	                }
+	            })
 				updateData(ip, id);
 			});
 		});
@@ -57,7 +65,7 @@ $(function() {
 			success : function(data) {
 				var tag = "";
 				$.each(data, function(i, e) {
-					tag += '<li><span>时间:'+e.queryTime+'</span>&nbsp;&nbsp;&nbsp;&nbsp;内容:'+e.questions+'</li>';
+					tag += '<li>时间&nbsp;&nbsp;:<span>'+e.queryTime+'</span>&nbsp;&nbsp;&nbsp;&nbsp;内容&nbsp;&nbsp;:<span>'+e.questions+'</span></li>';
 				});
 				$('#liuyanUl').html(tag);
 			}

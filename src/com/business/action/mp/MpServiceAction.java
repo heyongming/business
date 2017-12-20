@@ -30,6 +30,8 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
+ * 微信服务页Action
+ * 
  * @author hym {@code} 微信服务
  */
 public class MpServiceAction extends ActionSupport {
@@ -103,7 +105,7 @@ public class MpServiceAction extends ActionSupport {
 
 		return Action.SUCCESS;
 	}
-
+	//服务页的处理入口
 	@Override
 	public String execute() throws Exception {
 		// TODO Auto-generated method stub
@@ -111,33 +113,41 @@ public class MpServiceAction extends ActionSupport {
 		ActionContext actionContext = ActionContext.getContext();
 		Map session = actionContext.getSession();
 		MpUserEntity entity = (MpUserEntity) session.get("mpUser");
+
+		if (entity == null) {
+			HttpServletRequest request = ServletActionContext.getRequest();
+
+			MpCodeEntitys mpCodeEntitys = null;
+			Boolean isover = true;
+
+			if (CodeHelpEr.map.get(code) != null) {
+				isover = false;
+				mpCodeEntitys = (MpCodeEntitys) CodeHelpEr.map.get(code);
+			} else {
+				mpCodeEntitys = MessAgeUtil.GetwebpagesCode(code);
+				CodeHelpEr.map.put(code, mpCodeEntitys);
+			}
+
+			entity = mpUserService.findUserInfo(mpCodeEntitys.getOpenid()); //
+			if (entity == null && isover) {
+
+				entity = MessAgeUtil.getMpUserEntity(mpCodeEntitys.getAccess_token(), mpCodeEntitys.getOpenid());
+				mpUserService.addMpUser(entity);
+			}
+			session.put("mpUser", entity);
+		}
+
 		/*
-		 * if (entity == null) { HttpServletRequest request =
-		 * ServletActionContext.getRequest();
-		 * 
-		 * MpCodeEntitys mpCodeEntitys = null; Boolean isover = true;
-		 * 
-		 * if (CodeHelpEr.map.get(code) != null) { isover = false; mpCodeEntitys
-		 * = (MpCodeEntitys) CodeHelpEr.map.get(code); } else { mpCodeEntitys =
-		 * MessAgeUtil.GetwebpagesCode(code); CodeHelpEr.map.put(code,
-		 * mpCodeEntitys); }
-		 * 
-		 * entity = mpUserService.findUserInfo(mpCodeEntitys.getOpenid()); //
-		 * System.out.println(isover + "判断！！" + code); if (entity == null &&
-		 * isover) {
-		 * 
-		 * entity = MessAgeUtil.getMpUserEntity(mpCodeEntitys.getAccess_token(),
-		 * mpCodeEntitys.getOpenid()); mpUserService.addMpUser(entity); }
-		 * session.put("mpUser", entity); }
+		 * entity = new MpUserEntity("oEMmVuOtjSjRmjL6E1Szv6lKrvUY", "月光的指引",
+		 * "0", "", "", "",
+		 * "http://wx.qlogo.cn/mmopen/vi_32/31QVdlsGfaAIEBVQgFibkqG2N1zuUJCCe8a9det1D84JxAQ9REB2ZQuQrQCytY0TSgtficrgcPmyhVvu5wY0dJUA/0",
+		 * "[]", "");
 		 */
-		entity = new MpUserEntity("oEMmVuOtjSjRmjL6E1Szv6lKrvUY", "月光的指引", "0", "", "", "",
-				"http://wx.qlogo.cn/mmopen/vi_32/31QVdlsGfaAIEBVQgFibkqG2N1zuUJCCe8a9det1D84JxAQ9REB2ZQuQrQCytY0TSgtficrgcPmyhVvu5wY0dJUA/0",
-				"[]", "");
 		session.put("mpUser", entity);
 		if (entity == null) {
 			return this.input();
 		}
-
+		//判断用户是否购买了产品 没有购买则去产品页
 		User user = mpUserService.findOpenIdToUser(entity);
 		if (user == null) {
 			return this.input();
@@ -146,16 +156,17 @@ public class MpServiceAction extends ActionSupport {
 		if (goodsList.size() == 0) {
 			return this.input();
 		}
+		//用户
 		session.put("loginUser", user);
+		//产品列表
 		session.put("loginUserGoodsList", goodsList);
+		//产品的个数
 		session.put("loginUserGoodsListSize", goodsList.size());
 
-		// System.out.println("User:" + user);
-		System.out.println("goodsList:" + goodsList);
 
 		return this.SUCCESS;
 	}
-
+	//相关产品对应的当天的服务页
 	public String getNewestGoodsList() throws Exception {
 		ActionContext actionContext = ActionContext.getContext();
 		Map session = actionContext.getSession();
@@ -169,10 +180,10 @@ public class MpServiceAction extends ActionSupport {
 		String goodsStr = goodsOperationService.queryGoodsListById(goodsId);
 		GoodsList gl = JSONObject.parseObject(goodsStr, GoodsList.class);
 		ServiceTime serviceTime = serviceTimeService.findServiceUserEntity(user, gl);
-		request.setAttribute("currentGoodsList", list);
+		request.setAttribute("currentGoodsList", list); //当天产品文章列表 
 
 		request.setAttribute("currentTime", getDateTime());
-		request.setAttribute("currentGoods", gl);
+		request.setAttribute("currentGoods", gl);//当前购买的产品
 		java.util.Calendar rightNow = java.util.Calendar.getInstance();
 		java.text.SimpleDateFormat sim = new java.text.SimpleDateFormat("yyyy年MM月dd日");// 得到当前时间，+3天
 
@@ -180,8 +191,7 @@ public class MpServiceAction extends ActionSupport {
 
 		String date = sim.format(rightNow.getTime());
 
-
-		request.setAttribute("currentGoodsDay",  date);
+		request.setAttribute("currentGoodsDay", date); //当前时间格式化
 		session.put("serviceGoodsList", gl);
 		return this.SUCCESS;
 	}

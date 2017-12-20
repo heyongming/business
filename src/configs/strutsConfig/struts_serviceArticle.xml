@@ -14,8 +14,7 @@
 		<action name="addServiceArticle"
 			class="com.business.action.serviceArticle.ServiceArticleAddAction">
 
-			<param name="savePath">D:/upload/serviceArticle/</param>
-			<param name="fictitiousPath">/business/upload/serviceArticle/</param>
+
 
 
 			<interceptor-ref name="fileUpload">
@@ -55,8 +54,6 @@
 		</action>
 		<action name="updateServiceArtcle"
 			class="com.business.action.serviceArticle.ServiceArticleUpdateAction">
-			<param name="savePath">D:/upload/serviceArticle/</param>
-			<param name="fictitiousPath">/business/upload/serviceArticle/</param>
 			<interceptor-ref name="fileUpload">
 				<!-- 文件过滤 -->
 				<param name="allowedTypes">image/bmp,image/png,image/gif,image/jpeg</param>

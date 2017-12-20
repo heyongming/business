@@ -13,8 +13,15 @@ import java.io.UnsupportedEncodingException;
 
 import com.alibaba.fastjson.JSONObject;
 import com.business.entitys.ResultMessage;
+import com.business.util.PacthUtill;
 import com.opensymphony.xwork2.ActionSupport;
 
+/**
+ * 留言板的Action
+ * 
+ * @ActionSupport 为struts2的提供的上下文的一个类
+ * @ModelDriven 该方法返回一个用于接收用户输入数据的模型对象。
+ */
 public class WeclomeAction extends ActionSupport {
 	/**
 	 * 
@@ -22,6 +29,9 @@ public class WeclomeAction extends ActionSupport {
 	private static final long serialVersionUID = -8936917140788580504L;
 	private String path;
 	private String title;
+	/*
+	 * AJAX处理完毕返回的流
+	 */
 	private InputStream bis;
 
 	public InputStream getBis() {
@@ -47,10 +57,17 @@ public class WeclomeAction extends ActionSupport {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-
+	/*
+	 * 默认的处理的方法 执行设置操作 入口与struts_Customer.xml配置文件对应
+	 * 
+	 * @see com.opensymphony.xwork2.ActionSupport#execute()
+	 */
 	@Override
 	public String execute() throws Exception {
 		// TODO Auto-generated method stub
+		//拉取从配置中欢迎语的路径
+		path=PacthUtill.getPacthVal("WeclomeActionPath");
+		
 		ResultMessage message = null;
 		File file = new File(path, "Welcome.txt");
 		try {
@@ -70,7 +87,6 @@ public class WeclomeAction extends ActionSupport {
 				in.write(bt, 0, bt.length);
 				in.close();
 				// boolean success=true;
-				// System.out.println("写入文件成功");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				message = new ResultMessage("-1", "false", "设置失败");
@@ -90,8 +106,12 @@ public class WeclomeAction extends ActionSupport {
 
 		return this.SUCCESS;
 	}
-
+	/*
+	 * 读取配置文件的内容
+	 */
 	public String getWelcome() {
+		//拉取从配置中欢迎语的路径
+		path=PacthUtill.getPacthVal("WeclomeActionPath");
 		BufferedReader bufferedReader = null;
 		ResultMessage message = null;
 		String str = "";
@@ -121,13 +141,12 @@ public class WeclomeAction extends ActionSupport {
 
 			return this.SUCCESS;
 		}
-		System.out.println(str);
 		message = new ResultMessage("1", "true", str);
 		toJsonSteam(JSONObject.toJSONString(message));
 
 		return this.SUCCESS;
 	}
-
+	//// 把JSON字符串转换成流
 	private void toJsonSteam(String text) {
 		try {
 			bis = new ByteArrayInputStream(text.getBytes("utf-8"));

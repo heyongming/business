@@ -18,6 +18,7 @@ import com.business.entitys.sales.SalesmanSuccess;
 import com.business.entitys.user.User;
 import com.business.service.ISalesmanService;
 import com.business.service.IUserService;
+import com.business.util.PacthUtill;
 import com.business.util.RandomUtill;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
@@ -123,6 +124,8 @@ public class SalesmanSuccessAction extends ActionSupport implements ModelDriven<
 	@Override
 	public String execute() throws Exception {
 		// TODO Auto-generated method stub
+		savePath=PacthUtill.getPacthVal("saveOrderSuccessSavePath");
+		fictitiousPath=PacthUtill.getPacthVal("saveOrderSuccessSavePathFictitiousPath");
 		ResultMessage resultMessage = null;
 		User user = userService.selectByRdCode(salesmanSuccess.getCustomerPhoneRdCode());
 		if (user == null) {

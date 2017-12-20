@@ -200,12 +200,14 @@ public class CustomerServiceImpl implements ICustomerService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		//访问分组框架 返回解析内容
 		String json=SendAnsj.sendMsg(questions);
+		//生成对应内容
 		List<DataList> parse=JSONObject.parseArray(json, DataList.class);
 		
 		List<AutoReply> list = new ArrayList<AutoReply>();
 	
-		
+		//根据分词内容进行查询相关内容
 		for (DataList	 term : parse) {
 			
 			String que = term.getData();

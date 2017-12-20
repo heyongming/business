@@ -4,7 +4,7 @@ import java.io.File;
 
 public class HtmlToPdf {  
     //wkhtmltopdf在系统中的路径  
-    private static final String toPdfTool = "d:\\pdf\\wkhtmltopdf-0.8.3.exe";  
+    private static  String toPdfTool = "";  
       
     /** 
      * html转pdf 
@@ -13,6 +13,7 @@ public class HtmlToPdf {
      * @return 转换成功返回true 
      */  
     public static boolean convert(String srcPath, String destPath){  
+    	toPdfTool=PacthUtill.getPacthVal("pdfUtilPath");
         File file = new File(destPath);  
         File parent = file.getParentFile();  
         //如果pdf保存路径不存在，则创建路径  

@@ -197,7 +197,7 @@
 			and messageType=#{findByType}
 		</if>
 		<if test="findByIdDate!=null">
-			and messageType=#{findById}
+			and mmId=#{findById}
 		</if>
 	</select>
 </mapper>

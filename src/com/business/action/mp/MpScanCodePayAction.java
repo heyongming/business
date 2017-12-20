@@ -27,7 +27,7 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
-//微信扫码支付
+//微信扫码支付 不明白可以查看微信下单的API
 public class MpScanCodePayAction extends ActionSupport implements ModelDriven<PayEntitys> {
 
 	/**

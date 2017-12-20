@@ -9,7 +9,7 @@
 <head>
 <base href="<%=basePath%>">
 <meta charset="utf-8">
-<title>已添加客户</title>
+<title>账号管理</title>
 <meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport"
@@ -30,13 +30,9 @@
 			</a>
 		</blockquote>
 		<!-- 弹窗 -->
-		<div id="j_mask" class="mask"></div>
 		<div id="j_formAdd" class="form-add">
 			<form class="layui-form" id="formId" enctype="multipart/form-data">
-				<div class="form-add-title">
-					<span>添加权限</span>
-					<div id="j_hideFormAdd">x</div>
-				</div>
+			
 				<div class="layui-form-item">
 					<label class="layui-form-label">用户名：</label>
 					<div class="layui-input-block">

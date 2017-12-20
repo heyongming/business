@@ -31,7 +31,7 @@
             height: 100%;
             line-height: 100%;
             text-align: center;
-            position: absolute;
+            position: fixed;
             z-index: 9999;
             background: rgba(233, 233, 233, 0.6);
             display: none;
@@ -55,13 +55,9 @@
         </div>
     </blockquote>
     <!-- 弹窗 -->
-    <div id="j_mask" class="mask"></div>
     <div id="j_formAdd" class="form-add">
         <form class="layui-form" id="formId" enctype="multipart/form-data">
-            <div class="form-add-title">
-                <span>留言内容</span>
-                <div id="j_hideFormAdd">x</div>
-            </div>
+            
             <div class="layui-form-item">
                 <label class="layui-form-label">留言时间：</label>
                 <div class="layui-input-block" id="time">

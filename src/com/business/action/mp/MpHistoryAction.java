@@ -27,6 +27,9 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
+/*
+ *  微信历史记录Action
+ */
 public class MpHistoryAction extends ActionSupport {
 
 	@Resource
@@ -87,7 +90,7 @@ public class MpHistoryAction extends ActionSupport {
 	public void setServiceTimeService(IServiceTimeService serviceTimeService) {
 		this.serviceTimeService = serviceTimeService;
 	}
-
+	
 	@Override
 	public String execute() throws Exception {
 		// TODO Auto-generated method stub

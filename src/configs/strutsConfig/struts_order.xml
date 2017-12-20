@@ -122,7 +122,7 @@
 		</action>
 		<action name="success" class="com.business.action.order.OrderAction"
 			method="orderSuccess">
-			<result name="success" type="redirect">/mp/service</result>
+			<result name="success">/test/index.jsp</result>
 			<result name="login">/mbimc/success.jsp</result>
 			<result name="pcInput">/mbimc/index.jsp</result>
 			<result name="input">/index/index.jsp</result>

@@ -25,6 +25,9 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
+/*
+ * 微信文章对应Action
+ */
 public class MpServiceArticleAction extends ActionSupport implements ModelDriven<ServiceArticle> {
 	/**
 	 * 
@@ -97,7 +100,7 @@ public class MpServiceArticleAction extends ActionSupport implements ModelDriven
 		serviceArticle = new ServiceArticle();
 		return serviceArticle;
 	}
-
+	//微信文章Id查询对应的文章
 	@Override
 	public String execute() throws Exception {
 		// TODO Auto-generated method stub
@@ -150,7 +153,7 @@ public class MpServiceArticleAction extends ActionSupport implements ModelDriven
 	public void setEvaluateCent(String evaluateCent) {
 		this.evaluateCent = evaluateCent;
 	}
-
+	//评论
 	public String comment() throws Exception {
 		ActionContext actionContext = ActionContext.getContext();
 		Map session = actionContext.getSession();
@@ -170,7 +173,7 @@ public class MpServiceArticleAction extends ActionSupport implements ModelDriven
 		toJsonSteam(JSONObject.toJSONString(message));
 		return this.SUCCESS;
 	}
-
+	
 	private void toJsonSteam(String text) {
 		try {
 			bis = new ByteArrayInputStream(text.getBytes("utf-8"));

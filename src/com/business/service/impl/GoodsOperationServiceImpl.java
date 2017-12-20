@@ -37,7 +37,6 @@ public class GoodsOperationServiceImpl implements IGoodsOperationService {
 		String where = "1=1";
 		List<GoodsList> goodsList = goodsListDao.selectGoodsData(where);
 		String result = JSONObject.toJSONString(goodsList);
-		System.out.println(result);
 		return result;
 	}
 
@@ -47,7 +46,6 @@ public class GoodsOperationServiceImpl implements IGoodsOperationService {
 		String where = "gt.`goodsTypeId`=" + typeId;
 		List<GoodsList> goodsList = goodsListDao.selectGoodsData(where);
 		String result = JSONObject.toJSONString(goodsList);
-		System.out.println(result);
 		return result;
 	}
 
@@ -57,13 +55,11 @@ public class GoodsOperationServiceImpl implements IGoodsOperationService {
 
 		int goodsId = goodsListDao.addGoodsList(good);
 		GoodsType goodsType = goodsListDao.queryGoodType(typeName);
-		System.out.println(goodsType);
 
 		int flog = goodsListDao.addTypes(new GoodsTypes(goodsId, goodsType.getGoodsTypeId()));
 
 		GoodsList list = goodsListDao.queryByGoodsId(goodsId);
 		String resString = JSONObject.toJSONString(list);
-		System.out.println(resString);
 		return resString;
 	}
 
@@ -73,7 +69,6 @@ public class GoodsOperationServiceImpl implements IGoodsOperationService {
 
 		List<GoodsType> list = goodsListDao.getWhereGoodsType(" 1=1");
 		String result = JSONObject.toJSONString(list);
-		System.out.println(result);
 		return result;
 	}
 
@@ -82,7 +77,6 @@ public class GoodsOperationServiceImpl implements IGoodsOperationService {
 		// TODO Auto-generated method stub
 		List<GoodsList> list = goodsListDao.queryTypeData(typeId);
 		String result = JSONObject.toJSONString(list);
-		System.out.println(result);
 		return result;
 	}
 
@@ -92,7 +86,6 @@ public class GoodsOperationServiceImpl implements IGoodsOperationService {
 		GoodsType goodsType = goodsListDao.queryGoodType(typeName);
 		int flog = goodsListDao.updateGoodsTypes(new GoodsTypes(goodsList.getGoodsId(), goodsType.getGoodsTypeId()));
 		int flog1 = goodsListDao.updateGoods(goodsList);
-		System.out.println(flog + flog1 + "????????????");
 		String result = null;
 
 		if (flog > 0 || flog1 > 0) {

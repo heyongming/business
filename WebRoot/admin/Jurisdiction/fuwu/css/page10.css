@@ -1,0 +1,124 @@
+
+.form-add {
+    display: none;
+}
+#chiCangTable{
+    display: none;
+}
+#chiCangTabAdd{
+    display: none;
+}
+#jinRiTable{
+    display: none;
+}
+#jinRiTabAdd{
+    display: none;
+}
+.form-add-title {
+    background-color: #f7f7f7;
+    border-width: 1px 1px 0 1px;
+    border-bottom: 0;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.form-add-title span {
+    width: auto;
+    font-size: 16px;
+    font-weight: bold;
+    color: rgb(102, 102, 102);
+    text-indent: 12px;
+    padding: 8px 0px 10px;
+    margin-right: 10px;
+    display: block;
+    overflow: hidden;
+    text-align: left;
+}
+
+.form-add-title div {
+    width: 16px;
+    height: 20px;
+    position: absolute;
+    right: 10px;
+    top: 6px;
+    font-size: 30px;
+    line-height: 16px;
+    cursor: pointer;
+}
+.layui-form-item >.layui-form-label{
+    padding: 12px 0;
+    width: 100px;
+}
+.chiCang{
+    margin-left: 15px;
+}
+table{
+    margin: 0px 25px 24px;
+    width: 96%;
+}
+table td:nth-of-type(even){
+    padding: 10px;
+}
+.tableQing{
+    margin:15px;
+    width: 97%;
+}
+.tableQing th{
+    background-color: #f2f2f2;
+}
+ul li{
+    width: 46%;
+    margin: 0 18px 50px;
+    float: left;
+}
+.file{
+    float: right;
+}
+.imgPhoto{
+    width: 100%;
+}
+.imgPhoto img{
+    width: 100%;
+}
+.btnXin {
+    float: right;
+}
+.layui-btn-sm{
+    height: 24px;
+    line-height: 24px;
+    padding: 0 12px;
+    background-color: #FF5722;
+}
+.form-item{
+    line-height: 40px;
+}
+.layui-form-item {
+    margin-right: 15px;
+}
+.form-item input{
+    border-radius: 4px;
+    width: 262px;
+    height: 32px;
+    border: 1px solid #909090;
+}
+.form-submit {
+    text-align: center;
+}
+
+.form-submit input {
+    width: 170px;
+    height: 32px;
+    margin-bottom: 100px;
+}
+.btn1{
+    border: 1px solid #5c5959;
+    background-color: #fff;
+    color: #000;
+}
+.btn1:hover{
+    border: 1px solid #009688;
+    color: #000;
+}
+.btn2{
+    background-color: #009688;
+}

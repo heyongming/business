@@ -12,10 +12,14 @@ import javax.annotation.Resource;
 
 import com.business.entitys.service.ServiceArticle;
 import com.business.service.IServiceArticleService;
+import com.business.util.PacthUtill;
 import com.business.util.RandomUtill;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
+/*
+ * 微信文章添加
+ */
 public class ServiceArticleAddAction extends ActionSupport implements ModelDriven<ServiceArticle> {
 	/**
 	 * 
@@ -109,7 +113,8 @@ public class ServiceArticleAddAction extends ActionSupport implements ModelDrive
 	@Override
 	public String execute() throws Exception {
 		// TODO Auto-generated method stub
-
+		savePath=PacthUtill.getPacthVal("serviceArticlePath");
+		fictitiousPath=PacthUtill.getPacthVal("serviceArticlefictitiousPath");
 		String random = RandomUtill.randomUtil();
 		fictitiousPath = fictitiousPath + serviceArticle.getServiceArticleTitle() + random;
 		savePath = savePath + serviceArticle.getServiceArticleTitle() + random;

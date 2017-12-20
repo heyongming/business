@@ -222,7 +222,7 @@ public class OrderServiceImpl implements IOrderService {
 		// 以上代码是检测是否满足产品要求
 
 	}
-
+	//遗弃该接口 以后可能会用到！
 	@Override
 	public Map<String, Object> UpgradeGoodListAndchekOrder(GoodsList goodsList, OrderForm orderForm, User user) {
 		// TODO Auto-generated method stub
@@ -279,7 +279,7 @@ public class OrderServiceImpl implements IOrderService {
 	}
 
 	private GoodsList CustomaryGoodslist = null;// 拥有的的产品对应升级前的实体
-
+	//遗弃该接口 以后可能会用到！
 	private int CalculationActualPurchasePriceGoods(GoodsList goodsList, OrderForm orderForm, User user) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("serviceUserId", user.getUserId());

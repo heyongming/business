@@ -1,7 +1,14 @@
-$(function() {
-	//页面展示信息
-	show();
-	function show() {
+layui.use([ 'form', 'layer','laydate'], function() {
+    var form = layui.form
+        ,$ = layui.jquery
+        ,layer = layui.layer
+        ,laydate = layui.laydate;
+    $(function(){
+        form.render();
+        show();  //展示数据
+    })
+
+function show() {
 		$.ajax({
 			url : "/business/user/getAllUserData",
 			dataType : "json",
@@ -23,53 +30,46 @@ $(function() {
 				$('#content tr').each(function(i, e) {
 					var td = $(e).find('td:last-of-type'); //操作
 					var kehuid = $(e).find('td:eq(0)').text(); //客户ID
-					// 给查看按钮绑定事件
+					// 查看
 					td.find('a:eq(0)').click(function() {
-						location.href = "/business/user/callBackUser?userId="+kehuid;
-					/*
-					$.ajax({
-						url : "vvvv",
-						dataType : "json",
-						type : 'post',
-						data : {
-							kehuid : kehuid
-						},
-						success : function(data) {
-							
-						}
-					})*/
+						window.open("/business/user/callBackUser?userId="+kehuid);
 					});
-
-					// 给修改按钮绑定事件
+					// 修改
 					td.find('a:eq(1)').click(function() {
-						$("#x_mask").css("display", "block");
-						$("#x_formAdd").css("display", "block");
-						//关闭
-						$("#x_hideFormAdd").click(function() {
-							$("#x_mask").css("display", "none");
-							$("#x_formAdd").css("display", "none");
-						});
+						layer.open({
+			                type: 1,
+			                title: ['修改客户信息', 'font-size:18px'],
+			                area: ['1000px', '700px'],
+			                content: $("#x_formAdd"),
+			                end: function () {
+			                    $("#x_formAdd").hide()
+			                }
+			            })
 						updateData(kehuid);
 					});
-					// 给删除按钮绑定事件
+					// 删除
 					td.find('a:eq(2)').click(function() {
-						$(this).parent().parent().remove();
-						$.ajax({
-							url : '/business/user/delUser',
-							type : 'post',
-							data : {
-								"userId" : kehuid
-							},
-							dataType : 'json',
-							success : function(data) {
-								// 删除后渲染数据列表
-								if (data.success == "true") {
-									show();
-								} else {
-									alert(data.errMsg)
-								}
-							}
-						});
+						layer.confirm('确定删除此条数据吗？', {
+                            btn: ['确定', '取消'] //按钮
+                        }, function () {
+                            $.ajax({
+    							url : '/business/user/delUser',
+    							type : 'post',
+    							data : {
+    								"userId" : kehuid
+    							},
+    							dataType : 'json',
+    							success : function(data) {
+    								// 删除后渲染数据列表
+    								if (data.success == "true") {
+    									layer.msg('删除成功');
+    									show();
+    								} else {
+    									layer.msg(data.errMsg);
+    								}
+    							}
+    						});
+                        })
 					});
 				});
 			}
@@ -107,12 +107,14 @@ $(function() {
 						contentType : false,
 						success : function(data) {
 							$('#content').html("");
-							$("#x_mask").css("display", "none");
-							$("#x_formAdd").css("display", "none");
 							if (data.success == "true") {
+								//修改成功
+		                        layer.msg('修改成功');
 								show();
+								layer.closeAll('page');
 							} else {
-								alert(data.errMsg)
+								//修改失败
+		                        layer.msg(data.errMsg);
 							}
 						}
 					})

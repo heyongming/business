@@ -17,7 +17,9 @@ import com.business.util.mp.CodeHelpEr;
 import com.business.util.mp.MessAgeUtil;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
-
+/*
+ * 用户微信入口
+ */
 public class MpIndexAction extends ActionSupport {
 	private String code;
 	@Resource
@@ -44,9 +46,11 @@ public class MpIndexAction extends ActionSupport {
 		// TODO Auto-generated method stub
 		ActionContext actionContext = ActionContext.getContext();
 		Map session = actionContext.getSession();
+		//缓存是否存在用户
 		MpUserEntity entity = (MpUserEntity) session.get("mpUser");
+		//不存在,则拉取用户数据
 		if (entity == null) {
-			/*
+			
 			HttpServletRequest request = ServletActionContext.getRequest();
 
 			MpCodeEntitys mpCodeEntitys = null;
@@ -61,20 +65,16 @@ public class MpIndexAction extends ActionSupport {
 			}
 
 			entity = mpUserService.findUserInfo(mpCodeEntitys.getOpenid());
-			// System.out.println(isover + "判断！！" + code);
 			if (entity == null && isover) {
 
 				entity = MessAgeUtil.getMpUserEntity(mpCodeEntitys.getAccess_token(), mpCodeEntitys.getOpenid());
 				mpUserService.addMpUser(entity);
 			}
-			*/
-			entity = new MpUserEntity("oEMmVuOtjSjRmjL6E1Szv6lKrvUY", "月光的指引", "0", "", "", "",
-					"http://wx.qlogo.cn/mmopen/vi_32/31QVdlsGfaAIEBVQgFibkqG2N1zuUJCCe8a9det1D84JxAQ9REB2ZQuQrQCytY0TSgtficrgcPmyhVvu5wY0dJUA/0",
-					"[]", "");
+			
+			//登录公众号的相关微信信息
 			session.put("mpUser", entity);
 		}
-
-		System.out.println(entity);
+		//该用户是否是已经绑定了微信的，是的话 就把用户存在缓存中
 		User user = mpUserService.findOpenIdToUser(entity);
 		if (user != null) {
 			session.put("loginUser", user);

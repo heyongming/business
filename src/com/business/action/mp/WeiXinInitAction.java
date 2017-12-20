@@ -71,7 +71,6 @@ public class WeiXinInitAction extends ActionSupport implements ModelDriven<WeiXi
 					.get(StrutsStatics.HTTP_REQUEST);
 			ServiceAnswer(request);
 		} else {
-			System.out.println("??");
 			initWeiXin();
 		}
 
@@ -95,7 +94,6 @@ public class WeiXinInitAction extends ActionSupport implements ModelDriven<WeiXi
 		try {
 			map = MessAgeUtil.xmlToMap(request);
 			TextMessage FromMessage = MessAgeUtil.mapToTextMessage(map);
-			System.out.println(FromMessage + "?" + MessAgeUtil.MESSAGE_EVNET);
 			if (FromMessage.getMsgType().equals("text")) {
 				if (FromMessage.getContent().equals("1")) {
 					List<NewsItem> news = InitNewSDbo.singleNewTextList();
@@ -118,7 +116,6 @@ public class WeiXinInitAction extends ActionSupport implements ModelDriven<WeiXi
 
 				return;
 			} else if (FromMessage.getMsgType().equals(MessAgeUtil.MESSAGE_EVNET)) {
-				System.out.println("事件");
 				if (FromMessage.getEvent().equals(MessAgeUtil.MESSAGE_SUBSCRIBE)) {
 					String menu = MessAgeUtil.showMenu();
 					msgToResult(FromMessage, menu);
@@ -172,7 +169,6 @@ public class WeiXinInitAction extends ActionSupport implements ModelDriven<WeiXi
 	private void imageTextToResult(TextMessage textMessage, Image image) {
 		ImageMessage message = MessAgeUtil.initImage(textMessage, image);
 		String xmlData = MessAgeUtil.imageToXml(message);
-		System.out.println(xmlData);
 		try {
 			bis = new ByteArrayInputStream(xmlData.getBytes("utf-8"));
 			return;
@@ -187,7 +183,6 @@ public class WeiXinInitAction extends ActionSupport implements ModelDriven<WeiXi
 	private void musicTextToResult(TextMessage textMessage, Music music) {
 		MusicMessage message = MessAgeUtil.initMusic(textMessage, music);
 		String xmlData = MessAgeUtil.musicToXml(message);
-		System.out.println(xmlData);
 		try {
 			bis = new ByteArrayInputStream(xmlData.getBytes("utf-8"));
 			return;

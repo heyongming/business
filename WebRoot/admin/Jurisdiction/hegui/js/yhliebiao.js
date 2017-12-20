@@ -1,6 +1,12 @@
-$(function() {
-    //页面展示信息
-    show();
+layui.use([ 'form', 'layer','laydate'], function() {
+    var form = layui.form
+        ,$ = layui.jquery
+        ,layer = layui.layer
+        ,laydate = layui.laydate;
+    $(function(){
+        form.render();
+        show();  //展示数据
+    })
     function show() {
         $.ajax({
             url : "/business/salesman/SalManSuucesFullData",
@@ -21,33 +27,37 @@ $(function() {
                         '</tr>';
                 });
                 $("#content").html(tag);
-                // 给查看，修改，删除按钮绑定单击事件
+                // 给查看，删除按钮绑定单击事件
                 $('#content tr').each(function(i, e) {
                     var td = $(e).find('td:last-of-type'); //操作
                     var kehuid = $(e).find('td:eq(0)').text(); //客户ID
-                    // 给查看按钮绑定事件
+                    // 查看
                     td.find('a:eq(0)').click(function() {
                         window.open('yhsuccess.html')
                     });
-                    // 给删除按钮绑定事件
+                    // 删除
                     td.find('a:eq(1)').click(function() {
-                        $(this).parent().parent().remove();
-                        $.ajax({
-                            url : '...',
-                            type : 'post',
-                            data : {
-                                "userId" : kehuid
-                            },
-                            dataType : 'json',
-                            success : function(data) {
-                                // 删除后渲染数据列表
-                                if (data.success == "true") {
-                                    show();
-                                } else {
-                                    alert(data.errMsg)
-                                }
-                            }
-                        });
+                    	layer.confirm('确定删除此条数据吗？', {
+                            btn: ['确定', '取消'] //按钮
+                        }, function () {
+                            $.ajax({
+    							url : '...',
+    							type : 'post',
+    							data : {
+    								"userId" : kehuid
+    							},
+    							dataType : 'json',
+    							success : function(data) {
+    								// 删除后渲染数据列表
+    								if (data.success == "true") {
+    									layer.msg('删除成功');
+    									show();
+    								} else {
+    									layer.msg(data.errMsg);
+    								}
+    							}
+    						});
+                        })
                     });
                 });
             }

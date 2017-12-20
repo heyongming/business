@@ -1,0 +1,124 @@
+.content {
+    margin: 0 auto;
+    max-width: 750px;
+    /*header begin*/
+    /*header end*/
+    /*operateMes begin*/
+    /*operateMes end*/
+    /*information begin*/
+    /*information end*/
+    /*footer begin*/
+    /*footer end*/
+}
+.content .header {
+    padding: 30px;
+    width: 100%;
+}
+.content .header .market {
+    width: 197px;
+    margin: 25px auto;
+}
+.content .header .market img {
+    width: 100%;
+}
+.content .header .message {
+    font-size: 30px;
+    line-height: 43px;
+}
+.content .header .message img {
+    width: 100% !important;
+}
+.content .header .message p {
+    margin: 25px 0;
+    text-indent: 2em;
+}
+.content .operateMes {
+    padding: 30px;
+    font-size: 24px;
+    color: #cf5963;
+}
+.content .operateMes .operate {
+    width: 197px;
+    margin: 25px auto;
+}
+.content .operateMes .operate img {
+    width: 100%;
+}
+.content .operateMes .messageTop {
+    display: flex;
+}
+.content .operateMes .messageTop div {
+    margin: 30px 86px;
+    text-align: center;
+}
+.content .operateMes .messageTop div span {
+    font-size: 32px;
+    color: #ff2033;
+    margin: 30px 0;
+    display: block;
+}
+.content .operateMes .messageMid {
+    display: flex;
+}
+.content .operateMes .messageMid div {
+    margin: 30px 26px;
+    text-align: center;
+}
+.content .operateMes .messageMid div span {
+    font-size: 32px;
+    color: #ff2033;
+    margin: 30px 0;
+    display: block;
+}
+.content .information .bgImg {
+    width: 100%;
+}
+.content .information .bgImg img {
+    width: 100%;
+}
+.content .information .message {
+    margin: 0 30px;
+    background-color: #d7574b;
+    margin-top: -134px;
+}
+.content .information .message table tr th {
+    font-size: 24px;
+    color: #ecc36a;
+    font-weight: 400;
+    padding: 20px 11px;
+    text-align: center;
+}
+.content .information .message table tr td {
+    font-size: 22px;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+}
+.content .information .message .title {
+    color: #ffda8a;
+    font-size: 32px;
+    text-align: center;
+    margin: 30px 0 64px;
+}
+.content .information .message .tableFoot {
+    border-top: 1px solid #bc3c30;
+}
+.content .information .message .tableFoot tr th {
+    padding: 40px 42px 20px;
+}
+.content .information .message ul li {
+    width: 100%;
+    border-bottom: 22px solid #d7574b;
+}
+.content .information .message ul li img {
+    width: 100%;
+}
+.content .footer {
+    padding: 42px 30px;
+    font-size: 20px;
+    line-height: 40px;
+    color: #909090;
+}
+.content .footer .title {
+    color: #d6574b;
+}

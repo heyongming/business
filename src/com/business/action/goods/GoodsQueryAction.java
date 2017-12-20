@@ -15,20 +15,29 @@ import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
-
+/**
+ * 商品查询Action
+ * 
+ * @ActionSupport 为struts2的提供的上下文的一个类
+ * @ModelDriven 该方法返回一个用于接收用户输入数据的模型对象。
+ */
 public class GoodsQueryAction extends ActionSupport implements ModelDriven<GoodsList> {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	//注入service层
 	@Resource
 	private IGoodsOperationService GoodsOperationService;
+	//商品实体
 	private GoodsList goodsList;
 
 	public void setGoodsList(GoodsList goodsList) {
 		this.goodsList = goodsList;
 	}
-
+	/*
+	 * AJAX处理完毕返回的流
+	 */
 	private InputStream bis;
 	private int typeId;
 	private int goodsId;
@@ -64,43 +73,57 @@ public class GoodsQueryAction extends ActionSupport implements ModelDriven<Goods
 	public void setGoodsOperationService(IGoodsOperationService goodsOperationService) {
 		GoodsOperationService = goodsOperationService;
 	}
-
+	/*
+	 * 返回所有的商品类型
+	 */
 	public String getAllType() {
 		String json = GoodsOperationService.getAllType();
 		toJsonSteam(json);
 		return Action.SUCCESS;
 	}
-
+	/*
+	 * 返回指定ID的商品类型
+	 */
 	public String getTypeData() {
 		String json = GoodsOperationService.getTypeData(typeId);
 		toJsonSteam(json);
 		return Action.SUCCESS;
 	}
-
+	/*
+	 * 返回指定ID的商品类型,复用接口
+	 */
 	public String getTypeGoodsList() {
 		String json = GoodsOperationService.querytypeGoodsList(typeId);
 		toJsonSteam(json);
 		return Action.SUCCESS;
 	}
-
+	/*
+	 * 返回所有商品
+	 */
 	public String getGoodsList() {
 		String json = GoodsOperationService.getAllGoodsList();
 		toJsonSteam(json);
 		return Action.SUCCESS;
 	}
-
+	/*
+	 * 根据商品ID返回对应的商品
+	 */
 	public String getGoodsListById() {
 		String json = GoodsOperationService.queryGoodsListById(goodsList.getGoodsId());
 		toJsonSteam(json);
 		return Action.SUCCESS;
 	}
-
+	/*
+	 * 已丢弃，不用处理
+	 */
 	public String getHotGoodsList() {
 		String json = GoodsOperationService.queryGoodsListWhenHot(goodsList);
 		toJsonSteam(json);
 		return Action.SUCCESS;
 	}
-
+	/*
+	 * 返回商品详情
+	 */
 	public String getdetailsById() throws Exception {
 
 		Map request = (Map) ActionContext.getContext().get("request");
@@ -112,7 +135,7 @@ public class GoodsQueryAction extends ActionSupport implements ModelDriven<Goods
 		request.put("details", goodsList);
 		return Action.SUCCESS;
 	}
-
+	// 把JSON字符串转换成流
 	private void toJsonSteam(String text) {
 		try {
 			bis = new ByteArrayInputStream(text.getBytes("utf-8"));

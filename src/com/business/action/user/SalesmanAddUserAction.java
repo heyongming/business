@@ -17,6 +17,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.business.entitys.sales.Salesman;
 import com.business.entitys.user.User;
 import com.business.service.ISalesmanService;
+import com.business.util.PacthUtill;
 import com.business.util.RandomUtill;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
@@ -119,6 +120,8 @@ public class SalesmanAddUserAction extends ActionSupport implements ModelDriven<
 		ActionContext actionContext = ActionContext.getContext();
 		Map session = actionContext.getSession();
 		// Map request = (Map) ActionContext.getContext().get("request");
+		savePath=PacthUtill.getPacthVal("userImageSavePath");
+		fictitiousPath=PacthUtill.getPacthVal("userImageFictitiousPath");
 		String random = RandomUtill.randomUtil();
 
 		fictitiousPath = fictitiousPath + user.getUserName() + random;
@@ -135,11 +138,7 @@ public class SalesmanAddUserAction extends ActionSupport implements ModelDriven<
 		for (int i = 0; i < file.length; i++) {
 			InputStream is = new FileInputStream(file[i]);
 			OutputStream os = new FileOutputStream(new File(savePath, fileFileName[i]));
-			//
-			// System.out.println("fileFileName: " + fileFileName[i]);
-			// System.out.println("file: " + file[i].getName());
-			// System.out.println("file: " + file[i].getPath());
-			//
+		
 			byte[] buffer = new byte[500];
 			while (-1 != (is.read(buffer, 0, buffer.length))) {
 

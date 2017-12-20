@@ -19,6 +19,7 @@ import com.business.entitys.service.ServiceTime;
 import com.business.entitys.user.User;
 import com.business.service.IServiceTimeService;
 import com.business.util.HtmlToPdf;
+import com.business.util.PacthUtill;
 
 @Repository("serviceTimeService")
 public class ServiceTimeServiceImpl implements IServiceTimeService {
@@ -32,14 +33,15 @@ public class ServiceTimeServiceImpl implements IServiceTimeService {
 	public void setServiceTimeDao(IServiceTimeDao serviceTimeDao) {
 		this.serviceTimeDao = serviceTimeDao;
 	}
-
+	//生成协议的PDF
 	@Override
 	public String savePdf(User user, OrderForm orderForm, GoodsList goodsList, String isDanger) {
 		// TODO Auto-generated method stub
-		String path = "D://upload//pdf//" + user.getUserId();
+		String rootPath = PacthUtill.getPacthVal("savePdfSavePath");
+		String fictitiousPath = PacthUtill.getPacthVal("savePdfFictitiousPath");
+		String path = rootPath + user.getUserId();
 		File file = new File(path);
 		if (!file.exists() && !file.isDirectory()) {
-			System.out.println("//不存在");
 			file.mkdir();
 		}
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -50,17 +52,22 @@ public class ServiceTimeServiceImpl implements IServiceTimeService {
 
 		path = path + "//" + orderForm.getOrderSerialNumber() + ".pdf";
 		if (isDanger == null) {
+			//是资讯类消息
+			//该工具访问该action会生成对应的网页，工具会自动把网页转换成PDF
 			if (HtmlToPdf.convert("http://localhost/business/order/getFxPdf?userId=" + user.getUserId(), path)) {
 
 			}
 		} else {
+			//模拟盘消息
+			//该工具访问该action会生成对应的网页，工具会自动把网页转换成PDF
 			if (HtmlToPdf.convert("http://localhost/business/order/getPdfData?userId=" + user.getUserId() + "&goodsId="
 					+ goodsList.getGoodsId() + "&oderId=" + orderForm.getOrderSerialNumber(), path)) {
 
 			}
 
 		}
-		String xnpath = "/business/upload/pdf/" + user.getUserId() + "/" + orderForm.getOrderSerialNumber() + ".pdf"; // web访问路径
+		//把PDF存储在本地
+		String xnpath = fictitiousPath + user.getUserId() + "/" + orderForm.getOrderSerialNumber() + ".pdf"; // web访问路径
 		st.setAgreement(xnpath);
 		st.setRealAgreement(path);
 
